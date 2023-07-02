@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="navbar bg-base-300">
+    <div class="navbar bg-base-300" ref="navbar" :class="navbarShow ? 'navNotShow' : 'navShown'">
       <div class="navbar-start">
         <div class="dropdown">
           <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -53,6 +53,9 @@
       </div>
       <div class="navbar-end">
         <button class="btn btn-ghost btn-circle">
+          <el-icon :size="22"><Sunny /></el-icon>
+        </button>
+        <button class="btn btn-ghost btn-circle">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
@@ -74,6 +77,13 @@
               <img src="@/assets/images/头像.jpg" />
             </div>
           </label>
+          <ul
+            tabindex="0"
+            class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-50"
+          >
+            <li><a>Settings</a></li>
+            <li><a>Logout</a></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -81,7 +91,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+const navbar = ref();
+let navbarShow=ref(false)
+
+const handleScroll=()=>{
+  const scrollTop=window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+  if(scrollTop>1) {
+    navbarShow.value=true
+  } else {
+    navbarShow.value=false
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('scroll',handleScroll)
+});
+
+
 </script>
 
-<style scoped></style>
+<style scoped>
+.navbar {
+  position: fixed;
+  transition: all 0.5s;
+  z-index: 1000;
+}
+.navShow {
+  transform: translateY(0px);
+}
+.navNotShow {
+  transform: translateY(-70px);
+}
+</style>

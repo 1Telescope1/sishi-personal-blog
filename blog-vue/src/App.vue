@@ -4,7 +4,7 @@ import Header from '@/components/Header/index.vue'
 </script>
 
 <template>
-  <div>
+  <div style="height: 2000px;">
     <Header></Header>
     <router-view></router-view>
   </div>
