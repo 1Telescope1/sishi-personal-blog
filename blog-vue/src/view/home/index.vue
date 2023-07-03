@@ -5,12 +5,14 @@ const user = useUserStore();
 const click = () => {
   user.update();
 };
-console.log("test 123");
 
 
 </script>
 
 <template>
+  <div>
+    <Images></Images>
+  </div>
 </template>
 
 <style scoped>

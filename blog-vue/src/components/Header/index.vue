@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="navbar bg-base-300" ref="navbar" :class="navbarShow ? 'navNotShow' : 'navShown'">
+    <div class="navbar scrollTop_zero bg-base-300" ref="navbar">
       <div class="navbar-start">
         <div class="dropdown">
           <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -23,7 +23,13 @@
             tabindex="0"
             class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li><a>Item 1</a></li>
+            <li><a>首页</a></li>
+            <li><a>留言</a></li>
+            <li><a>归档</a></li>
+            <li><a>标签</a></li>
+            <li><a>说说</a></li>
+            <li><a>关于</a></li>
+            <li><a>友链</a></li>
             <li>
               <a>Parent</a>
               <ul class="p-2">
@@ -38,7 +44,13 @@
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
-          <li><a>Item 1</a></li>
+          <li><a>首页</a></li>
+          <li><a>留言</a></li>
+          <li><a>归档</a></li>
+          <li><a>标签</a></li>
+          <li><a>说说</a></li>
+          <li><a>关于</a></li>
+          <li><a>友链</a></li>
           <li tabindex="0">
             <details>
               <summary>Parent</summary>
@@ -93,22 +105,35 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 const navbar = ref();
-let navbarShow=ref(false)
+let navbarShow = ref(false);
+let scrollTop = ref(0);
 
-const handleScroll=()=>{
-  const scrollTop=window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-  if(scrollTop>1) {
-    navbarShow.value=true
+const handleScroll = () => {
+  if(scrollTop.value<2) {
+    navbar.value.classList.add('scrollTop_zero')
   } else {
-    navbarShow.value=false
+    navbar.value.classList.remove('scrollTop_zero')
   }
-}
+  let top =
+    window.pageYOffset ||
+    document.documentElement.scrollTop ||
+    document.body.scrollTop ||
+    0;
+  if (scrollTop.value <= top) {
+    navbarShow.value = true;
+    navbar.value.style.transform = `translateY(-70px)`;
+  } else {
+    navbarShow.value = false;
+    navbar.value.style.transform = `translateY(0px)`;
+    navbar.value.style.color='rgb(66,66,66)'
+  }
+  
+  scrollTop.value = top;
+};
 
 onMounted(() => {
-  window.addEventListener('scroll',handleScroll)
+  window.addEventListener("scroll", handleScroll);
 });
-
-
 </script>
 
 <style scoped>
@@ -117,10 +142,8 @@ onMounted(() => {
   transition: all 0.5s;
   z-index: 1000;
 }
-.navShow {
-  transform: translateY(0px);
-}
-.navNotShow {
-  transform: translateY(-70px);
+.scrollTop_zero {
+  background-color: rgba(0, 0, 0, 0);
+  color: #FFFFFF !important;
 }
 </style>

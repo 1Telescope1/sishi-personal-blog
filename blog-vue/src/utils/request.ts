@@ -1,3 +1,4 @@
+import { Result } from '@/model';
 import axios, { AxiosError, type Method } from 'axios'
 
 
@@ -44,12 +45,6 @@ instance.interceptors.response.use(
   }
 );
 
-type Data<T> = {
-  code: number
-  message: string
-  data: T
-}
-
 export const request = <T>(
   url: string,
   method: Method = 'GET',
@@ -57,7 +52,7 @@ export const request = <T>(
 ) => {
   // 参数：地址，请求方式，提交的数据
   // 返回：promise
-  return instance.request<any, Data<T>>({
+  return instance.request<any, Result<T>>({
     url,
     method,
     [method.toUpperCase() === 'GET' ? 'params' : 'data']: submitData

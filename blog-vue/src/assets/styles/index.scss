@@ -10,8 +10,11 @@
     padding: 0;
 }
 
+// *{
+//     color: rgb(66, 66, 66);
+// }
+
 body {
-    cursor: url("../icons/normal.cur"), default;
     background: var(--grey-0);
     color: var(--text-color);
     font-family: Mulish, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
