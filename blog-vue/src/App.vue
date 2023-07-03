@@ -4,11 +4,24 @@ import Header from '@/components/Header/index.vue'
 </script>
 
 <template>
-  <div style="height: 2000px;">
+  <div class="app-wrapper">
     <Header></Header>
-    <router-view></router-view>
+    <main class="main">
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
 <style scoped>
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* padding: 0 0 8rem; */
+}
+.app-wrapper {
+  position: relative;
+  min-height: 100vh;
+  
+}
 </style>

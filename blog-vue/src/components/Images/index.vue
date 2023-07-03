@@ -42,13 +42,12 @@ onMounted(() => {});
 <style lang="scss" scoped>
 @import "@/assets/styles/mixin.scss";
 .imgs {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
   height: 100vh;
-  z-index: -9;
+  z-index: 0;
   overflow: hidden;
+
 
   .item {
     @include absolute;

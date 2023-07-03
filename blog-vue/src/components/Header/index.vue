@@ -21,7 +21,7 @@
           </label>
           <ul
             tabindex="0"
-            class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-black rounded-box w-52"
           >
             <li><a>首页</a></li>
             <li><a>留言</a></li>
@@ -43,7 +43,7 @@
         <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
       </div>
       <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
+        <ul class="menu menu-horizontal px-1 ">
           <li><a>首页</a></li>
           <li><a>留言</a></li>
           <li><a>归档</a></li>
@@ -54,7 +54,7 @@
           <li tabindex="0">
             <details>
               <summary>Parent</summary>
-              <ul class="p-2">
+              <ul class="p-2 bg-black">
                 <li><a>Submenu 1</a></li>
                 <li><a>Submenu 2</a></li>
               </ul>
