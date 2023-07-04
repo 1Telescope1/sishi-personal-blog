@@ -22,6 +22,5 @@ import Header from '@/components/Header/index.vue'
 .app-wrapper {
   position: relative;
   min-height: 100vh;
-  
 }
 </style>

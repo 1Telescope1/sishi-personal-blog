@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./theme-shoka.scss";
+@import "./common.scss";
 
 *,
 :after,
@@ -9,10 +11,6 @@
     margin: 0;
     padding: 0;
 }
-
-// *{
-//     color: rgb(66, 66, 66);
-// }
 
 body {
     background-color: rgb(255, 255, 255);

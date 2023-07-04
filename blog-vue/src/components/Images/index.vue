@@ -11,6 +11,7 @@
         }"
       ></li>
     </ul>
+    
   </div>
 </template>
 
@@ -71,7 +72,7 @@ onMounted(() => {});
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    /* background-color: rgba(0, 0, 0, 0.2); */
     transition: all 0.2s ease-in-out 0s;
   }
 }

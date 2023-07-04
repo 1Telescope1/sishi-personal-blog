@@ -1,0 +1,26 @@
+.transFormY {
+  transform: translateY(-50%);
+}
+.home-container {
+  margin-top: 15px !important;
+  display: flex;
+  align-items: flex-start;
+  justify-content:space-evenly;
+  width: 80%;
+  margin: 0 auto;
+  background-color: red;
+}
+.left-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 70%;
+  margin: 0 auto;
+}
+.right-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 30%;
+  margin: 0 auto;
+}

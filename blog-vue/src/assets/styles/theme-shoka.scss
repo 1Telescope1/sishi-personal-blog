@@ -1,0 +1,129 @@
+/* 白天颜色 */
+:root {
+    --comment-color: #f1f2f3;
+    --grey-0: #fff;
+    --grey-1: #fdfdfd;
+    --grey-2: #f7f7f7;
+    --grey-3: #eff2f3;
+    --grey-4: #ccc;
+    --grey-5: #999;
+    --grey-6: #666;
+    --grey-7: #333;
+    --grey-8: #222;
+    --grey-9: #000;
+    --grey-1-a0: rgba(253, 253, 253, 0);
+    --grey-1-a7: rgba(253, 253, 253, 0.7);
+    --grey-1-a5: rgba(253, 253, 253, 0.5);
+    --grey-1-a3: rgba(253, 253, 253, 0.3);
+    --grey-9-a1: rgba(0, 0, 0, 0.1);
+    --grey-9-a5: rgba(0, 0, 0, 0.5);
+    --grey-2-a0: rgba(247, 247, 247, 0);
+    --color-pink-light: #ffe6fa;
+    --color-cyan-light: #e3fdf5;
+    --color-red: #e9546b;
+    --color-pink: #ed6ea0;
+    --color-orange: #ec8c69;
+    --color-yellow: #eab700;
+    --color-green: #0a7426;
+    --color-aqua: #3e999f;
+    --color-blue: #49b1f5;
+    --color-purple: #9d5b8b;
+    --color-grey: #869194;
+    --color-red-a1: rgba(233, 84, 107, 0.1);
+    --color-red-a3: rgba(233, 84, 107, 0.3);
+    --color-pink-a3: rgba(237, 110, 160, 0.3);
+    --color-pink-light-a3: rgba(255, 230, 250, 0.3);
+    --color-pink-light-a5: rgba(255, 230, 250, 0.5);
+    --color-pink-light-a7: rgba(255, 230, 250, 0.7);
+    --body-bg-shadow: var(--grey-2);
+    --box-bg-shadow: var(--grey-9-a1);
+    --text-color: var(--grey-7);
+    --header-text-color: var(--grey-0);
+    --primary-color: var(--color-red);
+    --nav-bg: linear-gradient(-225deg, var(--color-cyan-light) 0, var(--color-pink-light) 100%);
+    --footer-bg: linear-gradient(-45deg, #ec8c69, #e9546b, #38a1db, #23d5ab);
+    --note-border: #cda0c7;
+    --note-bg: #fdf8ff;
+    --note-text: #8a51c0;
+    --note-hover: #f14668;
+    --comment-btn: #ed9abb;
+    --chat-bg: #f4f6fb;
+}
+
+/* 黑夜颜色 */
+[theme="dark"]:root {
+    --comment-color: var(--grey-1);
+    --grey-0: #222;
+    --grey-1: #21252b;
+    --grey-2: #363636;
+    --grey-3: #444;
+    --grey-4: #666;
+    --grey-5: #aaa;
+    --grey-6: #ccc;
+    --grey-7: #ddd;
+    --grey-8: #eee;
+    --grey-9: #f7f7f7;
+    --grey-1-a7: rgba(34, 34, 34, 0.7);
+    --grey-1-a5: rgba(34, 34, 34, 0.5);
+    --grey-1-a3: rgba(34, 34, 34, 0.3);
+    --grey-1-a0: rgba(34, 34, 34, 0);
+    --grey-9-a1: rgba(51, 51, 51, 0.1);
+    --grey-2-a0: rgba(54, 54, 54, 0);
+    --color-pink-light: #322d31;
+    --color-cyan-light: #2d3230;
+    --color-red: rgba(237, 118, 137, 0.9);
+    --color-pink: rgba(241, 139, 179, 0.8);
+    --color-orange: rgba(240, 163, 135, 0.8);
+    --color-yellow: #ffe175;
+    --color-green: #86c59d;
+    --color-aqua: #97d3d6;
+    --color-blue: #9cd0ed;
+    --color-purple: #cfacc5;
+    --color-grey: #c3c8ca;
+    --body-bg-shadow: #000;
+    --box-bg-shadow: #000;
+    --text-color: var(--grey-5);
+    --header-text-color: var(--grey-9);
+    --note-bg: rgba(48, 49, 50, 0.8);
+    --note-text: rgba(109, 164, 219, 0.8);
+    --note-hover: rgba(168, 49, 72, 0.8);
+    --chat-bg: var(--grey-1);
+
+    img {
+        filter: brightness(0.8);
+    }
+}
+
+/* 滚动条*/
+::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-pink-light);
+    background-image: -webkit-linear-gradient(45deg,
+            hsla(0, 0%, 100%, 0.4) 25%,
+            transparent 0,
+            transparent 50%,
+            hsla(0, 0%, 100%, 0.4) 0,
+            hsla(0, 0%, 100%, 0.4) 75%,
+            transparent 0,
+            transparent);
+    border-radius: 2em;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+
+
+/* 加载进度条 */
+#nprogress .bar {
+    background: var(--primary-color) !important;
+}
