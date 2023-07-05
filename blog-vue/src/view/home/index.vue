@@ -71,7 +71,6 @@ getPageArticleList()
 <style scoped>
 .bg {
   z-index: 100;
-  background-color: red;
 }
 .arrow-down {
   position: absolute;
@@ -106,7 +105,6 @@ getPageArticleList()
   padding: 5px 20px;
   margin: 0 8px;
   border-radius: 15px;
-  background-color: black;
 }
 .arrow-right {
   animation: arrow-right-shake 1.5s ease-out infinite;
