@@ -1,15 +1,15 @@
 <template>
   <div class="blog-info">
     <div class="blog-item">
-      <div>{{ articleLen }}</div>
+      <div class="len">{{ articleLen }}</div>
       <div class="attribute">文章</div>
     </div>
     <div class="blog-item">
-      <div>{{ tagLen }}</div>
+      <div class="len">{{ tagLen }}</div>
       <div class="attribute">标签</div>
     </div>
     <div class="blog-item">
-      <div>{{ talkLen }}</div>
+      <div class="len">{{ talkLen }}</div>
       <div class="attribute">说说</div>
     </div>
   </div>
@@ -44,13 +44,17 @@ getLen();
   @include flexCenter;
   margin-top: 10px;
   .blog-item {
-    font-size: 14px;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0 10px;
     &:not(:first-child) {
         border-left: 1px solid var(--grey-4);
+    }
+    .len {
+      font-size: 16px;
+      font-weight: 600;
     }
 
     .attribute {

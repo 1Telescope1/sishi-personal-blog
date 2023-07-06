@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="navbar scrollTop_zero bg-base-300" ref="navbar">
+    <div class="navbar scrollTop_zero" :class="scrollTop>1 ? 'header-bg' : ''" ref="navbar">
       <div class="navbar-start">
         <div class="dropdown">
           <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -132,7 +132,7 @@ let navbarShow = ref(false);
 let scrollTop = ref(0);
 
 const handleScroll = () => {
-  if (scrollTop.value < 2) {
+  if (scrollTop.value < 1) {
     navbar.value.classList.add("scrollTop_zero");
   } else {
     navbar.value.classList.remove("scrollTop_zero");
@@ -168,5 +168,8 @@ onMounted(() => {
 .scrollTop_zero {
   background-color: rgba(0, 0, 0, 0);
   color: #ffffff !important;
+}
+.header-bg {
+  background: linear-gradient(-225deg, var(--color-cyan-light) 0, var(--color-pink-light) 100%);
 }
 </style>

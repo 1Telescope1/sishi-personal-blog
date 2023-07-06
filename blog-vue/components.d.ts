@@ -16,11 +16,13 @@ declare module 'vue' {
     ElRow: typeof import('element-plus/es')['ElRow']
     Header: typeof import('./src/components/Header/index.vue')['default']
     Images: typeof import('./src/components/Images/index.vue')['default']
+    Notice: typeof import('./src/components/Notice/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SocialList: typeof import('./src/components/SocialList/index.vue')['default']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
     Title: typeof import('./src/components/Title/index.vue')['default']
     Waves: typeof import('./src/components/Waves/index.vue')['default']
+    WebInfo: typeof import('./src/components/WebInfo/index.vue')['default']
   }
 }

@@ -49,7 +49,7 @@ getPageArticleList()
         <div class="w-100">
           <div class="news">
             <div class="flex">
-              <el-icon :size="20"><ChatLineRound /></el-icon>
+              <SvgIcon  icon-class="laba" size="1.2rem" ></SvgIcon>
             </div>
             <div>这是一个消息</div>
             <div class="flex arrow-right">
@@ -66,6 +66,8 @@ getPageArticleList()
       <div class="right-container">
         <div class="w-100">
           <AuthorCard></AuthorCard>
+          <Notice></Notice>
+          <WebInfo></WebInfo>
         </div>
       </div>
     </div>
