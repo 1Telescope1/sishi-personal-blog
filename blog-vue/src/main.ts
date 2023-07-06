@@ -10,6 +10,8 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import lazyPlugin from 'vue3-lazy'
 import loading from "./assets/images/loading.gif"
 import error from "./assets/images/404.gif"
+// svg图标
+import 'virtual:svg-icons-register'
 
 const app = createApp(App);
 app.use(router);

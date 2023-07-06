@@ -46,7 +46,7 @@ getPageArticleList()
     </div>
     <div class="home-container">
       <div class="left-container">
-        <div style="width: 100%">
+        <div class="w-100">
           <div class="news">
             <div class="flex">
               <el-icon :size="20"><ChatLineRound /></el-icon>
@@ -63,7 +63,11 @@ getPageArticleList()
           </div>
         </div>
       </div>
-      <div class="right-container">456</div>
+      <div class="right-container">
+        <div class="w-100">
+          <AuthorCard></AuthorCard>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -128,5 +132,8 @@ getPageArticleList()
     opacity: 1;
     transform: translateX(0);
   }
+}
+.w-100 {
+  width: 100%;
 }
 </style>

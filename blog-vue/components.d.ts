@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ArticleItem: typeof import('./src/components/ArticleItem/index.vue')['default']
+    AuthorCard: typeof import('./src/components/AuthorCard/index.vue')['default']
+    BlogInfo: typeof import('./src/components/BlogInfo/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElIcon: typeof import('element-plus/es')['ElIcon']
@@ -16,7 +18,8 @@ declare module 'vue' {
     Images: typeof import('./src/components/Images/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Svg: typeof import('./src/components/Svg/index.vue')['default']
+    SocialList: typeof import('./src/components/SocialList/index.vue')['default']
+    SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
     Title: typeof import('./src/components/Title/index.vue')['default']
     Waves: typeof import('./src/components/Waves/index.vue')['default']
   }

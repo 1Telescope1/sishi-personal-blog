@@ -36,13 +36,11 @@ onMounted(() => {
 <style scoped lang="scss">
 @import "@/assets/styles/mixin.scss";
 .title {
-  /* @include absolute;
-  width: 100%;
-  height: 100%; */
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-60%);
+  color: #ffffff;
 
   .artboard {
     font-family: "Fredericka the Great", Mulish, -apple-system, "PingFang SC",
