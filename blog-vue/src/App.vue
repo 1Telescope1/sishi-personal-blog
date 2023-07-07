@@ -12,6 +12,7 @@ Socket.init()
     <main class="main">
       <router-view></router-view>
     </main>
+    <Footer></Footer>
   </div>
 </template>
 

@@ -15,6 +15,8 @@ declare module 'vue' {
     ElCol: typeof import('element-plus/es')['ElCol']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElRow: typeof import('element-plus/es')['ElRow']
+    Fish: typeof import('./src/components/Fish/index.vue')['default']
+    Footer: typeof import('./src/components/Footer/index.vue')['default']
     Header: typeof import('./src/components/Header/index.vue')['default']
     Images: typeof import('./src/components/Images/index.vue')['default']
     Notice: typeof import('./src/components/Notice/index.vue')['default']
