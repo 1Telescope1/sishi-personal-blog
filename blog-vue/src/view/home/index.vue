@@ -67,6 +67,7 @@ getPageArticleList()
         <div class="w-100">
           <AuthorCard></AuthorCard>
           <Notice></Notice>
+          <Comment></Comment>
           <WebInfo></WebInfo>
         </div>
       </div>

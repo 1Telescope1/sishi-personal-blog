@@ -17,8 +17,6 @@ export const useSocket = () => {
       socket.onopen = function () {
         heartBeat = setInterval(function () {
           send("ping");
-          console.log("正在连接");
-          
         }, 30 * 1000);
       };
       // 监听socket错误信息

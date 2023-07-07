@@ -24,3 +24,9 @@
   margin-left: 5%;
   margin: 0 auto;
 }
+.rorate {
+  transition: all 0.5s;
+}
+.rorate:hover {
+  transform: rotate(360deg);
+}

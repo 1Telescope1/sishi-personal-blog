@@ -2,11 +2,11 @@
   <div class="web-info">
     <div class="title">
       <svg-icon icon-class="web" size="1.2rem"></svg-icon>
-      <div class="text">网站咨询</div>
+      <div class="text">网站资讯</div>
     </div>
     <div class="online-number">
       <div>在线人数：</div>
-      <div>{{ onlineNumber}}</div>
+      <div>{{ onlineNumber }}</div>
     </div>
     <div class="views">
       <div>浏览量：</div>
@@ -14,16 +14,15 @@
     </div>
     <div class="time">
       <div>运行时长：</div>
-      <div>{{  time}}</div>
+      <div>{{ time }}</div>
     </div>
-    
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { reqGetViews } from '../../api/views/index';
-import { useBlogStore } from '../../store/blog';
+import { reqGetViews } from "../../api/views/index";
+import { useBlogStore } from "../../store/blog";
 
 let time = ref("");
 const runTime = () => {
@@ -40,18 +39,17 @@ const runTime = () => {
 };
 setInterval(runTime, 1000);
 
-let views=ref(0)
-const getViews=async () =>{
-  const res=await reqGetViews()
-  if(res.code=="200") {
-    views.value=res.data
+let views = ref(0);
+const getViews = async () => {
+  const res = await reqGetViews();
+  if (res.code == "200") {
+    views.value = res.data;
   }
-}
-getViews()
+};
+getViews();
 
-const BlogStore=useBlogStore()
-const onlineNumber=BlogStore.onlineNumber
-
+const BlogStore = useBlogStore();
+const onlineNumber = BlogStore.onlineNumber;
 </script>
 
 <style lang="scss" scoped>
@@ -70,11 +68,12 @@ const onlineNumber=BlogStore.onlineNumber
     font-size: 18px;
     margin-left: 10px;
   }
-  .time,.views,.online-number  {
+  .time,
+  .views,
+  .online-number {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  
 }
 </style>

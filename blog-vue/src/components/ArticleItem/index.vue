@@ -39,7 +39,8 @@ defineProps<{ article: Article }>();
   margin: 15px 8px 0px;
   height: 224px;
   border-radius: 15px;
-  box-shadow: 0 1px 1.5px 2px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 1px 1.5px 2px rgba(0, 0, 0, 0.1); */
+  box-shadow: 0 4px 8px 6px rgb(7 17 27 / 6%);
   animation-duration: 0.5s;
   transition: all 0.2s ease-in-out 0s;
 
