@@ -21,46 +21,42 @@
           </label>
           <ul
             tabindex="0"
-            class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-black rounded-box w-52"
+            class="menu summary-black menu-sm dropdown-content mt-3 z-[1] p-2 shadowrounded-box w-52"
           >
-            <li><a>首页</a></li>
-            <li><a>留言</a></li>
-            <li><a>归档</a></li>
-            <li><a>标签</a></li>
-            <li><a>说说</a></li>
-            <li><a>关于</a></li>
-            <li><a>友链</a></li>
-            <li>
-              <a>Parent</a>
-              <ul class="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
+            <li v-for="menu in menuList" :key="menu.name">
+              <div style="padding: 0;">
+                <SvgIcon :icon-class="menu.icon"></SvgIcon> {{ menu.name }}
+              </div>
+              <ul class="p-2" v-if="menu.children">
+                <li v-for="menuChildren in menu.children">
+                  
+                  <div style="padding: 0;">
+                    <SvgIcon :icon-class="menuChildren.icon"></SvgIcon>{{ menuChildren.name }}
+                  </div>
+                </li>
               </ul>
             </li>
-            <li><a>Item 3</a></li>
           </ul>
         </div>
         <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
       </div>
       <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-          <li><a>首页</a></li>
-          <li><a>留言</a></li>
-          <li><a>归档</a></li>
-          <li><a>标签</a></li>
-          <li><a>说说</a></li>
-          <li><a>关于</a></li>
-          <li><a>友链</a></li>
-          <li tabindex="0">
-            <details>
-              <summary>Parent</summary>
-              <ul class="p-2 bg-black">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
+        <ul class="menu menu-horizontal px-1 ">
+          <li v-for="menu in menuList" :key="menu.name">
+            <details v-if="menu.children">
+              <summary><SvgIcon :icon-class="menu.icon"></SvgIcon>{{ menu.name}}</summary>
+              <ul class="p-2 summary-black">
+                <li v-for="menuChildren in menu.children">
+                  <div style="padding: 0;">
+                    <SvgIcon :icon-class="menuChildren.icon"></SvgIcon>{{ menuChildren.name }}
+                  </div>
+                </li>
               </ul>
             </details>
+            <li v-else style="padding: 0;">
+              <div><SvgIcon :icon-class="menu.icon"></SvgIcon> {{ menu.name }}</div>
+            </li>
           </li>
-          <li><a>Item 3</a></li>
         </ul>
       </div>
       <div class="navbar-end">
@@ -114,7 +110,7 @@
           </label>
           <ul
             tabindex="0"
-            class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-50"
+            class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box"
           >
             <li><a>Settings</a></li>
             <li><a>Logout</a></li>
@@ -127,6 +123,71 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+const menuList = [
+  {
+    name: "首页",
+    icon: "home",
+    path: "/"
+  },
+  {
+    name: "文章",
+    icon: "article",
+    children: [
+      {
+        name: "归档",
+        icon: "archives",
+        path: "/archive"
+      },
+      // {
+      //   name: "分类",
+      //   icon: "category",
+      //   path: "/category"
+      // },
+      {
+        name: "标签",
+        icon: "tag",
+        path: "/tag"
+      },
+    ]
+  },
+  {
+    name: "娱乐",
+    icon: "fun",
+    children: [
+      {
+        name: "说说",
+        icon: "talk",
+        path: "/talk"
+      },
+      // {
+      //   name: "相册",
+      //   icon: "album",
+      //   path: "/album"
+      // },
+      // {
+      //   name: "图床",
+      //   icon: "upload",
+      //   path: "/picture"
+      // },
+    ]
+  },
+  {
+    name: "友链",
+    icon: "friend",
+    path: "/friend"
+  },
+  {
+    name: "留言板",
+    icon: "message",
+    path: "/message"
+  },
+  {
+    name: "关于",
+    icon: "plane",
+    path: "/about"
+  },
+];
+
 const navbar = ref();
 let navbarShow = ref(false);
 let scrollTop = ref(0);
@@ -171,5 +232,9 @@ onMounted(() => {
 }
 .header-bg {
   background: linear-gradient(-225deg, var(--color-cyan-light) 0, var(--color-pink-light) 100%);
+}
+.summary-black {
+  background: rgba(0, 0, 0, .5);
+  color: #ffffff;
 }
 </style>

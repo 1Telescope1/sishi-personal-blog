@@ -17,7 +17,7 @@
       <div class="article-content">{{ article.content }}</div>
       <div class="article-footer">
         <div class="article-author">
-          <img class="authorUrl" v-lazy="article.authorUrl" alt="" />
+          <img class="authorUrl rorate" v-lazy="article.authorUrl" alt="" />
           <div>{{ article.author }}</div>
         </div>
         <div class="more">more...</div>
