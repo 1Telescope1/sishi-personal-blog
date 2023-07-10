@@ -5,6 +5,9 @@ declare module "*.vue" {
   export default component;
 }
 
+declare module 'particles.vue3';
+
+
 interface ImportMetaEnv {
   readonly VITE_BASE_API: string;
   readonly NODE_ENV:string

@@ -56,8 +56,8 @@ getPageArticleList()
               <el-icon :size="20"><DArrowRight /></el-icon>
             </div>
           </div>
-          <div class="article">
-            <template v-for="(article,index) in articleList" :key="article.id">
+          <div class="article" >
+            <template  v-for="(article,index) in articleList" :key="article.id">
               <ArticleItem :article="article"></ArticleItem>
             </template>
           </div>

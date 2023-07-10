@@ -1,5 +1,5 @@
 <template>
-  <div class="article-main">
+  <div class="article-main" v-animate="['slideUpBigIn']">
     <div class="article-img">
       <img class="cover" v-lazy="article.coverUrl" />
     </div>
@@ -43,6 +43,7 @@ defineProps<{ article: Article }>();
   box-shadow: 0 4px 8px 6px rgb(7 17 27 / 6%);
   animation-duration: 0.5s;
   transition: all 0.2s ease-in-out 0s;
+  visibility: hidden;
 
   &:hover {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);

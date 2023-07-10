@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Header from '@/components/Header/index.vue'
 import { useSocket } from './composable/useSocket';
 const Socket=useSocket()
 Socket.init()

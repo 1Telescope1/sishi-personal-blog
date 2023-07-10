@@ -24,21 +24,25 @@
             class="menu summary-black menu-sm dropdown-content mt-3 z-[1] p-2 shadowrounded-box w-52"
           >
             <li v-for="menu in menuList" :key="menu.name">
-              <div style="padding: 0;">
-                <SvgIcon :icon-class="menu.icon"></SvgIcon> {{ menu.name }}
-              </div>
-              <ul class="p-2" v-if="menu.children">
-                <li v-for="menuChildren in menu.children">
-                  
-                  <div style="padding: 0;">
-                    <SvgIcon :icon-class="menuChildren.icon"></SvgIcon>{{ menuChildren.name }}
-                  </div>
-                </li>
-              </ul>
+              <details v-if="menu.children">
+                <summary><SvgIcon :icon-class="menu.icon"></SvgIcon>{{ menu.name}}</summary>
+                <ul class="p-2">
+                  <li v-for="menuChildren in menu.children">
+                      <router-link :to="menuChildren.path">
+                        <SvgIcon :icon-class="menuChildren.icon"></SvgIcon>{{ menuChildren.name }}
+                      </router-link>
+                  </li>
+                </ul>
+              </details>
+              <li v-else class="p-0">
+                <router-link :to="menu.path">
+                  <SvgIcon :icon-class="menu.icon"></SvgIcon> {{ menu.name }}
+                </router-link>
+              </li>
             </li>
           </ul>
         </div>
-        <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <a class="btn btn-ghost normal-case text-xl">Teles</a>
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1 ">
@@ -47,14 +51,16 @@
               <summary><SvgIcon :icon-class="menu.icon"></SvgIcon>{{ menu.name}}</summary>
               <ul class="p-2 summary-black">
                 <li v-for="menuChildren in menu.children">
-                  <div style="padding: 0;">
-                    <SvgIcon :icon-class="menuChildren.icon"></SvgIcon>{{ menuChildren.name }}
-                  </div>
+                    <router-link :to="menuChildren.path">
+                      <SvgIcon :icon-class="menuChildren.icon"></SvgIcon>{{ menuChildren.name }}
+                    </router-link>
                 </li>
               </ul>
             </details>
-            <li v-else style="padding: 0;">
-              <div><SvgIcon :icon-class="menu.icon"></SvgIcon> {{ menu.name }}</div>
+            <li v-else class="p-0">
+              <router-link :to="menu.path">
+                <SvgIcon :icon-class="menu.icon"></SvgIcon> {{ menu.name }}
+              </router-link>
             </li>
           </li>
         </ul>
@@ -102,6 +108,11 @@
             />
           </svg>
         </button>
+          <button class="btn btn-ghost btn-circle">
+            <div class="login">
+              <div><SvgIcon icon-class="user" size="2.2rem"></SvgIcon></div>
+            </div>
+          </button>
         <div class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
@@ -236,5 +247,13 @@ onMounted(() => {
 .summary-black {
   background: rgba(0, 0, 0, .5);
   color: #ffffff;
+}
+.p-0 {
+  padding: 0;
+}
+.login {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 }
 </style>
