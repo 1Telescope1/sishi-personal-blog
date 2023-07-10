@@ -4,10 +4,6 @@ import { reactive, ref } from "vue";
 import { Article } from '@/api/article/type';
 import { reqGetArticlesPage } from '../../api/article/index';
 import { ArticleParams } from '@/api/article/type';
-const user = useUserStore();
-const click = () => {
-  user.update();
-};
 const arrowDown = () => {
   window.scrollTo({
     behavior: "smooth",

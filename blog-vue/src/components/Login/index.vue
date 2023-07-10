@@ -7,7 +7,6 @@
   </button>
 
   <el-dialog
-    append-to-body
     :close-on-click-modal="false"
     :width="'35%'"
     v-model="dialogFormVisible"
@@ -94,7 +93,7 @@ const form = reactive<userForm>({
   confirmPwd: "",
   identifyCode: "",
 });
-let codeUrl = ref("");
+const codeUrl = ref("");
 
 const rules = reactive<FormRules<userForm>>({
   username: [

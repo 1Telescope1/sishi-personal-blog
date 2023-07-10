@@ -6,6 +6,6 @@ export const notification=(title:any,message:any,type:string="success",duration:
     title,
     message,
     type,
-    duration
+    duration,
   });
 }
