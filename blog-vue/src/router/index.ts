@@ -7,11 +7,11 @@ const routes= [
         name: 'home',
         component: () => import('@/view/Home/index.vue')
     },
-    {
-        path: '/login',
-        name: 'login',
-        component: () => import('@/view/Login/index.vue')
-    },
+    // {
+    //     path: '/login',
+    //     name: 'login',
+    //     component: () => import('@/view/Login/index.vue')
+    // },
     {
         // 配置404页面
         path: '/:catchAll(.*)',

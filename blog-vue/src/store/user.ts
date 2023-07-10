@@ -1,3 +1,5 @@
+import { reqLoign } from "@/api/user";
+import { LoginUser, userForm } from "@/api/user/type";
 import { defineStore } from "pinia";
 import { reactive, ref } from 'vue';
 
@@ -5,15 +7,17 @@ import { reactive, ref } from 'vue';
 export const useUserStore = defineStore(
   "user",
   () => {
-    const user =reactive( { name: "hhh" })
-    const info=ref(123)
-    const pp=ref(123)
-    const update=()=>{
-      user.name='abc'
-      
+    const user=ref<LoginUser>()
+    const login=async (data:userForm)=>{
+      const res=await reqLoign(data)
+      if(res.code=="200") {
+        user.value=res.data
+        return true
+      }
+      return false
     }
 
-    return { user,info ,update,pp};
+    return { login,user};
   },
   {
     // 开启持久化（使用本地存储，默认是localStorage）

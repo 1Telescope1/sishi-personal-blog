@@ -17,7 +17,6 @@ export const animate: Directive = {
         if (top < h) {
           el.style.visibility = "visible";
           el.style.animationName = value;
-          console.log(el.style);
           
         }
       }

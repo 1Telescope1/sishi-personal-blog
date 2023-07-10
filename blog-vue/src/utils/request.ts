@@ -1,5 +1,6 @@
 import { Result } from '@/model';
 import axios, { AxiosError, type Method } from 'axios'
+import { notification } from './elComponent';
 
 
 // 1. 新axios实例，基础配置
@@ -34,13 +35,13 @@ instance.interceptors.response.use(
     return res.data;
   },
   (err) => {
-    
+
     if (err.response.status === 401) {
       // 删除用户信息
       // const store = useUserStore();
       // 跳转登录，带上接口失效所在页面的地址，登录完成后回跳使用
       
-    }
+    } 
     return Promise.reject(err);
   }
 );

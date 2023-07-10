@@ -35,3 +35,10 @@ export interface LoginUser {
 	address?: any;
 	identifyCode?: any;
 }
+
+export interface userForm{
+  username:string
+  password:string
+  confirmPwd?:string
+	identifyCode?:string
+}

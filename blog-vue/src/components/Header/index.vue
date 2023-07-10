@@ -108,11 +108,7 @@
             />
           </svg>
         </button>
-          <button class="btn btn-ghost btn-circle">
-            <div class="login">
-              <div><SvgIcon icon-class="user" size="2.2rem"></SvgIcon></div>
-            </div>
-          </button>
+        <Login></Login>
         <div class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
