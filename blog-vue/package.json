@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
+    "@kangc/v-md-editor": "^2.3.15",
     "axios": "^1.4.0",
+    "dayjs": "^1.11.9",
     "element-plus": "^2.3.7",
     "jquery": "^3.7.0",
     "particles.vue3": "^2.10.1",

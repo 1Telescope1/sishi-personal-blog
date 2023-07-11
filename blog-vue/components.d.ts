@@ -10,6 +10,7 @@ declare module 'vue' {
     ArticleItem: typeof import('./src/components/ArticleItem/index.vue')['default']
     AuthorCard: typeof import('./src/components/AuthorCard/index.vue')['default']
     BlogInfo: typeof import('./src/components/BlogInfo/index.vue')['default']
+    Catalog: typeof import('./src/components/Catalog/index.vue')['default']
     Comment: typeof import('./src/components/Comment/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']

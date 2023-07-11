@@ -13,6 +13,11 @@ const routes= [
         component: () => import('@/view/Archive/index.vue')
     },
     {
+        path: '/article/:articleId',
+        name: 'article',
+        component: () => import('@/view/Article/index.vue')
+    },
+    {
         // 配置404页面
         path: '/:catchAll(.*)',
         name: '404',

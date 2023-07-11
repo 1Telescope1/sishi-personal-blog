@@ -14,7 +14,16 @@ import error from "./assets/images/404.gif"
 import 'virtual:svg-icons-register'
 // 粒子特效
 import Particles from 'particles.vue3'
+// 自定义指令
 import * as directive from "@/directive";
+// 编辑器
+import createKatexPlugin from "@kangc/v-md-editor/lib/plugins/katex/cdn";
+import createTodoListPlugin from "@kangc/v-md-editor/lib/plugins/todo-list/index";
+import "@kangc/v-md-editor/lib/plugins/todo-list/todo-list.css";
+import VMdPreview from "@kangc/v-md-editor/lib/preview";
+import "@kangc/v-md-editor/lib/theme/style/vuepress.css";
+import vuepressTheme from "@kangc/v-md-editor/lib/theme/vuepress.js";
+import Prism from 'prismjs';
 
 const app = createApp(App);
 app.use(router);
@@ -30,5 +39,11 @@ app.use(Particles)
 Object.keys(directive).forEach((key) => {
   app.directive(key, (directive as { [key: string]: Directive })[key]);
 });
+VMdPreview.use(vuepressTheme, {
+  Prism,
+})
+  .use(createTodoListPlugin())
+  .use(createKatexPlugin());
+app.use(VMdPreview);
 
 app.mount(`#app`);

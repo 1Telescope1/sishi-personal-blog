@@ -54,7 +54,9 @@ getPageArticleList()
           </div>
           <div class="article" >
             <template  v-for="(article,index) in articleList" :key="article.id">
-              <ArticleItem :article="article"></ArticleItem>
+              <router-link :to="`/article/${article.id}`">
+                <ArticleItem :article="article"></ArticleItem>
+              </router-link>
             </template>
           </div>
         </div>
