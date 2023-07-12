@@ -1,6 +1,8 @@
 import { Result } from '@/model';
 import axios, { AxiosError, type Method } from 'axios'
 import { notification } from './elComponent';
+import { useUserStore } from '../store/user';
+
 
 
 // 1. 新axios实例，基础配置
@@ -14,10 +16,11 @@ const instance = axios.create({
 // 2. 请求拦截器，携带token
 instance.interceptors.request.use(
   (config) => {
-    // if (store.user?.token && config.headers) {
-    //   config.headers["Authorization"] = `Bearer ${store.user?.token}`;
-    // }
-    
+    const userInfo=useUserStore()
+
+    if(userInfo.user?.token&&config.headers) {
+      config.headers["token"] = userInfo.user.token;
+    }
     
     return config;
   },

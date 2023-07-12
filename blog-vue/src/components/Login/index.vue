@@ -7,6 +7,7 @@
   </button>
 
   <el-dialog
+  append-to-body
     :close-on-click-modal="false"
     :width="'35%'"
     v-model="dialogFormVisible"
@@ -109,8 +110,8 @@ const rules = reactive<FormRules<userForm>>({
       trigger: "blur",
     },
   ],
-  confirmPwd: [{ required: true, message: "请确认密码", trigger: "blur" }],
-  identifyCode: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+  // confirmPwd: [{ required: true, message: "请确认密码", trigger: "blur" }],
+  // identifyCode: [{ required: true, message: "请输入验证码", trigger: "blur" }],
 });
 
 const showDialog = () => {

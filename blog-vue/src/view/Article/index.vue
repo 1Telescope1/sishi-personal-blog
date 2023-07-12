@@ -79,6 +79,7 @@
             class="md"
             :text="article.content"
           ></v-md-preview>
+          <Comment></Comment>
         </div>
       </div>
       <div class="right-container">
@@ -91,6 +92,7 @@
 </template>
 
 <script setup lang="ts">
+import Comment from "./components/Comment.vue"
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { Article } from "@/api/article/type";
@@ -101,14 +103,14 @@ const route = useRoute();
 const { articleId } = route.params;
 const article = ref<Article>();
 const articleRef = ref();
-const articleLoaded=ref(false)
+const articleLoaded = ref(false);
 const init = async () => {
   const res = await reqArticleById(articleId as string);
   if (res.code == "200") {
     article.value = res.data;
     wordNum.value = deleteHTMLTag(article.value.content).length;
     readTime.value = Math.round(wordNum.value / 400);
-    articleLoaded.value=true
+    articleLoaded.value = true;
   }
 };
 init();
@@ -162,5 +164,8 @@ const deleteHTMLTag = (content: string) => {
     flex-direction: row;
     margin-right: 10px;
   }
+}
+.comment {
+  padding: 32px 40px;
 }
 </style>

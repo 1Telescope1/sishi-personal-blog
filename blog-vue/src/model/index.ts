@@ -1,5 +1,5 @@
 export interface Result<T> {
-  code:string
+  code:string | number
   data:T
   msg:string
 }
