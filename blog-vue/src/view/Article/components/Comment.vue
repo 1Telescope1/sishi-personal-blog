@@ -187,9 +187,17 @@ const send = async () => {
   if (!validateUser()) return;
   let msg;
   if (commentParams.pid) {
+    if(replyContent.value.trim()=="") {
+      notification('error',"评论不得为空","error")
+      return
+    }
     commentParams.content = replyContent.value;
     msg = "回复成功";
   } else {
+    if(content.value.trim()=="") {
+      notification('error',"评论不得为空","error")
+      return
+    }
     commentParams.content = content.value;
     msg = "发送成功";
   }

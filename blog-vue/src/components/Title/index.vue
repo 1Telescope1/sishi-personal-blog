@@ -65,7 +65,7 @@ onMounted(() => {
   }
   100% {
     letter-spacing: 10px;
-    filter: blur(2px);
+    filter: blur(0.5px);
   }
 }
 @keyframes blink {

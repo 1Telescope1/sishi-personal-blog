@@ -1,11 +1,13 @@
 export interface Message {
-	id?: any;
+	id?: number;
 	content: string;
-	userId: number;
+	userId: number | null;
 	username: string;
 	time?: any;
-	status?: any;
+	status: any;
 	ipAddress?: any;
 	avatarUrl: string;
-	nowTime: string;
+	nowTime?: string;
 }
+
+

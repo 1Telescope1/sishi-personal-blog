@@ -18,6 +18,11 @@ const routes= [
         component: () => import('@/view/Article/index.vue')
     },
     {
+        path: '/message',
+        name: 'message',
+        component: () => import('@/view/Message/index.vue')
+    },
+    {
         // 配置404页面
         path: '/:catchAll(.*)',
         name: '404',
