@@ -2,7 +2,7 @@ import { Result } from '@/model';
 import axios, { AxiosError, type Method } from 'axios'
 import { notification } from './elComponent';
 import { useUserStore } from '../store/user';
-
+import { start,close } from './nprogress';
 
 
 // 1. 新axios实例，基础配置
@@ -16,6 +16,7 @@ const instance = axios.create({
 // 2. 请求拦截器，携带token
 instance.interceptors.request.use(
   (config) => {
+    start()
     const userInfo=useUserStore()
 
     if(userInfo.user?.token&&config.headers) {
@@ -35,6 +36,7 @@ instance.interceptors.response.use(
       return Promise.reject(res.data);
     }
     // 业务逻辑成功，返回响应数据，作为axios成功的结果
+    close()
     return res.data;
   },
   (err) => {

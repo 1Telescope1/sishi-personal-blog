@@ -15,6 +15,7 @@
     "dayjs": "^1.11.9",
     "element-plus": "^2.3.7",
     "jquery": "^3.7.0",
+    "nprogress": "^0.2.0",
     "particles.vue3": "^2.10.1",
     "path": "^0.12.7",
     "pinia": "^2.1.4",
@@ -24,6 +25,7 @@
     "vue3-lazy": "^1.0.0-alpha.1"
   },
   "devDependencies": {
+    "@types/nprogress": "^0.2.0",
     "@vitejs/plugin-vue": "^4.1.0",
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.1.7",

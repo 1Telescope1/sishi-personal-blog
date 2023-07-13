@@ -41,13 +41,14 @@ onMounted(() => {
   top: 50%;
   transform: translateX(-50%) translateY(-60%);
   color: #ffffff;
-
   .artboard {
     font-family: "Fredericka the Great", Mulish, -apple-system, "PingFang SC",
       "Microsoft YaHei", sans-serif;
-    font-size: 3.5em;
+    font-size: 100px;
     line-height: 1.2;
-    animation: titleScale 1s;
+    /* animation: titleScale 1s; */
+    animation: showup 2s linear forwards;
+    letter-spacing: -50px;
     text-align: center;
   }
   .text {
@@ -57,6 +58,15 @@ onMounted(() => {
   .typed-cursor {
   opacity: 1;
   animation: blink 0.7s infinite;
+}
+@keyframes showup {
+  0% {
+    filter: blur(10px);
+  }
+  100% {
+    letter-spacing: 10px;
+    filter: blur(2px);
+  }
 }
 @keyframes blink {
   0% {
