@@ -33,6 +33,11 @@ const routes= [
         component: () => import('@/view/Talks/index.vue')
     },
     {
+        path: '/talk/:id',
+        name: 'talk',
+        component: () => import('@/view/TalkItem/index.vue')
+    },
+    {
         // 配置404页面
         path: '/:catchAll(.*)',
         name: '404',

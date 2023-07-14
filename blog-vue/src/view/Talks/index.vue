@@ -11,21 +11,27 @@
   </div>
   <div class="bg">
     <div class="page-container">
-      <div class="talk-content" v-for="talk in talkList" :key="talk.id">
-        <div class="talk-meta">
-          <div>
-            <img class="img rorate" :src="talk.avatarUrl" alt="" />
-          </div>
-          <div class="meta">
-            <div class="name">
-              <div class="user">{{ talk.user }}</div>
-              <div><SvgIcon icon-class="badge"></SvgIcon></div>
+      <router-link
+        :to="`/talk/${talk.id}`"
+        v-for="talk in talkList"
+        :key="talk.id"
+      >
+        <div class="talk-content">
+          <div class="talk-meta">
+            <div>
+              <img class="img rorate" :src="talk.avatarUrl" alt="" />
             </div>
-            <div class="time">{{ talk.time }}</div>
+            <div class="meta">
+              <div class="name">
+                <div class="user">{{ talk.user }}</div>
+                <div><SvgIcon icon-class="badge"></SvgIcon></div>
+              </div>
+              <div class="time">{{ talk.time }}</div>
+            </div>
           </div>
+          <div class="content markdown-body" v-html="talk.html"></div>
         </div>
-        <div class="content markdown-body" v-html="talk.html"></div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>

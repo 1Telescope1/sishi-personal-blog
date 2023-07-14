@@ -29,8 +29,6 @@ const getMessageList = async () => {
   const res = await reqFiveMessage();
   if (res.code == "200") {
     messageList.value = res.data;
-    console.log(messageList.value);
-    
   }
 };
 getMessageList();
