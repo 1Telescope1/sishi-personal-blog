@@ -48,10 +48,10 @@ import vueDanmaku from "vue3-danmaku";
 import { ref } from "vue";
 import { Message } from "@/api/message/type";
 import { reqAllMessage } from "@/api/message/index";
-import { notification } from '../../utils/elComponent';
+import { notification } from "../../utils/elComponent";
 import { useUserStore } from "@/store/user";
-import { useBlogStore } from '../../store/blog';
-import { reqAddMessage } from '../../api/message/index';
+import { useBlogStore } from "../../store/blog";
+import { reqAddMessage } from "../../api/message/index";
 
 const messageList = ref<Message[]>();
 
@@ -63,41 +63,40 @@ const init = async () => {
 };
 init();
 
-let message=ref("")
-let show=ref(false)
+let message = ref("");
+let show = ref(false);
 
-const {user}=useUserStore()
-const {touristAvatar,touristName}=useBlogStore()
-const addToList=()=>{
-  if(message.value.trim()=="") {
-    notification('error',"留言内容不可为空",'error')
-    return
+const { user } = useUserStore();
+const { touristAvatar, touristName } = useBlogStore();
+const addToList = () => {
+  if (message.value.trim() == "") {
+    notification("error", "留言内容不可为空", "error");
+    return;
   }
 
-  const avatarUrl=user?.avatarUrl ? user.avatarUrl : touristAvatar
-  const username=user?.username ? user.username : touristName
-  const userId=user ? user.id : null
-  const content=message.value
-  const status=1
-  const messageInfo:Message={
+  const avatarUrl = user?.avatarUrl ? user.avatarUrl : touristAvatar;
+  const username = user?.username ? user.username : touristName;
+  const userId = user ? user.id : null;
+  const content = message.value;
+  const status = 1;
+  const messageInfo: Message = {
     avatarUrl,
     username,
     userId,
     content,
-    status
-  }
-  addMessage(messageInfo)
-}
+    status,
+  };
+  addMessage(messageInfo);
+};
 
-const addMessage=async(messageInfo:Message)=>{
-  const res=await reqAddMessage(messageInfo)
-  if(res.code==200) {
-    message.value=""
-    messageList.value?.push(messageInfo)
-    notification("success","发送成功")
+const addMessage = async (messageInfo: Message) => {
+  const res = await reqAddMessage(messageInfo);
+  if (res.code == 200) {
+    message.value = "";
+    messageList.value?.push(messageInfo);
+    notification("success", "发送成功");
   }
-}
-
+};
 </script>
 
 <style lang="scss" scoped>

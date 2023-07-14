@@ -1,5 +1,5 @@
 <template>
-  <div class="article-main" v-animate="['slideUpBigIn']">
+  <div class="article-main" @click="pushArticle" v-animate="['slideUpBigIn']">
     <div class="article-img">
       <img class="cover" v-lazy="article.coverUrl" />
     </div>
@@ -27,12 +27,20 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { Article } from "@/api/article/type";
-defineProps<{ article: Article }>();
+const props=defineProps<{ article: Article ,index:number}>();
+const articleId=props.article.id
+const router=useRouter()
+const pushArticle=()=>{
+  router.push(`/article/${articleId}`)
+}
+
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/mixin.scss";
+
 
 .article-main {
   display: flex;
@@ -53,7 +61,7 @@ defineProps<{ article: Article }>();
     }
   }
 
-  &:nth-child(even) {
+  &:nth-child(odd) {
     flex-direction: row-reverse;
     .article-img {
       margin-left: 1.5rem;
@@ -84,7 +92,7 @@ defineProps<{ article: Article }>();
     }
   }
 
-  &:nth-child(odd) {
+  &:nth-child(even) {
     .article-img {
       margin-right: 1.5rem;
       clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);

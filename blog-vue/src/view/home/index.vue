@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useUserStore } from "@/store/user";
 import { reactive, ref } from "vue";
-import { Article } from '@/api/article/type';
-import { reqGetArticlesPage } from '../../api/article/index';
-import { ArticleParams } from '@/api/article/type';
+import { Article } from "@/api/article/type";
+import { reqGetArticlesPage } from "../../api/article/index";
+import { ArticleParams } from "@/api/article/type";
 const arrowDown = () => {
   window.scrollTo({
     behavior: "smooth",
@@ -11,23 +11,22 @@ const arrowDown = () => {
   });
 };
 
-const articleList=ref<Article[]>([])
-const paramas=reactive<ArticleParams>({
-  pageNum:1,
-  pageSize:5,
-  title:"",
-  content:"",
-  author:"",
-  tag:""
-})
-const getPageArticleList=async ()=>{
-  const res=await reqGetArticlesPage(paramas)
-  if(res.code=="200") {
-    articleList.value=res.data.records
+const articleList = ref<Article[]>([]);
+const paramas = reactive<ArticleParams>({
+  pageNum: 1,
+  pageSize: 6,
+  title: "",
+  content: "",
+  author: "",
+  tag: "",
+});
+const getPageArticleList = async () => {
+  const res = await reqGetArticlesPage(paramas);
+  if (res.code == "200") {
+    articleList.value = res.data.records;
   }
-}
-getPageArticleList()
-
+};
+getPageArticleList();
 </script>
 
 <template>
@@ -45,18 +44,16 @@ getPageArticleList()
         <div class="w-100">
           <div class="news">
             <div class="flex">
-              <SvgIcon  icon-class="laba" size="1.2rem" ></SvgIcon>
+              <SvgIcon icon-class="laba" size="1.2rem"></SvgIcon>
             </div>
             <div>这是一个消息</div>
             <div class="flex arrow-right">
               <el-icon :size="20"><DArrowRight /></el-icon>
             </div>
           </div>
-          <div class="article" >
-            <template  v-for="(article,index) in articleList" :key="article.id">
-              <router-link :to="`/article/${article.id}`">
-                <ArticleItem :article="article"></ArticleItem>
-              </router-link>
+          <div class="article">
+            <template v-for="(article, index) in articleList" :key="article.id">
+              <ArticleItem :article="article" :index="index"></ArticleItem>
             </template>
           </div>
         </div>
