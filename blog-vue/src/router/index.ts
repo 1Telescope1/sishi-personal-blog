@@ -43,6 +43,16 @@ const routes= [
         component: () => import('@/view/Friend/index.vue')
     },
     {
+        path: '/tag',
+        name: 'tag',
+        component: () => import('@/view/Tag/index.vue')
+    },
+    {
+        path: '/tagdetail/:tag',
+        name: 'tagDetail',
+        component: () => import('@/view/TagDetail/index.vue')
+    },
+    {
         // 配置404页面
         path: '/:catchAll(.*)',
         name: '404',
