@@ -20,6 +20,7 @@
         >
           <div class="tag">
             {{ tag.name }}
+            <sup>{{tag.cnt}}</sup>
           </div>
         </router-link>
       </div>

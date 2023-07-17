@@ -40,6 +40,7 @@ declare module 'vue' {
     Images: typeof import('./src/components/Images/index.vue')['default']
     Login: typeof import('./src/components/Login/index.vue')['default']
     Notice: typeof import('./src/components/Notice/index.vue')['default']
+    Pagination: typeof import('./src/components/Pagination/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SocialList: typeof import('./src/components/SocialList/index.vue')['default']

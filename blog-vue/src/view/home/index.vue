@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useUserStore } from "@/store/user";
 import { reactive, ref } from "vue";
 import { Article } from "@/api/article/type";
 import { reqGetArticlesPage } from "../../api/article/index";
@@ -13,8 +12,10 @@ const arrowDown = () => {
 
 const articleList = ref<Article[]>([]);
 const paramas = reactive<ArticleParams>({
+  total: null,
   pageNum: 1,
   pageSize: 6,
+  sumPage:1,
   title: "",
   content: "",
   author: "",
@@ -24,9 +25,24 @@ const getPageArticleList = async () => {
   const res = await reqGetArticlesPage(paramas);
   if (res.code == "200") {
     articleList.value = res.data.records;
+    paramas.total = res.data.total;
+    paramas.pageNum = res.data.current;
+    paramas.sumPage=Math.ceil(paramas.total/paramas.pageSize)
   }
 };
 getPageArticleList();
+
+const clickPage=(val:number)=>{
+  paramas.pageNum=val
+  getPageArticleList()
+  // 获取100vh转化px的高度
+  const height = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+  window.scrollTo({
+      behavior: 'smooth',
+      top:height,
+    })
+}
 </script>
 
 <template>
@@ -55,6 +71,12 @@ getPageArticleList();
             <template v-for="(article, index) in articleList" :key="article.id">
               <ArticleItem :article="article" :index="index"></ArticleItem>
             </template>
+            <Pagination
+              v-if="paramas.total"
+              :pageNum="paramas.pageNum"
+              :sumPage="paramas.sumPage"
+              @clickPage="clickPage"
+            ></Pagination>
           </div>
         </div>
       </div>

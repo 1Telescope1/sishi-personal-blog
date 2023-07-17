@@ -11,12 +11,14 @@ export interface Article {
 }
 
 export interface ArticleParams {
+	total:number | null
   pageNum:number
   pageSize:number
-  title:string
-  content:string
-  author:string
-  tag:string
+	sumPage:number
+  title?:string
+  content?:string
+  author?:string
+  tag?:string
 }
 
 
@@ -31,4 +33,10 @@ export interface ArticleList {
 	countId?: any;
 	maxLimit?: any;
 	pages: number;
+}
+
+export interface Pagination {
+	total:number
+	pageSize:number
+	pageNum:number
 }
