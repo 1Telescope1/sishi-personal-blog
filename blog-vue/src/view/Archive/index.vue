@@ -18,17 +18,19 @@
           :timestamp="article.time"
           placement="top"
         >
-          <el-card class="card">
-            <div class="img">
-              <img :src="article.coverUrl" alt="" />
-            </div>
-            <div class="content">
-              <div class="title">
-                {{ article.title }}<span class="tag">{{ article.tag }}</span>
+          <router-link :to="`/article/${article.id}`">
+            <el-card class="card">
+              <div class="img">
+                <img :src="article.coverUrl" alt="" />
               </div>
-              <div class="text">{{ article.content }}</div>
-            </div>
-          </el-card>
+              <div class="content">
+                <div class="title">
+                  {{ article.title }}<span class="tag">{{ article.tag }}</span>
+                </div>
+                <div class="text">{{ article.content }}</div>
+              </div>
+            </el-card>
+          </router-link>
         </el-timeline-item>
       </el-timeline>
     </div>

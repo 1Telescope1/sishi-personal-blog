@@ -1,98 +1,101 @@
 <template>
-  <div class="page-header" v-if="article">
-    <div class="page-title">
-      <h1 class="article-title">{{ article.title }}</h1>
-      <div class="article-meta">
-        <div class="meta">
-          <div>
-            <svg-icon
-              icon-class="calendar"
-              style="margin-right: 0.15rem"
-            ></svg-icon>
+    <div class="page-header" v-if="article">
+      <div class="page-title">
+        <h1 class="article-title">{{ article.title }}</h1>
+        <div class="article-meta">
+          <div class="meta">
+            <div>
+              <svg-icon
+                icon-class="calendar"
+                style="margin-right: 0.15rem"
+              ></svg-icon>
+            </div>
+            <div class="text">发表于</div>
+            <div>{{ formatDate(article.time) }}</div>
           </div>
-          <div class="text">发表于</div>
-          <div>{{ formatDate(article.time) }}</div>
-        </div>
-        <div class="meta">
-          <div>
-            <svg-icon
-              icon-class="update"
-              style="margin-right: 0.15rem"
-            ></svg-icon>
+          <div class="meta">
+            <div>
+              <svg-icon
+                icon-class="update"
+                style="margin-right: 0.15rem"
+              ></svg-icon>
+            </div>
+            <div class="text">更新于</div>
+            <div>{{ formatDate(article.time) }}</div>
           </div>
-          <div class="text">更新于</div>
-          <div>{{ formatDate(article.time) }}</div>
-        </div>
-        <div class="meta">
-          <div>
-            <svg-icon icon-class="eye" style="margin-right: 0.15rem"></svg-icon>
+          <div class="meta">
+            <div>
+              <svg-icon
+                icon-class="eye"
+                style="margin-right: 0.15rem"
+              ></svg-icon>
+            </div>
+            <div class="text">浏览量</div>
           </div>
-          <div class="text">浏览量</div>
+          <div>{{ article.cnt }}</div>
         </div>
-        <div>{{ article.cnt }}</div>
+        <div class="article-meta">
+          <div class="meta">
+            <div>
+              <svg-icon
+                icon-class="edit"
+                size="0.9rem"
+                style="margin-right: 0.15rem"
+              ></svg-icon>
+            </div>
+            <div>字数统计</div>
+            <div>{{ count(wordNum) }}字</div>
+          </div>
+          <div class="meta">
+            <div>
+              <svg-icon
+                icon-class="clock"
+                size="0.9rem"
+                style="margin-right: 0.15rem"
+              ></svg-icon>
+            </div>
+            <div>阅读时长</div>
+            <div>{{ readTime }}分钟</div>
+          </div>
+          <div class="meta">
+            <div>
+              <svg-icon
+                icon-class="category"
+                size="0.9rem"
+                style="margin-right: 0.15rem"
+              ></svg-icon>
+            </div>
+            <div>{{ article.tag }}</div>
+          </div>
+        </div>
       </div>
-      <div class="article-meta">
-        <div class="meta">
-          <div>
-            <svg-icon
-              icon-class="edit"
-              size="0.9rem"
-              style="margin-right: 0.15rem"
-            ></svg-icon>
+      <img class="page-cover" :src="article.coverUrl" alt="" />
+      <!-- 波浪 -->
+      <Waves></Waves>
+    </div>
+    <div class="bg">
+      <div class="main-container" v-if="article">
+        <div class="left-container">
+          <div class="article-container">
+            <v-md-preview
+              ref="articleRef"
+              class="md"
+              :text="article.content"
+            ></v-md-preview>
+            <Comment></Comment>
           </div>
-          <div>字数统计</div>
-          <div>{{ count(wordNum) }}字</div>
         </div>
-        <div class="meta">
-          <div>
-            <svg-icon
-              icon-class="clock"
-              size="0.9rem"
-              style="margin-right: 0.15rem"
-            ></svg-icon>
+        <div class="right-container">
+          <div class="side-card">
+            <Catalog v-if="articleLoaded" :domRef="articleRef"></Catalog>
           </div>
-          <div>阅读时长</div>
-          <div>{{ readTime }}分钟</div>
-        </div>
-        <div class="meta">
-          <div>
-            <svg-icon
-              icon-class="category"
-              size="0.9rem"
-              style="margin-right: 0.15rem"
-            ></svg-icon>
-          </div>
-          <div>{{ article.tag }}</div>
         </div>
       </div>
     </div>
-    <img class="page-cover" :src="article.coverUrl" alt="" />
-    <!-- 波浪 -->
-    <Waves></Waves>
-  </div>
-  <div class="bg">
-    <div class="main-container" v-if="article">
-      <div class="left-container">
-        <div class="article-container">
-          <v-md-preview
-            ref="articleRef"
-            class="md"
-            :text="article.content"
-          ></v-md-preview>
-          <Comment></Comment>
-        </div>
-      </div>
-      <div class="right-container">
-        <div class="side-card">
-          <Catalog v-if="articleLoaded" :domRef="articleRef"></Catalog>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script setup lang="ts">
-import Comment from "./components/Comment.vue"
+import Comment from "./components/Comment.vue";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { Article } from "@/api/article/type";

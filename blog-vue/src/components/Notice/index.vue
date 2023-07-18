@@ -5,7 +5,7 @@
       <div class="text">公告</div>
     </div>
     <div class="content">
-      后端基于SpringBoot开发，前端基于Vue3+Ts+daisyUI开发
+      后端基于SpringBoot开发，前端基于Vue3+Ts+daisyUI+ElementPlus开发
     </div>
   </div>
 </template>

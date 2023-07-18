@@ -6,10 +6,10 @@
     </div>
     <div class="content" v-for="message in messageList" :key="message.id">
       <div class="img rorate">
-        <img v-lazy="message.avatarUrl" alt="" />
+        <img v-lazy="message.avatarUrl ? message.avatarUrl : url" alt="" />
       </div>
       <div class="detail">
-        <div class="name">{{ message.username }}</div>
+        <div class="name">{{ message.username ? message.username : '游客'}}</div>
         <div class="time">{{ message.nowTime }}</div>
         <div class="message">
           {{ message.content }}
@@ -23,6 +23,8 @@
 import { ref } from "vue";
 import { Message } from "@/api/message/type";
 import { reqFiveMessage } from "@/api/message";
+
+const url='http://43.143.107.88:29000/avatar/2785e109706e4376a7fa06a1c5c65a59_1666582417286.png'
 
 const messageList = ref<Message[]>([]);
 const getMessageList = async () => {
