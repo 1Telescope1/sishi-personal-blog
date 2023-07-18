@@ -9,15 +9,15 @@
       评论区
     </div>
     <div class="text">
-      <div class="img rorate">
-        <img src="@/assets/images/default.png" alt="" />
+      <div>
+        <img class="img rorate" src="@/assets/images/default.png" alt="" />
       </div>
       <input
         :value="content"
         @input="bindSend"
         type="text"
         placeholder="发一条友善的评论吧"
-        class="input comment input-success input-lg"
+        class="comment input-lg"
       />
     </div>
     <div class="btn-flex">
@@ -245,18 +245,11 @@ const cancel = () => {
     .img {
       height: 60px;
       width: 60px;
-
+      border-radius: 50%;
       margin-right: 10px;
-
-      &img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-      }
     }
     .comment {
       flex: 1;
-      background-color: antiquewhite;
       border-radius: 10px;
     }
   }
@@ -293,7 +286,6 @@ const cancel = () => {
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
           0 2px 4px -1px rgba(0, 0, 0, 0.06);
         padding: 10px;
-        background-color: #f1f3f9;
         width: 320px;
         .meta {
           display: flex;
@@ -331,10 +323,8 @@ const cancel = () => {
       }
       .reply-detail {
         padding: 10px;
-        color: #333333;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
           0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        background-color: #f1f3f9;
         word-wrap: break-word;
         .cmtctt {
           color: #9ca3af;
@@ -347,8 +337,6 @@ const cancel = () => {
           font-size: 16px;
           width: 100%;
           padding: 10px;
-          background-color: #f1f3f9;
-          color: #333333;
           border: none;
           resize: none;
           cursor: pointer;

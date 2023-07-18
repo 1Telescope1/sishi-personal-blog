@@ -56,7 +56,6 @@ getMessageList();
     display: flex;
     flex-direction: row;
     margin-top: 10px;
-    background-color: rgb(241, 243, 249);
     border-radius: 15px;
     transition: all 0.5;
     &:hover {

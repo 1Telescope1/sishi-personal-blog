@@ -24,6 +24,9 @@ import VMdPreview from "@kangc/v-md-editor/lib/preview";
 import "@kangc/v-md-editor/lib/theme/style/vuepress.css";
 import vuepressTheme from "@kangc/v-md-editor/lib/theme/vuepress.js";
 import Prism from 'prismjs';
+// 图片预览
+import 'viewerjs/dist/viewer.css'
+import Viewer from 'v-viewer'
 
 const app = createApp(App);
 app.use(router);
@@ -45,5 +48,5 @@ VMdPreview.use(vuepressTheme, {
   .use(createTodoListPlugin())
   .use(createKatexPlugin());
 app.use(VMdPreview);
-
+app.use(Viewer)
 app.mount(`#app`);

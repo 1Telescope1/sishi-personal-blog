@@ -136,7 +136,6 @@ const init = async () => {
   const res = await reqFriendList();
   if (res.code == 200) {
     linkList.value = res.data;
-    console.log(linkList.value);
   }
 };
 init();

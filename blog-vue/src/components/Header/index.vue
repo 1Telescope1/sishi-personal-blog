@@ -68,10 +68,11 @@
       <div class="navbar-end">
         <label class="swap swap-rotate" style="font-size: 14px;">
           <!-- this hidden checkbox controls the state -->
-          <input type="checkbox" />
+          <input  @click="changeTheme" type="checkbox" />
 
           <!-- sun icon -->
           <svg
+            v-if="!blog.isDark"
             class="swap-on fill-current w-8 h-8"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -83,6 +84,7 @@
 
           <!-- moon icon -->
           <svg
+            v-else
             class="swap-off fill-current w-8 h-8"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -108,8 +110,8 @@
             />
           </svg>
         </button>
-        <Login></Login>
-        <div class="dropdown dropdown-end">
+        <Login v-if="!user.user"></Login>
+        <div v-else class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
               <img src="@/assets/images/头像.jpg" />
@@ -117,10 +119,9 @@
           </label>
           <ul
             tabindex="0"
-            class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box"
+            class="mt-3 z-[1] summary-black p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box"
           >
-            <li><a>Settings</a></li>
-            <li><a>Logout</a></li>
+            <li @click="logout"><a>Logout</a></li>
           </ul>
         </div>
       </div>
@@ -130,6 +131,25 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { useUserStore } from '@/store/user';
+import { useDark,useToggle, useScroll } from "@vueuse/core";
+import { useBlogStore } from '../../store/blog';
+
+const isDark = useDark({
+  selector: 'html',
+  attribute: 'theme',
+  valueDark: 'dark',
+  valueLight: 'light',
+})
+
+const toggle = useToggle(isDark);
+const blog=useBlogStore()
+const changeTheme=()=>{
+  toggle()
+  blog.isDark=!blog.isDark
+
+}
+
 const menuList = [
   {
     name: "首页",
@@ -222,6 +242,12 @@ const handleScroll = () => {
   scrollTop.value = top;
 };
 
+const user=useUserStore()
+const logout=()=>{
+  user.logout()
+  
+}
+
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
 });
@@ -235,9 +261,9 @@ onMounted(() => {
 }
 .scrollTop_zero {
   background-color: rgba(0, 0, 0, 0);
-  color: #ffffff !important;
 }
 .header-bg {
+  color: var(--grey-9) !important;
   background: linear-gradient(-225deg, var(--color-cyan-light) 0, var(--color-pink-light) 100%);
 }
 .summary-black {

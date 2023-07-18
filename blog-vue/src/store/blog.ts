@@ -12,7 +12,9 @@ export const useBlogStore = defineStore(
       onlineNumber.value=cnt
     }
 
-    return { onlineNumber,setOnlineNumber,touristAvatar,touristName};
+    let isDark=ref(false)
+
+    return { onlineNumber,setOnlineNumber,touristAvatar,touristName,isDark};
   },
   {
     // 开启持久化（使用本地存储，默认是localStorage）

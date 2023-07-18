@@ -22,6 +22,7 @@ Socket.init();
           v-if="!$route.meta.keepAlive"
         />
       </router-view>
+      <!-- <router-view></router-view> -->
     </main>
     <Footer></Footer>
   </div>

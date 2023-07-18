@@ -1,5 +1,6 @@
 import { reqLoign } from "@/api/user";
 import { LoginUser, userForm } from "@/api/user/type";
+import { notification } from "@/utils/elComponent";
 import { defineStore } from "pinia";
 import { reactive, ref } from 'vue';
 
@@ -17,7 +18,12 @@ export const useUserStore = defineStore(
       return false
     }
 
-    return { login,user};
+    const logout=async ()=>{
+      user.value=undefined
+      notification("success","退出登录成功")
+    }
+
+    return { login,user,logout};
   },
   {
     // 开启持久化（使用本地存储，默认是localStorage）

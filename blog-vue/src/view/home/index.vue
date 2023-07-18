@@ -46,7 +46,7 @@ const clickPage=(val:number)=>{
 </script>
 
 <template>
-  <div>
+  <div class="bg">
     <div style="position: relative">
       <Images></Images>
       <Title></Title>

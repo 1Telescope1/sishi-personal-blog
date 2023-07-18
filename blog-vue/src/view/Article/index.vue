@@ -78,6 +78,7 @@
         <div class="left-container">
           <div class="article-container">
             <v-md-preview
+            v-viewer
               ref="articleRef"
               class="md"
               :text="article.content"

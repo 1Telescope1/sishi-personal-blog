@@ -15,8 +15,7 @@
 }
 
 body {
-    background-color: rgb(255, 255, 255);
-    color:  #333333;
+    color:  var(--grey-9);
     font-family: Mulish, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
     font-size: 1em;
     overflow-x: hidden;

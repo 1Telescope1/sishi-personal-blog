@@ -22,7 +22,7 @@ const routes = [
     name: "article",
     component: () => import("@/view/Article/index.vue"),
     meta: {
-      keepAlive: true, //需要缓存
+      keepAlive: false, //需要缓存
     },
   },
   {
@@ -54,7 +54,7 @@ const routes = [
     name: "talk",
     component: () => import("@/view/TalkItem/index.vue"),
     meta: {
-      keepAlive: true, //需要缓存
+      keepAlive: false, //需要缓存
     },
   },
   {
@@ -78,7 +78,7 @@ const routes = [
     name: "tagDetail",
     component: () => import("@/view/TagDetail/index.vue"),
     meta: {
-      keepAlive: true, //需要缓存
+      keepAlive: false, //需要缓存
     },
   },
   {
