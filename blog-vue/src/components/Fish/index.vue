@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script setup lang='ts'>
+<script setup>
 import $ from "jquery";
 import {onMounted, ref} from 'vue'
 const fish=()=> {
@@ -168,8 +168,6 @@ const fish=()=> {
           requestAnimationFrame(this.render);
           this.controlStatus();
           this.context.clearRect(0, 0, this.width, this.height);
-          this.context.fillStyle =
-            "linear-gradient(90deg, rgba(247, 149, 51, 0.1),rgba(243, 112, 85, 0.1) 15%,rgba(239, 78, 123, 0.1) 30%,rgba(161, 102, 171, 0.1) 44%,rgba(80, 115, 184, 0.1) 58%,rgba(16, 152, 173, 0.1) 72%,rgba(7, 179, 155, 0.1) 86%,rgba(109, 186, 130, 0.1))";
 
           for (var i = 0, count = this.fishes.length; i < count; i++) {
             this.fishes[i].render(this.context);
@@ -346,7 +344,7 @@ const fish=()=> {
           // ================================ 画鱼开始 ================================
           context.save();
           // 设置鱼的颜色
-          context.fillStyle = "linear-gradient(90deg, rgba(247, 149, 51, 0.1),rgba(243, 112, 85, 0.1) 15%,rgba(239, 78, 123, 0.1) 30%,rgba(161, 102, 171, 0.1) 44%,rgba(80, 115, 184, 0.1) 58%,rgba(16, 152, 173, 0.1) 72%,rgba(7, 179, 155, 0.1) 86%,rgba(109, 186, 130, 0.1))";
+          // context.fillStyle = "linear-gradient(90deg, rgba(247, 149, 51, 0.1),rgba(243, 112, 85, 0.1) 15%,rgba(239, 78, 123, 0.1) 30%,rgba(161, 102, 171, 0.1) 44%,rgba(80, 115, 184, 0.1) 58%,rgba(16, 152, 173, 0.1) 72%,rgba(7, 179, 155, 0.1) 86%,rgba(109, 186, 130, 0.1))";
           // context.fillStyle = "#EBEEF5";
           context.translate(this.x, this.y);
           context.rotate(Math.PI + Math.atan2(this.vy, this.vx));

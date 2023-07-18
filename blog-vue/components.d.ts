@@ -46,6 +46,8 @@ declare module 'vue' {
     SocialList: typeof import('./src/components/SocialList/index.vue')['default']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
     Title: typeof import('./src/components/Title/index.vue')['default']
+    Tool: typeof import('./src/components/Tool/index.vue')['default']
+    Top: typeof import('./src/components/Top/index.vue')['default']
     Waves: typeof import('./src/components/Waves/index.vue')['default']
     WebInfo: typeof import('./src/components/WebInfo/index.vue')['default']
   }

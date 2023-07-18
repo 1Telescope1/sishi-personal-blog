@@ -83,13 +83,11 @@ const routes = [
   },
   {
     // 配置404页面
-    path: "/:catchAll(.*)",
+    path: "/404",
     name: "404",
     component: () => import("@/view/404/index.vue"),
-    meta: {
-        keepAlive: true  //需要缓存
-    },
   },
+  { path: "/:catchAll(.*)", redirect: "/404" },
 ];
 // 路由
 const router = createRouter({

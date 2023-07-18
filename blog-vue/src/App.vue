@@ -6,7 +6,7 @@ Socket.init();
 
 <template>
   <div class="app-wrapper">
-    <Header></Header>
+    <Header v-show="$route.path!='/404'"></Header>
     <main class="main">
       <router-view v-slot="{ Component }">
         <keep-alive>
@@ -24,7 +24,8 @@ Socket.init();
       </router-view>
       <!-- <router-view></router-view> -->
     </main>
-    <Footer></Footer>
+    <Footer v-show="$route.path!='/404'"></Footer>
+    <Tool></Tool>
   </div>
 </template>
 

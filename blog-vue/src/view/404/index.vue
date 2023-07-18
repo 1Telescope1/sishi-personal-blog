@@ -29,7 +29,7 @@
         <div class="bullshit__info">
           请检查您输入的URL是否正确，或者确认您是否有权限进入那个页面。
         </div>
-        <router-link to="/home" class="bullshit__return-home"
+        <router-link to="/" class="bullshit__return-home"
           >返回首页</router-link
         >
       </div>
