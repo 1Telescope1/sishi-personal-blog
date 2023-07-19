@@ -1,6 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { TComment } from "./TComment";
+import { TMessage } from "./TMessage";
 import { TTalk } from "./TTalk";
+import { TTalkComment } from "./TTalkComment";
 import { TUserRole } from "./TUserRole";
 
 @Entity("t_user_info", { schema: "aurora" })
@@ -54,21 +56,32 @@ export class TUserInfo {
   })
   isDisable: boolean;
 
-  @Column("datetime", { name: "create_time", comment: "创建时间" })
+  @Column("datetime", {
+    name: "create_time",
+    comment: "创建时间",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   createTime: Date;
 
   @Column("datetime", {
     name: "update_time",
     nullable: true,
     comment: "更新时间",
+    default: () => "CURRENT_TIMESTAMP",
   })
   updateTime: Date | null;
 
   @OneToMany(() => TComment, (tComment) => tComment.user)
   tComments: TComment[];
 
+  @OneToMany(() => TMessage, (tMessage) => tMessage.user)
+  tMessages: TMessage[];
+
   @OneToMany(() => TTalk, (tTalk) => tTalk.user)
   tTalks: TTalk[];
+
+  @OneToMany(() => TTalkComment, (tTalkComment) => tTalkComment.user)
+  tTalkComments: TTalkComment[];
 
   @OneToMany(() => TUserRole, (tUserRole) => tUserRole.user)
   tUserRoles: TUserRole[];

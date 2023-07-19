@@ -3,6 +3,19 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AboutModule } from './api/about/about.module';
+import { TalkModule } from './api/talk/talk.module';
+import { UserInfoModule } from './api/user-info/user-info.module';
+import { UserRoleModule } from './api/user-role/user-role.module';
+import { CommentModule } from './api/comment/comment.module';
+import { RoleModule } from './api/role/role.module';
+import { RoleResourceModule } from './api/role-resource/role-resource.module';
+import { RoleMenuModule } from './api/role-menu/role-menu.module';
+import { MenuModule } from './api/menu/menu.module';
+import { ResourceModule } from './api/resource/resource.module';
+import { MessageModule } from './api/message/message.module';
+import { TalkCommentModule } from './api/talk-comment/talk-comment.module';
+import { TagModule } from './api/tag/tag.module';
+import { ArticleModule } from './api/article/article.module';
 
 @Module({
   imports: [
@@ -20,6 +33,19 @@ import { AboutModule } from './api/about/about.module';
       autoLoadEntities: true, //如果为true,将自动加载实体 forFeature()方法注册的每个实体都将自动添加到配置对象的实体数组中
     }),
     AboutModule,
+    TalkModule,
+    UserInfoModule,
+    UserRoleModule,
+    CommentModule,
+    RoleModule,
+    RoleResourceModule,
+    RoleMenuModule,
+    MenuModule,
+    ResourceModule,
+    MessageModule,
+    TalkCommentModule,
+    TagModule,
+    ArticleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,6 +1,14 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { TArticleTag } from "./TArticleTag";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { TTag } from "./TTag";
 
+@Index("article_tagId", ["tagId"], {})
 @Entity("t_article", { schema: "aurora" })
 export class TArticle {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
@@ -82,19 +90,31 @@ export class TArticle {
   })
   originalUrl: string | null;
 
-  @Column("datetime", { name: "create_time", comment: "发表时间" })
+  @Column("datetime", {
+    name: "create_time",
+    comment: "发表时间",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   createTime: Date;
 
   @Column("datetime", {
     name: "update_time",
     nullable: true,
     comment: "更新时间",
+    default: () => "CURRENT_TIMESTAMP",
   })
   updateTime: Date | null;
 
   @Column("int", { name: "views", comment: "浏览量", default: () => "'0'" })
   views: number;
 
-  @OneToMany(() => TArticleTag, (tArticleTag) => tArticleTag.article)
-  tArticleTags: TArticleTag[];
+  @Column("int", { name: "tag_id", comment: "文章标签" })
+  tagId: number;
+
+  @ManyToOne(() => TTag, (tTag) => tTag.tArticles, {
+    onDelete: "RESTRICT",
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn([{ name: "tag_id", referencedColumnName: "id" }])
+  tag: TTag;
 }

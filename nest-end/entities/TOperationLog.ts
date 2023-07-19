@@ -45,13 +45,18 @@ export class TOperationLog {
   @Column("varchar", { name: "ip_source", comment: "操作地址", length: 255 })
   ipSource: string;
 
-  @Column("datetime", { name: "create_time", comment: "创建时间" })
+  @Column("datetime", {
+    name: "create_time",
+    comment: "创建时间",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   createTime: Date;
 
   @Column("datetime", {
     name: "update_time",
     nullable: true,
     comment: "更新时间",
+    default: () => "CURRENT_TIMESTAMP",
   })
   updateTime: Date | null;
 }

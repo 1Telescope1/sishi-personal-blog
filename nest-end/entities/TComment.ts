@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { TUserInfo } from "./TUserInfo";
 
+@Index("comment_articleId", ["articleId"], {})
 @Index("fk_comment_parent", ["parentId"], {})
 @Index("fk_comment_user", ["userId"], {})
 @Entity("t_comment", { schema: "aurora" })
@@ -17,9 +18,6 @@ export class TComment {
 
   @Column("int", { name: "user_id", comment: "评论用户Id" })
   userId: number;
-
-  @Column("int", { name: "topic_id", nullable: true, comment: "评论主题id" })
-  topicId: number | null;
 
   @Column("text", { name: "comment_content", comment: "评论内容" })
   commentContent: string;
@@ -33,12 +31,6 @@ export class TComment {
 
   @Column("int", { name: "parent_id", nullable: true, comment: "父评论id" })
   parentId: number | null;
-
-  @Column("tinyint", {
-    name: "type",
-    comment: "评论类型 1.文章 2.留言 3.关于我 4.友链 5.说说",
-  })
-  type: number;
 
   @Column("tinyint", {
     name: "is_delete",
@@ -55,15 +47,23 @@ export class TComment {
   })
   isReview: boolean;
 
-  @Column("datetime", { name: "create_time", comment: "评论时间" })
+  @Column("datetime", {
+    name: "create_time",
+    comment: "评论时间",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   createTime: Date;
 
   @Column("datetime", {
     name: "update_time",
     nullable: true,
     comment: "更新时间",
+    default: () => "CURRENT_TIMESTAMP",
   })
   updateTime: Date | null;
+
+  @Column("int", { name: "article_id", comment: "文章id" })
+  articleId: number;
 
   @ManyToOne(() => TUserInfo, (tUserInfo) => tUserInfo.tComments, {
     onDelete: "RESTRICT",

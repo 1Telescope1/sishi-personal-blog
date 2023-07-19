@@ -58,6 +58,10 @@ export class TExceptionLog {
   })
   ipSource: string | null;
 
-  @Column("datetime", { name: "create_time", comment: "操作时间" })
+  @Column("datetime", {
+    name: "create_time",
+    comment: "操作时间",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   createTime: Date;
 }
