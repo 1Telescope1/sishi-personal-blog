@@ -7,11 +7,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import $ from "jquery";
 import {onMounted, ref} from 'vue'
 const fish=()=> {
-      var RENDERER = {
+      let RENDERER = {
         POINT_INTERVAL: 5,
         FISH_COUNT: 5,
         MAX_INTERVAL_COUNT: 50,
@@ -39,12 +39,12 @@ const fish=()=> {
           this.watchIds = [];
         },
         createSurfacePoints: function () {
-          var count = Math.round(this.width / this.POINT_INTERVAL);
+          let count = Math.round(this.width / this.POINT_INTERVAL);
           this.pointInterval = this.width / (count - 1);
           this.points.push(new SURFACE_POINT(this, 0));
 
-          for (var i = 1; i < count; i++) {
-            var point = new SURFACE_POINT(this, i * this.pointInterval),
+          for (let i = 1; i < count; i++) {
+            let point = new SURFACE_POINT(this, i * this.pointInterval),
               previous = this.points[i - 1];
 
             point.setPreviousPoint(previous);
@@ -90,7 +90,7 @@ const fish=()=> {
           }
         },
         jdugeToStopResize: function () {
-          var width = this.$window.width(),
+          let width = this.$window.width(),
             height = this.$window.height(),
             stopped = width == this.tmpWidth && height == this.tmpHeight;
 
@@ -108,19 +108,19 @@ const fish=()=> {
           // 点击切换
           // this.$container.on("click", this.reverseVertical);
         },
-        getAxis: function (event) {
-          var offset = this.$container.offset();
+        getAxis: function (event: { clientX: number; clientY: number; }) {
+          let offset = this.$container.offset();
 
           return {
             x: event.clientX - offset.left + this.$window.scrollLeft(),
             y: event.clientY - offset.top + this.$window.scrollTop(),
           };
         },
-        startEpicenter: function (event) {
+        startEpicenter: function (event: any) {
           this.axis = this.getAxis(event);
         },
-        moveEpicenter: function (event) {
-          var axis = this.getAxis(event);
+        moveEpicenter: function (event: any) {
+          let axis = this.getAxis(event);
 
           if (!this.axis) {
             this.axis = axis;
@@ -128,14 +128,14 @@ const fish=()=> {
           this.generateEpicenter(axis.x, axis.y, axis.y - this.axis.y);
           this.axis = axis;
         },
-        generateEpicenter: function (x, y, velocity) {
+        generateEpicenter: function (x: number, y: number, velocity: any) {
           if (
             y < this.height / 2 - this.THRESHOLD ||
             y > this.height / 2 + this.THRESHOLD
           ) {
             return;
           }
-          var index = Math.round(x / this.pointInterval);
+          let index = Math.round(x / this.pointInterval);
 
           if (index < 0 || index >= this.points.length) {
             return;
@@ -146,15 +146,15 @@ const fish=()=> {
         // reverseVertical: function () {
         //   this.reverse = !this.reverse;
 
-        //   for (var i = 0, count = this.fishes.length; i < count; i++) {
+        //   for (let i = 0, count = this.fishes.length; i < count; i++) {
         //     this.fishes[i].reverseVertical();
         //   }
         // },
         controlStatus: function () {
-          for (var i = 0, count = this.points.length; i < count; i++) {
+          for (let i = 0, count = this.points.length; i < count; i++) {
             this.points[i].updateSelf();
           }
-          for (var i = 0, count = this.points.length; i < count; i++) {
+          for (let i = 0, count = this.points.length; i < count; i++) {
             this.points[i].updateNeighbors();
           }
           if (this.fishes.length < this.fishCount) {
@@ -169,7 +169,7 @@ const fish=()=> {
           this.controlStatus();
           this.context.clearRect(0, 0, this.width, this.height);
 
-          for (var i = 0, count = this.fishes.length; i < count; i++) {
+          for (let i = 0, count = this.fishes.length; i < count; i++) {
             this.fishes[i].render(this.context);
           }
           this.context.save();
@@ -177,7 +177,7 @@ const fish=()=> {
           this.context.beginPath();
           this.context.moveTo(0, this.reverse ? 0 : this.height);
 
-          for (var i = 0, count = this.points.length; i < count; i++) {
+          for (let i = 0, count = this.points.length; i < count; i++) {
             this.points[i].render(this.context);
           }
           this.context.lineTo(this.width, this.reverse ? 0 : this.height);
@@ -186,7 +186,7 @@ const fish=()=> {
           this.context.restore();
         },
       };
-      var SURFACE_POINT = function (renderer, x) {
+      let SURFACE_POINT = function (this: any, renderer: { POINT_INTERVAL: number; FISH_COUNT: number; MAX_INTERVAL_COUNT: number; INIT_HEIGHT_RATE: number; THRESHOLD: number; init: () => void; setParameters: () => void; createSurfacePoints: () => void; reconstructMethods: () => void; setup: () => void; watchWindowSize: () => void; clearTimer: () => void; jdugeToStopResize: () => void; bindEvent: () => void; getAxis: (event: any) => { x: any; y: any; }; startEpicenter: (event: any) => void; moveEpicenter: (event: any) => void; generateEpicenter: (x: any, y: any, velocity: any) => void; controlStatus: () => void; render: () => void; }, x: number) {
         this.renderer = renderer;
         this.x = x;
         this.init();
@@ -204,13 +204,13 @@ const fish=()=> {
           this.fy = 0;
           this.force = { previous: 0, next: 0 };
         },
-        setPreviousPoint: function (previous) {
+        setPreviousPoint: function (previous: any) {
           this.previous = previous;
         },
-        setNextPoint: function (next) {
+        setNextPoint: function (next: any) {
           this.next = next;
         },
-        interfere: function (y, velocity) {
+        interfere: function (y: number, velocity: number) {
           this.fy =
             this.renderer.height *
             this.ACCELARATION_RATE *
@@ -232,7 +232,7 @@ const fish=()=> {
               this.WAVE_SPREAD * (this.height - this.next.height);
           }
         },
-        render: function (context) {
+        render: function (context: { lineTo: (arg0: any, arg1: number) => void; }) {
           if (this.previous) {
             this.previous.height += this.force.previous;
             this.previous.fy += this.force.previous;
@@ -244,7 +244,7 @@ const fish=()=> {
           context.lineTo(this.x, this.renderer.height - this.height);
         },
       };
-      var FISH = function (renderer) {
+      let FISH = function (this: any, renderer: { POINT_INTERVAL: number; FISH_COUNT: number; MAX_INTERVAL_COUNT: number; INIT_HEIGHT_RATE: number; THRESHOLD: number; init: () => void; setParameters: () => void; createSurfacePoints: () => void; reconstructMethods: () => void; setup: () => void; watchWindowSize: () => void; clearTimer: () => void; jdugeToStopResize: () => void; bindEvent: () => void; getAxis: (event: any) => { x: any; y: any; }; startEpicenter: (event: any) => void; moveEpicenter: (event: any) => void; generateEpicenter: (x: any, y: any, velocity: any) => void; controlStatus: () => void; render: () => void; }) {
         this.renderer = renderer;
         this.init();
       };
@@ -279,7 +279,7 @@ const fish=()=> {
           this.theta = 0;
           this.phi = 0;
         },
-        getRandomValue: function (min, max) {
+        getRandomValue: function (min: number, max: number) {
           return min + (max - min) * Math.random();
         },
         // // 点击切换
@@ -287,7 +287,7 @@ const fish=()=> {
         //   this.isOut = !this.isOut;
         //   this.ay *= -1;
         // },
-        controlStatus: function (context) {
+        controlStatus: function (context: any) {
           this.previousY = this.y;
           this.x += this.vx;
           this.y += this.vy;
@@ -340,7 +340,7 @@ const fish=()=> {
             this.init();
           }
         },
-        render: function (context) {
+        render: function (context: { save: () => void; translate: (arg0: number, arg1: number) => void; rotate: (arg0: number) => void; scale: (arg0: number, arg1: number) => void; beginPath: () => void; moveTo: (arg0: number, arg1: number) => void; bezierCurveTo: (arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number) => void; fill: () => void; quadraticCurveTo: (arg0: number, arg1: number, arg2: number, arg3: number) => void; restore: () => void; closePath: () => void; fillStyle: string; }) {
           // ================================ 画鱼开始 ================================
           context.save();
           // 设置鱼的颜色
