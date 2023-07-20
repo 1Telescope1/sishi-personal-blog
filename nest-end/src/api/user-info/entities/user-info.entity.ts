@@ -76,7 +76,7 @@ export class UserInfo {
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
 
-  @OneToMany(() => Message, (messages) => messages.user)
+  @OneToMany(() => Message, (message) => message.user)
   messages: Message[];
 
   @OneToMany(() => Talk, (talk) => talk.user)

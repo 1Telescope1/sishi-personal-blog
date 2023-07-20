@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
-import { UpdateArticleDto } from './dto/update-article.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Article } from './entities/article.entity';
-import { Brackets, Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ArticleService {
@@ -29,8 +28,8 @@ export class ArticleService {
       .select()
       .leftJoin('article.tag', 'tag')
       .addSelect('tag.tagName')
-      .leftJoin('article.userinfo','userinfo')
-      .addSelect(['userinfo.nickname','userinfo.avatar'])
+      .leftJoin('article.userinfo', 'userinfo')
+      .addSelect(['userinfo.nickname', 'userinfo.avatar'])
       .where('article.articleTitle LIKE :articleTitle', {
         articleTitle: `%${articleTitle}%`,
       })
@@ -46,24 +45,33 @@ export class ArticleService {
   }
 
   findAll() {
-    return this.articleRepository.find();
+    const data = this.articleRepository
+      .createQueryBuilder('article')
+      .select()
+      .leftJoin('article.tag', 'tag')
+      .addSelect('tag.tagName')
+      .leftJoin('article.userinfo', 'userinfo')
+      .addSelect(['userinfo.nickname', 'userinfo.avatar'])
+      .andWhere('article.isDelete=:isDelete', { isDelete: 0 })
+      .getMany();
+    return data;
   }
 
   findOne(id: number) {
-    const data=this.articleRepository
-    .createQueryBuilder('article')
-    .select()
-    .leftJoin('article.tag', 'tag')
-    .addSelect('tag.tagName')
-    .leftJoin('article.userinfo','userinfo')
-      .addSelect(['userinfo.nickname','userinfo.avatar'])
-    .where('article.id=:id',{id})
-    .andWhere('article.isDelete=:isDelete', { isDelete: 0 })
-    .getOne()
-    return  data;
+    const data = this.articleRepository
+      .createQueryBuilder('article')
+      .select()
+      .leftJoin('article.tag', 'tag')
+      .addSelect('tag.tagName')
+      .leftJoin('article.userinfo', 'userinfo')
+      .addSelect(['userinfo.nickname', 'userinfo.avatar'])
+      .where('article.id=:id', { id })
+      .andWhere('article.isDelete=:isDelete', { isDelete: 0 })
+      .getOne();
+    return data;
   }
 
-  update(Article: Article) {
+  update(article: Article) {
     const {
       id,
       categoryId,
@@ -78,12 +86,11 @@ export class ArticleService {
       password,
       originalUrl,
       tagId,
-    } = Article;
+    } = article;
     const data = this.articleRepository
       .createQueryBuilder()
       .update(Article)
       .set({
-        id,
         categoryId,
         articleCover,
         articleTitle,
@@ -99,6 +106,7 @@ export class ArticleService {
       })
       .where('id=:id', { id })
       .execute();
+      return data
   }
 
   remove(id: number) {

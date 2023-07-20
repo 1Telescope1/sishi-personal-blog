@@ -1,26 +1,73 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Message } from './entities/message.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class MessageService {
+  constructor(
+    @InjectRepository(Message)
+    private readonly messageRepository: Repository<Message>,
+  ) {}
+
   create(createMessageDto: CreateMessageDto) {
-    return 'This action adds a new message';
+    const data=this.messageRepository.save(createMessageDto)
+    return data;
+  }
+
+  findRecent() {
+    const data=this.messageRepository
+    .createQueryBuilder('message')
+    .leftJoin('message.user','userinfo')
+    .addSelect(['userinfo.nickname', 'userinfo.avatar'])
+    .where('message.isDelete=:isDelete',{isDelete:0})
+    .take(5)
+    .orderBy('message.id',"DESC")
+    .getMany()
+    return data
   }
 
   findAll() {
-    return `This action returns all message`;
+    const data=this.messageRepository
+    .createQueryBuilder('message')
+    .leftJoin('message.user','userinfo')
+    .addSelect(['userinfo.nickname', 'userinfo.avatar'])
+    .where('message.isDelete=:isDelete',{isDelete:0})
+    .getMany()
+    return data;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} message`;
+    const data=this.messageRepository.createQueryBuilder('message')
+    .leftJoin('message.user','userinfo')
+    .addSelect(['userinfo.nickname', 'userinfo.avatar'])
+    .where('message.isDelete=:isDelete',{isDelete:0})
+    .andWhere(`message.id=:id`,{id})
+    .getOne()
+    return data;
   }
 
-  update(id: number, updateMessageDto: UpdateMessageDto) {
-    return `This action updates a #${id} message`;
+  update(message: Message) {
+    const {id,commentContent,isDelete,isReview}=message
+    const data=this.messageRepository.createQueryBuilder()
+    .update(Message)
+    .set({commentContent,isDelete,isReview})
+    .where('id=:id',{id})
+    .execute()
+    return data;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} message`;
+    const data = this.messageRepository
+      .createQueryBuilder()
+      .update(Message)
+      .set({
+        isDelete: 1,
+      })
+      .where('id=:id', { id })
+      .execute();
+    return data;
   }
 }
