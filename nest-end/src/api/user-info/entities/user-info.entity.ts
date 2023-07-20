@@ -79,7 +79,7 @@ export class UserInfo {
   @OneToMany(() => Message, (message) => message.user)
   messages: Message[];
 
-  @OneToMany(() => Talk, (talk) => talk.user)
+  @OneToMany(() => Talk, (talk) => talk.userinfo)
   talks: Talk[];
 
   @OneToMany(() => TalkComment, (talkComment) => talkComment.user)

@@ -14,7 +14,7 @@ export class Talk {
   @PrimaryGeneratedColumn({ type: "int", name: "id", comment: "说说id" })
   id: number;
 
-  @Column("int", { name: "user_id", comment: "用户id" })
+  @Column("int", { name: "user_id", comment: "用户id",default: () => 1 })
   userId: number;
 
   @Column("varchar", { name: "content", comment: "说说内容", length: 2000 })
@@ -67,5 +67,5 @@ export class Talk {
     onUpdate: "CASCADE",
   })
   @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
-  user: UserInfo;
+  userinfo: UserInfo;
 }
