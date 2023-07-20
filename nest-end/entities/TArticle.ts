@@ -14,7 +14,12 @@ export class TArticle {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
-  @Column("int", { name: "user_id", comment: "作者" })
+  @Column("int", {
+    name: "user_id",
+    comment: "作者",
+    unsigned: true,
+    default: () => "'1'",
+  })
   userId: number;
 
   @Column("int", { name: "category_id", nullable: true, comment: "文章分类" })

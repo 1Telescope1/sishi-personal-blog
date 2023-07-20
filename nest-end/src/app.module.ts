@@ -16,6 +16,7 @@ import { MessageModule } from './api/message/message.module';
 import { TalkCommentModule } from './api/talk-comment/talk-comment.module';
 import { TagModule } from './api/tag/tag.module';
 import { ArticleModule } from './api/article/article.module';
+import { BackModule } from './api/back/back.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { ArticleModule } from './api/article/article.module';
     TalkCommentModule,
     TagModule,
     ArticleModule,
+    BackModule,
   ],
   controllers: [AppController],
   providers: [AppService],
