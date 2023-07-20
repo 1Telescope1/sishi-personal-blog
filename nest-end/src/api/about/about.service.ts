@@ -15,6 +15,7 @@ export class AboutService {
 
   findAll() {
     const data=this.aboutRepository.find()
+    
     return data;
   }
 

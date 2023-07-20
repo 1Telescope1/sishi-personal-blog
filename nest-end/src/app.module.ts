@@ -26,7 +26,7 @@ import { ArticleModule } from './api/article/article.module';
       host: 'localhost', //host
       port: 3306, //
       database: 'aurora', //库名
-      entities: [__dirname + '/**/*.entity{.ts,.js}'], //实体文件
+      entities: [__dirname + '/**/**/*.entity{.ts,.js}'], //实体文件
       // synchronize: true, //synchronize字段代表是否自动将实体类同步到数据库
       retryDelay: 500, //重试连接数据库间隔
       retryAttempts: 10, //重试连接数据库的次数

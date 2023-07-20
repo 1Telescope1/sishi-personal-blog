@@ -5,6 +5,7 @@ import { Message } from "src/api/message/entities/message.entity";
 import { Talk } from "src/api/talk/entities/talk.entity";
 import { TalkComment } from "src/api/talk-comment/entities/talk-comment.entity";
 import { UserRole } from "src/api/user-role/entities/user-role.entity";
+import { Article } from "src/api/article/entities/article.entity";
 
 @Entity("t_user_info", { schema: "aurora" })
 export class UserInfo {
@@ -86,4 +87,7 @@ export class UserInfo {
 
   @OneToMany(() => UserRole, (userRole) => userRole.user)
   userRoles: UserRole[];
+
+  @OneToMany(() => Article, (article) => article.userinfo)
+  articles: Article[];
 }

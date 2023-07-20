@@ -3,6 +3,7 @@ export class Result {
   private status:number
   private message:string
   private success:boolean
+  private path:string
   constructor(data = null, status = 200, message = null, success= true) {
     this.data=data
     this.status=status,

@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Tag } from "src/api/tag/entities/tag.entity";
+import { UserInfo } from "src/api/user-info/entities/user-info.entity";
 
 @Index("article_tagId", ["tagId"], {})
 @Entity("t_article", { schema: "aurora" })
@@ -17,7 +18,7 @@ export class Article {
   @Column("int", { name: "user_id", comment: "作者" })
   userId: number;
 
-  @Column("int", { name: "category_id", nullable: true, comment: "文章分类" })
+  @Column("int", { name: "category_id", nullable: true, comment: "文章分类" ,select:false })
   categoryId: number | null;
 
   @Column("varchar", {
@@ -55,6 +56,7 @@ export class Article {
     comment: "是否删除  0否 1是",
     width: 1,
     default: () => "'0'",
+    select:false
   })
   isDelete: boolean;
 
@@ -108,7 +110,7 @@ export class Article {
   @Column("int", { name: "views", comment: "浏览量", default: () => "'0'" })
   views: number;
 
-  @Column("int", { name: "tag_id", comment: "文章标签" })
+  @Column("int", { name: "tag_id", comment: "文章标签",select:false })
   tagId: number;
 
   @ManyToOne(() => Tag, (tag) => tag.articles, {
@@ -117,4 +119,11 @@ export class Article {
   })
   @JoinColumn([{ name: "tag_id", referencedColumnName: "id" }])
   tag: Tag;
+
+  @ManyToOne(() => UserInfo, (userInfo) => userInfo.articles, {
+    onDelete: "RESTRICT",
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
+  userinfo: UserInfo;
 }
