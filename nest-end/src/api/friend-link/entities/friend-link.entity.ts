@@ -2,7 +2,7 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("fk_friend_link_user", ["linkName"], {})
 @Entity("t_friend_link", { schema: "aurora" })
-export class TFriendLink {
+export class FriendLink {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 

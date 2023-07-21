@@ -36,8 +36,6 @@ export class TalkCommentService {
       .select()
       .leftJoin('talkcomment.userinfo', 'userinfo')
       .addSelect(['userinfo.nickname', 'userinfo.avatar'])
-      .leftJoin('talkcomment.talk', 'talk')
-      .addSelect(['talk.content', 'talk.id'])
       .where('talkcomment.isDelete=:isDelete', { isDelete: 0 })
       .andWhere('talkcomment.talkId=:talkId', { talkId })
       .getMany();
