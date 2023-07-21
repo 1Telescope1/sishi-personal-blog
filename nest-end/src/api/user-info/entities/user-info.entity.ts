@@ -73,7 +73,7 @@ export class UserInfo {
   })
   updateTime: Date | null;
 
-  @OneToMany(() => Comment, (comment) => comment.user)
+  @OneToMany(() => Comment, (comment) => comment.userinfo)
   comments: Comment[];
 
   @OneToMany(() => Message, (message) => message.user)

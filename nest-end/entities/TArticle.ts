@@ -4,9 +4,11 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { TTag } from "./TTag";
+import { TComment } from "./TComment";
 
 @Index("article_tagId", ["tagId"], {})
 @Entity("t_article", { schema: "aurora" })
@@ -122,4 +124,7 @@ export class TArticle {
   })
   @JoinColumn([{ name: "tag_id", referencedColumnName: "id" }])
   tag: TTag;
+
+  @OneToMany(() => TComment, (tComment) => tComment.article)
+  tComments: TComment[];
 }

@@ -39,23 +39,28 @@ export class TalkCommentService {
       .where('talkcomment.isDelete=:isDelete', { isDelete: 0 })
       .andWhere('talkcomment.talkId=:talkId', { talkId })
       .getMany();
+    
+    const data = list.filter((item) => item.parentId == null);
     for (let i = 0; i < list.length; i++) {
       list[i].children = [];
-      list[i].replyInfo = { nickname: null, avatar: null };
+      list[i].replyInfo={nickname:null,avatar:null}
     }
-    const data = list.filter((item) => item.parentId == null);
-    const children = list.filter(
+    const replyList = list.filter((item) => item.replyUserId != null);
+    let children = list.filter(
       (item) => item.parentId != null && item.replyUserId == null,
     );
-    const replyList = list.filter((item) => item.replyUserId != null);
+    
     for (let i = 0; i < replyList.length; i++) {
       for (let j = 0; j < children.length; j++) {
         if (replyList[i].replyUserId == children[j].userId) {
           replyList[i].replyInfo = children[j].userinfo;
-          children[j].children.push(replyList[i]);
         }
       }
     }
+
+    children=[...children,...replyList]
+    children.sort((a,b)=>a.id-b.id)
+
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < children.length; j++) {
         if (data[i].id == children[j].parentId) {
@@ -84,7 +89,7 @@ export class TalkCommentService {
   update(talkComment: TalkComment) {
     const {id,commentContent,isDelete,isReview}=talkComment
     const data=this.talkCommentRepository.createQueryBuilder()
-    .update(talkComment)
+    .update(TalkComment)
     .set({
       commentContent,
       isDelete,

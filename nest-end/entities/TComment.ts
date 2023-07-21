@@ -6,6 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { TArticle } from "./TArticle";
 import { TUserInfo } from "./TUserInfo";
 
 @Index("comment_articleId", ["articleId"], {})
@@ -64,6 +65,13 @@ export class TComment {
 
   @Column("int", { name: "article_id", comment: "文章id" })
   articleId: number;
+
+  @ManyToOne(() => TArticle, (tArticle) => tArticle.tComments, {
+    onDelete: "RESTRICT",
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn([{ name: "article_id", referencedColumnName: "id" }])
+  article: TArticle;
 
   @ManyToOne(() => TUserInfo, (tUserInfo) => tUserInfo.tComments, {
     onDelete: "RESTRICT",

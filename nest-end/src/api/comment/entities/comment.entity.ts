@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { UserInfo } from "src/api/user-info/entities/user-info.entity";
+import { Article } from "src/api/article/entities/article.entity";
 
 @Index("comment_articleId", ["articleId"], {})
 @Index("fk_comment_parent", ["parentId"], {})
@@ -65,10 +66,25 @@ export class Comment {
   @Column("int", { name: "article_id", comment: "文章id" })
   articleId: number;
 
+  @ManyToOne(() => Article, (article) => article.comments, {
+    onDelete: "RESTRICT",
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn([{ name: "article_id", referencedColumnName: "id" }])
+  article: Article;
+
+
   @ManyToOne(() => UserInfo, (userInfo) => userInfo.comments, {
     onDelete: "RESTRICT",
     onUpdate: "CASCADE",
   })
   @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
-  user: UserInfo;
+  userinfo: UserInfo;
+
+  children:Comment[]
+
+  replyInfo:{
+    nickname:string,
+    avatar:string
+  }
 }

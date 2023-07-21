@@ -4,10 +4,12 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Tag } from "src/api/tag/entities/tag.entity";
 import { UserInfo } from "src/api/user-info/entities/user-info.entity";
+import { Comment } from "src/api/comment/entities/comment.entity";
 
 @Index("article_tagId", ["tagId"], {})
 @Entity("t_article", { schema: "aurora" })
@@ -126,4 +128,7 @@ export class Article {
   })
   @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
   userinfo: UserInfo;
+
+  @OneToMany(() => Comment, (comment) => comment.article)
+  comments: Comment[];
 }
