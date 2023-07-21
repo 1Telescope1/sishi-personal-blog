@@ -2,33 +2,40 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TalkCommentService } from './talk-comment.service';
 import { CreateTalkCommentDto } from './dto/create-talk-comment.dto';
 import { UpdateTalkCommentDto } from './dto/update-talk-comment.dto';
+import { TalkComment } from './entities/talk-comment.entity';
+import { Result } from 'src/common/result';
 
-@Controller('talk-comment')
+@Controller('talkcomment')
 export class TalkCommentController {
   constructor(private readonly talkCommentService: TalkCommentService) {}
 
   @Post()
-  create(@Body() createTalkCommentDto: CreateTalkCommentDto) {
-    return this.talkCommentService.create(createTalkCommentDto);
+  async create(@Body() talkComment: TalkComment) {
+    return new Result(await this.talkCommentService.create(talkComment));
   }
 
   @Get()
-  findAll() {
-    return this.talkCommentService.findAll();
+  async findAll() {
+    return new Result(await this.talkCommentService.findAll())
+  }
+
+  @Get('talk/:talkId')
+  async findAllByTalk(@Param('talkId') talkId: string) {
+    return new Result(await this.talkCommentService.findAllByTalk(+talkId));
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.talkCommentService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return new Result(await this.talkCommentService.findOne(+id));
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTalkCommentDto: UpdateTalkCommentDto) {
-    return this.talkCommentService.update(+id, updateTalkCommentDto);
+  @Patch()
+  async update(@Body() talkComment: TalkComment) {
+    return new Result(await this.talkCommentService.update(talkComment));
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.talkCommentService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return new Result(await this.talkCommentService.remove(+id));
   }
 }

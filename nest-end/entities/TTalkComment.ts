@@ -6,11 +6,12 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { TTalk } from "./TTalk";
 import { TUserInfo } from "./TUserInfo";
 
-@Index("comment_articleId", ["talkId"], {})
-@Index("fk_comment_parent", ["parentId"], {})
 @Index("fk_comment_user", ["userId"], {})
+@Index("fk_comment_parent", ["parentId"], {})
+@Index("comment_articleId", ["talkId"], {})
 @Entity("t_talk_comment", { schema: "aurora" })
 export class TTalkComment {
   @PrimaryGeneratedColumn({ type: "int", name: "id", comment: "主键" })
@@ -64,6 +65,13 @@ export class TTalkComment {
 
   @Column("int", { name: "talk_id", comment: "说说id" })
   talkId: number;
+
+  @ManyToOne(() => TTalk, (tTalk) => tTalk.tTalkComments, {
+    onDelete: "RESTRICT",
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn([{ name: "talk_id", referencedColumnName: "id" }])
+  talk: TTalk;
 
   @ManyToOne(() => TUserInfo, (tUserInfo) => tUserInfo.tTalkComments, {
     onDelete: "RESTRICT",

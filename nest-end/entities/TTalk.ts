@@ -4,9 +4,11 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { TUserInfo } from "./TUserInfo";
+import { TTalkComment } from "./TTalkComment";
 
 @Index("talk_userId", ["userId"], {})
 @Entity("t_talk", { schema: "aurora" })
@@ -14,7 +16,7 @@ export class TTalk {
   @PrimaryGeneratedColumn({ type: "int", name: "id", comment: "说说id" })
   id: number;
 
-  @Column("int", { name: "user_id", comment: "用户id" })
+  @Column("int", { name: "user_id", comment: "用户id", default: () => "'1'" })
   userId: number;
 
   @Column("varchar", { name: "content", comment: "说说内容", length: 2000 })
@@ -68,4 +70,7 @@ export class TTalk {
   })
   @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
   user: TUserInfo;
+
+  @OneToMany(() => TTalkComment, (tTalkComment) => tTalkComment.talk)
+  tTalkComments: TTalkComment[];
 }

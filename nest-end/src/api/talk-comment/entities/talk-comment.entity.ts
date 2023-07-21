@@ -5,8 +5,10 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+
 } from "typeorm";
 import { UserInfo } from "src/api/user-info/entities/user-info.entity";
+import { Talk } from "src/api/talk/entities/talk.entity";
 
 @Index("comment_articleId", ["talkId"], {})
 @Index("fk_comment_parent", ["parentId"], {})
@@ -65,10 +67,24 @@ export class TalkComment {
   @Column("int", { name: "talk_id", comment: "说说id" })
   talkId: number;
 
+  @ManyToOne(() => Talk, (talk) => talk.talkComments, {
+    onDelete: "RESTRICT",
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn([{ name: "talk_id", referencedColumnName: "id" }])
+  talk: Talk;
+
   @ManyToOne(() => UserInfo, (userInfo) => userInfo.talkComments, {
     onDelete: "RESTRICT",
     onUpdate: "CASCADE",
   })
   @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
-  user: UserInfo;
+  userinfo: UserInfo;
+
+  children:TalkComment[]
+
+  replyInfo:{
+    nickname:string,
+    avatar:string
+  }
 }

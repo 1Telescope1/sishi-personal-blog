@@ -34,5 +34,5 @@ export class UserRole {
     onUpdate: "CASCADE",
   })
   @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
-  user: UserInfo;
+  userinfo: UserInfo;
 }
