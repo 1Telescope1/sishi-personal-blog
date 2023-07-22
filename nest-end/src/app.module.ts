@@ -18,6 +18,7 @@ import { TagModule } from './api/tag/tag.module';
 import { ArticleModule } from './api/article/article.module';
 import { BackModule } from './api/back/back.module';
 import { FriendLinkModule } from './api/friend-link/friend-link.module';
+import { LoginModule } from './api/login/login.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { FriendLinkModule } from './api/friend-link/friend-link.module';
     ArticleModule,
     BackModule,
     FriendLinkModule,
+    LoginModule,
   ],
   controllers: [AppController],
   providers: [AppService],

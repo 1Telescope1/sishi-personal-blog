@@ -24,11 +24,11 @@ export class TComment {
   commentContent: string;
 
   @Column("int", {
-    name: "reply_user_id",
+    name: "reply_comment_id",
     nullable: true,
-    comment: "回复用户id",
+    comment: "回复评论的id",
   })
-  replyUserId: number | null;
+  replyCommentId: number | null;
 
   @Column("int", { name: "parent_id", nullable: true, comment: "父评论id" })
   parentId: number | null;

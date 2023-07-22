@@ -35,7 +35,7 @@ export class TalkCommentService {
       .createQueryBuilder('talkcomment')
       .select()
       .leftJoin('talkcomment.userinfo', 'userinfo')
-      .addSelect(['userinfo.nickname', 'userinfo.avatar'])
+      .addSelect(['userinfo.id','userinfo.nickname', 'userinfo.avatar'])
       .where('talkcomment.isDelete=:isDelete', { isDelete: 0 })
       .andWhere('talkcomment.talkId=:talkId', { talkId })
       .getMany();
@@ -43,23 +43,24 @@ export class TalkCommentService {
     const data = list.filter((item) => item.parentId == null);
     for (let i = 0; i < list.length; i++) {
       list[i].children = [];
-      list[i].replyInfo={nickname:null,avatar:null}
+      list[i].replyInfo = {id:null, nickname: null, avatar: null };
     }
-    const replyList = list.filter((item) => item.replyUserId != null);
+    const replyList = list.filter((item) => item.replyCommentId != null);
     let children = list.filter(
-      (item) => item.parentId != null && item.replyUserId == null,
+      (item) => item.parentId != null 
     );
-    
+
     for (let i = 0; i < replyList.length; i++) {
       for (let j = 0; j < children.length; j++) {
-        if (replyList[i].replyUserId == children[j].userId) {
+        if (replyList[i].replyCommentId == children[j].id) {
           replyList[i].replyInfo = children[j].userinfo;
         }
       }
     }
+    
 
-    children=[...children,...replyList]
-    children.sort((a,b)=>a.id-b.id)
+    children = Array.from(new Set([...children, ...replyList]));
+    children.sort((a, b) => a.id - b.id);
 
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < children.length; j++) {
@@ -68,8 +69,7 @@ export class TalkCommentService {
         }
       }
     }
-
-    return data;
+    return data
   }
 
   findOne(id: number) {

@@ -1,13 +1,15 @@
 export interface UserInfo {
 	id: number;
-	username: string;
+	email: string;
+	nickname: string;
 	password: string;
-	email?: any;
-	address?: any;
+	avatar: string;
+	intro: string;
+	website: string;
+	isSubscribe?: any;
+	isDisable: number;
 	createTime: string;
-	avatarUrl: string;
-	role: string;
-	loginType?: any;
+	updateTime: string;
 }
 
 export interface UserMenu {
@@ -24,7 +26,7 @@ export interface UserMenu {
 
 export interface LoginUser {
 	id: number;
-	username: string;
+	nickname: string;
 	password: string;
 	email?: any;
 	avatarUrl: string;
@@ -37,7 +39,7 @@ export interface LoginUser {
 }
 
 export interface userForm{
-  username:string
+  nickname:string
   password:string
   confirmPwd?:string
 	identifyCode?:string

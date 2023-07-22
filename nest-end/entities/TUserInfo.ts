@@ -71,6 +71,9 @@ export class TUserInfo {
   })
   updateTime: Date | null;
 
+  @Column("varchar", { name: "password", comment: "密码", length: 255 })
+  password: string;
+
   @OneToMany(() => TComment, (tComment) => tComment.user)
   tComments: TComment[];
 

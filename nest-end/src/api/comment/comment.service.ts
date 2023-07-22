@@ -22,7 +22,7 @@ export class CommentService {
       .createQueryBuilder('comment')
       .select()
       .leftJoin('comment.userinfo', 'userinfo')
-      .addSelect(['userinfo.nickname', 'userinfo.avatar'])
+      .addSelect(['userinfo.id','userinfo.nickname', 'userinfo.avatar'])
       .leftJoin('comment.article', 'article')
       .addSelect(['article.articleTitle', 'article.id'])
       .where('comment.isDelete=:isDelete', { isDelete: 0 })
@@ -32,22 +32,23 @@ export class CommentService {
     const data = list.filter((item) => item.parentId == null);
     for (let i = 0; i < list.length; i++) {
       list[i].children = [];
-      list[i].replyInfo = { nickname: null, avatar: null };
+      list[i].replyInfo = {id:null, nickname: null, avatar: null };
     }
-    const replyList = list.filter((item) => item.replyUserId != null);
+    const replyList = list.filter((item) => item.replyCommentId != null);
     let children = list.filter(
-      (item) => item.parentId != null && item.replyUserId == null,
+      (item) => item.parentId != null 
     );
 
     for (let i = 0; i < replyList.length; i++) {
       for (let j = 0; j < children.length; j++) {
-        if (replyList[i].replyUserId == children[j].userId) {
+        if (replyList[i].replyCommentId == children[j].id) {
           replyList[i].replyInfo = children[j].userinfo;
         }
       }
     }
+    
 
-    children = [...children, ...replyList];
+    children = Array.from(new Set([...children, ...replyList]));
     children.sort((a, b) => a.id - b.id);
 
     for (let i = 0; i < data.length; i++) {

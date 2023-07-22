@@ -16,10 +16,10 @@
     <el-form :model="form" :rules="rules" ref="ruleFormRef">
       <el-form-item
         label="用户名"
-        prop="username"
+        prop="nickname"
         :label-width="formLabelWidth"
       >
-        <el-input v-model="form.username" autocomplete="off" />
+        <el-input v-model="form.nickname" autocomplete="off" />
       </el-form-item>
       <el-form-item label="密码" prop="password" :label-width="formLabelWidth">
         <el-input
@@ -89,7 +89,7 @@ const dialogFormVisible = ref(false);
 const formLabelWidth = "120px";
 
 const form = reactive<userForm>({
-  username: "",
+  nickname: "",
   password: "",
   confirmPwd: "",
   identifyCode: "",
@@ -97,7 +97,7 @@ const form = reactive<userForm>({
 const codeUrl = ref("");
 
 const rules = reactive<FormRules<userForm>>({
-  username: [
+  nickname: [
     { required: true, message: "请输入用户名", trigger: "blur" },
     { min: 3, max: 10, message: "长度在 3 到 5 个字符", trigger: "blur" },
   ],

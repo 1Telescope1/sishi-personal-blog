@@ -9,8 +9,8 @@ export interface Comment {
 	id: number;
 	userId: number;
 	commentContent: string;
-	replyUserId?: any;
-	parentId?: any;
+	replyCommentId?: number | null;
+	parentId?: number | null;
 	isDelete: number;
 	isReview: number;
 	createTime: string;
@@ -26,10 +26,11 @@ export interface Comment {
 
 export interface CommentParams {
   id?:number
-  userId: number;
+  userId: number |undefined;
 	commentContent: string;
-	replyUserId?: any;
+	replyCommentId?: any;
 	isDelete?: number;
 	isReview?: number;
 	articleId: number;
+  parentId:number | null
 }
