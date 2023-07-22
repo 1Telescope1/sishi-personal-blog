@@ -18,13 +18,13 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import { getBackImages } from "@/api/backimg/index";
-import { TagData } from "@/api/backimg/type";
+import { backImg } from "@/api/backimg/type";
 
-const imageList = ref<TagData[]>([]);
+const imageList = ref<backImg[]>([]);
 const getImageList = async () => {
   const res = await getBackImages();
   if (res.status === 200) {
-    imageList.value = res.data;
+    imageList.value = res.data; 
   }
 };
 getImageList();

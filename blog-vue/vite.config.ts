@@ -36,16 +36,17 @@ export default defineConfig(({ mode }) => {
     },
     base: "./", // 设置打包路径
     server: {
-      port: 3000, // 设置服务启动端口号
+      host: '0.0.0.0', //ip地址
+      port: 4000, // 设置服务启动端口号
       open: false, // 设置服务启动时是否自动打开浏览器
       cors: true, // 允许跨域
 
       // 设置代理，根据我们项目实际情况配置
       proxy: {
         "/api": {
-          target: env.VITE_BASE_URL, // 环境变量
+          target: "http://localhost:3000",
           changeOrigin: true,
-          secure: false,
+          // secure: false,
           rewrite: (path) => path.replace("/api/", ""),
         },
       },

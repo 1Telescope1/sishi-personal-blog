@@ -1,24 +1,24 @@
 <template>
   <div class="article-main" @click="pushArticle" v-animate="['slideUpBigIn']">
     <div class="article-img">
-      <img class="cover" v-lazy="article.coverUrl" />
+      <img class="cover" v-lazy="article.articleCover" />
     </div>
     <div class="article-info">
       <div class="timeAndTag">
         <div class="tag">
-          <el-icon :size="16"><Star /></el-icon>{{ article.tag }}
+          <el-icon :size="16"><Star /></el-icon>{{ article.tag.tagName }}
         </div>
         <div class="time">
           <el-icon :size="16"><Calendar /></el-icon
-          >{{ article.time.substring(0, 10) }}
+          >{{ article.createTime.substring(0, 10) }}
         </div>
       </div>
-      <div class="article-title">{{ article.title }}</div>
-      <div class="article-content">{{ article.content }}</div>
+      <div class="article-title">{{ article.articleTitle }}</div>
+      <div class="article-content">{{ article.articleContent }}</div>
       <div class="article-footer">
         <div class="article-author">
-          <img class="authorUrl rorate" v-lazy="article.authorUrl" alt="" />
-          <div>{{ article.author }}</div>
+          <img class="authorUrl rorate" v-lazy="article.userinfo.avatar" alt="" />
+          <div>{{ article.userinfo.nickname }}</div>
         </div>
         <div class="more">more...</div>
       </div>

@@ -144,7 +144,7 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { useRoute } from "vue-router";
-import { CommentList } from "@/api/comment/type";
+import { Comment } from "@/api/comment/type";
 import { reqCommentByArticle, reqSendComment } from "@/api/comment";
 import { CommentParams } from "@/api/comment/type";
 import { notification } from "../../../utils/elComponent";
@@ -155,9 +155,9 @@ import { useUserStore } from "@/store/user";
 const userInfo = useUserStore();
 
 const route = useRoute();
-const { articleId } = route.params as { articleId: string };
+const { articleId } = route.params as { articleId: number };
 
-const commentList = ref<CommentList[]>([]);
+const commentList = ref<Comment[]>([]);
 const init = async () => {
   const res = await reqCommentByArticle(articleId);
   if (res.status == 200) {

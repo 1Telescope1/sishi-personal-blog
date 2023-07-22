@@ -17,17 +17,18 @@ export class ArticleService {
     return data;
   }
 
-  findPage(
-    current: number,
-    size: number,
+  async findPage(
+    pageNum: number,
+    pageSize: number,
     articleTitle: string,
     articleContent: string,
+    tagId:string
   ) {
-    const data = this.articleRepository
+    const data =await this.articleRepository
       .createQueryBuilder('article')
       .select()
       .leftJoin('article.tag', 'tag')
-      .addSelect('tag.tagName')
+      .addSelect(['tag.tagName','tag.id'])
       .leftJoin('article.userinfo', 'userinfo')
       .addSelect(['userinfo.nickname', 'userinfo.avatar'])
       .where('article.articleTitle LIKE :articleTitle', {
@@ -36,12 +37,15 @@ export class ArticleService {
       .andWhere('article.articleContent LIKE :articleContent', {
         articleContent: `%${articleContent}%`,
       })
+      .andWhere('article.tagId LIKE :tagId',{
+        tagId:`%${tagId}%`
+      })
       .andWhere('article.isDelete=:isDelete', { isDelete: 0 })
-      .skip((current - 1) * size)
-      .take(size)
+      .skip((pageNum - 1) * pageSize)
+      .take(pageSize)
       .getMany();
-
-    return data;
+    const total=await this.articleRepository.count()
+    return {records:data,total,pageSize,pageNum};
   }
 
   findAll() {

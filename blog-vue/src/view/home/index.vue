@@ -16,17 +16,18 @@ const paramas = reactive<ArticleParams>({
   pageNum: 1,
   pageSize: 6,
   sumPage:1,
-  title: "",
-  content: "",
-  author: "",
-  tag: "",
+  articleTitle: "",
+  articleContent: "",
+  tagId: "",
 });
 const getPageArticleList = async () => {
   const res = await reqGetArticlesPage(paramas);
+  console.log(res);
+  
   if (res.status == 200) {
     articleList.value = res.data.records;
     paramas.total = res.data.total;
-    paramas.pageNum = res.data.current;
+    paramas.pageNum = res.data.pageNum;
     paramas.sumPage=Math.ceil(paramas.total/paramas.pageSize)
   }
 };

@@ -1,35 +1,35 @@
-export interface ChildrenComment {
-  id: number;
-  content: string;
-  userId: number;
-  time: string;
-  pid: number;
-  originId: number;
-  articleId: number;
-  username: string;
-  avatarUrl: string;
-  children?: any;
-  pusername: string;
-  puserId: number;
+import { UserInfo,ReplyInfo } from "@/common/model";
+
+export interface Article {
+	id: number;
+	articleTitle: string;
 }
 
-export interface CommentList {
-  id: number;
-  content: string;
-  userId: number;
-  time: string;
-  pid?: any;
-  originId?: any;
-  articleId: number;
-  username: string;
-  avatarUrl: string;
-  children: ChildrenComment[];
-  pusername?: any;
-  puserId?: any;
+export interface Comment {
+	id: number;
+	userId: number;
+	commentContent: string;
+	replyUserId?: any;
+	parentId?: any;
+	isDelete: number;
+	isReview: number;
+	createTime: string;
+	updateTime: string;
+	articleId: number;
+	userinfo: UserInfo;
+	article: Article;
+	children: Comment[];
+	replyInfo: ReplyInfo;
 }
+
+
 
 export interface CommentParams {
-  articleId: string;
-  content: string;
-  pid: number | null;
+  id?:number
+  userId: number;
+	commentContent: string;
+	replyUserId?: any;
+	isDelete?: number;
+	isReview?: number;
+	articleId: number;
 }

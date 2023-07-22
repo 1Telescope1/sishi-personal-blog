@@ -31,16 +31,18 @@ export class ArticleController {
 
   @Get('page')
   async findPage(
-    @Query('current', new ParseIntPipe()) current: number,
-    @Query('size', new ParseIntPipe()) size: number,
+    @Query('pageNum', new ParseIntPipe()) pageNum: number,
+    @Query('pageSize', new ParseIntPipe()) pageSize: number,
     @Query('articleTitle') articleTitle: string,
     @Query('articleContent') articleContent: string,
+    @Query('tagId') tagId:string
   ) {
     const data = await this.articleService.findPage(
-      current,
-      size,
+      pageNum,
+      pageSize,
       articleTitle,
       articleContent,
+      tagId
     );
     return new Result(data);
   }

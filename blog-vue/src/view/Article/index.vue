@@ -1,7 +1,7 @@
 <template>
     <div class="page-header" v-if="article">
       <div class="page-title">
-        <h1 class="article-title">{{ article.title }}</h1>
+        <h1 class="article-title">{{ article.articleTitle }}</h1>
         <div class="article-meta">
           <div class="meta">
             <div>
@@ -11,7 +11,7 @@
               ></svg-icon>
             </div>
             <div class="text">发表于</div>
-            <div>{{ formatDate(article.time) }}</div>
+            <div>{{ formatDate(article.createTime) }}</div>
           </div>
           <div class="meta">
             <div>
@@ -21,7 +21,7 @@
               ></svg-icon>
             </div>
             <div class="text">更新于</div>
-            <div>{{ formatDate(article.time) }}</div>
+            <div>{{ formatDate(article.updateTime) }}</div>
           </div>
           <div class="meta">
             <div>
@@ -32,7 +32,7 @@
             </div>
             <div class="text">浏览量</div>
           </div>
-          <div>{{ article.cnt }}</div>
+          <div>{{ article.views }}</div>
         </div>
         <div class="article-meta">
           <div class="meta">
@@ -65,11 +65,11 @@
                 style="margin-right: 0.15rem"
               ></svg-icon>
             </div>
-            <div>{{ article.tag }}</div>
+            <div>{{ article.tag.tagName }}</div>
           </div>
         </div>
       </div>
-      <img class="page-cover" :src="article.coverUrl" alt="" />
+      <img class="page-cover" :src="article.articleCover" alt="" />
       <!-- 波浪 -->
       <Waves></Waves>
     </div>
@@ -81,7 +81,7 @@
             v-viewer
               ref="articleRef"
               class="md"
-              :text="article.content"
+              :text="article.articleContent"
             ></v-md-preview>
             <Comment></Comment>
           </div>
@@ -112,7 +112,7 @@ const init = async () => {
   const res = await reqArticleById(articleId as string);
   if (res.status == 200) {
     article.value = res.data;
-    wordNum.value = deleteHTMLTag(article.value.content).length;
+    wordNum.value = deleteHTMLTag(article.value.articleContent).length;
     readTime.value = Math.round(wordNum.value / 400);
     articleLoaded.value = true;
   }
