@@ -1,5 +1,6 @@
 export interface Result<T> {
-  code:string | number
+  status:number
   data:T
-  msg:string
+  message:string | null,
+  success:boolean
 }

@@ -44,7 +44,7 @@ import { reqAllTalk } from "@/api/talks/index";
 const talkList = ref<Talk[]>([]);
 const init = async () => {
   const res = await reqAllTalk();
-  if (res.code == 200) {
+  if (res.status == 200) {
     talkList.value = res.data.reverse();
   }
 };

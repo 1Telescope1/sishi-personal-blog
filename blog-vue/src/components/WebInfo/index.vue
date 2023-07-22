@@ -42,7 +42,7 @@ setInterval(runTime, 1000);
 let views = ref(0);
 const getViews = async () => {
   const res = await reqGetViews();
-  if (res.code == "200") {
+  if (res.status == 200) {
     views.value = res.data;
   }
 };

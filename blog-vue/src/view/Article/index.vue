@@ -110,7 +110,7 @@ const articleRef = ref();
 const articleLoaded = ref(false);
 const init = async () => {
   const res = await reqArticleById(articleId as string);
-  if (res.code == "200") {
+  if (res.status == 200) {
     article.value = res.data;
     wordNum.value = deleteHTMLTag(article.value.content).length;
     readTime.value = Math.round(wordNum.value / 400);

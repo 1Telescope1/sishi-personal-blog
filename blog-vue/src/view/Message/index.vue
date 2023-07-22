@@ -57,7 +57,7 @@ const messageList = ref<Message[]>();
 
 const init = async () => {
   const res = await reqAllMessage();
-  if (res.code == 200) {
+  if (res.status == 200) {
     messageList.value = res.data;
   }
 };
@@ -91,7 +91,7 @@ const addToList = () => {
 
 const addMessage = async (messageInfo: Message) => {
   const res = await reqAddMessage(messageInfo);
-  if (res.code == 200) {
+  if (res.status == 200) {
     message.value = "";
     messageList.value?.push(messageInfo);
     notification("success", "发送成功");

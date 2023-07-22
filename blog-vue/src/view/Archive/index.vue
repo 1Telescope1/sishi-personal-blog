@@ -44,7 +44,7 @@ import { reqGetArticleList } from "../../api/article/index";
 const articleList = ref<Article[]>();
 const init = async () => {
   const res = await reqGetArticleList();
-  if (res.code == "200") {
+  if (res.status == 200) {
     articleList.value = res.data;
   }
 };

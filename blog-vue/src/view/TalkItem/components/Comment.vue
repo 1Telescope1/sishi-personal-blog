@@ -158,7 +158,7 @@ const { id } = route.params as unknown as { id: string };
 const talkList = ref<TalkCommentList[]>([]);
 const init = async () => {
   const res = await reqTalkComment(id);
-  if (res.code == "200") {
+  if (res.status == 200) {
     talkList.value = res.data;
   }
 };
@@ -200,7 +200,7 @@ const send = async () => {
     msg = "发送成功";
   }
   const res = await reqAddComment(commentParams);
-  if (res.code == "200") {
+  if (res.status == 200) {
     notification("success", msg);
     init();
     initCommentParams();
@@ -211,7 +211,7 @@ const send = async () => {
 const deleteComment = async (id: number) => {
   if (!validateUser()) return;
   const res = await reqDelComment(id);
-  if (res.code == 200) {
+  if (res.status == 200) {
     notification("success", "删除成功");
     init();
   }

@@ -29,7 +29,7 @@ const url='http://43.143.107.88:29000/avatar/2785e109706e4376a7fa06a1c5c65a59_16
 const messageList = ref<Message[]>([]);
 const getMessageList = async () => {
   const res = await reqFiveMessage();
-  if (res.code == "200") {
+  if (res.status == 200) {
     messageList.value = res.data;
   }
 };

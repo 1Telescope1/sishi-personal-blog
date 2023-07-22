@@ -23,7 +23,7 @@ const paramas = reactive<ArticleParams>({
 });
 const getPageArticleList = async () => {
   const res = await reqGetArticlesPage(paramas);
-  if (res.code == "200") {
+  if (res.status == 200) {
     articleList.value = res.data.records;
     paramas.total = res.data.total;
     paramas.pageNum = res.data.current;

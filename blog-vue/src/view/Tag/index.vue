@@ -37,7 +37,7 @@ const tagList = ref<Tag[]>([]);
 let tagLen = ref(0);
 const init = async () => {
   const res = await reqTags();
-  if (res.code == 200) {
+  if (res.status == 200) {
     tagList.value = res.data;
     tagLen.value = res.data.length;
   }

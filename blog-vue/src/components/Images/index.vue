@@ -23,7 +23,7 @@ import { TagData } from "@/api/backimg/type";
 const imageList = ref<TagData[]>([]);
 const getImageList = async () => {
   const res = await getBackImages();
-  if (res.code === "200") {
+  if (res.status === 200) {
     imageList.value = res.data;
   }
 };

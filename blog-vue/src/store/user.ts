@@ -11,7 +11,7 @@ export const useUserStore = defineStore(
     const user=ref<LoginUser>()
     const login=async (data:userForm)=>{
       const res=await reqLoign(data)
-      if(res.code=="200") {
+      if(res.status==200) {
         user.value=res.data
         return true
       }

@@ -160,7 +160,7 @@ const { articleId } = route.params as { articleId: string };
 const commentList = ref<CommentList[]>([]);
 const init = async () => {
   const res = await reqCommentByArticle(articleId);
-  if (res.code == "200") {
+  if (res.status == 200) {
     commentList.value = res.data;
   }
 };
@@ -202,7 +202,7 @@ const send = async () => {
     msg = "发送成功";
   }
   const res = await reqSendComment(commentParams);
-  if (res.code == "200") {
+  if (res.status == 200) {
     notification("success", msg);
     init();
     initCommentParams();
@@ -213,7 +213,7 @@ const send = async () => {
 const deleteComment = async (id: number) => {
   if (!validateUser()) return;
   const res = await reqDelComment(id);
-  if (res.code == 200) {
+  if (res.status == 200) {
     notification("success", "删除成功");
     init();
   }

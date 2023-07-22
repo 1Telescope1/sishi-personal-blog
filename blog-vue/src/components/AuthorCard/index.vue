@@ -29,7 +29,7 @@ let authorInfo = ref<UserInfo>({
 });
 const getAuthorInfo = async () => {
   const res = await reqUserInfo(1);
-  if (res.code == "200") {
+  if (res.status == 200) {
     authorInfo.value = res.data;
   }
 };

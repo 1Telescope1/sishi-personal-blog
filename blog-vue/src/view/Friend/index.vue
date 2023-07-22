@@ -134,7 +134,7 @@ import { notification } from "@/utils/elComponent";
 const linkList = ref<LinkDetail[]>([]);
 const init = async () => {
   const res = await reqFriendList();
-  if (res.code == 200) {
+  if (res.status == 200) {
     linkList.value = res.data;
   }
 };
@@ -176,7 +176,7 @@ let dialogFormVisible = ref(false);
 
 const submit = async () => {
   const res = await reqAddFriend(link);
-  if (res.code == 200) {
+  if (res.status == 200) {
     notification("success", "添加成功");
     dialogFormVisible.value = false;
   }

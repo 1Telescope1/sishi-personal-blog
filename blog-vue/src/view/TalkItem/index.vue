@@ -35,7 +35,7 @@ const { id } = route.params as unknown as { id: number };
 const talk = ref<Talk>();
 const init = async () => {
   const res = await reqTalkById(id);
-  if (res.code == 200) {
+  if (res.status == 200) {
     talk.value = res.data;
   }
 };
