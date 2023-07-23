@@ -8,4 +8,4 @@ export const reqFiveMessage=()=>request<Message[]>(`/message/recent`)
 export const reqAllMessage=()=>request<Message[]>(`/message`)
 
 // 新增留言
-export const reqAddMessage=(data:Message)=>request<null>(`/message`,'POST',data)
+export const reqAddMessage=(data:Message)=>request<Message>(`/message`,'POST',data)

@@ -1,4 +1,4 @@
-import { Tag, UserInfo } from "@/common/model";
+import { Tag, UserInfo } from "@/model";
 
 export interface Article {
   id: number;

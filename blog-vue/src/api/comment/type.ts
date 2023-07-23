@@ -1,4 +1,4 @@
-import { UserInfo,ReplyInfo } from "@/common/model";
+import { UserInfo,ReplyInfo } from "@/model";
 
 export interface Article {
 	id: number;

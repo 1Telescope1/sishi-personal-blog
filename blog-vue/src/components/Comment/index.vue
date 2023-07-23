@@ -10,7 +10,7 @@
       </div>
       <div class="detail">
         <div class="name">{{ message.user.nickname ? message.user.nickname : '游客'}}</div>
-        <div class="time">{{ message.createTime }}</div>
+        <div class="time">{{formatDateTime( message.createTime )}}</div>
         <div class="message">
           {{ message.commentContent }}
         </div>
@@ -23,6 +23,7 @@
 import { ref } from "vue";
 import { Message } from "@/api/message/type";
 import { reqFiveMessage } from "@/api/message";
+import { formatDateTime } from "@/utils/date";
 
 const url='http://43.143.107.88:29000/avatar/2785e109706e4376a7fa06a1c5c65a59_1666582417286.png'
 

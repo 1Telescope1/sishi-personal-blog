@@ -30,7 +30,7 @@ const routes = [
     name: "message",
     component: () => import("@/view/Message/index.vue"),
     meta: {
-      keepAlive: true, //需要缓存
+      keepAlive: false, //需要缓存
     },
   },
   {

@@ -12,9 +12,15 @@ export class MessageService {
     private readonly messageRepository: Repository<Message>,
   ) {}
 
-  create(createMessageDto: CreateMessageDto) {
-    const data=this.messageRepository.save(createMessageDto)
-    return data;
+  async create(createMessageDto: CreateMessageDto) {
+    const data=await this.messageRepository.save(createMessageDto)
+    const message=await this.messageRepository.createQueryBuilder('message')
+    .leftJoin('message.user','userinfo')
+    .addSelect(['userinfo.nickname', 'userinfo.avatar'])
+    .where('message.isDelete=:isDelete',{isDelete:0})
+    .andWhere(`message.id=:id`,{id:data.id})
+    .getOne()
+    return message;
   }
 
   findRecent() {

@@ -1,4 +1,4 @@
-import { UserInfo } from "@/common/model";
+import { UserInfo } from "@/model";
 
 export interface Message {
 	id: number;

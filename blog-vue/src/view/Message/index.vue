@@ -30,13 +30,13 @@
       <template v-slot:dm="{ danmu }">
         <span class="danmaku-item">
           <img
-            :src="danmu.avatarUrl"
+            :src="danmu.user.avatar"
             width="30"
             height="30"
             style="border-radius: 50%"
           />
-          <span class="ml">{{ danmu.username }} :</span>
-          <span class="ml">{{ danmu.content }}</span>
+          <span class="ml">{{ danmu.user.nickname }} :</span>
+          <span class="ml">{{ danmu.commentContent }}</span>
         </span>
       </template>
     </vue-danmaku>
@@ -69,31 +69,26 @@ let show = ref(false);
 const { user } = useUserStore();
 const { touristAvatar, touristName } = useBlogStore();
 const addToList = () => {
+
   if (message.value.trim() == "") {
     notification("error", "留言内容不可为空", "error");
     return;
   }
 
-  const avatarUrl = user?.avatarUrl ? user.avatarUrl : touristAvatar;
-  const username = user?.username ? user.username : touristName;
-  const userId = user ? user.id : null;
-  const content = message.value;
-  const status = 1;
-  const messageInfo: Message = {
-    avatarUrl,
-    username,
+  const userId = user ? user.id : 0;
+  const commentContent = message.value;
+  const messageInfo = {
     userId,
-    content,
-    status,
+    commentContent,
   };
   addMessage(messageInfo);
 };
 
-const addMessage = async (messageInfo: Message) => {
+const addMessage = async (messageInfo: any) => {
   const res = await reqAddMessage(messageInfo);
   if (res.status == 200) {
     message.value = "";
-    messageList.value?.push(messageInfo);
+    messageList.value?.push(res.data);
     notification("success", "发送成功");
   }
 };
