@@ -9,7 +9,7 @@
       评论区
     </div>
     <div class="text">
-      <div >
+      <div>
         <img class="img rorate" src="@/assets/images/default.png" alt="" />
       </div>
       <input
@@ -24,19 +24,22 @@
       <button class="btn btn-info btn-md send" @click="send">发送</button>
     </div>
     <hr class="hr" />
+
+    <!-- 所有的评论列表 -->
     <div class="comment-list">
-      <div v-for="comment in talkList" :key="comment.id">
+      <div v-for="comment in commentList" :key="comment.id">
+        <!-- 一级评论 -->
         <div class="comment">
           <div class="rorate">
-            <img class="img" v-lazy="comment.avatarUrl" alt="" />
+            <img class="img" v-lazy="comment.userinfo.nickname" alt="" />
           </div>
           <div class="comment-detail">
             <div class="content">
-              {{ comment.content }}
+              {{ comment.commentContent }}
             </div>
             <div class="meta">
-              <div class="name">{{ comment.username }}</div>
-              <div class="time">{{ comment.time }}</div>
+              <div class="name">{{ comment.userinfo.nickname }}</div>
+              <div class="time">{{ formatDateTime(comment.createTime) }}</div>
               <div class="operate">
                 <div class="reply" @click="replyPid(comment.id)">回复</div>
                 <el-popconfirm
@@ -53,46 +56,54 @@
           </div>
         </div>
 
-        <div class="reply-content" v-if="comment.id == commentParams.pid">
+        <!-- 回复一级评论的出现的评论框 -->
+        <div
+          class="reply-content"
+          v-if="
+            comment.id == commentParams.parentId &&
+            commentParams.replyCommentId == null
+          "
+        >
           <div>
-            <img class="img rorate" v-lazy="userInfo.user?.avatarUrl" alt="" />
+            <img class="img rorate" v-lazy="userInfo.user?.avatar" alt="" />
           </div>
           <div class="reply-detail">
             <div class="cmtctt">
               <textarea
                 v-model="replyContent"
                 class="rpy"
-                :placeholder="'@' + comment.username"
+                :placeholder="'@' + comment.userinfo.nickname"
               ></textarea>
-              <span
-              class="spanText"
-                @click="send"
-                >发布
-              </span>
-              <span
-              class="spanText"
-                @click="cancel"
-                >取消
-              </span>
+              <span class="spanText" @click="send">发布 </span>
+              <span class="spanText" @click="cancel">取消 </span>
             </div>
           </div>
         </div>
+
+        <!-- 二级评论列表(包含有回复人和没回复人) -->
         <div class="reply-list" v-if="comment.children">
           <div v-for="reply in comment.children" :key="reply.id">
             <div class="comment">
               <div class="rorate">
-                <img class="img" v-lazy="reply.avatarUrl" alt="" />
+                <img class="img" v-lazy="reply.userinfo.avatar" alt="" />
               </div>
               <div class="comment-detail">
                 <div class="content">
-                  <span style="color: #ff0099">@{{ reply.pusername}}</span>
-                  {{reply.content }}
+                  <span style="color: #ff0099">{{
+                    reply.replyInfo.nickname
+                      ? `@${reply.replyInfo.nickname}`
+                      : ""
+                  }}</span>
+                  {{ reply.commentContent }}
                 </div>
                 <div class="meta">
-                  <div class="name">{{ reply.username }}</div>
-                  <div class="time">{{ reply.time }}</div>
+                  <div class="name">{{ reply.userinfo.nickname }}</div>
+                  <div class="time">{{ formatDateTime(reply.createTime) }}</div>
+                  <!-- 触发二级评论回复别人的评论框 -->
                   <div class="operate">
-                    <div class="reply" @click="replyPid(reply.id)">回复</div>
+                    <div class="reply" @click="replyCid(comment.id, reply.id)">
+                      回复
+                    </div>
                     <el-popconfirm
                       v-if="reply.userId == userInfo.user?.id"
                       title="你确定要删除评论吗?"
@@ -106,11 +117,16 @@
                 </div>
               </div>
             </div>
-            <div class="reply-content" v-if="reply.id == commentParams.pid">
+
+            <!-- 回复二级评论出现的评论框 -->
+            <div
+              class="reply-content"
+              v-if="reply.id == commentParams.replyCommentId"
+            >
               <div>
                 <img
                   class="img rorate"
-                  v-lazy="userInfo.user?.avatarUrl"
+                  v-lazy="userInfo.user?.avatar"
                   alt=""
                 />
               </div>
@@ -119,18 +135,10 @@
                   <textarea
                     v-model="replyContent"
                     class="rpy"
-                    :placeholder="'@' + reply.username"
+                    :placeholder="'@' + reply.userinfo.nickname"
                   ></textarea>
-                  <span
-                    class="spanText"
-                    @click="send"
-                    >发布
-                  </span>
-                  <span
-                  class="spanText"
-                    @click="cancel"
-                    >取消
-                  </span>
+                  <span class="spanText" @click="send">发布 </span>
+                  <span class="spanText" @click="cancel">取消 </span>
                 </div>
               </div>
             </div>
@@ -142,24 +150,30 @@
 </template>
 
 <script setup lang="ts">
+import { formatDateTime } from "@/utils/date";
 import { ref, reactive } from "vue";
 import { useRoute } from "vue-router";
 import { notification } from "@/utils/elComponent";
 import { validateUser } from "@/utils/user";
 import { useUserStore } from "@/store/user";
-import { CommentParams, TalkCommentList } from '@/api/talks/type';
-import { reqTalkComment, reqAddComment, reqDelComment } from '@/api/talks/index';
+import {
+  reqTalkComment,
+  reqAddTalkComment,
+  reqDelTalkComment,
+} from "@/api/talkComment/index";
+import { CommentParams, TalkComment } from "@/api/talkComment/type";
 
 const userInfo = useUserStore();
 
 const route = useRoute();
-const { id } = route.params as unknown as { id: string };
+const { id } = route.params as unknown as { id: number };
+const talkId = id;
 
-const talkList = ref<TalkCommentList[]>([]);
+const commentList = ref<TalkComment[]>([]);
 const init = async () => {
-  const res = await reqTalkComment(id);
+  const res = await reqTalkComment(talkId);
   if (res.status == 200) {
-    talkList.value = res.data;
+    commentList.value = res.data;
   }
 };
 init();
@@ -170,36 +184,39 @@ const bindSend = (e: any) => {
 };
 
 const commentParams = reactive<CommentParams>({
-  articleId: id,
-  content: "",
-  pid: null,
+  talkId: talkId,
+  commentContent: "",
+  replyCommentId: null,
+  userId: userInfo.user?.id,
+  parentId: null,
 });
 
 const initCommentParams = () => {
   content.value = "";
-  commentParams.content = "";
-  commentParams.pid = null;
+  commentParams.commentContent = "";
+  commentParams.replyCommentId = null;
 };
 
 const send = async () => {
   if (!validateUser()) return;
+  commentParams.userId = userInfo.user?.id;
   let msg;
-  if (commentParams.pid) {
-    if(replyContent.value.trim()=="") {
-      notification('error',"评论不得为空","error")
-      return
+  if (commentParams.parentId) {
+    if (replyContent.value.trim() == "") {
+      notification("error", "回复不得为空", "error");
+      return;
     }
-    commentParams.content = replyContent.value;
+    commentParams.commentContent = replyContent.value;
     msg = "回复成功";
   } else {
-    if(content.value.trim()=="") {
-      notification('error',"评论不得为空","error")
-      return
+    if (content.value.trim() == "") {
+      notification("error", "评论不得为空", "error");
+      return;
     }
-    commentParams.content = content.value;
+    commentParams.commentContent = content.value;
     msg = "发送成功";
   }
-  const res = await reqAddComment(commentParams);
+  const res = await reqAddTalkComment(commentParams);
   if (res.status == 200) {
     notification("success", msg);
     init();
@@ -210,7 +227,7 @@ const send = async () => {
 
 const deleteComment = async (id: number) => {
   if (!validateUser()) return;
-  const res = await reqDelComment(id);
+  const res = await reqDelTalkComment(id);
   if (res.status == 200) {
     notification("success", "删除成功");
     init();
@@ -219,11 +236,17 @@ const deleteComment = async (id: number) => {
 
 const replyContent = ref("");
 const replyPid = (id: number) => {
-  commentParams.pid = id;
+  commentParams.replyCommentId = null;
+  commentParams.parentId = id;
+};
+const replyCid = (commentId: number, id: number) => {
+  replyPid(commentId);
+  commentParams.replyCommentId = id;
 };
 
 const cancel = () => {
-  commentParams.pid = null;
+  commentParams.replyCommentId = null;
+  commentParams.parentId = null;
   replyContent.value = "";
 };
 </script>
@@ -325,7 +348,7 @@ const cancel = () => {
           0 2px 4px -1px rgba(0, 0, 0, 0.06);
         word-wrap: break-word;
         .cmtctt {
-          color: #9ca3af;
+          /* color: #9ca3af; */
           font-size: 13px;
         }
         .rpyimg {
@@ -346,8 +369,8 @@ const cancel = () => {
 }
 .spanText {
   color: #ff0099;
-                      float: right;
-                      margin-left: 5px;
-                      cursor: pointer;
+  float: right;
+  margin-left: 5px;
+  cursor: pointer;
 }
 </style>

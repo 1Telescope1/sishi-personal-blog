@@ -42,7 +42,7 @@ const routes = [
     },
   },
   {
-    path: "/talks",
+    path: "/talk",
     name: "talks",
     component: () => import("@/view/Talks/index.vue"),
     meta: {

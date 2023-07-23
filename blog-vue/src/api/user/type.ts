@@ -29,7 +29,7 @@ export interface LoginUser {
 	nickname: string;
 	password: string;
 	email?: any;
-	avatarUrl: string;
+	avatar: string;
 	token: string;
 	role: string;
 	menus: UserMenu[];

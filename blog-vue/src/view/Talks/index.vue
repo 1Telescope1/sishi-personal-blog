@@ -19,17 +19,17 @@
         <div class="talk-content">
           <div class="talk-meta">
             <div>
-              <img class="img rorate" :src="talk.avatarUrl" alt="" />
+              <img class="img rorate" :src="talk.userinfo.avatar" alt="" />
             </div>
             <div class="meta">
               <div class="name">
-                <div class="user">{{ talk.user }}</div>
+                <div class="user">{{ talk.userinfo.nickname }}</div>
                 <div><SvgIcon icon-class="badge"></SvgIcon></div>
               </div>
-              <div class="time">{{ talk.time }}</div>
+              <div class="time">{{ talk.createTime }}</div>
             </div>
           </div>
-          <div class="content markdown-body" v-html="talk.html"></div>
+          <div class="content markdown-body" v-html="talk.content"></div>
         </div>
       </router-link>
     </div>
@@ -38,8 +38,8 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { Talk } from "@/api/talks/type";
-import { reqAllTalk } from "@/api/talks/index";
+import { reqAllTalk } from "@/api/talk/index";
+import { Talk } from "@/api/talk/type";
 
 const talkList = ref<Talk[]>([]);
 const init = async () => {

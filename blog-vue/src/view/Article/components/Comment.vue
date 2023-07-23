@@ -60,7 +60,7 @@
         <!-- 回复一级评论的出现的评论框 -->
         <div class="reply-content" v-if="comment.id == commentParams.parentId&&commentParams.replyCommentId==null">
           <div>
-            <img class="img rorate" v-lazy="userInfo.user?.avatarUrl" alt="" />
+            <img class="img rorate" v-lazy="userInfo.user?.avatar" alt="" />
           </div>
           <div class="reply-detail">
             <div class="cmtctt">
@@ -120,7 +120,7 @@
               <div>
                 <img
                   class="img rorate"
-                  v-lazy="userInfo.user?.avatarUrl"
+                  v-lazy="userInfo.user?.avatar"
                   alt=""
                 />
               </div>

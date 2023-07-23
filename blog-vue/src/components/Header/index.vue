@@ -159,7 +159,7 @@ const menuList = [
       {
         name: "说说",
         icon: "talk",
-        path: "/talks"
+        path: "/talk"
       },
       // {
       //   name: "相册",

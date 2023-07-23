@@ -1,6 +1,5 @@
 <template>
   <div class="page-header">
-    <h1 class="page-title">{{ talk?.title }}</h1>
     <img
       class="page-cover"
       src="https://static.linhaojun.top/aurora/photos/db65e35d7441ea7e58c17288b15beecd.jpg"
@@ -26,9 +25,9 @@
 <script setup lang="ts">
 import Comment from "./components/Comment.vue"
 import { useRoute } from "vue-router";
-import { Talk } from "@/api/talks/type";
+import { Talk } from "@/api/talk/type";
 import { ref } from "vue";
-import { reqTalkById } from "@/api/talks/index";
+import { reqTalkById } from "@/api/talk/index";
 
 const route = useRoute();
 const { id } = route.params as unknown as { id: number };
