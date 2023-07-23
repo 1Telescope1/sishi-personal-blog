@@ -1,10 +1,10 @@
 <template>
   <div class="author-card">
     <div>
-      <img class="avatarUrl" :src="authorInfo.avatarUrl" alt="" />
+      <img class="avatarUrl" :src="blogStore.authorInfo.avatar" alt="" />
     </div>
     <div class="authorName">
-      {{ authorInfo.username }}
+      {{ blogStore.authorInfo.nickname }}
     </div>
     <div class="signature">月下无人江自流</div>
     <BlogInfo></BlogInfo>
@@ -14,23 +14,14 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { UserInfo } from "../../api/user/type";
+import { useBlogStore } from '@/store/blog';
 import { reqUserInfo } from "../../api/user";
-let authorInfo = ref<UserInfo>({
-  id: -1,
-  username: "",
-  password: "",
-  email: "",
-  address: "",
-  createTime: "",
-  avatarUrl: "",
-  role: "",
-  loginType: "",
-});
+
+let blogStore=useBlogStore()
 const getAuthorInfo = async () => {
   const res = await reqUserInfo(1);
   if (res.status == 200) {
-    authorInfo.value = res.data;
+    blogStore.setAuthorInfo(res.data)
   }
 };
 
@@ -42,6 +33,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import "@/assets/styles/mixin.scss";
 @import "@/assets/styles/transition.scss";
+
 .author-card {
   @include flexCenter;
   flex-direction: column;

@@ -19,6 +19,7 @@ import { ArticleModule } from './api/article/article.module';
 import { BackModule } from './api/back/back.module';
 import { FriendLinkModule } from './api/friend-link/friend-link.module';
 import { LoginModule } from './api/login/login.module';
+import { BlogModule } from './api/blog/blog.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { LoginModule } from './api/login/login.module';
     BackModule,
     FriendLinkModule,
     LoginModule,
+    BlogModule,
   ],
   controllers: [AppController],
   providers: [AppService],

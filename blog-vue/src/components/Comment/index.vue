@@ -6,13 +6,13 @@
     </div>
     <div class="content" v-for="message in messageList" :key="message.id">
       <div class="img rorate">
-        <img v-lazy="message.avatarUrl ? message.avatarUrl : url" alt="" />
+        <img v-lazy="message.user.avatar ? message.user.avatar : url" alt="" />
       </div>
       <div class="detail">
-        <div class="name">{{ message.username ? message.username : '游客'}}</div>
-        <div class="time">{{ message.nowTime }}</div>
+        <div class="name">{{ message.user.nickname ? message.user.nickname : '游客'}}</div>
+        <div class="time">{{ message.createTime }}</div>
         <div class="message">
-          {{ message.content }}
+          {{ message.commentContent }}
         </div>
       </div>
     </div>

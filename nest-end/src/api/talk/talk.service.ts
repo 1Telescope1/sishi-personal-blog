@@ -23,6 +23,7 @@ export class TalkService {
       .leftJoin('talk.userinfo', 'userinfo')
       .addSelect(['userinfo.nickname', 'userinfo.avatar'])
       .where('talk.status=:status', { status: 1 })
+      .orderBy('talk.id','DESC')
       .getMany();
     return data;
   }
@@ -33,6 +34,7 @@ export class TalkService {
       .select()
       .leftJoin('talk.userinfo', 'userinfo')
       .addSelect(['userinfo.nickname', 'userinfo.avatar'])
+      .orderBy('talk.id','DESC')
       .getMany();
     return data;
   }

@@ -1,13 +1,12 @@
-export interface Message {
-	id?: number;
-	content: string;
-	userId: number | null;
-	username: string;
-	time?: any;
-	status: any;
-	ipAddress?: any;
-	avatarUrl: string;
-	nowTime?: string;
-}
+import { UserInfo } from "@/common/model";
 
+export interface Message {
+	id: number;
+	commentContent: string;
+	isDelete: number;
+	isReview: number;
+	createTime: string;
+	updateTime: string;
+	user: UserInfo;
+}
 

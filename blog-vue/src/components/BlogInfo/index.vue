@@ -1,51 +1,48 @@
 <template>
   <div class="blog-info">
     <div class="blog-item" @click="pushInfo('archive')">
-      <div class="len">{{ articleLen }}</div>
+      <div class="len">{{ blogStore.articleLen }}</div>
       <div class="attribute">文章</div>
     </div>
     <div class="blog-item" @click="pushInfo('tag')">
-      <div class="len">{{ tagLen }}</div>
+      <div class="len">{{ blogStore.tagLen }}</div>
       <div class="attribute">标签</div>
     </div>
     <div class="blog-item" @click="pushInfo('talks')">
-      <div class="len">{{ talkLen }}</div>
+      <div class="len">{{ blogStore.talkLen }}</div>
       <div class="attribute">说说</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { reqArticleTotal } from "@/api/article";
-import { reqTagTotal } from "@/api/tag";
-import { reqTalkTotal } from "@/api/talks";
 import { useRouter } from "vue-router";
+import { getBlogDetail } from '@/api/blog/index';
+import { useBlogStore } from "@/store/blog";
+
 
 const router=useRouter()
 const pushInfo=(params:string)=>{
   router.push(params)
 }
 
-let articleLen = ref(0);
-let tagLen = ref(0);
-let talkLen = ref(0);
-const getLen = () => {
-  reqArticleTotal().then((res) => {
-    articleLen.value = res.data;
-  });
-  reqTagTotal().then((res) => {
-    tagLen.value = res.data;
-  });
-  reqTalkTotal().then((res) => {
-    talkLen.value = res.data;
-  });
+const blogStore=useBlogStore()
+
+const getLen =async () => {
+  const res=await getBlogDetail()
+  if(res.status==200) {
+    blogStore.articleLen=res.data[0]
+    blogStore.tagLen=res.data[1]
+    blogStore.talkLen=res.data[2]
+  }
 };
 getLen();
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/mixin.scss";
+
+
 .blog-info {
   @include flexCenter;
   margin-top: 10px;

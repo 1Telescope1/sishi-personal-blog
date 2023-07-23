@@ -24,7 +24,6 @@ export class Message {
     name: 'is_delete',
     comment: '是否删除  0否 1是',
     default: () => "'0'",
-    select: false,
   })
   isDelete: number;
 
@@ -33,7 +32,6 @@ export class Message {
     comment: '是否审核',
     width: 1,
     default: () => "'1'",
-    select: false,
   })
   isReview: boolean;
 
@@ -49,7 +47,6 @@ export class Message {
     nullable: true,
     comment: '更新时间',
     default: () => 'CURRENT_TIMESTAMP',
-    select: false,
   })
   updateTime: Date | null;
 

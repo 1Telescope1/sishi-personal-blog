@@ -2,14 +2,14 @@ export interface UserInfo {
 	id: number;
 	email: string;
 	nickname: string;
-	password: string;
+	password?: string;
 	avatar: string;
 	intro: string;
-	website: string;
+	website?: string;
 	isSubscribe?: any;
-	isDisable: number;
-	createTime: string;
-	updateTime: string;
+	isDisable?: number;
+	createTime?: string;
+	updateTime?: string;
 }
 
 export interface UserMenu {

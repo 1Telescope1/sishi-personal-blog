@@ -24,11 +24,13 @@ export class UserInfoService {
   }
 
   findAll() {
-    return `This action returns all userInfo`;
+    const data=this.userRepository.find()
+    return data;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} userInfo`;
+  async findOne(id: number) {
+    const data=await this.userRepository.find({where:{id}})
+    return data[0];
   }
 
   update(id: number, updateUserInfoDto: UpdateUserInfoDto) {

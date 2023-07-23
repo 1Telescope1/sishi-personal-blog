@@ -6,13 +6,13 @@ export interface Tag {
 }
 
 export interface UserInfo {
-	id:number,
+	id?:number,
 	nickname: string;
 	avatar: string;
 }
 
 export interface ReplyInfo {
-	id:number,
+	id?:number,
 	nickname?: any;
 	avatar?: any;
 }

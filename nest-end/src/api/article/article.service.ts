@@ -41,6 +41,7 @@ export class ArticleService {
         tagId:`%${tagId}%`
       })
       .andWhere('article.isDelete=:isDelete', { isDelete: 0 })
+      .orderBy('article.id','DESC')
       .skip((pageNum - 1) * pageSize)
       .take(pageSize)
       .getMany();
@@ -57,6 +58,7 @@ export class ArticleService {
       .leftJoin('article.userinfo', 'userinfo')
       .addSelect(['userinfo.nickname', 'userinfo.avatar'])
       .andWhere('article.isDelete=:isDelete', { isDelete: 0 })
+      .orderBy('article.id','DESC')
       .getMany();
     return data;
   }

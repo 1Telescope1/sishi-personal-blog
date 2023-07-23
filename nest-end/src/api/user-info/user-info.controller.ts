@@ -21,13 +21,13 @@ export class UserInfoController {
   }
 
   @Get()
-  findAll() {
-    return this.userInfoService.findAll();
+  async findAll() {
+    return new Result(await this.userInfoService.findAll());
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userInfoService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return new Result(await this.userInfoService.findOne(+id));
   }
 
   @Patch(':id')

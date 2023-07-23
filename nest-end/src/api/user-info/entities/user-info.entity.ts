@@ -23,7 +23,7 @@ export class UserInfo {
   @Column("varchar", { name: "nickname", comment: "用户昵称", length: 50 })
   nickname: string;
 
-  @Column("varchar", { name: "password", comment: "密码", length: 255 })
+  @Column("varchar", { name: "password", comment: "密码", length: 255,select:false })
   password: string;
 
   @Column("varchar", { name: "avatar", comment: "用户头像", length: 1024 })
