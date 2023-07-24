@@ -3,11 +3,15 @@ import { LoginUser, userForm } from "@/api/user/type";
 import { notification } from "@/utils/elComponent";
 import { defineStore } from "pinia";
 import {  ref } from 'vue';
+import { useRouter } from "vue-router";
 
 // 定义用户状态仓库
 export const useUserStore = defineStore(
   "user",
   () => {
+    const router=useRouter()
+    
+
     const user=ref<LoginUser>()
     const login=async (data:userForm)=>{
       const res=await reqLoign(data)
@@ -23,7 +27,11 @@ export const useUserStore = defineStore(
       notification("success","退出登录成功")
     }
 
-    return { login,user,logout};
+    const menus=ref(router.getRoutes())
+    console.log(menus);
+    
+
+    return { login,user,logout,menus};
   },
   {
     // 开启持久化（使用本地存储，默认是localStorage）

@@ -3,11 +3,22 @@ import { createRouter, createWebHashHistory } from "vue-router";
 let routes = [
   {
     path: "/",
-    name: "",
-    //使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
-    component: () => import("@/views/index.vue"),
+    name: "admin",
+    component: () => import("@/layouts/admin.vue"),
+    children: [
+      {
+        path: "",
+        name: "",
+        component: () => import("@/views/index.vue"),
+        meta: {
+          keepAlive: true, 
+          title: "首页",
+        },
+      },
+    ],
     meta: {
-      keepAlive: true, //需要缓存
+      keepAlive: true,
+      title: "首页",
     },
   },
   {
@@ -17,6 +28,7 @@ let routes = [
     component: () => import("@/views/Home/index.vue"),
     meta: {
       keepAlive: true, //需要缓存
+      title: "首页",
     },
   },
   {
@@ -26,6 +38,7 @@ let routes = [
     component: () => import("@/views/Login/index.vue"),
     meta: {
       keepAlive: false, //需要缓存
+      title: "注册页",
     },
   },
   {
@@ -36,10 +49,12 @@ let routes = [
   },
   { path: "/:catchAll(.*)", redirect: "/404" },
 ];
+
 // 路由
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+
 // 导出
 export default router;

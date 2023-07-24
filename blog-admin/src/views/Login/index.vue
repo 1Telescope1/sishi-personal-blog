@@ -91,9 +91,10 @@ const onSubmit =() => {
     }
     const flag=await user.login(form)
     if(flag) {
-      notification("success","登录成功")
+      notification("登录成功")
+      router.push('/')
     } else {
-      notification("success","登录失败",'error')
+      notification("登录失败",'error')
     }
     
   });

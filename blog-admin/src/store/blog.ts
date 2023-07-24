@@ -22,28 +22,27 @@ export const useBlogStore = defineStore(
     const tagLen = ref(0);
     const talkLen = ref(0);
 
-    const touristAvatar =
-      "http://43.143.107.88:29000/avatar/2785e109706e4376a7fa06a1c5c65a59_1666582417286.png";
-    const touristName = "游客";
-    let onlineNumber = ref(0);
-
-    const setOnlineNumber = (cnt: number) => {
-      onlineNumber.value = cnt;
-    };
+    // 侧边宽度
+    let asideWidth=ref("250px");
+    const handleAsideWidth=()=>{
+      if(asideWidth.value=="64px") {
+        asideWidth.value="250px"
+      } else {
+        asideWidth.value="64px"
+      } 
+    }
 
     let isDark = ref(false);
 
     return {
-      onlineNumber,
-      setOnlineNumber,
-      touristAvatar,
-      touristName,
       isDark,
       authorInfo,
       setAuthorInfo,
+      handleAsideWidth,
       articleLen,
       tagLen,
-      talkLen
+      talkLen,
+      asideWidth
     };
   },
   {

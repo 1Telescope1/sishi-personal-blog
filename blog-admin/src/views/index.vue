@@ -1,5 +1,7 @@
 <template>
-  <div>首页</div>
+  <div>
+    <div>1231</div>
+  </div>
 </template>
 
 <script setup lang='ts'>
