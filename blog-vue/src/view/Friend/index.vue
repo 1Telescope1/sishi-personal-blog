@@ -63,13 +63,13 @@
         <div class="text">小伙伴们</div>
       </div>
       <div class="list">
-      <div class="content" v-for="link in linkList" :key="link.id">
+      <div class="content" v-for="link in linkList" :key="link.id" @click="pushUrl(link.linkAddress)">
         <div>
-          <img class="img rorate" v-lazy="link.avatar" alt="">
+          <img class="img rorate" v-lazy="link.linkAvatar" alt="">
         </div>
         <div class="info">
-          <div class="name">{{ link.name}}</div>
-          <div class="synopsis">{{ link.description }}</div>
+          <div class="name">{{ link.linkName}}</div>
+          <div class="synopsis">{{ link.linkIntro }}</div>
         </div>
       </div>
     </div>
@@ -127,8 +127,8 @@
 
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import { Link, LinkDetail } from "@/api/friend/type";
-import { reqAddFriend, reqFriendList } from "@/api/friend/index";
+import { Link, LinkDetail } from "@/api/friendlink/type";
+import { reqAddFriend, reqFriendList } from "@/api/friendlink/index";
 import { notification } from "@/utils/elComponent";
 
 const linkList = ref<LinkDetail[]>([]);
@@ -139,6 +139,10 @@ const init = async () => {
   }
 };
 init();
+
+const pushUrl=(url:string)=>{
+  window.open(url)
+}
 
 const formLabelWidth = "120px";
 
@@ -255,6 +259,7 @@ const submit = async () => {
     padding: 10px 15px;
     width: 48%;
     margin-bottom: 20px;
+    cursor: pointer;
     &:nth-child(odd) {
       margin-right: 4%;
     }

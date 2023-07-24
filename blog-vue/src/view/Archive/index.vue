@@ -15,19 +15,19 @@
         <el-timeline-item
           v-for="article in articleList"
           :key="article.id"
-          :timestamp="article.time"
+          :timestamp="article.createTime"
           placement="top"
         >
           <router-link :to="`/article/${article.id}`">
             <el-card class="card">
               <div class="img">
-                <img :src="article.coverUrl" alt="" />
+                <img :src="article.articleCover" alt="" />
               </div>
               <div class="content">
                 <div class="title">
-                  {{ article.title }}<span class="tag">{{ article.tag }}</span>
+                  {{ article.articleTitle }}<span class="tag">{{ article.tag.tagName }}</span>
                 </div>
-                <div class="text">{{ article.content }}</div>
+                <div class="text">{{ article.articleContent }}</div>
               </div>
             </el-card>
           </router-link>

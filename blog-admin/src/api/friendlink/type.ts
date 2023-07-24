@@ -8,11 +8,11 @@ export interface Link {
 
 export interface LinkDetail {
 	id: number;
-	name: string;
-	description: string;
-	url: string;
-	avatar: string;
-	flag: number;
-	email: string;
+	linkName: string;
+	linkAvatar: string;
+	linkAddress: string;
+	linkIntro: string;
 	createTime: string;
+	updateTime: string;
+	isStatus: number;
 }
