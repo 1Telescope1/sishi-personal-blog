@@ -2,7 +2,7 @@ import { reqLoign } from "@/api/user";
 import { LoginUser, userForm } from "@/api/user/type";
 import { notification } from "@/utils/elComponent";
 import { defineStore } from "pinia";
-import { reactive, ref } from 'vue';
+import {  ref } from 'vue';
 
 // 定义用户状态仓库
 export const useUserStore = defineStore(

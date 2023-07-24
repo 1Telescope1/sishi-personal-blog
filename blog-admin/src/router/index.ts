@@ -3,6 +3,15 @@ import { createRouter, createWebHashHistory } from "vue-router";
 let routes = [
   {
     path: "/",
+    name: "",
+    //使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
+    component: () => import("@/views/index.vue"),
+    meta: {
+      keepAlive: true, //需要缓存
+    },
+  },
+  {
+    path: "/home",
     name: "home",
     //使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
     component: () => import("@/views/Home/index.vue"),

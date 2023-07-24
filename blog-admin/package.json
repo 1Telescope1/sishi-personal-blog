@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "axios": "^1.4.0",
     "element-plus": "^2.3.8",
     "nprogress": "^0.2.0",
@@ -24,6 +25,7 @@
     "@vitejs/plugin-vue": "^4.2.3",
     "sass": "^1.64.1",
     "typescript": "^5.0.2",
+    "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.1",
     "vite": "^4.4.5",
     "vite-plugin-svg-icons": "^2.0.1",
