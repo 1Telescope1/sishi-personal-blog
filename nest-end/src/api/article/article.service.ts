@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateArticleDto } from './dto/create-article.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Article } from './entities/article.entity';
 import { Repository } from 'typeorm';
@@ -11,8 +10,8 @@ export class ArticleService {
     private readonly articleRepository: Repository<Article>,
   ) {}
 
-  async create(CreateArticleDto: CreateArticleDto) {
-    const data = await this.articleRepository.save(CreateArticleDto);
+  async create(article: Article) {
+    const data = await this.articleRepository.save(article);
 
     return data;
   }

@@ -12,8 +12,6 @@ import loading from "./assets/images/loading.gif"
 import error from "./assets/images/404.gif"
 // svg图标
 import 'virtual:svg-icons-register'
-// 粒子特效
-import Particles from 'particles.vue3'
 // 自定义指令
 import * as directive from "@/directive";
 // 编辑器
@@ -38,7 +36,6 @@ app.use(lazyPlugin,{
   loading,
   error
 })
-app.use(Particles)
 Object.keys(directive).forEach((key) => {
   app.directive(key, (directive as { [key: string]: Directive })[key]);
 });

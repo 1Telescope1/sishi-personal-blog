@@ -10,8 +10,6 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { ArticleService } from './article.service';
-import { CreateArticleDto } from './dto/create-article.dto';
-import { UpdateArticleDto } from './dto/update-article.dto';
 import { Result } from 'src/common/result';
 import { Article } from './entities/article.entity';
 
@@ -20,8 +18,8 @@ export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @Post()
-  async create(@Body() CreateArticleDto: CreateArticleDto) {
-    return new Result(await this.articleService.create(CreateArticleDto));
+  async create(@Body() article: Article) {
+    return new Result(await this.articleService.create(article));
   }
 
   @Get()

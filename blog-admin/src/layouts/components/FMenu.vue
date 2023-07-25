@@ -1,7 +1,7 @@
 <template>
   <div class="f-menu" :style="{ width: blogStore.asideWidth }">
     <el-menu
-        default-active="2"
+    :default-active="defaultActive"
         class="el-menu-vertical-demo menu"
         @open="handleOpen"
         @close="handleClose"
@@ -14,8 +14,16 @@
             <el-icon><location /></el-icon>
             <span>Navigator One</span>
           </template>
-            <el-menu-item index="/home">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
+            <el-menu-item index="/">item one</el-menu-item>
+            <el-menu-item index="/home">item two</el-menu-item>
+        </el-sub-menu>
+        <el-sub-menu index="2">
+          <template #title>
+            <el-icon><location /></el-icon>
+            <span>文章管理</span>
+          </template>
+            <el-menu-item index="/article/publish">发布文章</el-menu-item>
+            <el-menu-item index="/article/list">文章列表</el-menu-item>
         </el-sub-menu>
       </el-menu>
    
@@ -26,6 +34,7 @@ import { useBlogStore } from "@/store/blog";
 import { useUserStore } from "@/store/user";
 import { computed, ref } from "vue";
 import { useRouter, useRoute, onBeforeRouteUpdate } from "vue-router";
+import {Location} from "@element-plus/icons-vue";
 const router = useRouter();
 const route = useRoute();
 const userStore=useUserStore()
@@ -49,13 +58,13 @@ const handleSelect = (e:any) => {
 };
 
 const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+  // console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+  // console.log(key, keyPath)
 }
 </script>
-<style>
+<style scoped>
 .f-menu {
   transition: all 0.2s;
   top: 64px;

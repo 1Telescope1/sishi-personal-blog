@@ -15,22 +15,40 @@ let routes = [
           title: "首页",
         },
       },
+      {
+        path: "home",
+        name: "home",
+        component: () => import("@/views/Home/index.vue"),
+        meta: {
+          keepAlive: true, 
+          title: "home",
+        },
+      },
+      {
+        path: "article/publish",
+        name: "article",
+        component: () => import("@/views/Article/article.vue"),
+        meta: {
+          keepAlive: true,
+          title: "发布文章",
+        },
+      },
+      {
+        path: "article/list",
+        name: "articleList",
+        component: () => import("@/views/Article/articleList.vue"),
+        meta: {
+          keepAlive: true, //需要缓存
+          title: "文章列表",
+        },
+      },
     ],
     meta: {
       keepAlive: true,
       title: "首页",
     },
   },
-  {
-    path: "/home",
-    name: "home",
-    //使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
-    component: () => import("@/views/Home/index.vue"),
-    meta: {
-      keepAlive: true, //需要缓存
-      title: "首页",
-    },
-  },
+  
   {
     path: "/login",
     name: "login",

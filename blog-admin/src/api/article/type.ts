@@ -41,3 +41,18 @@ export interface Pagination {
   pageSize: number;
   pageNum: number;
 }
+
+export interface CreateArticle {
+  userId: number;
+  articleCover: string |null;
+  articleTitle: string;
+  articleContent: string;
+  categoryId:number |null
+  isTop: number | null;
+  isFeatured: number | null;
+  status: number | null;
+  type: number | null;
+  password: any |null;
+  originalUrl: any |null;
+  tagId:string
+}

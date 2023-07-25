@@ -85,6 +85,7 @@ const handleRefresh = () => {
   background-color: rgb(67, 56, 202);
   color: rgb(253, 253, 253);
   color: rgba(253, 253, 253);
+  position: fixed;
   top: 0px;
   left: 0px;
   right: 0px;

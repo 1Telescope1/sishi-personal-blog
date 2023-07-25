@@ -1,5 +1,5 @@
 import { request } from "@/utils/request";
-import { Article, ArticleList, ArticleParams } from "./type";
+import {Article, ArticleList, ArticleParams, CreateArticle} from "./type";
 
 // 获取文章列表
 export const reqGetArticleList = () => request<Article[]>(`/article`);
@@ -13,3 +13,5 @@ export const reqArticleTotal=()=>request<number>(`/article/length`);
 
 // 根据文章id获取文章
 export const reqArticleById=(id:string)=>request<Article>(`/article/${id}`)
+
+export const reqPublishArticle=(data:CreateArticle)=>request<any>(`article`,'POST',data)

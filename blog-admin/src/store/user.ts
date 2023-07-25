@@ -28,7 +28,6 @@ export const useUserStore = defineStore(
     }
 
     const menus=ref(router.getRoutes())
-    console.log(menus);
     
 
     return { login,user,logout,menus};

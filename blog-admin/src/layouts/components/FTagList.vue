@@ -9,6 +9,7 @@
       @tab-change="changeTab"
     >
       <el-tab-pane
+        class="tab"
         :closable="item.path != '/'"
         v-for="item in tabList"
         :key="item.path"
@@ -78,6 +79,7 @@ const blogStore=useBlogStore()
   line-height: 32px;
   background-color: rgb(255, 255, 255);
   border-radius: 0.25rem; /* 4px */
+  margin-left: 5px;
 
 }
 :deep(.el-tabs__nav-next),
