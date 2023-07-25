@@ -40,5 +40,7 @@ declare module 'vue' {
     ElUpload: typeof import('element-plus/es')['ElUpload']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Search: typeof import('./src/components/Search/index.vue')['default']
+    SearchItem: typeof import('./src/components/SearchItem/index.vue')['default']
   }
 }

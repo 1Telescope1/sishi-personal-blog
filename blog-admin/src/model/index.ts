@@ -23,3 +23,4 @@ export interface ReplyInfo {
 	nickname?: any;
 	avatar?: any;
 }
+

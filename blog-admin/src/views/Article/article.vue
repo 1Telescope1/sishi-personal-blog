@@ -25,7 +25,8 @@
         v-model="dialogVisible"
         title="发布文章"
         width="50%"
-        :before-close="handleClose"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
     >
       <el-form :model="form">
         <el-form-item label="文章标题" :label-width="formLabelWidth">
@@ -43,12 +44,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="文章类型" :label-width="formLabelWidth">
-          <el-select v-model="form.type" placeholder="选择标签">
+          <el-select v-model="form.type" placeholder="选择类型">
             <el-option v-for="type in articleType" :key="type.id" :label="type.typeName" :value="type.id"/>
           </el-select>
         </el-form-item>
         <el-form-item v-show="form.type==2" label="原文地址" :label-width="formLabelWidth">
-            <el-input v-model="form.originalUrl" autocomplete="off"/>
+          <el-input v-model="form.originalUrl" autocomplete="off"/>
         </el-form-item>
         <el-form-item label="上传封面" :label-width="formLabelWidth">
           <el-upload
@@ -57,17 +58,19 @@
               action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
               multiple
           >
-            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+            <el-icon class="el-icon--upload">
+              <upload-filled/>
+            </el-icon>
             <div class="el-upload__text">
               将文件拖到此处或<em>点击上传</em>
             </div>
           </el-upload>
         </el-form-item>
-        <el-form-item  label="原文置顶" :label-width="formLabelWidth">
-          <el-switch v-model="form.isTop" :active-icon="Check" :inactive-icon="Close" />
+        <el-form-item label="原文置顶" :label-width="formLabelWidth">
+          <el-switch v-model="form.isTop" :active-icon="Check" :inactive-icon="Close"/>
         </el-form-item>
-        <el-form-item  label="推荐" :label-width="formLabelWidth">
-          <el-switch v-model="form.isFeatured" :active-icon="Check" :inactive-icon="Close" />
+        <el-form-item label="推荐" :label-width="formLabelWidth">
+          <el-switch v-model="form.isFeatured" :active-icon="Check" :inactive-icon="Close"/>
         </el-form-item>
         <el-form-item label="发布形式" :label-width="formLabelWidth">
           <el-select v-model="form.status" placeholder="选择形式">
@@ -98,6 +101,7 @@ import {reqTags} from "@/api/tag";
 import {Check, Close, UploadFilled} from "@element-plus/icons-vue";
 import {reqPublishArticle} from "@/api/article";
 import {notification} from "@/utils/elComponent.ts";
+import {articleStatus,articleType,categoryList} from "@/model/data.ts"
 
 const nowTime = ref(formatDate(new Date()))
 let text = ref("")
@@ -113,48 +117,6 @@ const getTagList = async () => {
   }
 }
 getTagList()
-const categoryList = [
-  {
-    id: 1,
-    categoryName: "hhh"
-  },
-  {
-    id: 2,
-    categoryName: "sqd"
-  },
-  {
-    id: 3,
-    categoryName: "chifan"
-  },
-]
-const articleType = [
-  {
-    id: 1,
-    typeName: '原创'
-  },
-  {
-    id: 2,
-    typeName: '转载'
-  },
-  {
-    id: 3,
-    typeName: '翻译'
-  }
-]
-const articleStatus=[
-  {
-    id:1,
-    statusName:"公布"
-  },
-  {
-    id:2,
-    statusName:"私密"
-  },
-  {
-    id:3,
-    statusName:"草稿"
-  }
-]
 const form = reactive<CreateArticle>({
   articleContent: "",
   articleCover: null,
@@ -169,22 +131,14 @@ const form = reactive<CreateArticle>({
   type: 1,
   userId: user!.id
 })
-const publishArticle=async ()=>{
-  const res=await reqPublishArticle(form)
-  if(res.status==200) {
+const publishArticle = async () => {
+  const res = await reqPublishArticle(form)
+  if (res.status == 200) {
     notification("发布成功")
-    dialogVisible.value=false
+    dialogVisible.value = false
   }
 }
-const handleClose = (done: () => void) => {
-  ElMessageBox.confirm('Are you sure to close this dialog?')
-      .then(() => {
-        done()
-      })
-      .catch(() => {
-        // catch error
-      })
-}
+
 
 </script>
 
@@ -192,6 +146,8 @@ const handleClose = (done: () => void) => {
 .card-header {
   display: flex;
   flex-direction: column;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .first {
