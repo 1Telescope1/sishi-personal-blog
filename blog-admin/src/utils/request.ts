@@ -18,11 +18,9 @@ instance.interceptors.request.use(
   (config) => {
     start()
     const userInfo=useUserStore()
-
     if(userInfo.user?.token&&config.headers) {
       config.headers["token"] = userInfo.user.token;
     }
-    
     return config;
   },
   (err) => Promise.reject(err)
@@ -40,13 +38,12 @@ instance.interceptors.response.use(
     return res.data;
   },
   (err) => {
-
-    if (err.response.status === 401) {
-      // 删除用户信息
-      // const store = useUserStore();
-      // 跳转登录，带上接口失效所在页面的地址，登录完成后回跳使用
-      
-    } 
+    // if (err.response.status === 401) {
+    //   // 删除用户信息
+    //   // const store = useUserStore();
+    //   // 跳转登录，带上接口失效所在页面的地址，登录完成后回跳使用
+    //
+    // }
     return Promise.reject(err);
   }
 );

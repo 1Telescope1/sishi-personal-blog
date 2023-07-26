@@ -91,35 +91,23 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {formatDate} from "@/utils/date.ts";
-import {ElMessageBox} from 'element-plus'
-import {CreateArticle} from "@/api/article/type.ts";
+import {Article, CreateArticle} from "@/api/article/type.ts";
 import {useUserStore} from "@/store/user.ts";
 import {Tag} from "@/model";
 import {reqTags} from "@/api/tag";
 import {Check, Close, UploadFilled} from "@element-plus/icons-vue";
-import {reqPublishArticle} from "@/api/article";
+import {reqArticleById, reqPublishArticle} from "@/api/article";
 import {notification} from "@/utils/elComponent.ts";
 import {articleStatus,articleType,categoryList} from "@/model/data.ts"
+import {useRoute} from "vue-router";
 
-const nowTime = ref(formatDate(new Date()))
-let text = ref("")
-
+const route=useRoute()
 const {user} = useUserStore()
-const dialogVisible = ref(false)
-const formLabelWidth = '200px'
-const tagList = ref<Tag[]>([])
-const getTagList = async () => {
-  const res = await reqTags()
-  if (res.status == 200) {
-    tagList.value = res.data
-  }
-}
-getTagList()
-const form = reactive<CreateArticle>({
+const form = ref<CreateArticle>({
   articleContent: "",
-  articleCover: null,
+  articleCover: "",
   articleTitle: "",
   categoryId: null,
   isFeatured: 0,
@@ -131,8 +119,32 @@ const form = reactive<CreateArticle>({
   type: 1,
   userId: user!.id
 })
+
+const getArticle=async ()=>{
+  const res=await reqArticleById(+(route.params.articleId))
+  if(res.status==200) {
+    form.value=res.data
+  }
+}
+if(route.params.articleId) {
+  getArticle()
+}
+
+const nowTime = ref(formatDate(new Date()))
+
+const dialogVisible = ref(false)
+const formLabelWidth = '200px'
+const tagList = ref<Tag[]>([])
+const getTagList = async () => {
+  const res = await reqTags()
+  if (res.status == 200) {
+    tagList.value = res.data
+  }
+}
+getTagList()
+
 const publishArticle = async () => {
-  const res = await reqPublishArticle(form)
+  const res = await reqPublishArticle(form.value)
   if (res.status == 200) {
     notification("发布成功")
     dialogVisible.value = false

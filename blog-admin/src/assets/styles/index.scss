@@ -81,3 +81,37 @@ a {
 .mr-2 {
   margin-right: 0.5rem;
 }
+
+/* 滚动条*/
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-pink-light);
+  background-image: -webkit-linear-gradient(45deg,
+          hsla(0, 0%, 100%, 0.4) 25%,
+          transparent 0,
+          transparent 50%,
+          hsla(0, 0%, 100%, 0.4) 0,
+          hsla(0, 0%, 100%, 0.4) 75%,
+          transparent 0,
+          transparent);
+  border-radius: 2em;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+
+
+/* 加载进度条 */
+#nprogress .bar {
+  background: var(--primary-color) !important;
+}

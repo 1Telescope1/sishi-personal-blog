@@ -1,11 +1,21 @@
-import { ref, reactive, computed } from "vue";
+import {ref, reactive, computed} from "vue";
 import {notification} from "@/utils/elComponent.ts";
+
 // 列表，分页，搜索，删除，修改状态
 export function useInitTable(opt = {}) {
+  // 分页
+  const pageNum = ref(1);
+  const total = ref(0);
+  const pageSize = ref(6);
+
   let searchForm = null;
   let resetSearchForm = null;
   if (opt.searchForm) {
-    searchForm = reactive({ ...opt.searchForm });
+    if(opt.searchForm.pageNum=== undefined&&opt.searchForm.pageSize===undefined) {
+      opt.searchForm.pageNum=pageNum.value
+      opt.searchForm.pageSize=pageSize.value
+    }
+    searchForm = reactive({...opt.searchForm});
     resetSearchForm = () => {
       for (const key in opt.searchForm) {
         searchForm[key] = opt.searchForm[key];
@@ -17,26 +27,21 @@ export function useInitTable(opt = {}) {
   const tableData = ref([]);
   const loading = ref(false);
 
-  // 分页
-  const currentPage = ref(1);
-  const total = ref(0);
-  const limit = ref(10);
-
   // 获取数据
-  function getData(p = null) {
-    if (typeof p == "number") {
-      currentPage.value = p;
+  function getData(p = null, k = null) {
+    if (typeof p == "number" && typeof k == 'number') {
+      pageNum.value = p;
+      pageSize.value = k;
     }
-
     loading.value = true;
     opt
-        .getList(currentPage.value, limit.value,searchForm)
+        .getList(searchForm)
         .then((res) => {
           if (opt.onGetListSuccess && typeof opt.onGetListSuccess == "function") {
             opt.onGetListSuccess(res);
           } else {
-            tableData.value = res.list;
-            total.value = res.total;
+            tableData.value = res.data.records;
+            total.value = res.data.total;
           }
         })
         .finally(() => {
@@ -121,9 +126,9 @@ export function useInitTable(opt = {}) {
     resetSearchForm,
     tableData,
     loading,
-    currentPage,
+    pageNum,
     total,
-    limit,
+    pageSize,
     getData,
     handleDelete,
     handleStatusChange,

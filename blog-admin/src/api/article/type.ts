@@ -6,6 +6,7 @@ export interface Article {
   articleCover: string;
   articleTitle: string;
   articleContent: string;
+  categoryId:number|null
   isTop: number;
   isFeatured: number;
   status: number;
@@ -27,6 +28,8 @@ export interface ArticleParams {
   articleTitle?: string;
   articleContent?: string;
   tagId?: string;
+  categoryId?:string,
+  type?:string,
 }
 
 export interface ArticleList {
@@ -43,6 +46,7 @@ export interface Pagination {
 }
 
 export interface CreateArticle {
+  id?:number | null;
   userId: number;
   articleCover: string |null;
   articleTitle: string;

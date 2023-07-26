@@ -5,9 +5,10 @@
     </el-form-item>
   </el-col>
 </template>
-<script setup>
+<script lang="ts" setup>
 const props=defineProps({
   label:String,
   labelWidth:String
 })
 </script>
+

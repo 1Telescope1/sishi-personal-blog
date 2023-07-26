@@ -21,7 +21,9 @@ export class ArticleService {
     pageSize: number,
     articleTitle: string,
     articleContent: string,
-    tagId:string
+    tagId:string,
+    categoryId:string,
+    type:string
   ) {
     const data =await this.articleRepository
       .createQueryBuilder('article')
@@ -38,6 +40,12 @@ export class ArticleService {
       })
       .andWhere('article.tagId LIKE :tagId',{
         tagId:`%${tagId}%`
+      })
+      // .andWhere('article.categoryId LIKE :categoryId',{
+      //   categoryId:`%%`
+      // })
+      .andWhere('article.type LIKE :type',{
+        type:`%${type}%`
       })
       .andWhere('article.isDelete=:isDelete', { isDelete: 0 })
       .orderBy('article.id','DESC')

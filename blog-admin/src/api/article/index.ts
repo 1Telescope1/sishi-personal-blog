@@ -12,7 +12,7 @@ export const reqGetArticlesPage = (paramas: ArticleParams) =>
 export const reqArticleTotal=()=>request<number>(`/article/length`);
 
 // 根据文章id获取文章
-export const reqArticleById=(id:string)=>request<Article>(`/article/${id}`)
+export const reqArticleById=(id:number)=>request<CreateArticle>(`/article/${id}`)
 
 // 发表或更新文章
 export const reqPublishArticle=(data:CreateArticle)=>request<any>(`/article`,'POST',data)

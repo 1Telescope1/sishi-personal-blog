@@ -43,8 +43,9 @@ export const articleStatus=[
 ]
 
 export const articleSearchForm={
-  tagId:null,
-  categoryId:null,
-  type:null,
-  articleTitle:null
+  tagId:"",
+  categoryId:"",
+  type:"",
+  articleTitle:"",
+  articleContent:""
 }

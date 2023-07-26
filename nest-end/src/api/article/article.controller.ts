@@ -33,14 +33,18 @@ export class ArticleController {
     @Query('pageSize', new ParseIntPipe()) pageSize: number,
     @Query('articleTitle') articleTitle: string,
     @Query('articleContent') articleContent: string,
-    @Query('tagId') tagId:string
+    @Query('tagId') tagId:string,
+    @Query('categoryId') categoryId:string,
+    @Query('type') type:string
   ) {
     const data = await this.articleService.findPage(
       pageNum,
       pageSize,
       articleTitle,
       articleContent,
-      tagId
+      tagId,
+      categoryId,
+      type
     );
     return new Result(data);
   }

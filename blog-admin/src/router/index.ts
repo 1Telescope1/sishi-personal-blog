@@ -8,7 +8,7 @@ let routes = [
     children: [
       {
         path: "",
-        name: "",
+        name: "首页",
         component: () => import("@/views/index.vue"),
         meta: {
           keepAlive: true, 
@@ -26,11 +26,20 @@ let routes = [
       },
       {
         path: "article/publish",
-        name: "article",
+        name: "publishArticle",
         component: () => import("@/views/Article/article.vue"),
         meta: {
-          keepAlive: true,
+          keepAlive: false,
           title: "发布文章",
+        },
+      },
+      {
+        path: "article/publish/:articleId",
+        name: "editArticle",
+        component: () => import("@/views/Article/article.vue"),
+        meta: {
+          keepAlive: false,
+          title: "修改文章",
         },
       },
       {
@@ -59,13 +68,13 @@ let routes = [
       title: "注册页",
     },
   },
-  {
-    // 配置404页面
-    path: "/404",
-    name: "404",
-    component: () => import("@/views/404/index.vue"),
-  },
-  { path: "/:catchAll(.*)", redirect: "/404" },
+  // {
+  //   // 配置404页面
+  //   path: "/404",
+  //   name: "404",
+  //   component: () => import("@/views/404/index.vue"),
+  // },
+  // { path: "/:catchAll(.*)", redirect: "/404" },
 ];
 
 // 路由

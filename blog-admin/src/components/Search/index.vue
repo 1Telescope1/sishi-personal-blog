@@ -26,11 +26,8 @@ import { ref,useSlots } from 'vue';
 defineProps({
   model:Object
 })
-
-
 defineEmits(["search","reset"])
 const showSearch = ref(false)
-
 // 获取有哪些插槽
 const slots = useSlots()
 // !!是把有值转为true，无值转为false
