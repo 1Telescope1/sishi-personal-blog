@@ -112,11 +112,12 @@ const init = async () => {
   const res = await reqArticleById(articleId as string);
   if (res.status == 200) {
     article.value = res.data;
-    wordNum.value = deleteHTMLTag(article.value.articleContent).length;
+    wordNum.value = deleteHTMLTag(article.value!.articleContent).length;
     readTime.value = Math.round(wordNum.value / 400);
     articleLoaded.value = true;
   }
 };
+
 init();
 const readTime = ref(0);
 const wordNum = ref(0);

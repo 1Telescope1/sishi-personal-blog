@@ -57,8 +57,7 @@ export class Article {
     name: "is_delete",
     comment: "是否删除  0否 1是",
     width: 1,
-    default: () => "'0'",
-    select:false
+    default: () => "'0'"
   })
   isDelete: boolean;
 
@@ -112,7 +111,7 @@ export class Article {
   @Column("int", { name: "views", comment: "浏览量", default: () => "'0'" })
   views: number;
 
-  @Column("int", { name: "tag_id", comment: "文章标签",select:false })
+  @Column("int", { name: "tag_id", comment: "文章标签" })
   tagId: number;
 
   @ManyToOne(() => Tag, (tag) => tag.articles, {

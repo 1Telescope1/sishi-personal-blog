@@ -99,6 +99,7 @@ const getTagList=async ()=>{
     tagList.value=res.data
   }
 }
+getTagList()
 const getArticleTypeName=(id:number)=>{
   for (let i=0;i<articleType.length;i++) {
     if(articleType[i].id==id) {
@@ -118,7 +119,6 @@ const {
   pageSize,
   getData,
   handleDelete,
-  handleStatusChange,
   multiSelectionIds,
   handleSelectionChange,
   multipleTableRef

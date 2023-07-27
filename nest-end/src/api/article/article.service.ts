@@ -133,4 +133,9 @@ export class ArticleService {
       .execute();
     return data;
   }
+
+  test(id:number,artitcleTitle:string) {
+    const data=this.articleRepository.query('select * from t_article where id=? and article_title like ?',[id,artitcleTitle])
+    return data;
+  }
 }
