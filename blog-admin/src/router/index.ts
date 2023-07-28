@@ -51,6 +51,15 @@ let routes = [
           title: "文章列表",
         },
       },
+      {
+        path: "article/tag",
+        name: "articleTag",
+        component: () => import("@/views/Tag/index.vue"),
+        meta: {
+          keepAlive: true, //需要缓存
+          title: "标签模块",
+        },
+      },
     ],
     meta: {
       keepAlive: true,

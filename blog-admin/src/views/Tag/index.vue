@@ -1,0 +1,107 @@
+<template>
+  <div>
+    <el-card class="box-card">
+      <template #header>
+        <div class="card-header">
+          <span style="font-weight: 600">标签管理</span>
+        </div>
+      </template>
+      <div>
+        <el-table ref="multipleTableRef" @selection-change="handleSelectionChange" :data="tableData" stripe style="width: 100%" v-loading="loading">
+          <el-table-column type="selection" width="55" />
+          <el-table-column label="标签名" prop="tagName" width="185" align="center">
+          </el-table-column>
+          <el-table-column label="创建时间"  align="center">
+            <template #default="{row}">
+              <span>{{formatDateTime(row.createTime).substring(0,10)}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="更新时间" align="center">
+            <template #default="{row}">
+              <span>{{formatDateTime(row.updateTime).substring(0,10)}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" width="200" align="center">
+            <template #default="{row}">
+              <el-button size="small" type="primary" @click="edit(row)">编辑</el-button>
+              <el-popconfirm title="你确定要删除标签吗?" @confirm="handleDelete(row.id)">
+                <template #reference>
+                  <el-button size="small" type="danger">删除</el-button>
+                </template>
+              </el-popconfirm>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </el-card>
+
+    <el-dialog v-model="dialogFormVisible" title="标签信息" width="30%">
+      <el-form :model="tagForm">
+        <el-form-item label="标签名" :label-width="formLabelWidth">
+          <el-input v-model="tagForm!.tagName" autocomplete="off" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取消</el-button>
+        <el-button type="primary" @click="update">
+          确定
+        </el-button>
+      </span>
+      </template>
+    </el-dialog>
+  </div>
+</template>
+
+<script setup lang="ts">
+import {ref} from'vue'
+import {reqAddOrUpdateTag, reqDelTag, reqTags} from "@/api/tag";
+import {useInitTable} from "@/hooks/useTable.ts";
+import {formatDateTime} from "@/utils/date.ts";
+import {Tag} from "@/model";
+
+const {
+  tableData,
+  loading,
+  handleSelectionChange,
+  handleDelete,
+  handleUpdate,
+  multiSelectionIds
+}=useInitTable({
+  getList:reqTags,
+  delete:reqDelTag,
+  update:reqAddOrUpdateTag
+})
+
+const tagForm=ref<Tag>()
+let dialogFormVisible=ref(false)
+const formLabelWidth = '140px'
+const edit=(data:Tag)=>{
+  dialogFormVisible.value=true
+  tagForm.value=JSON.parse(JSON.stringify(data));
+}
+const update=()=>{
+  handleUpdate(tagForm.value)
+  dialogFormVisible.value=false
+}
+</script>
+
+<style scoped lang="scss">
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.box-card {
+  width: 100%;
+}
+</style>

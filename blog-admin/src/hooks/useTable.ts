@@ -4,11 +4,12 @@ import {notification} from "@/utils/elComponent.ts";
 // 列表，分页，搜索，删除，修改状态
 
 interface opt {
-  searchForm: any,
-  getList: Function,
-  delete: Function,
-  updateStatus: Function,
-  onGetListSuccess?: Function
+  searchForm?: any,
+  getList?: Function,
+  delete?: Function,
+  updateStatus?: Function,
+  onGetListSuccess?: Function,
+  update?: Function
 }
 
 export function useInitTable(opt: opt = {
@@ -49,18 +50,18 @@ export function useInitTable(opt: opt = {
     }
     loading.value = true;
     opt
-        .getList(searchForm)
-        .then((res: any) => {
-          if (opt.onGetListSuccess && typeof opt.onGetListSuccess == "function") {
-            opt.onGetListSuccess(res);
-          } else {
-            tableData.value = res.data.records;
-            total.value = res.data.total;
-          }
-        })
-        .finally(() => {
-          loading.value = false;
-        });
+      .getList(searchForm)
+      .then((res: any) => {
+        if (opt.onGetListSuccess && typeof opt.onGetListSuccess == "function") {
+          opt.onGetListSuccess(res);
+        } else {
+          tableData.value = res.data.records || res.data;
+          total.value = res.data.total;
+        }
+      })
+      .finally(() => {
+        loading.value = false;
+      });
   }
 
   getData();
@@ -80,13 +81,23 @@ export function useInitTable(opt: opt = {
   const handleStatusChange = async (status: any, row: any) => {
     row.statusLoading = true;
     const res = await opt
-        .updateStatus(row.id, status)
+      .updateStatus(row.id, status)
     if (res.status == 200) {
       notification("修改状态成功");
       row.status = status;
     }
     row.statusLoading = false;
   };
+
+  const handleUpdate = async (row: any) => {
+    loading.value = true
+    const res = await opt.update(row)
+    if (res.status == 200) {
+      notification("更新成功")
+      getData()
+    }
+    loading.value = false
+  }
 
   // 多选选中ID
   const multiSelectionIds = ref([]);
@@ -98,7 +109,7 @@ export function useInitTable(opt: opt = {
   const handleMultiDelete = async () => {
     loading.value = true;
     const res = await opt
-        .delete(multiSelectionIds.value)
+      .delete(multiSelectionIds.value)
     if (res.status == 200) {
       notification("删除成功");
       if (multipleTableRef.value) {
@@ -113,7 +124,7 @@ export function useInitTable(opt: opt = {
   const handleMultiStatusChange = async (status: any) => {
     loading.value = true;
     const res = await opt
-        .updateStatus(multiSelectionIds.value, status)
+      .updateStatus(multiSelectionIds.value, status)
     if (res.status == 200) {
       notification("修改状态成功");
       // 清空选中
@@ -138,5 +149,6 @@ export function useInitTable(opt: opt = {
     multipleTableRef,
     handleMultiDelete,
     multiSelectionIds,
+    handleUpdate
   };
 }

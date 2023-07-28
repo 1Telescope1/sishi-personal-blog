@@ -10,12 +10,12 @@
       <el-main>
         <FBreadcrumb></FBreadcrumb>
         <FTagList></FTagList>
-        <router-view v-slot="{ Component }">
+        <router-view v-slot="{ Component }" style="margin-top: 40px">
           <transition name="fade">
             <keep-alive :max="10" v-if="$route.meta.keepAlive">
               <component :key="$route.name"
                          :is="Component"
-                         ></component>
+              ></component>
             </keep-alive>
             <component :key="$route.name"
                        :is="Component"

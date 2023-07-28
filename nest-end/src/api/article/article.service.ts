@@ -21,15 +21,15 @@ export class ArticleService {
     pageSize: number,
     articleTitle: string,
     articleContent: string,
-    tagId:string,
-    categoryId:string,
-    type:string
+    tagId: string,
+    categoryId: string,
+    type: string,
   ) {
-    const data =await this.articleRepository
+    const data = await this.articleRepository
       .createQueryBuilder('article')
       .select()
       .leftJoin('article.tag', 'tag')
-      .addSelect(['tag.tagName','tag.id'])
+      .addSelect(['tag.tagName', 'tag.id'])
       .leftJoin('article.userinfo', 'userinfo')
       .addSelect(['userinfo.nickname', 'userinfo.avatar'])
       .where('article.articleTitle LIKE :articleTitle', {
@@ -38,22 +38,22 @@ export class ArticleService {
       .andWhere('article.articleContent LIKE :articleContent', {
         articleContent: `%${articleContent}%`,
       })
-      .andWhere('article.tagId LIKE :tagId',{
-        tagId:`%${tagId}%`
+      .andWhere('article.tagId LIKE :tagId', {
+        tagId: `%${tagId}%`,
       })
       // .andWhere('article.categoryId LIKE :categoryId',{
       //   categoryId:`%%`
       // })
-      .andWhere('article.type LIKE :type',{
-        type:`%${type}%`
+      .andWhere('article.type LIKE :type', {
+        type: `%${type}%`,
       })
       .andWhere('article.isDelete=:isDelete', { isDelete: 0 })
-      .orderBy('article.id','DESC')
+      .orderBy('article.id', 'DESC')
       .skip((pageNum - 1) * pageSize)
       .take(pageSize)
       .getMany();
-    const total=await this.articleRepository.count()
-    return {records:data,total,pageSize,pageNum};
+    const total = await this.articleRepository.count();
+    return { records: data, total, pageSize, pageNum };
   }
 
   findAll() {
@@ -65,7 +65,7 @@ export class ArticleService {
       .leftJoin('article.userinfo', 'userinfo')
       .addSelect(['userinfo.nickname', 'userinfo.avatar'])
       .andWhere('article.isDelete=:isDelete', { isDelete: 0 })
-      .orderBy('article.id','DESC')
+      .orderBy('article.id', 'DESC')
       .getMany();
     return data;
   }
@@ -119,7 +119,7 @@ export class ArticleService {
       })
       .where('id=:id', { id })
       .execute();
-      return data
+    return data;
   }
 
   remove(id: number) {
@@ -134,8 +134,12 @@ export class ArticleService {
     return data;
   }
 
-  test(id:number,artitcleTitle:string) {
-    const data=this.articleRepository.query('select * from t_article where id=? and article_title like ?',[id,artitcleTitle])
+  test( artitcleTitle: string) {
+    const data=null
+    // const data = this.articleRepository.query(
+    //   'select * from t_article where  article_title like ?',
+    //   [artitcleTitle],
+    // );
     return data;
   }
 }

@@ -10,10 +10,10 @@
           </div>
           <div>
             <el-date-picker
-                v-model="nowTime"
-                type="date"
-                placeholder="Pick a date"
-                clearable
+              v-model="nowTime"
+              type="date"
+              placeholder="Pick a date"
+              clearable
             />
           </div>
         </div>
@@ -21,12 +21,13 @@
       <v-md-editor v-model="form.articleContent" height="400px"></v-md-editor>
     </el-card>
 
+
     <el-dialog
-        v-model="dialogVisible"
-        title="发布文章"
-        width="50%"
-        :close-on-click-modal="false"
-        :close-on-press-escape="false"
+      v-model="dialogVisible"
+      title="发布文章"
+      width="50%"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
     >
       <el-form :model="form">
         <el-form-item label="文章标题" :label-width="formLabelWidth">
@@ -53,10 +54,10 @@
         </el-form-item>
         <el-form-item label="上传封面" :label-width="formLabelWidth">
           <el-upload
-              class="upload-demo"
-              drag
-              action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-              multiple
+            class="upload-demo"
+            drag
+            action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+            multiple
           >
             <el-icon class="el-icon--upload">
               <upload-filled/>
@@ -85,13 +86,14 @@
           发布
         </el-button>
       </span>
+
       </template>
     </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import {onMounted, reactive, ref} from "vue";
+import {reactive, ref} from "vue";
 import {formatDate} from "@/utils/date.ts";
 import {Article, CreateArticle} from "@/api/article/type.ts";
 import {useUserStore} from "@/store/user.ts";
@@ -100,10 +102,10 @@ import {reqTags} from "@/api/tag";
 import {Check, Close, UploadFilled} from "@element-plus/icons-vue";
 import {reqArticleById, reqPublishArticle} from "@/api/article";
 import {notification} from "@/utils/elComponent.ts";
-import {articleStatus,articleType,categoryList} from "@/model/data.ts"
+import {articleStatus, articleType, categoryList} from "@/model/data.ts"
 import {useRoute} from "vue-router";
 
-const route=useRoute()
+const route = useRoute()
 const {user} = useUserStore()
 const form = ref<CreateArticle>({
   articleContent: "",
@@ -120,13 +122,15 @@ const form = ref<CreateArticle>({
   userId: user!.id
 })
 
-const getArticle=async ()=>{
-  const res=await reqArticleById(+(route.params.articleId))
-  if(res.status==200) {
-    form.value=res.data
+
+const getArticle = async () => {
+  const res = await reqArticleById(+(route.params.articleId))
+  if (res.status == 200) {
+    form.value = res.data
   }
 }
-if(route.params.articleId) {
+
+if (route.params.articleId) {
   getArticle()
 }
 
@@ -142,7 +146,6 @@ const getTagList = async () => {
   }
 }
 getTagList()
-
 
 const publishArticle = async () => {
   const res = await reqPublishArticle(form.value)

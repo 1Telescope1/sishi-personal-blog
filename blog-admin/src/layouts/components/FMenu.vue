@@ -24,6 +24,7 @@
           </template>
             <el-menu-item index="/article/publish">发布文章</el-menu-item>
             <el-menu-item index="/article/list">文章列表</el-menu-item>
+            <el-menu-item index="/article/tag">标签模块</el-menu-item>
         </el-sub-menu>
       </el-menu>
    

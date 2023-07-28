@@ -64,8 +64,10 @@ export class ArticleController {
     return new Result(await this.articleService.remove(+id));
   }
 
-  @Get('test/:id/:articleTitle')
-  async test(@Param('id')id:string,@Param('articleTitle')articleTitle:string) {
-    return new Result(await this.articleService.test(+id,articleTitle));
+  @Get('test')
+  async test(@Query('articleTitle') articleTitle: string){
+    console.log(articleTitle)
+    return new Result(123);
   }
 }
+
