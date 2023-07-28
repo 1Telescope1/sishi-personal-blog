@@ -7,7 +7,7 @@ export interface Result<T> {
 
 export interface Tag {
 	tagName: string;
-  id:number
+  id?:number|null
   createTime?: string;
 	updateTime?: string;
 }

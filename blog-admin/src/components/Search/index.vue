@@ -7,8 +7,8 @@
       </template>
       <el-col :span="6" >
         <div class="flex items-center justify-end">
-          <el-button type="primary" @click="$emit('search')">搜索</el-button>
-          <el-button @click="$emit('reset')">重置</el-button>
+          <el-button :icon="Search" size="default" type="primary" @click="$emit('search')">搜索</el-button>
+          <el-button size="default" @click="$emit('reset')">重置</el-button>
           <el-button type="primary" text @click="showSearch = !showSearch" v-if="hasShowSearch">
             {{ showSearch ? '收起' : "展开" }}
             <el-icon>
@@ -23,6 +23,7 @@
 </template>
 <script lang="ts" setup>
 import { ref,useSlots } from 'vue';
+import {  Search } from '@element-plus/icons-vue'
 defineProps({
   model:Object
 })

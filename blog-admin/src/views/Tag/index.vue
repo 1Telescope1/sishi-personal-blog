@@ -5,11 +5,15 @@
         <div class="card-header">
           <span style="font-weight: 600">标签管理</span>
         </div>
+        <InfoButton @refresh="getData"></InfoButton>
       </template>
       <div>
         <el-table ref="multipleTableRef" @selection-change="handleSelectionChange" :data="tableData" stripe style="width: 100%" v-loading="loading">
           <el-table-column type="selection" width="55" />
-          <el-table-column label="标签名" prop="tagName" width="185" align="center">
+          <el-table-column label="标签名" width="185" align="center">
+            <template #default="{row}">
+              <el-tag>{{row.tagName}}</el-tag>
+            </template>
           </el-table-column>
           <el-table-column label="创建时间"  align="center">
             <template #default="{row}">
@@ -23,10 +27,10 @@
           </el-table-column>
           <el-table-column label="操作" width="200" align="center">
             <template #default="{row}">
-              <el-button size="small" type="primary" @click="edit(row)">编辑</el-button>
+              <el-button :icon="Edit" size="small" type="primary" @click="edit(row)">编辑</el-button>
               <el-popconfirm title="你确定要删除标签吗?" @confirm="handleDelete(row.id)">
                 <template #reference>
-                  <el-button size="small" type="danger">删除</el-button>
+                  <el-button :icon="Delete" size="small" type="danger">删除</el-button>
                 </template>
               </el-popconfirm>
             </template>
@@ -59,6 +63,8 @@ import {reqAddOrUpdateTag, reqDelTag, reqTags} from "@/api/tag";
 import {useInitTable} from "@/hooks/useTable.ts";
 import {formatDateTime} from "@/utils/date.ts";
 import {Tag} from "@/model";
+import {  Edit,Delete } from '@element-plus/icons-vue'
+
 
 const {
   tableData,
@@ -66,6 +72,7 @@ const {
   handleSelectionChange,
   handleDelete,
   handleUpdate,
+  getData,
   multiSelectionIds
 }=useInitTable({
   getList:reqTags,
@@ -84,6 +91,10 @@ const update=()=>{
   handleUpdate(tagForm.value)
   dialogFormVisible.value=false
 }
+
+const test=()=>{
+  console.log(123)
+}
 </script>
 
 <style scoped lang="scss">
@@ -91,6 +102,7 @@ const update=()=>{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .text {

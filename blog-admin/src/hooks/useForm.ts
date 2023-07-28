@@ -2,12 +2,12 @@ import {ref, reactive, computed} from "vue";
 import {notification} from "@/utils/elComponent.ts";
 
 interface opt {
-    form: Object,
-    rules: Object,
-    beforeSubmit: Function,
-    update: Function,
-    create: Function,
-    getData: Function,
+    form?: Object,
+    rules?: Object,
+    beforeSubmit?: Function,
+    update?: Function,
+    create?: Function,
+    getData?: Function,
 
 }
 

@@ -65,10 +65,10 @@
           </el-table-column>
           <el-table-column label="操作" width="200" align="center">
             <template #default="{row}">
-              <el-button size="small" type="primary" @click="router.push(`/article/publish/${row.id}`)">编辑</el-button>
+              <el-button :icon="Edit" size="small" type="primary" @click="router.push(`/article/publish/${row.id}`)">编辑</el-button>
               <el-popconfirm title="你确定要删除文章吗?" @confirm="handleDelete(row.id)">
                 <template #reference>
-                  <el-button size="small" type="danger">删除</el-button>
+                  <el-button :icon="Delete" size="small" type="danger">删除</el-button>
                 </template>
               </el-popconfirm>
             </template>
@@ -88,6 +88,8 @@ import {Tag} from "@/model";
 import {reqTags} from "@/api/tag";
 import {formatDateTime} from "@/utils/date.ts";
 import {useRouter} from "vue-router";
+import {  Edit,Delete } from '@element-plus/icons-vue'
+
 
 const router=useRouter()
 
