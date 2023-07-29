@@ -14,7 +14,7 @@
         <el-button type="primary" @click="submit" :loading="loading">{{
             confirmText
           }}</el-button>
-        <el-button type="default" @click="close">取消</el-button>
+        <el-button  @click="close">取消</el-button>
       </div>
     </div>
   </el-drawer>

@@ -5,7 +5,7 @@
         <div class="card-header">
           <span style="font-weight: 600">标签管理</span>
         </div>
-        <InfoButton @refresh="getData"></InfoButton>
+        <InfoButton @create="handleCreate" @refresh="getData"></InfoButton>
       </template>
       <div>
         <el-table ref="multipleTableRef" @selection-change="handleSelectionChange" :data="tableData" stripe style="width: 100%" v-loading="loading">
@@ -27,7 +27,7 @@
           </el-table-column>
           <el-table-column label="操作" width="200" align="center">
             <template #default="{row}">
-              <el-button :icon="Edit" size="small" type="primary" @click="edit(row)">编辑</el-button>
+              <el-button :icon="Edit" size="small" type="primary" @click="handleEdit(row)">编辑</el-button>
               <el-popconfirm title="你确定要删除标签吗?" @confirm="handleDelete(row.id)">
                 <template #reference>
                   <el-button :icon="Delete" size="small" type="danger">删除</el-button>
@@ -39,10 +39,18 @@
       </div>
     </el-card>
 
-    <el-dialog v-model="dialogFormVisible" title="标签信息" width="30%">
-      <el-form :model="tagForm">
+    <FormDrawer ref="formDrawerRef" :title="drawerTitle" @submit="handleSubmit">
+      <el-form ref="formRef" :model="form">
         <el-form-item label="标签名" :label-width="formLabelWidth">
-          <el-input v-model="tagForm!.tagName" autocomplete="off" />
+          <el-input v-model="form!.tagName" autocomplete="off" />
+        </el-form-item>
+      </el-form>
+    </FormDrawer>
+
+    <el-dialog v-model="dialogFormVisible" title="标签信息" width="30%">
+      <el-form :model="form">
+        <el-form-item label="标签名" :label-width="formLabelWidth">
+          <el-input v-model="form.tagName" autocomplete="off" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -64,6 +72,7 @@ import {useInitTable} from "@/hooks/useTable.ts";
 import {formatDateTime} from "@/utils/date.ts";
 import {Tag} from "@/model";
 import {  Edit,Delete } from '@element-plus/icons-vue'
+import {useInitForm} from "@/hooks/useForm.ts";
 
 
 const {
@@ -77,7 +86,23 @@ const {
 }=useInitTable({
   getList:reqTags,
   delete:reqDelTag,
-  update:reqAddOrUpdateTag
+})
+
+const {
+  formDrawerRef,
+  formRef,
+  form,
+  drawerTitle,
+  handleSubmit,
+  handleCreate,
+  handleEdit
+}=useInitForm({
+  form:{
+    tagName:""
+  },
+  update:reqAddOrUpdateTag,
+  create:reqAddOrUpdateTag,
+  getData
 })
 
 const tagForm=ref<Tag>()

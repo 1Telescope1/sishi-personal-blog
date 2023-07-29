@@ -8,7 +8,6 @@ interface opt {
     update?: Function,
     create?: Function,
     getData?: Function,
-
 }
 
 // 新增，修改
@@ -21,10 +20,10 @@ export function useInitForm(opt: opt = {}) {
     const rules = opt.rules || {};
     const editId = ref(0);
     const drawerTitle = computed(() => (editId.value ? "修改" : "新增"));
+    console.log(opt)
     const handleSubmit = () => {
         formRef.value?.validate((valid: any) => {
             if (!valid) return;
-
             formDrawerRef.value?.showLoading();
 
             let body = {};
@@ -34,8 +33,12 @@ export function useInitForm(opt: opt = {}) {
                 body = form;
             }
 
+            if(editId.value) {
+                body.id=editId.value
+            }
+
             const fun = editId.value
-                ? opt.update(editId.value, body)
+                ? opt.update( body)
                 : opt.create(body);
 
             fun
