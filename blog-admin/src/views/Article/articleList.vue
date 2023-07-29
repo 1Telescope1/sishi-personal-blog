@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span>文章列表</span>
+          <span>{{this.$route.meta.title}}</span>
         </div>
       </template>
       <div>
@@ -74,6 +74,11 @@
             </template>
           </el-table-column>
         </el-table>
+
+        <div class="pagination">
+          <el-pagination background layout="prev, pager ,next" :total="total" :current-page="pageNum"
+                         :page-size="pageSize" @current-change="getData" />
+        </div>
       </div>
     </el-card>
   </div>
@@ -132,25 +137,7 @@ const {
 </script>
 
 <style lang="scss" scoped>
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 18px;
-  font-weight: 600;
-}
 
-.text {
-  font-size: 14px;
-}
-
-.item {
-  margin-bottom: 18px;
-}
-
-.box-card {
-  width: 100%;
-}
 .img {
   width: 100%;
   height: 90px;

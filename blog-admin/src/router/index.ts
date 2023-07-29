@@ -60,6 +60,33 @@ let routes = [
           title: "标签模块",
         },
       },
+      {
+        path: "News/comment",
+        name: "newsComment",
+        component: () => import("@/views/News/comment.vue"),
+        meta: {
+          keepAlive: true, //需要缓存
+          title: "文章留言",
+        },
+      },
+      {
+        path: "News/talkComment",
+        name: "talkComment",
+        component: () => import("@/views/News/talkComment.vue"),
+        meta: {
+          keepAlive: true, //需要缓存
+          title: "说说评论",
+        },
+      },
+      {
+        path: "News/Message",
+        name: "message",
+        component: () => import("@/views/News/Message.vue"),
+        meta: {
+          keepAlive: true, //需要缓存
+          title: "留言列表",
+        },
+      },
     ],
     meta: {
       keepAlive: true,

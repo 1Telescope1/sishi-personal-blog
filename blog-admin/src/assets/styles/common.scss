@@ -1,0 +1,23 @@
+.box-card {
+  width: 100%;
+  .card-header {
+    display: flex;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    margin-bottom: 18px;
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}

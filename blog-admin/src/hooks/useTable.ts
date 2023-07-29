@@ -43,10 +43,10 @@ export function useInitTable(opt: opt = {
   const loading = ref(false);
 
   // 获取数据
-  function getData(p = null, k = null) {
-    if (typeof p == "number" && typeof k == 'number') {
+  function getData(p = null) {
+    if (typeof p == "number") {
       pageNum.value = p;
-      pageSize.value = k;
+      searchForm.pageNum=p
     }
     loading.value = true;
     opt

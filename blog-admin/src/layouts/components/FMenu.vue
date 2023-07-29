@@ -26,6 +26,15 @@
             <el-menu-item index="/article/list">文章列表</el-menu-item>
             <el-menu-item index="/article/tag">标签模块</el-menu-item>
         </el-sub-menu>
+      <el-sub-menu index="3">
+        <template #title>
+          <el-icon><location /></el-icon>
+          <span>消息管理</span>
+        </template>
+        <el-menu-item index="/news/comment">文章评论</el-menu-item>
+        <el-menu-item index="/news/talkComment">说说评论</el-menu-item>
+        <el-menu-item index="/news/message">留言列表</el-menu-item>
+      </el-sub-menu>
       </el-menu>
    
   </div>

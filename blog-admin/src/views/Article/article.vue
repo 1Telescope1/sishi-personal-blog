@@ -4,7 +4,7 @@
       <template #header>
         <div class="card-header">
           <div class="first">
-            <span>发布文章</span>
+            <span>{{this.$route.meta.title}}</span>
             <el-button size="large" type="primary" class="button" text @click="dialogVisible = true">发布文章
             </el-button>
           </div>
@@ -160,12 +160,8 @@ const publishArticle = async () => {
 
 <style lang="scss" scoped>
 .card-header {
-  display: flex;
   flex-direction: column;
-  font-size: 18px;
-  font-weight: 600;
 }
-
 .first {
   display: flex;
   justify-content: space-between;
@@ -173,15 +169,4 @@ const publishArticle = async () => {
   font-size: 18px;
 }
 
-.text {
-  font-size: 14px;
-}
-
-.item {
-  margin-bottom: 18px;
-}
-
-.box-card {
-  width: 100%;
-}
 </style>

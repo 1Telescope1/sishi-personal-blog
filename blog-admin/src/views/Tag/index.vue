@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span style="font-weight: 600">标签管理</span>
+          <span>{{this.$route.meta.title}}</span>
         </div>
         <InfoButton @create="handleCreate" @refresh="getData"></InfoButton>
       </template>
@@ -117,28 +117,13 @@ const update=()=>{
   dialogFormVisible.value=false
 }
 
-const test=()=>{
-  console.log(123)
-}
 </script>
 
 <style scoped lang="scss">
 .card-header {
-  display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.text {
-  font-size: 14px;
-}
-
-.item {
-  margin-bottom: 18px;
-}
-
-.box-card {
-  width: 100%;
-}
 </style>
