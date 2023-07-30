@@ -45,6 +45,12 @@ export class MessageService {
     return data;
   }
 
+  async getMessageByPage(pageNum:number,pageSize:number,nickname:string,content:string) {
+    const total=await this.messageRepository.count()
+    const data=await this.messageRepository.query("select m.*,u.nickname,u.avatar from t_message as m left join t_user_info as u on m.user_id=u.id where u.nickname like ? and m.comment_content like ? and is_delete=0 limit ?,?",[`%${nickname}%`,`%${content}%`,(pageNum-1)*pageSize,pageSize])
+    return { records: data, total, pageSize, pageNum };
+  }
+
   findOne(id: number) {
     const data=this.messageRepository.createQueryBuilder('message')
     .leftJoin('message.user','userinfo')

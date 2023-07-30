@@ -30,25 +30,37 @@ export class TalkCommentService {
     return data;
   }
 
+  async getTalkCommentByPage(
+    pageNum: number,
+    pageSize: number,
+    nickname: string,
+    content: string,
+  ) {
+    const total = await this.talkCommentRepository.count();
+    const data = await this.talkCommentRepository.query(
+      'select tk.*,u.nickname,u.avatar from t_talk_comment as tk left join t_user_info as u on tk.user_id=u.id where u.nickname like ? and tk.comment_content like ? and is_delete=0 limit ?,?',
+      [`%${nickname}%`, `%${content}%`, (pageNum - 1) * pageSize, pageSize],
+    );
+    return { records: data, total, pageSize, pageNum };
+  }
+
   async findAllByTalk(talkId: number) {
     const list = await this.talkCommentRepository
       .createQueryBuilder('talkcomment')
       .select()
       .leftJoin('talkcomment.userinfo', 'userinfo')
-      .addSelect(['userinfo.id','userinfo.nickname', 'userinfo.avatar'])
+      .addSelect(['userinfo.id', 'userinfo.nickname', 'userinfo.avatar'])
       .where('talkcomment.isDelete=:isDelete', { isDelete: 0 })
       .andWhere('talkcomment.talkId=:talkId', { talkId })
       .getMany();
-    
+
     const data = list.filter((item) => item.parentId == null);
     for (let i = 0; i < list.length; i++) {
       list[i].children = [];
-      list[i].replyInfo = {id:null, nickname: null, avatar: null };
+      list[i].replyInfo = { id: null, nickname: null, avatar: null };
     }
     const replyList = list.filter((item) => item.replyCommentId != null);
-    let children = list.filter(
-      (item) => item.parentId != null 
-    );
+    let children = list.filter((item) => item.parentId != null);
 
     for (let i = 0; i < replyList.length; i++) {
       for (let j = 0; j < children.length; j++) {
@@ -57,7 +69,6 @@ export class TalkCommentService {
         }
       }
     }
-    
 
     children = Array.from(new Set([...children, ...replyList]));
     children.sort((a, b) => a.id - b.id);
@@ -69,7 +80,7 @@ export class TalkCommentService {
         }
       }
     }
-    return data
+    return data;
   }
 
   findOne(id: number) {
@@ -87,27 +98,29 @@ export class TalkCommentService {
   }
 
   update(talkComment: TalkComment) {
-    const {id,commentContent,isDelete,isReview}=talkComment
-    const data=this.talkCommentRepository.createQueryBuilder()
-    .update(TalkComment)
-    .set({
-      commentContent,
-      isDelete,
-      isReview
-    })
-    .where('id=:id',{id})
-    .execute()
+    const { id, commentContent, isDelete, isReview } = talkComment;
+    const data = this.talkCommentRepository
+      .createQueryBuilder()
+      .update(TalkComment)
+      .set({
+        commentContent,
+        isDelete,
+        isReview,
+      })
+      .where('id=:id', { id })
+      .execute();
     return data;
   }
 
   remove(id: number) {
-    const data=this.talkCommentRepository.createQueryBuilder()
-    .update(TalkComment)
-    .set({
-      isDelete:1
-    })
-    .where('id=:id', { id })
-    .execute();
+    const data = this.talkCommentRepository
+      .createQueryBuilder()
+      .update(TalkComment)
+      .set({
+        isDelete: 1,
+      })
+      .where('id=:id', { id })
+      .execute();
     return data;
   }
 }

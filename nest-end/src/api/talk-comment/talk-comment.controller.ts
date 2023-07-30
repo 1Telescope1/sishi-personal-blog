@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Query ,ParseIntPipe} from '@nestjs/common';
 import { TalkCommentService } from './talk-comment.service';
 import { CreateTalkCommentDto } from './dto/create-talk-comment.dto';
 import { UpdateTalkCommentDto } from './dto/update-talk-comment.dto';
@@ -17,6 +17,14 @@ export class TalkCommentController {
   @Get()
   async findAll() {
     return new Result(await this.talkCommentService.findAll())
+  }
+
+  @Get('page')
+  async getTalkCommentByPage(@Query('pageNum',new  ParseIntPipe()) pageNum:number,
+                             @Query('pageSize',new  ParseIntPipe()) pageSize:number,
+                             @Query('nickname') nickname:string,
+                             @Query('content') content:string) {
+    return new Result(await this.talkCommentService.getTalkCommentByPage(pageNum,pageSize,nickname,content))
   }
 
   @Get('talk/:talkId')

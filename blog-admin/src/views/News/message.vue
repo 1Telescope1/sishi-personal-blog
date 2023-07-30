@@ -12,6 +12,13 @@
 </template>
 
 <script setup lang="ts">
+import {reqMessagePage} from "@/api/message";
+
+const getMessage=async ()=>{
+  const res=await reqMessagePage({pageNum:1,pageSize:6,userId:'',content:""})
+  console.log(res)
+}
+getMessage()
 
 </script>
 

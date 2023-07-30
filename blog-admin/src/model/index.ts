@@ -24,3 +24,9 @@ export interface ReplyInfo {
 	avatar?: any;
 }
 
+export interface PaginationParams {
+	total: number;
+	pageSize: number;
+	pageNum: number;
+}
+

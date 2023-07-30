@@ -1,13 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { MessageService } from './message.service';
-import { CreateMessageDto } from './dto/create-message.dto';
-import { UpdateMessageDto } from './dto/update-message.dto';
-import { Result } from 'src/common/result';
-import { Message } from './entities/message.entity';
+import {Controller, Get, Post, Body, Patch, Param, Delete, Query,ParseIntPipe} from '@nestjs/common';
+import {MessageService} from './message.service';
+import {CreateMessageDto} from './dto/create-message.dto';
+import {UpdateMessageDto} from './dto/update-message.dto';
+import {Result} from 'src/common/result';
+import {Message} from './entities/message.entity';
 
 @Controller('message')
 export class MessageController {
-  constructor(private readonly messageService: MessageService) {}
+  constructor(private readonly messageService: MessageService) {
+  }
 
   @Post()
   async create(@Body() createMessageDto: CreateMessageDto) {
@@ -22,6 +23,14 @@ export class MessageController {
   @Get()
   async findAll() {
     return new Result(await this.messageService.findAll());
+  }
+
+  @Get('page')
+  async getMessageByPage(@Query('pageNum', new ParseIntPipe()) pageNum: number,
+                         @Query('pageSize', new ParseIntPipe()) pageSize: number,
+                         @Query('nickname') nickname:string,
+                         @Query('content') content:string) {
+    return new Result(await this.messageService.getMessageByPage(pageNum,pageSize,nickname,content))
   }
 
   @Get(':id')

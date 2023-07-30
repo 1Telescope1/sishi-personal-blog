@@ -1,5 +1,5 @@
 import { request } from "@/utils/request";
-import { Message } from "./type";
+import {Message, MessagePage, MessageParams} from "./type";
 
 // 获取最新留言
 export const reqFiveMessage=()=>request<Message[]>(`/message/recent`)
@@ -9,3 +9,6 @@ export const reqAllMessage=()=>request<Message[]>(`/message`)
 
 // 新增留言
 export const reqAddMessage=(data:Message)=>request<Message>(`/message`,'POST',data)
+
+// 分页获取留言
+export const reqMessagePage=(params:MessageParams)=>request<MessagePage>(`/message/page`,'GET',params)
