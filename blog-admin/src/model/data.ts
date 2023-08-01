@@ -49,3 +49,8 @@ export const articleSearchForm={
   articleTitle:"",
   articleContent:""
 }
+
+export const messageSearchForm={
+  nickname:"",
+  content:""
+}

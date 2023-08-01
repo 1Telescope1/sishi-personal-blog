@@ -12,3 +12,6 @@ export const reqAddMessage=(data:Message)=>request<Message>(`/message`,'POST',da
 
 // 分页获取留言
 export const reqMessagePage=(params:MessageParams)=>request<MessagePage>(`/message/page`,'GET',params)
+
+//逻辑删除留言
+export const reqDelMessage=(id:number)=>request<any>(`/message/${id}`,'DELETE')

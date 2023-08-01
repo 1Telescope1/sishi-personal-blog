@@ -3,26 +3,26 @@
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span>{{this.$route.meta.title}}</span>
+          <span>{{route.meta.title}}</span>
         </div>
       </template>
       <div>
         <Search :model="searchForm" @search="getData" @reset="resetSearchForm">
-          <SearchItem :labelWidth="formLabelWidth">
+          <SearchItem >
             <el-input clearable style="width: 220px;" size="default" v-model="searchForm.articleTitle" placeholder="文章标题" autocomplete="off"/>
           </SearchItem>
-          <SearchItem  :labelWidth="formLabelWidth">
+          <SearchItem >
             <el-select clearable size="default" v-model="searchForm.categoryId" placeholder="选择文章分类">
               <el-option v-for="category in categoryList" :key="category.id" :label="category.categoryName"
                          :value="category.id"/>
             </el-select>
           </SearchItem>
-          <SearchItem  :labelWidth="formLabelWidth">
+          <SearchItem >
             <el-select clearable size="default" v-model="searchForm.tagId" placeholder="选择文章标签">
               <el-option v-for="tag in tagList" :key="tag.id" :label="tag.tagName" :value="tag.id"/>
             </el-select>
           </SearchItem>
-          <SearchItem  :labelWidth="formLabelWidth">
+          <SearchItem  >
             <el-select clearable size="default" v-model="searchForm.type" placeholder="选择文章类型">
               <el-option v-for="type in articleType" :key="type.id" :label="type.typeName" :value="type.id"/>
             </el-select>
@@ -92,11 +92,12 @@ import {reqDeleteArticle, reqGetArticleList, reqGetArticlesPage, reqPublishArtic
 import {Tag} from "@/model";
 import {reqTags} from "@/api/tag";
 import {formatDateTime} from "@/utils/date.ts";
-import {useRouter} from "vue-router";
+import {useRouter,useRoute} from "vue-router";
 import {  Edit,Delete } from '@element-plus/icons-vue'
 
 
 const router=useRouter()
+const route=useRoute()
 
 const tagList=ref<Tag[]>([])
 const getTagList=async ()=>{
@@ -114,7 +115,6 @@ const getArticleTypeName=(id:number)=>{
   }
 }
 
-const formLabelWidth = "120px"
 const {
   searchForm,
   resetSearchForm,

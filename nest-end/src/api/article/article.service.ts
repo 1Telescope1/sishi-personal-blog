@@ -25,13 +25,10 @@ export class ArticleService {
     categoryId: string,
     type: string,
   ) {
-    const data = await this.articleRepository
+    const queryBuilder=await this.articleRepository
       .createQueryBuilder('article')
-      .select()
       .leftJoin('article.tag', 'tag')
-      .addSelect(['tag.tagName', 'tag.id'])
       .leftJoin('article.userinfo', 'userinfo')
-      .addSelect(['userinfo.nickname', 'userinfo.avatar'])
       .where('article.articleTitle LIKE :articleTitle', {
         articleTitle: `%${articleTitle}%`,
       })
@@ -48,11 +45,15 @@ export class ArticleService {
         type: `%${type}%`,
       })
       .andWhere('article.isDelete=:isDelete', { isDelete: 0 })
+    const data =await queryBuilder
+      .select()
+      .addSelect(['tag.tagName', 'tag.id'])
+      .addSelect(['userinfo.nickname', 'userinfo.avatar'])
       .orderBy('article.id', 'DESC')
       .skip((pageNum - 1) * pageSize)
       .take(pageSize)
       .getMany();
-    const total = await this.articleRepository.count();
+    const total = await queryBuilder.getCount();
     return { records: data, total, pageSize, pageNum };
   }
 

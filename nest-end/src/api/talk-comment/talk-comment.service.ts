@@ -4,6 +4,7 @@ import { UpdateTalkCommentDto } from './dto/update-talk-comment.dto';
 import { TalkComment } from './entities/talk-comment.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import transformData from "../../utils/transformData";
 
 @Injectable()
 export class TalkCommentService {
@@ -36,12 +37,17 @@ export class TalkCommentService {
     nickname: string,
     content: string,
   ) {
-    const total = await this.talkCommentRepository.count();
+    let totalResult = await this.talkCommentRepository.query(
+      'select count(*) as total from t_talk_comment as tk left join t_user_info as u on tk.user_id=u.id where u.nickname like ? and tk.comment_content like ? and is_delete=0 ',
+      [`%${nickname}%`, `%${content}%`, (pageNum - 1) * pageSize, pageSize],
+    );
+
     const data = await this.talkCommentRepository.query(
       'select tk.*,u.nickname,u.avatar from t_talk_comment as tk left join t_user_info as u on tk.user_id=u.id where u.nickname like ? and tk.comment_content like ? and is_delete=0 limit ?,?',
       [`%${nickname}%`, `%${content}%`, (pageNum - 1) * pageSize, pageSize],
     );
-    return { records: data, total, pageSize, pageNum };
+    const transformedResult=transformData(data)
+    return { records: transformedResult,total:totalResult[0].total, pageSize, pageNum };
   }
 
   async findAllByTalk(talkId: number) {

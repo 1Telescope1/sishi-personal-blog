@@ -12,12 +12,12 @@ export interface Message {
 
 export interface Record {
 	id: number;
-	user_id: number;
-	comment_content: string;
-	is_delete: number;
-	is_review: number;
-	create_time: string;
-	update_time: string;
+	userId: number;
+	commentContent: string;
+	isDelete: number;
+	isReview: number;
+	createTime: string;
+	updateTime: string;
 	nickname: string;
 	avatar: string;
 }

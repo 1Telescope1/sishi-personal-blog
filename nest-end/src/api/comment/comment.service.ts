@@ -4,6 +4,7 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from './entities/comment.entity';
 import { Repository } from 'typeorm';
+import transformData from "../../utils/transformData";
 
 @Injectable()
 export class CommentService {
@@ -65,12 +66,16 @@ export class CommentService {
     title: string,
     content: string,
   ) {
-    const total = await this.commentRepository.count();
+    const totalResult = await this.commentRepository.query(
+      'select count(*) as total from t_comment as c left join t_user_info as u on c.user_id=u.id left join t_article a on a.id=c.article_id where u.nickname like ? and c.comment_content like ? and a.article_title like ? and c.is_delete=0 ',
+      [`%${nickname}%`, `%${content}%`,`%${title}%`, (pageNum - 1) * pageSize, pageSize],
+    )
     const data = await this.commentRepository.query(
       'select c.*,u.nickname,u.avatar,a.article_title,a.article_cover from t_comment as c left join t_user_info as u on c.user_id=u.id left join t_article a on a.id=c.article_id where u.nickname like ? and c.comment_content like ? and a.article_title like ? and c.is_delete=0 limit ?,?',
       [`%${nickname}%`, `%${content}%`,`%${title}%`, (pageNum - 1) * pageSize, pageSize],
     );
-    return { records: data, total, pageSize, pageNum };
+    const transformedResult=transformData(data)
+    return { records: transformedResult, total:totalResult[0].total, pageSize, pageNum };
   }
 
   findOne(id: number) {

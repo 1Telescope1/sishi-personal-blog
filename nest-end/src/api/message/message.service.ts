@@ -4,6 +4,7 @@ import { UpdateMessageDto } from './dto/update-message.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Message } from './entities/message.entity';
 import { Repository } from 'typeorm';
+import transformData from "../../utils/transformData";
 
 @Injectable()
 export class MessageService {
@@ -46,9 +47,13 @@ export class MessageService {
   }
 
   async getMessageByPage(pageNum:number,pageSize:number,nickname:string,content:string) {
-    const total=await this.messageRepository.count()
-    const data=await this.messageRepository.query("select m.*,u.nickname,u.avatar from t_message as m left join t_user_info as u on m.user_id=u.id where u.nickname like ? and m.comment_content like ? and is_delete=0 limit ?,?",[`%${nickname}%`,`%${content}%`,(pageNum-1)*pageSize,pageSize])
-    return { records: data, total, pageSize, pageNum };
+    const  totalResult  = await this.messageRepository.query(
+      'select count(*) as total from t_message as m left join t_user_info as u on m.user_id=u.id where u.nickname like ? and m.comment_content like ? and is_delete=0',
+      [`%${nickname}%`, `%${content}%`, (pageNum - 1) * pageSize, pageSize],
+    );
+    const data=await this.messageRepository.query("select m.*, u.nickname,u.avatar from t_message as m left join t_user_info as u on m.user_id=u.id where u.nickname like ? and m.comment_content like ? and is_delete=0 limit ?,?",[`%${nickname}%`,`%${content}%`,(pageNum-1)*pageSize,pageSize])
+    const transformedResult=transformData(data);
+    return { records: transformedResult,total: totalResult[0].total, pageSize, pageNum };
   }
 
   findOne(id: number) {

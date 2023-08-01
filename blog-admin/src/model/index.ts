@@ -25,7 +25,7 @@ export interface ReplyInfo {
 }
 
 export interface PaginationParams {
-	total: number;
+	total?: number;
 	pageSize: number;
 	pageNum: number;
 }

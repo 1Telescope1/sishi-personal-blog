@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span>{{this.$route.meta.title}}</span>
+          <span>{{route.meta.title}}</span>
         </div>
         <InfoButton @create="handleCreate" @refresh="getData"></InfoButton>
       </template>
@@ -42,7 +42,7 @@
     <FormDrawer ref="formDrawerRef" :title="drawerTitle" @submit="handleSubmit">
       <el-form ref="formRef" :model="form">
         <el-form-item label="标签名" :label-width="formLabelWidth">
-          <el-input v-model="form!.tagName" autocomplete="off" />
+          <el-input v-model="form.tagName" autocomplete="off" />
         </el-form-item>
       </el-form>
     </FormDrawer>
@@ -73,7 +73,9 @@ import {formatDateTime} from "@/utils/date.ts";
 import {Tag} from "@/model";
 import {  Edit,Delete } from '@element-plus/icons-vue'
 import {useInitForm} from "@/hooks/useForm.ts";
+import {useRoute} from 'vue-router'
 
+const route=useRoute()
 
 const {
   tableData,
