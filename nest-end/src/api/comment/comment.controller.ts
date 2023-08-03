@@ -24,7 +24,7 @@ export class CommentController {
                          @Query('pageSize',new  ParseIntPipe()) pageSize:number,
                          @Query('nickname') nickname:string,
                          @Query('title') title:string,
-                         @Query('title') content:string) {
+                         @Query('content') content:string) {
     return new Result(await  this.commentService.getCommentByPage(pageNum,pageSize,nickname,title,content))
   }
 

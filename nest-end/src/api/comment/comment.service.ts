@@ -5,12 +5,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from './entities/comment.entity';
 import { Repository } from 'typeorm';
 import transformData from "../../utils/transformData";
+import {UserInfo} from "../user-info/entities/user-info.entity";
 
 @Injectable()
 export class CommentService {
   constructor(
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
+    @InjectRepository(UserInfo)
+    private readonly userInfoRepository: Repository<UserInfo>
+
   ) {}
 
   create(comment: Comment) {
@@ -71,11 +75,26 @@ export class CommentService {
       [`%${nickname}%`, `%${content}%`,`%${title}%`, (pageNum - 1) * pageSize, pageSize],
     )
     const data = await this.commentRepository.query(
-      'select c.*,u.nickname,u.avatar,a.article_title,a.article_cover from t_comment as c left join t_user_info as u on c.user_id=u.id left join t_article a on a.id=c.article_id where u.nickname like ? and c.comment_content like ? and a.article_title like ? and c.is_delete=0 limit ?,?',
+      'select c.*,u.nickname,u.avatar,a.article_title,a.article_cover from t_comment as c left join t_user_info as u on c.user_id=u.id left join t_article a on a.id=c.article_id where u.nickname like ? and c.comment_content like ? and a.article_title like ? and c.is_delete=0 order by id desc limit ?,?',
       [`%${nickname}%`, `%${content}%`,`%${title}%`, (pageNum - 1) * pageSize, pageSize],
     );
     const transformedResult=transformData(data)
-    return { records: transformedResult, total:totalResult[0].total, pageSize, pageNum };
+    for(let i=0;i<transformedResult.length;i++) {
+      if(transformedResult[i].replyCommentId) {
+        const comment=await this.commentRepository.createQueryBuilder('comment')
+          .select('comment.userId')
+          .where('comment.id=:id',{id:transformedResult[i].replyCommentId})
+          .getOne()
+        const replyUser=await this.userInfoRepository.createQueryBuilder('userinfo')
+          .select(['userinfo.nickname','userinfo.avatar'])
+          .where('userinfo.id=:id',{id:comment.userId})
+          .getOne()
+        transformedResult[i].replyUser=replyUser
+      }
+    }
+
+
+    return { records: transformedResult, total:Number(totalResult[0].total), pageSize, pageNum };
   }
 
   findOne(id: number) {

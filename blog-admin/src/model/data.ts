@@ -54,3 +54,9 @@ export const messageSearchForm={
   nickname:"",
   content:""
 }
+
+export const commentSearchForm={
+  nickname:"",
+  content:"",
+  title:""
+}

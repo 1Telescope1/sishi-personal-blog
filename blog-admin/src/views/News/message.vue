@@ -21,24 +21,23 @@
       <div>
         <el-table ref="multipleTableRef" @selection-change="handleSelectionChange" :data="tableData" stripe style="width: 100%" v-loading="loading">
           <el-table-column type="selection" width="55" />
-          <el-table-column label="留言人头像" width="100" align="center">
+          <el-table-column label="头像" width="100" align="center">
             <template #default="{row}">
               <img v-viewer class="img" :src="row.avatar" alt="">
             </template>
           </el-table-column>
-          <el-table-column label="留言人昵称" prop="nickname" align="center">
+          <el-table-column label="昵称" prop="nickname" align="center">
           </el-table-column>
-          <el-table-column label="留言内容" prop="commentContent" align="center">
+          <el-table-column label="内容" prop="commentContent" align="center">
           </el-table-column>
-          <el-table-column label="留言时间" align="center">
+          <el-table-column label="时间" align="center">
             <template #default="{row}">
               <span>{{formatDateTime(row.createTime).substring(0,10)}}</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" width="200" align="center">
             <template #default="{row}">
-              <el-button :icon="Edit"  type="primary" >编辑</el-button>
-              <el-popconfirm title="你确定要删除文章吗?" @confirm="handleDelete(row.id)">
+              <el-popconfirm title="你确定要删除留言吗?" @confirm="handleDelete(row.id)">
                 <template #reference>
                   <el-button :icon="Delete"  type="danger">删除</el-button>
                 </template>

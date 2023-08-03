@@ -51,9 +51,9 @@ export class MessageService {
       'select count(*) as total from t_message as m left join t_user_info as u on m.user_id=u.id where u.nickname like ? and m.comment_content like ? and is_delete=0',
       [`%${nickname}%`, `%${content}%`, (pageNum - 1) * pageSize, pageSize],
     );
-    const data=await this.messageRepository.query("select m.*, u.nickname,u.avatar from t_message as m left join t_user_info as u on m.user_id=u.id where u.nickname like ? and m.comment_content like ? and is_delete=0 limit ?,?",[`%${nickname}%`,`%${content}%`,(pageNum-1)*pageSize,pageSize])
+    const data=await this.messageRepository.query("select m.*, u.nickname,u.avatar from t_message as m left join t_user_info as u on m.user_id=u.id where u.nickname like ? and m.comment_content like ? and is_delete=0 order by id desc limit ?,?",[`%${nickname}%`,`%${content}%`,(pageNum-1)*pageSize,pageSize])
     const transformedResult=transformData(data);
-    return { records: transformedResult,total: totalResult[0].total, pageSize, pageNum };
+    return { records: transformedResult,total: Number(totalResult[0].total), pageSize, pageNum };
   }
 
   findOne(id: number) {

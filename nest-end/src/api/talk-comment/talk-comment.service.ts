@@ -5,12 +5,15 @@ import { TalkComment } from './entities/talk-comment.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import transformData from "../../utils/transformData";
+import {UserInfo} from "../user-info/entities/user-info.entity";
 
 @Injectable()
 export class TalkCommentService {
   constructor(
     @InjectRepository(TalkComment)
     private readonly talkCommentRepository: Repository<TalkComment>,
+    @InjectRepository(UserInfo)
+    private readonly userInfoRepository: Repository<UserInfo>
   ) {}
 
   create(talkComment: TalkComment) {
@@ -43,11 +46,24 @@ export class TalkCommentService {
     );
 
     const data = await this.talkCommentRepository.query(
-      'select tk.*,u.nickname,u.avatar from t_talk_comment as tk left join t_user_info as u on tk.user_id=u.id where u.nickname like ? and tk.comment_content like ? and is_delete=0 limit ?,?',
+      'select tk.*,u.nickname,u.avatar from t_talk_comment as tk left join t_user_info as u on tk.user_id=u.id where u.nickname like ? and tk.comment_content like ? and is_delete=0 order by id desc limit ?,?',
       [`%${nickname}%`, `%${content}%`, (pageNum - 1) * pageSize, pageSize],
     );
     const transformedResult=transformData(data)
-    return { records: transformedResult,total:totalResult[0].total, pageSize, pageNum };
+    for(let i=0;i<transformedResult.length;i++) {
+      if(transformedResult[i].replyCommentId) {
+        const comment=await this.talkCommentRepository.createQueryBuilder('talkComment')
+          .select('talkComment.userId')
+          .where('talkComment.id=:id',{id:transformedResult[i].replyCommentId})
+          .getOne()
+        const replyUser=await this.userInfoRepository.createQueryBuilder('userinfo')
+          .select(['userinfo.nickname','userinfo.avatar'])
+          .where('userinfo.id=:id',{id:comment.userId})
+          .getOne()
+        transformedResult[i].replyUser=replyUser
+      }
+    }
+    return { records: transformedResult,total:Number(totalResult[0].total), pageSize, pageNum };
   }
 
   async findAllByTalk(talkId: number) {

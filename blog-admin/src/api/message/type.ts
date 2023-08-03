@@ -30,7 +30,7 @@ export interface MessagePage {
 }
 
 export interface MessageParams extends PaginationParams{
-	content?:string | null,
-	userId?:string |null
+	content:string | null,
+	nickname:string |null
 }
 
