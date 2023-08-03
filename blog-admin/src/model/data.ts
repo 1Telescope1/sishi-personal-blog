@@ -60,3 +60,8 @@ export const commentSearchForm={
   content:"",
   title:""
 }
+
+export const talkCommentSearchForm={
+  nickname:"",
+  content:"",
+}
