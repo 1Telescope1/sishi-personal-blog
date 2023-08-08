@@ -35,6 +35,13 @@
         <el-menu-item index="/news/talkComment">说说评论</el-menu-item>
         <el-menu-item index="/news/message">留言列表</el-menu-item>
       </el-sub-menu>
+      <el-sub-menu index="4">
+        <template #title>
+          <el-icon><location /></el-icon>
+          <span>用户管理</span>
+        </template>
+        <el-menu-item index="/user/userList">用户列表</el-menu-item>
+      </el-sub-menu>
       </el-menu>
    
   </div>

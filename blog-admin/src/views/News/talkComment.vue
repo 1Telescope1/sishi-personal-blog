@@ -66,6 +66,8 @@ import {useInitTable} from "@/hooks/useTable.ts";
 import {talkCommentSearchForm} from "@/model/data.ts";
 import {reqDelTalkComment, reqTalkCommentByPage} from "@/api/talkComment";
 import {formatDateTime} from "@/utils/date.ts";
+import {  Edit,Delete } from '@element-plus/icons-vue'
+
 
 const route=useRoute()
 const {

@@ -47,21 +47,6 @@
       </el-form>
     </FormDrawer>
 
-    <el-dialog v-model="dialogFormVisible" title="标签信息" width="30%">
-      <el-form :model="form">
-        <el-form-item label="标签名" :label-width="formLabelWidth">
-          <el-input v-model="form.tagName" autocomplete="off" />
-        </el-form-item>
-      </el-form>
-      <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-button type="primary" @click="update">
-          确定
-        </el-button>
-      </span>
-      </template>
-    </el-dialog>
   </div>
 </template>
 
@@ -107,17 +92,7 @@ const {
   getData
 })
 
-const tagForm=ref<Tag>()
-let dialogFormVisible=ref(false)
 const formLabelWidth = '140px'
-const edit=(data:Tag)=>{
-  dialogFormVisible.value=true
-  tagForm.value=JSON.parse(JSON.stringify(data));
-}
-const update=()=>{
-  handleUpdate(tagForm.value)
-  dialogFormVisible.value=false
-}
 
 </script>
 

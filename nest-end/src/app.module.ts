@@ -20,6 +20,8 @@ import { BackModule } from './api/back/back.module';
 import { FriendLinkModule } from './api/friend-link/friend-link.module';
 import { LoginModule } from './api/login/login.module';
 import { BlogModule } from './api/blog/blog.module';
+import { MinioModule } from './api/minio/minio.module';
+import { FileModule } from './api/file/file.module';
 
 @Module({
   imports: [
@@ -54,6 +56,8 @@ import { BlogModule } from './api/blog/blog.module';
     FriendLinkModule,
     LoginModule,
     BlogModule,
+    MinioModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

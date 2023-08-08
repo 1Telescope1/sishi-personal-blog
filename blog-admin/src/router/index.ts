@@ -47,7 +47,7 @@ let routes = [
         name: "articleList",
         component: () => import("@/views/Article/articleList.vue"),
         meta: {
-          keepAlive: true, //需要缓存
+          keepAlive: true,
           title: "文章列表",
         },
       },
@@ -56,35 +56,44 @@ let routes = [
         name: "articleTag",
         component: () => import("@/views/Tag/index.vue"),
         meta: {
-          keepAlive: true, //需要缓存
+          keepAlive: true,
           title: "标签模块",
         },
       },
       {
-        path: "News/comment",
+        path: "news/comment",
         name: "newsComment",
         component: () => import("@/views/News/comment.vue"),
         meta: {
-          keepAlive: true, //需要缓存
+          keepAlive: true,
           title: "文章留言",
         },
       },
       {
-        path: "News/talkComment",
+        path: "news/talkComment",
         name: "talkComment",
         component: () => import("@/views/News/talkComment.vue"),
         meta: {
-          keepAlive: true, //需要缓存
+          keepAlive: true,
           title: "说说评论",
         },
       },
       {
-        path: "News/Message",
+        path: "news/message",
         name: "message",
         component: () => import("@/views/News/Message.vue"),
         meta: {
-          keepAlive: true, //需要缓存
+          keepAlive: true,
           title: "留言列表",
+        },
+      },
+      {
+        path: "user/userList",
+        name: "userinfo",
+        component: () => import("@/views/User/index.vue"),
+        meta: {
+          keepAlive: true,
+          title: "用户列表",
         },
       },
     ],

@@ -20,7 +20,6 @@ export function useInitForm(opt: opt = {}) {
     const rules = opt.rules || {};
     const editId = ref(0);
     const drawerTitle = computed(() => (editId.value ? "修改" : "新增"));
-    console.log(opt)
     const handleSubmit = () => {
         formRef.value?.validate((valid: any) => {
             if (!valid) return;

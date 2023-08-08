@@ -65,3 +65,7 @@ export const talkCommentSearchForm={
   nickname:"",
   content:"",
 }
+
+export const userInfoSearchForm={
+  nickname:""
+}

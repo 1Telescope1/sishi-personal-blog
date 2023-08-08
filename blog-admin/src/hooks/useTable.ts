@@ -78,7 +78,7 @@ export function useInitTable(opt: opt = {
   };
 
   // 修改状态
-  const handleStatusChange = async (status: any, row: any) => {
+  const handleStatusChange = async (row: any,status: any ) => {
     row.statusLoading = true;
     const res = await opt
       .updateStatus(row.id, status)

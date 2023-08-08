@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch,ParseIntPipe, Param,Query, Delete } from '@nestjs/common';
 import { UserInfoService } from './user-info.service';
 import { CreateUserInfoDto } from './dto/create-user-info.dto';
 import { UpdateUserInfoDto } from './dto/update-user-info.dto';
@@ -25,6 +25,13 @@ export class UserInfoController {
     return new Result(await this.userInfoService.findAll());
   }
 
+  @Get('/page')
+  async findAllByPage(@Query('pageNum',new  ParseIntPipe()) pageNum:number,
+                      @Query('pageSize',new  ParseIntPipe()) pageSize:number,
+                      @Query('nickname') nickname:string,) {
+    return new Result(await this.userInfoService.findAllByPage(pageNum,pageSize,nickname))
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return new Result(await this.userInfoService.findOne(+id));
@@ -35,8 +42,9 @@ export class UserInfoController {
     return this.userInfoService.update(+id, updateUserInfoDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userInfoService.remove(+id);
+  @Delete(':id/:flag')
+  async remove(@Param('id') id: string,@Param('flag') flag:string) {
+    console.log(id,flag)
+    return new Result(await this.userInfoService.remove(+id,+flag));
   }
 }

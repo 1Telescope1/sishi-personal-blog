@@ -1,3 +1,5 @@
+import {PaginationParams} from "@/model";
+
 export interface UserInfo {
 	id: number;
 	email: string;
@@ -43,4 +45,28 @@ export interface userForm{
   password:string
   confirmPwd?:string
 	identifyCode?:string
+}
+
+export interface Record {
+	id: number;
+	email?: any;
+	nickname: string;
+	avatar: string;
+	intro?: any;
+	website?: any;
+	isSubscribe?: any;
+	isDisable: number;
+	createTime: string;
+	updateTime: string;
+}
+
+export interface UserPage {
+	records: Record[];
+	total: number;
+	pageSize: number;
+	pageNum: number;
+}
+
+export interface UserParams extends PaginationParams {
+	nickname:string | null
 }
