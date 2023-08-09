@@ -12,13 +12,13 @@ const arrowDown = () => {
 
 const articleList = ref<Article[]>([]);
 const paramas = reactive<ArticleParams>({
-  total: null,
   pageNum: 1,
   pageSize: 6,
-  sumPage:1,
-  articleTitle: "",
-  articleContent: "",
-  tagId: "",
+  tagId:"",
+  categoryId:"",
+  type:"",
+  articleTitle:"",
+  articleContent:""
 });
 const getPageArticleList = async () => {
   const res = await reqGetArticlesPage(paramas);

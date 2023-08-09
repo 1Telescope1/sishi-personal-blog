@@ -1,5 +1,4 @@
 <template>
-  <!-- You can open the modal using ID.showModal() method -->
   <button class="btn btn-ghost btn-circle" @click="showDialog">
     <div class="login">
       <div><SvgIcon icon-class="user" size="2rem"></SvgIcon></div>
@@ -155,12 +154,12 @@ const regester = async (formEl: FormInstance | undefined) => {
   await formEl.validate(async (valid) => {
     if (valid) {
       const res = await reqRegister(form);
-      if (res) {
+      if (res.data) {
         notification("Success", "注册成功");
         isLogin.value=true
         resetForm(ruleFormRef.value)
       } else {
-        notification("Error", "账号或密码错误", "error");
+        notification("Error", "用户已存在", "error");
       }
     } else {
       notification("Error", "请按格式输入账号密码", "error");

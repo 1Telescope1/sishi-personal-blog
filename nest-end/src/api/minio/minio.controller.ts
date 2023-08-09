@@ -1,5 +1,3 @@
-// src/minio/your.controller.ts
-
 import { Controller, Get,Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MinioService } from './minio.service';

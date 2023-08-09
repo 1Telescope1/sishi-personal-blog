@@ -8,4 +8,4 @@ export const reqUserInfo=(id:any)=>request<UserInfo>(`userinfo/${id}`)
 export const reqLoign=(data:userForm)=>request<LoginUser>(`/userinfo/login`,'POST',data)
 
 // 注册
-export const reqRegister=(data:userForm)=>request<LoginUser>(`/user/register`,'POST',data)
+export const reqRegister=(data:userForm)=>request<LoginUser>(`/userinfo/register`,'POST',data)

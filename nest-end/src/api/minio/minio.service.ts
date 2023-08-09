@@ -3,6 +3,7 @@ import * as Minio from 'minio';
 import { File } from '../file/entities/file.entity';
 import * as crypto from 'crypto';
 import {FileService} from "../file/file.service";
+import decodeBuffer from "../../utils/decodeChineseFilename";
 
 @Injectable()
 export class MinioService {

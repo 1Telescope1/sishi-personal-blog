@@ -4,7 +4,7 @@ import { UpdateUserInfoDto } from './dto/update-user-info.dto';
 import { UserInfo } from './entities/user-info.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import {TalkComment} from "../talk-comment/entities/talk-comment.entity";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserInfoService {
@@ -13,15 +13,41 @@ export class UserInfoService {
     private readonly userRepository: Repository<UserInfo>,
   ) {}
 
-  create(userInfo: UserInfo) {
-    const data = this.userRepository.save(userInfo);
+  async create(userInfo: UserInfo) {
+    const data =await this.userRepository.save(userInfo);
+    console.log(data)
     return data;
   }
 
   async login(userInfo: UserInfo) {
     const { nickname, password } = userInfo;
-    const data =await this.userRepository.find({ where: { nickname, password } });
-    return data[0];
+    const data =await this.isExistUser(nickname)
+    const flag=await bcrypt.compare(password,data.password)
+    if(data&&flag) {
+      return data[0];
+    }
+    return null
+  }
+
+  async isExistUser(nickname:string) {
+    const res=await this.userRepository.createQueryBuilder('userinfo')
+      .select()
+      .addSelect('userinfo.password')
+      .where('userinfo.nickname=:nickname',{nickname})
+      .getOne()
+    return res
+  }
+
+  async register(registerUser:CreateUserInfoDto) {
+    const userFlag=await this.isExistUser(registerUser.nickname)
+    if(userFlag) {
+      return null
+    }
+
+    const user=new UserInfo()
+    user.nickname=registerUser.nickname
+    user.password=bcrypt.hashSync(registerUser.password,10)
+    return this.create(user)
   }
 
   findAll() {

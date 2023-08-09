@@ -27,6 +27,8 @@ export interface ArticleParams {
   articleTitle?: string;
   articleContent?: string;
   tagId?: string;
+  categoryId?:string,
+  type?:string,
 }
 
 export interface ArticleList {

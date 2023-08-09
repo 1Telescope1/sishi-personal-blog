@@ -26,7 +26,6 @@ export class FileService {
 
   async isExist(url:string) {
     const data=await this.fileRepository.find({where:{url}})
-    console.log(data)
     return data
   }
 

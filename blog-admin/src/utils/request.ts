@@ -21,6 +21,7 @@ instance.interceptors.request.use(
     if(userInfo.user?.token&&config.headers) {
       config.headers["token"] = userInfo.user.token;
     }
+    console.log(config,123)
     return config;
   },
   (err) => Promise.reject(err)

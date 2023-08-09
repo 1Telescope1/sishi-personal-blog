@@ -12,7 +12,7 @@ export class File {
     name: "name",
     nullable: true,
     comment: "文件名字",
-    length: 30,
+    length: 100,
   })
   name: string | null;
 

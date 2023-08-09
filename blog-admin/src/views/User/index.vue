@@ -60,6 +60,9 @@
         <el-form-item label="标签名" :label-width="formLabelWidth">
           <el-input v-model="form.tagName" autocomplete="off" />
         </el-form-item>
+        <el-form-item label="标签名" :label-width="formLabelWidth">
+          <UploadImg></UploadImg>
+        </el-form-item>
       </el-form>
     </FormDrawer>
   </div>
@@ -69,13 +72,12 @@
 import {ref,reactive,onMounted,isRef} from 'vue'
 import {useRoute} from 'vue-router'
 import {useInitTable} from "@/hooks/useTable.ts";
-import {reqDisableUser, reqGetUserByPage, reqIsDisAbleUser, reqSaveOrAddUser} from "@/api/user";
+import { reqGetUserByPage, reqIsDisAbleUser, reqSaveOrAddUser} from "@/api/user";
 import {formatDateTime} from "@/utils/date.ts";
 import {userInfoSearchForm} from "@/model/data.ts";
 import {notification} from "@/utils/elComponent.ts";
 import {  Edit } from '@element-plus/icons-vue'
 import {useInitForm} from "@/hooks/useForm.ts";
-import {reqAddOrUpdateTag} from "@/api/tag";
 
 
 const route=useRoute()
