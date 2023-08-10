@@ -24,18 +24,24 @@ export interface UserMenu {
 	privilege: string;
 }
 
-export interface LoginUser {
+
+export interface login {
 	id: number;
+	email?: string;
 	nickname: string;
 	password: string;
-	email?: any;
 	avatar: string;
+	intro?: string;
+	website?: string;
+	isSubscribe?: any;
+	isDisable: number;
+	createTime: string;
+	updateTime: string;
+}
+
+export interface LoginUser {
+	userInfo: login;
 	token: string;
-	role: string;
-	menus: UserMenu[];
-	loginType?: any;
-	address?: any;
-	identifyCode?: any;
 }
 
 export interface userForm{

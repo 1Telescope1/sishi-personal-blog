@@ -15,7 +15,6 @@ export class UserInfoService {
 
   async create(userInfo: UserInfo) {
     const data =await this.userRepository.save(userInfo);
-    console.log(data)
     return data;
   }
 
@@ -24,7 +23,7 @@ export class UserInfoService {
     const data =await this.isExistUser(nickname)
     const flag=await bcrypt.compare(password,data.password)
     if(data&&flag) {
-      return data[0];
+      return data;
     }
     return null
   }

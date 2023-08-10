@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch,ParseIntPipe, Param,Query, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch,ParseIntPipe, Param,Query, Delete, UseGuards, Req } from '@nestjs/common';
 import { UserInfoService } from './user-info.service';
 import { CreateUserInfoDto } from './dto/create-user-info.dto';
 import { UpdateUserInfoDto } from './dto/update-user-info.dto';
 import { Result } from 'src/common/result';
 import { UserInfo } from './entities/user-info.entity';
+import {AdminGuard} from "../../guards/admin/admin.guard";
+import {JwtGuard} from "../../guards/jwt/jwt.guard";
 
 @Controller('userinfo')
 export class UserInfoController {
@@ -41,7 +43,9 @@ export class UserInfoController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  @UseGuards(JwtGuard,AdminGuard)
+  async findOne(@Param('id') id: string,@Req() req) {
+
     return new Result(await this.userInfoService.findOne(+id));
   }
 
@@ -52,7 +56,6 @@ export class UserInfoController {
 
   @Delete(':id/:flag')
   async remove(@Param('id') id: string,@Param('flag') flag:string) {
-    console.log(id,flag)
     return new Result(await this.userInfoService.remove(+id,+flag));
   }
 }

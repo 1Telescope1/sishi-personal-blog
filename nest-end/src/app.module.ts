@@ -22,6 +22,7 @@ import { LoginModule } from './api/login/login.module';
 import { BlogModule } from './api/blog/blog.module';
 import { MinioModule } from './api/minio/minio.module';
 import { FileModule } from './api/file/file.module';
+import { AuthModule } from './api/auth/auth.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { FileModule } from './api/file/file.module';
     BlogModule,
     MinioModule,
     FileModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

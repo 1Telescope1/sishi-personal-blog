@@ -19,8 +19,8 @@ instance.interceptors.request.use(
     start()
     const userInfo=useUserStore()
 
-    if(userInfo.user?.token&&config.headers) {
-      config.headers["token"] = userInfo.user.token;
+    if(userInfo.token&&config.headers) {
+      config.headers["token"] = userInfo.token;
     }
     
     return config;

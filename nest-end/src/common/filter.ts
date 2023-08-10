@@ -10,7 +10,8 @@ export class HttpFilter implements ExceptionFilter{
       const request =ctx.getRequest<Request>()
       const response=ctx.getResponse<Response>()
       const status=exception.getStatus()
-      const message=exception.getResponse()
+      // @ts-ignore
+    const message=exception.getResponse().valueOf().message
       response.status(status).json({
         success:false,
         time:new Date(),

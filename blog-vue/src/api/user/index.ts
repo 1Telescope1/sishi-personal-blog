@@ -5,7 +5,7 @@ import { LoginUser, UserInfo, userForm } from "./type";
 export const reqUserInfo=(id:any)=>request<UserInfo>(`userinfo/${id}`)
 
 // 登录
-export const reqLoign=(data:userForm)=>request<LoginUser>(`/userinfo/login`,'POST',data)
+export const reqLoign=(data:userForm)=>request<LoginUser>(`/auth/login`,'POST',data)
 
 // 注册
-export const reqRegister=(data:userForm)=>request<LoginUser>(`/userinfo/register`,'POST',data)
+export const reqRegister=(data:userForm)=>request<LoginUser>(`/auth/register`,'POST',data)

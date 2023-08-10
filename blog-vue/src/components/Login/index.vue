@@ -154,12 +154,15 @@ const regester = async (formEl: FormInstance | undefined) => {
   await formEl.validate(async (valid) => {
     if (valid) {
       const res = await reqRegister(form);
+      console.log(res)
       if (res.data) {
         notification("Success", "注册成功");
         isLogin.value=true
         resetForm(ruleFormRef.value)
-      } else {
-        notification("Error", "用户已存在", "error");
+      } else if(res.status==406&&res.data==null){
+        notification("Error", "两次密码不一致", "error");
+      } else if(res.data==null){
+        notification("Error", "用户已经存在", "error");
       }
     } else {
       notification("Error", "请按格式输入账号密码", "error");
