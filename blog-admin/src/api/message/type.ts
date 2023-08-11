@@ -22,11 +22,8 @@ export interface Record {
 	avatar: string;
 }
 
-export interface MessagePage {
+export interface MessagePage extends PaginationParams{
 	records: Record[];
-	total: number;
-	pageSize: number;
-	pageNum: number;
 }
 
 export interface MessageParams extends PaginationParams{

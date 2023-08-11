@@ -5,4 +5,4 @@ import { Link, LinkDetail } from "./type";
 export const reqAddFriend = (data:Link) =>request<boolean>(`/friendlink`, "POST" ,data );
 
 // 获取友链
-export const reqFriendList=()=>request<LinkDetail[]>(`/friendlink`)
+export const reqFriendList=()=>request<LinkDetail[]>(`/friendlink/status`)

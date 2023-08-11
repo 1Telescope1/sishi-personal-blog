@@ -67,9 +67,7 @@ const {
   loading,
   handleSelectionChange,
   handleDelete,
-  handleUpdate,
   getData,
-  multiSelectionIds
 }=useInitTable({
   getList:reqTags,
   delete:reqDelTag,

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch,ParseIntPipe, Param,Query, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch,ParseIntPipe, Param,Query, Delete, UseGuards, Req, UseInterceptors } from '@nestjs/common';
 import { UserInfoService } from './user-info.service';
 import { CreateUserInfoDto } from './dto/create-user-info.dto';
 import { UpdateUserInfoDto } from './dto/update-user-info.dto';
@@ -6,6 +6,7 @@ import { Result } from 'src/common/result';
 import { UserInfo } from './entities/user-info.entity';
 import {AdminGuard} from "../../guards/admin/admin.guard";
 import {JwtGuard} from "../../guards/jwt/jwt.guard";
+import { SerializeInterceptor } from 'src/interceptors/serialize/serialize.interceptor';
 
 @Controller('userinfo')
 export class UserInfoController {
@@ -44,6 +45,7 @@ export class UserInfoController {
 
   @Get(':id')
   @UseGuards(JwtGuard,AdminGuard)
+  // @UseInterceptors(SerializeInterceptor)
   async findOne(@Param('id') id: string,@Req() req) {
 
     return new Result(await this.userInfoService.findOne(+id));

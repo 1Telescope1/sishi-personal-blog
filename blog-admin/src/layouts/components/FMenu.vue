@@ -42,6 +42,13 @@
         </template>
         <el-menu-item index="/user/userList">用户列表</el-menu-item>
       </el-sub-menu>
+      <el-sub-menu index="5">
+        <template #title>
+          <el-icon><location /></el-icon>
+          <span>系统管理</span>
+        </template>
+        <el-menu-item index="/system/friend">友链管理</el-menu-item>
+      </el-sub-menu>
       </el-menu>
    
   </div>

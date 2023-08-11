@@ -22,6 +22,41 @@ export class FriendLinkService {
     return data;
   }
 
+  async findAllByPage(
+    pageNum: number,
+    pageSize: number,
+    linkName: string,
+    linkAddress: string,
+    linkIntro: string,
+  ) {
+    const queryBuilder = await this.friendLinkRepository
+      .createQueryBuilder('friendLink')
+      .where('friendLink.linkName LIKE :linkName', {
+        linkName: `%${linkName}%`,
+      })
+      .andWhere('friendLink.linkAddress LIKE :linkAddress', {
+        linkAddress: `%${linkAddress}%`,
+      })
+      .andWhere('friendLink.linkIntro LIKE :linkIntro', {
+        linkIntro: `%${linkIntro}%`,
+      });
+
+    const data = await queryBuilder
+      .select()
+      .orderBy('friendLink.id', 'DESC')
+      .skip((pageNum - 1) * pageSize)
+      .take(pageSize)
+      .getMany();
+
+    const total = await queryBuilder.getCount();
+    return { records: data, total, pageSize, pageNum };
+  }
+
+  findAllByStatus() {
+    const data = this.friendLinkRepository.find({ where: { isStatus: true } });
+    return data;
+  }
+
   findOne(id: number) {
     const data = this.friendLinkRepository.find({ where: { id } });
     return data;
@@ -46,6 +81,7 @@ export class FriendLinkService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} friendLink`;
+    const data = this.friendLinkRepository.delete(id);
+    return data;
   }
 }

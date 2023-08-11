@@ -1,3 +1,5 @@
+import {PaginationParams} from "@/model";
+
 export interface Link {
     url: string,
     name: string,
@@ -15,4 +17,14 @@ export interface LinkDetail {
 	createTime: string;
 	updateTime: string;
 	isStatus: number;
+}
+
+export interface LinkPage extends PaginationParams{
+	records: LinkDetail[];
+}
+
+export interface LinkParams extends PaginationParams {
+	linkName: string;
+	linkAvatar: string;
+	linkAddress: string;
 }

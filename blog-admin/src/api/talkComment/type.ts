@@ -42,11 +42,8 @@ export interface Record {
 	avatar: string;
 }
 
-export interface TalkCommentPage {
+export interface TalkCommentPage extends PaginationParams{
 	records: Record[];
-	total: number;
-	pageSize: number;
-	pageNum: number;
 }
 
 export interface TalkCommentParams extends PaginationParams {

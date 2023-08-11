@@ -32,12 +32,10 @@ export function useInitForm(opt: opt = {}) {
                 body = form;
             }
 
-            if(editId.value) {
-                body.id=editId.value
-            }
+
 
             const fun = editId.value
-                ? opt.update( body)
+                ? opt.update({...body,id:editId.value})
                 : opt.create(body);
 
             fun

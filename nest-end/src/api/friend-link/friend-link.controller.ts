@@ -1,7 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post,Query, ParseIntPipe,Body, Patch, Param, Delete } from '@nestjs/common';
 import { FriendLinkService } from './friend-link.service';
-import { CreateFriendLinkDto } from './dto/create-friend-link.dto';
-import { UpdateFriendLinkDto } from './dto/update-friend-link.dto';
 import { FriendLink } from './entities/friend-link.entity';
 import { Result } from 'src/common/result';
 
@@ -19,6 +17,22 @@ export class FriendLinkController {
     return new Result(await this.friendLinkService.findAll());
   }
 
+  @Get('page')
+  async findAllByPage(@Query('pageNum', new ParseIntPipe()) pageNum: number,
+                      @Query('pageSize', new ParseIntPipe()) pageSize: number,
+                      @Query('linkName') linkName: string,
+                      @Query('linkAddress') linkAddress: string,
+                      @Query('linkIntro') linkIntro:string,) {
+    const data=await this.friendLinkService.findAllByPage(pageNum,pageSize,linkName,linkAddress,linkIntro)
+
+    return new Result(data)
+  }
+
+  @Get('status')
+  async findAllByStatus() {
+    return new Result(await this.friendLinkService.findAllByStatus())
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return new Result(await this.friendLinkService.findOne(+id));
@@ -30,7 +44,7 @@ export class FriendLinkController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.friendLinkService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return new Result(await this.friendLinkService.remove(+id));
   }
 }

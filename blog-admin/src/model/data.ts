@@ -69,3 +69,9 @@ export const talkCommentSearchForm={
 export const userInfoSearchForm={
   nickname:""
 }
+
+export const friendLinkSearchForm={
+  linkName: "",
+  linkIntro: "",
+  linkAddress: ""
+}

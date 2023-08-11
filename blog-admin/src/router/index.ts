@@ -96,6 +96,15 @@ let routes = [
           title: "用户列表",
         },
       },
+      {
+        path: "system/friend",
+        name: "friendLink",
+        component: () => import("@/views/System/friendLink.vue"),
+        meta: {
+          keepAlive: true,
+          title: "友链管理",
+        },
+      },
     ],
     meta: {
       keepAlive: true,

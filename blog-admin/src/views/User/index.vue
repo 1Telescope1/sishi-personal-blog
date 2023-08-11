@@ -57,11 +57,20 @@
 
     <FormDrawer ref="formDrawerRef" :title="drawerTitle" @submit="handleSubmit">
       <el-form ref="formRef" :model="form">
-        <el-form-item label="标签名" :label-width="formLabelWidth">
-          <el-input v-model="form.tagName" autocomplete="off" />
+        <el-form-item label="昵称" :label-width="formLabelWidth">
+          <el-input v-model="form.nickname" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="标签名" :label-width="formLabelWidth">
-          <UploadImg></UploadImg>
+        <el-form-item label="邮箱" :label-width="formLabelWidth">
+          <el-input v-model="form.email" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="个人介绍" :label-width="formLabelWidth">
+          <el-input v-model="form.intro" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="网站" :label-width="formLabelWidth">
+          <el-input v-model="form.website" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="头像" :label-width="formLabelWidth">
+          <UploadImg @AvatarSuccess="handleAvatar" :imageUrl="form.avatar"></UploadImg>
         </el-form-item>
       </el-form>
     </FormDrawer>
@@ -118,6 +127,9 @@ const {
   getData
 })
 
+const handleAvatar=(imgUrl:string)=>{
+  form.avatar=imgUrl
+}
 
 const statusLoading=ref(false)
 const updateStatus=async(id:number,isDisable:number)=>{

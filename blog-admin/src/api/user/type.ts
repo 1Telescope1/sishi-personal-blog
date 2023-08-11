@@ -60,11 +60,8 @@ export interface Record {
 	updateTime: string;
 }
 
-export interface UserPage {
+export interface UserPage extends PaginationParams{
 	records: Record[];
-	total: number;
-	pageSize: number;
-	pageNum: number;
 }
 
 export interface UserParams extends PaginationParams {

@@ -57,9 +57,6 @@ export interface Record {
 	replyUser?: ReplyInfo;
 }
 
-export interface CommentPage {
+export interface CommentPage extends PaginationParams{
 	records: Record[];
-	total: number;
-	pageSize: number;
-	pageNum: number;
 }

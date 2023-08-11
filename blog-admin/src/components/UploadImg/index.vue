@@ -21,14 +21,19 @@ import type {UploadProps} from 'element-plus'
 import {uploadImageAction} from "@/api/minio";
 import {notification} from "@/utils/elComponent.ts";
 
-const imageUrl = ref('')
+const props=defineProps<{
+  imageUrl:string
+}>()
 
+const emit = defineEmits<{
+  (e: 'AvatarSuccess', imageUrl: string): void
+}>()
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response,
   uploadFile
 ) => {
-  imageUrl.value = URL.createObjectURL(uploadFile.raw!)
+  emit('AvatarSuccess',URL.createObjectURL(uploadFile.raw!))
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {

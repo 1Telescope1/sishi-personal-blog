@@ -5,6 +5,7 @@ import { HttpFilter } from './common/filter';
 import { ValidationPipe } from '@nestjs/common';
 import { usePipe } from './pipe';
 
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalInterceptors(new Response)

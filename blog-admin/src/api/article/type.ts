@@ -1,4 +1,4 @@
-import { Tag, UserInfo } from "@/model";
+import {PaginationParams, Tag, UserInfo} from "@/model";
 
 export interface Article {
   id: number;
@@ -32,18 +32,10 @@ export interface ArticleParams {
   type?:string,
 }
 
-export interface ArticleList {
+export interface ArticleList extends PaginationParams{
   records: Article[];
-  total: number;
-  pageSize: number;
-  pageNum: number;
 }
 
-export interface Pagination {
-  total: number;
-  pageSize: number;
-  pageNum: number;
-}
 
 export interface CreateArticle {
   id?:number | null;
