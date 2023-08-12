@@ -10,6 +10,6 @@ export interface Talk {
 	createTime: string;
 	updateTime: string;
 	views: number;
-	userinfo: UserInfo;
+	userinfo: UserInfo | undefined;
 }
 

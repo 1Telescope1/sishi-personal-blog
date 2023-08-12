@@ -37,33 +37,38 @@
               <img v-viewer class="img" :src="row.articleCover" alt="">
             </template>
           </el-table-column>
-          <el-table-column label="标题" width="150" align="center" prop="articleTitle"></el-table-column>
-          <el-table-column label="发布时间" width="150" align="center">
+          <el-table-column label="标题"  align="center" prop="articleTitle"></el-table-column>
+          <el-table-column label="发布时间"  align="center">
             <template #default="{row}">
               <span>{{formatDateTime(row.createTime).substring(0,10)}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="文章标签" width="120" align="center">
+          <el-table-column label="文章标签"  align="center">
             <template #default="{row}">
               <el-tag>{{row.tag.tagName}}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column label="文章类型" width="100" align="center">
+          <el-table-column label="浏览量"  align="center" prop="views">
+            <template #default="{row}">
+              <CounTo class="counTo" :value="row.views"></CounTo>
+            </template>
+          </el-table-column>
+          <el-table-column label="文章类型"  align="center">
             <template #default="{row}">
               <el-tag type="success">{{getArticleTypeName(row.type)}}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column label="文章置顶" width="110" align="center">
+          <el-table-column label="文章置顶" align="center">
             <template #default="{row}">
               <el-switch v-model="row.isTop" disabled />
             </template>
           </el-table-column>
-          <el-table-column label="文章推荐" width="110" align="center">
+          <el-table-column label="文章推荐" align="center">
             <template #default="{row}">
               <el-switch v-model="row.isFeatured" disabled />
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="200" align="center">
+          <el-table-column label="操作" align="center">
             <template #default="{row}">
               <el-button :icon="Edit" size="small" type="primary" @click="router.push(`/article/publish/${row.id}`)">编辑</el-button>
               <el-popconfirm title="你确定要删除文章吗?" @confirm="handleDelete(row.id)">
@@ -88,7 +93,7 @@
 import {ref} from 'vue'
 import {useInitTable} from "@/hooks/useTable.ts";
 import {articleSearchForm, articleType, categoryList} from "@/model/data.ts";
-import {reqDeleteArticle, reqGetArticleList, reqGetArticlesPage, reqPublishArticle} from "@/api/article";
+import {reqDeleteArticle, reqGetArticlesPage} from "@/api/article";
 import {Tag} from "@/model";
 import {reqTags} from "@/api/tag";
 import {formatDateTime} from "@/utils/date.ts";
@@ -132,7 +137,6 @@ const {
   searchForm: articleSearchForm,
   getList: reqGetArticlesPage,
   delete: reqDeleteArticle,
-  updateStatus: reqPublishArticle
 })
 </script>
 
@@ -141,5 +145,10 @@ const {
 .img {
   width: 100%;
   height: 90px;
+}
+
+.counTo {
+  font-size: 18px;
+  font-weight: 600;
 }
 </style>

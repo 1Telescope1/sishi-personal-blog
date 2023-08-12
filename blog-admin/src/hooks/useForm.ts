@@ -2,16 +2,23 @@ import {ref, reactive, computed} from "vue";
 import {notification} from "@/utils/elComponent.ts";
 
 interface opt {
-    form?: Object,
-    rules?: Object,
-    beforeSubmit?: Function,
-    update?: Function,
-    create?: Function,
-    getData?: Function,
+    form?: Object | null,
+    rules?: Object | null,
+    beforeSubmit?: Function | null,
+    update?: Function | null,
+    create?: Function | null,
+    getData?: Function | null,
 }
 
 // 新增，修改
-export function useInitForm(opt: opt = {}) {
+export function useInitForm(opt: opt = {
+    form:null,
+    rules:null,
+    beforeSubmit:null,
+    update(){},
+    create(){},
+    getData:null
+}) {
     // 表单部分
     const formDrawerRef = ref<any>(null);
     const formRef = ref<any>(null);

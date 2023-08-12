@@ -49,6 +49,14 @@
         </template>
         <el-menu-item index="/system/friend">友链管理</el-menu-item>
       </el-sub-menu>
+      <el-sub-menu index="6">
+        <template #title>
+          <el-icon><location /></el-icon>
+          <span>说说管理</span>
+        </template>
+        <el-menu-item index="/talk/publish">发布说说</el-menu-item>
+        <el-menu-item index="/talk/list">说说列表</el-menu-item>
+      </el-sub-menu>
       </el-menu>
    
   </div>
@@ -99,9 +107,9 @@ const handleClose = (key: string, keyPath: string[]) => {
   position: fixed;
   background-color: rgb(253, 253, 253);
 }
-.f-menu::-webkit-scrollbar {
-  width: 0px;
-}
+/* .f-menu::-webkit-scrollbar {
+  width: 3px;
+} */
 .menu {
   height: 100%;
 }

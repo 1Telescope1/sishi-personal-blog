@@ -105,6 +105,33 @@ let routes = [
           title: "友链管理",
         },
       },
+      {
+        path: "talk/publish",
+        name: "publishTalk",
+        component: () => import("@/views/Talk/talk.vue"),
+        meta: {
+          keepAlive: false,
+          title: "发布说说",
+        },
+      },
+      {
+        path: "talk/publish/:talkId",
+        name: "editTalk",
+        component: () => import("@/views/Talk/talk.vue"),
+        meta: {
+          keepAlive: false,
+          title: "修改说说",
+        },
+      },
+      {
+        path: "talk/list",
+        name: "talkList",
+        component: () => import("@/views/Talk/talkList.vue"),
+        meta: {
+          keepAlive: false,
+          title: "说说列表",
+        },
+      },
     ],
     meta: {
       keepAlive: true,

@@ -4,7 +4,7 @@
       <template #header>
         <div class="card-header">
           <div class="first">
-            <span>{{this.$route.meta.title}}</span>
+            <span>{{route.meta.title}}</span>
             <el-button size="large" type="primary" class="button" text @click="dialogVisible = true">发布文章
             </el-button>
           </div>
@@ -103,9 +103,10 @@ import {Check, Close, UploadFilled} from "@element-plus/icons-vue";
 import {reqArticleById, reqPublishArticle} from "@/api/article";
 import {notification} from "@/utils/elComponent.ts";
 import {articleStatus, articleType, categoryList} from "@/model/data.ts"
-import {useRoute} from "vue-router";
+import {useRoute,useRouter} from "vue-router";
 
 const route = useRoute()
+const router=useRouter()
 const {user} = useUserStore()
 const form = ref<CreateArticle>({
   articleContent: "",
@@ -152,6 +153,7 @@ const publishArticle = async () => {
   if (res.status == 200) {
     notification("发布成功")
     dialogVisible.value = false
+    router.push('/article/list')
   }
 }
 
