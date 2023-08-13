@@ -49,4 +49,6 @@ export class Menu {
 
   @OneToMany(() => RoleMenu, (roleMenu) => roleMenu.menu)
   roleMenus: RoleMenu[];
+
+  children:Menu[];
 }

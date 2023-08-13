@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Query } from '@nestjs/common';
 import { ResourceService } from './resource.service';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
@@ -15,8 +15,8 @@ export class ResourceController {
   }
 
   @Get()
-  findAll() {
-    return this.resourceService.findAll();
+  async findAllByName(@Query('resourceName') resourceName:string) {
+    return new Result(await this.resourceService.findAllByName(resourceName))
   }
 
   @Get(':id')

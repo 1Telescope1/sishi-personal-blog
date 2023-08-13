@@ -75,3 +75,4 @@ export const friendLinkSearchForm={
   linkIntro: "",
   linkAddress: ""
 }
+

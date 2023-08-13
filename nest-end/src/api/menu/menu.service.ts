@@ -18,6 +18,37 @@ export class MenuService {
     return `This action returns all menu`;
   }
 
+  async findAllByName(name:string) {
+    const list=await this.menuRepository.createQueryBuilder('menu')
+      .where('menu.name LIKE :name',{
+        name:`%${name}%`
+      })
+      .getMany()
+    for (let i=0;i<list.length;i++) {
+      list[i].children=[]
+    }
+    const data=list.filter(item=>item.parentId==null)
+    const son=list.filter(item=>item.parentId!=null)
+
+    const delIds=[]
+    for(let i=0;i<data.length;i++) {
+      for(let j=0;j<son.length;j++) {
+        if(data[i].id==son[j].parentId) {
+          data[i].children.push(son[j])
+          delIds.push(son[j].id)
+        }
+      }
+    }
+
+    for(let i=0;i<son.length;i++) {
+      if(!delIds.includes(son[i].id)) {
+        data.push(son[i])
+      }
+    }
+
+    return data
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} menu`;
   }

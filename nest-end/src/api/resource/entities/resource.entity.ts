@@ -53,4 +53,6 @@ export class Resource {
 
   @OneToMany(() => RoleResource, (roleResource) => roleResource.resource)
   roleResources: RoleResource[];
+
+  children:Resource[]
 }

@@ -1,6 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Query } from '@nestjs/common';
 import { MenuService } from './menu.service';
-import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import {Menu} from "./entities/menu.entity";
 import {Result} from "../../common/result";
@@ -14,9 +13,10 @@ export class MenuController {
     return new Result(await this.menuService.create(menu))
   }
 
+
   @Get()
-  findAll() {
-    return this.menuService.findAll();
+  async findAllByName(@Query('name') name:string) {
+    return new Result(await this.menuService.findAllByName(name))
   }
 
   @Get(':id')
