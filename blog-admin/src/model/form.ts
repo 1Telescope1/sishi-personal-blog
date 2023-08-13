@@ -7,3 +7,11 @@ export const menuForm={
   parentId:null,
   isHidden:0
 }
+
+export const resourceForm={
+  resourceName:"",
+  url:"",
+  requestMethod:"GET",
+  parentId:null,
+  isAnonymous:0,
+}
