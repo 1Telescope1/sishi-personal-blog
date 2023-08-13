@@ -57,6 +57,15 @@
         <el-menu-item index="/talk/publish">发布说说</el-menu-item>
         <el-menu-item index="/talk/list">说说列表</el-menu-item>
       </el-sub-menu>
+      <el-sub-menu index="7">
+        <template #title>
+          <el-icon><location /></el-icon>
+          <span>权限管理</span>
+        </template>
+        <el-menu-item index="/permission/role">角色管理</el-menu-item>
+        <el-menu-item index="/permission/menu">菜单管理</el-menu-item>
+        <el-menu-item index="/permission/resource">资源管理</el-menu-item>
+      </el-sub-menu>
       </el-menu>
    
   </div>

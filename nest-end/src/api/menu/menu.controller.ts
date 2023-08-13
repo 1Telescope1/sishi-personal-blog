@@ -33,4 +33,9 @@ export class MenuController {
   async remove(@Param('id') id: string) {
     return new Result(await this.menuService.remove(+id));
   }
+
+  @Get(':id/:isHidden')
+  async changeHidden(@Param('id') id,@Param('isHidden') isHidden) {
+    return new Result(await this.menuService.changeHidden(+id,isHidden))
+  }
 }

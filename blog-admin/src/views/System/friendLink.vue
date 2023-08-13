@@ -5,7 +5,6 @@
         <div class="card-header">
           <span>{{ route.meta.title }}</span>
         </div>
-        <InfoButton @create="handleCreate" @refresh="getData"></InfoButton>
       </template>
       <div>
         <Search :model="searchForm" @search="getData" @reset="resetSearchForm">
@@ -22,6 +21,8 @@
                       placeholder="介绍"></el-input>
           </SearchItem>
         </Search>
+        <InfoButton style="margin-bottom: 20px" @create="handleCreate" @refresh="getData"></InfoButton>
+
       </div>
       <div>
         <el-table ref="multipleTableRef" @selection-change="handleSelectionChange" :data="tableData" stripe style="width: 100%" v-loading="loading">

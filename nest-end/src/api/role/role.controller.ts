@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete ,Query} from '@nestjs/common';
 import { RoleService } from './role.service';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import {Role} from "./entities/role.entity";
@@ -14,8 +14,8 @@ export class RoleController {
   }
 
   @Get()
-  async findAll() {
-    return new Result(await this.roleService.findAll());
+  async findAll(@Query('roleName') roleName:string) {
+    return new Result(await this.roleService.findAll(roleName));
   }
 
   @Get(':id')
@@ -31,5 +31,10 @@ export class RoleController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return new Result(await this.roleService.remove(+id));
+  }
+
+  @Get(':id/:isDisable')
+  async changeDisable(@Param('id') id,@Param('isDisable') isDisable) {
+    return new Result(await this.roleService.changeDisable(+id,isDisable))
   }
 }

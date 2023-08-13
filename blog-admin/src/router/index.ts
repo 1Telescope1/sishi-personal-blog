@@ -132,6 +132,33 @@ let routes = [
           title: "说说列表",
         },
       },
+      {
+        path: "permission/role",
+        name: "role",
+        component: () => import("@/views/Permission/role.vue"),
+        meta: {
+          keepAlive: true,
+          title: "角色管理",
+        },
+      },
+      {
+        path: "permission/menu",
+        name: "menu",
+        component: () => import("@/views/Permission/menu.vue"),
+        meta: {
+          keepAlive: true,
+          title: "菜单管理",
+        },
+      },
+      {
+        path: "permission/resource",
+        name: "resource",
+        component: () => import("@/views/Permission/resource.vue"),
+        meta: {
+          keepAlive: true,
+          title: "资源管理",
+        },
+      },
     ],
     meta: {
       keepAlive: true,

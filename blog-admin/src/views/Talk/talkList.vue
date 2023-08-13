@@ -20,9 +20,7 @@
                     <div style="cursor: pointer">
                       <el-dropdown :hide-on-click="false" :hide-timeout="1050">
                         <span class="el-dropdown-link">
-                          <el-icon>
-                            <Operation />
-                          </el-icon>
+                          <el-icon :size="24"><More /></el-icon>
                         </span>
                         <template #dropdown>
                           <el-dropdown-menu>

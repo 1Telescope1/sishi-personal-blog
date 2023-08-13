@@ -26,32 +26,37 @@ import { AuthModule } from './api/auth/auth.module';
 
 @Module({
   imports: [
-    // TypeOrmModule.forRoot({
-    //   type: 'mysql', //数据库类型
-    //   username: 'root', //账号
-    //   password: '123456', //密码
-    //   host: 'localhost', //host
-    //   port: 3306, //
-    //   database: 'aurora', //库名
-    //   entities: [__dirname + '/**/**/*.entity{.ts,.js}'], //实体文件
-    //   // synchronize: true, //synchronize字段代表是否自动将实体类同步到数据库
-    //   retryDelay: 500, //重试连接数据库间隔
-    //   retryAttempts: 10, //重试连接数据库的次数
-    //   autoLoadEntities: true, //如果为true,将自动加载实体 forFeature()方法注册的每个实体都将自动添加到配置对象的实体数组中
-    // }),
     TypeOrmModule.forRoot({
       type: 'mysql', //数据库类型
-      username: 'blog_nest', //账号
-      password: 'shenqundeng181X', //密码
-      host: '43.143.107.88', //host
+      username: 'root', //账号
+      password: '123456', //密码
+      host: 'localhost', //host
       port: 3306, //
-      database: 'blog_nest', //库名
+      database: 'aurora', //库名
       entities: [__dirname + '/**/**/*.entity{.ts,.js}'], //实体文件
       // synchronize: true, //synchronize字段代表是否自动将实体类同步到数据库
       retryDelay: 500, //重试连接数据库间隔
       retryAttempts: 10, //重试连接数据库的次数
       autoLoadEntities: true, //如果为true,将自动加载实体 forFeature()方法注册的每个实体都将自动添加到配置对象的实体数组中
     }),
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql', //数据库类型
+    //   username: 'blog_nest', //账号
+    //   password: 'shenqundeng181X', //密码
+    //   host: '43.143.107.88', //host
+    //   port: 3306, //
+    //   database: 'blog_nest', //库名
+    //   entities: [__dirname + '/**/**/*.entity{.ts,.js}'], //实体文件
+    //   // synchronize: true, //synchronize字段代表是否自动将实体类同步到数据库
+    //   retryDelay: 500, //重试连接数据库间隔
+    //   retryAttempts: 10, //重试连接数据库的次数
+    //   autoLoadEntities: true, //如果为true,将自动加载实体 forFeature()方法注册的每个实体都将自动添加到配置对象的实体数组中
+    //   extra:{
+    //     connectionLimit: 10,
+    //     idleTimeoutMillis: 30000,
+    //     connectTimeout: 10000
+    //   }
+    // }),
     AboutModule,
     TalkModule,
     UserInfoModule,

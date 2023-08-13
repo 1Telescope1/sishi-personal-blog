@@ -27,13 +27,12 @@ export class MenuService {
   }
 
   remove(id: number) {
-    const data=this.menuRepository.createQueryBuilder()
-      .update(Menu)
-      .set({
-        isHidden:true
-      })
-      .where("id=:id",{id})
-      .execute()
+    const data=this.menuRepository.delete(id)
+    return data;
+  }
+
+  changeHidden(id:number,isHidden:number) {
+    const data=this.menuRepository.query('update t_menu set is_hidden=? where id=?',[isHidden,id])
     return data;
   }
 }
