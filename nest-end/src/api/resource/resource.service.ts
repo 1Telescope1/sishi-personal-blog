@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Resource } from './entities/resource.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ResourceService {
+  constructor(@InjectRepository(Resource) private readonly resourceRepository:Repository<Resource>){}
+
   create(createResourceDto: CreateResourceDto) {
-    return 'This action adds a new resource';
+    const data=this.resourceRepository.save(createResourceDto)
+    return data;
   }
 
   findAll() {
@@ -21,6 +27,7 @@ export class ResourceService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} resource`;
+    const data=this.resourceRepository.delete(id)
+    return data;
   }
 }

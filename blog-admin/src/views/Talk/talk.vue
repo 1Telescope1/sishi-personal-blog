@@ -32,13 +32,13 @@ const route = useRoute()
 const router=useRouter()
 const {user} = useUserStore()
 const form = ref<Talk>({
-  id: 0,
-  userId: user.id,
-  content: '',
-  isTop: 0,
-  status: 0,
-  views: 0,
-  userinfo: undefined
+id: 0,
+userId: user.id,
+content: '',
+isTop: 0,
+status: 0,
+views: 0,
+userinfo: undefined,
 })
 
 const getTalk = async () => {

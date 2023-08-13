@@ -1,15 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import {Role} from "./entities/role.entity";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class RoleService {
-  create(createRoleDto: CreateRoleDto) {
-    return 'This action adds a new role';
+  constructor(@InjectRepository(Role) private readonly roleRepository:Repository<Role>) {
+  }
+   create(role: Role) {
+    const data= this.roleRepository.save(role)
+    return data;
   }
 
   findAll() {
-    return `This action returns all role`;
+    const data=this.roleRepository.find()
+    return data;
   }
 
   findOne(id: number) {
@@ -21,6 +28,13 @@ export class RoleService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} role`;
+    const data=this.roleRepository.createQueryBuilder()
+      .update(Role)
+      .set({
+        isDisable:true
+      })
+      .where('id=:id',{id})
+      .execute()
+    return data;
   }
 }
