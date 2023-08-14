@@ -2,19 +2,31 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { RoleMenuService } from './role-menu.service';
 import { CreateRoleMenuDto } from './dto/create-role-menu.dto';
 import { UpdateRoleMenuDto } from './dto/update-role-menu.dto';
+import { RoleMenu } from './entities/role-menu.entity';
+import { Result } from 'src/common/result';
 
 @Controller('role-menu')
 export class RoleMenuController {
   constructor(private readonly roleMenuService: RoleMenuService) {}
 
   @Post()
-  create(@Body() createRoleMenuDto: CreateRoleMenuDto) {
-    return this.roleMenuService.create(createRoleMenuDto);
+  create(@Body() roleMenu: RoleMenu[]) {
+    return new Result(this.roleMenuService.create(roleMenu));
   }
 
   @Get()
   findAll() {
     return this.roleMenuService.findAll();
+  }
+
+  @Get('role/:roleId')
+  async findIdByRoleId(@Param('roleId') roleId:string) {
+    return new Result(await this.roleMenuService.findIdByRoleId(+roleId))
+  }
+
+  @Delete('role/:roleId')
+  async deleteIdByRoleId(@Param('roleId') roleId:string) {
+    return new Result(await this.roleMenuService.deleteIdByRoleId(+roleId))
   }
 
   @Get(':id')

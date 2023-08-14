@@ -124,7 +124,7 @@ const requestArr=["GET","POST","DELETE","PATCH"]
 const handleSonResource=(id:number)=>{
   form.resourceName=""
   form.url=""
-  form.requestMethod=""
+  form.requestMethod="GET"
   form.isAnonymous=0
   form.parentId=id
   handleEdit(form)

@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRoleResourceDto } from './dto/create-role-resource.dto';
 import { UpdateRoleResourceDto } from './dto/update-role-resource.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { RoleResource } from './entities/role-resource.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class RoleResourceService {
-  create(createRoleResourceDto: CreateRoleResourceDto) {
-    return 'This action adds a new roleResource';
+  constructor(@InjectRepository(RoleResource) private readonly roleResourceRepository:Repository<RoleResource>){}
+
+  async create(roleResource: RoleResource[]) {    
+    for(let i=0;i<roleResource.length;i++) {
+      await this.roleResourceRepository.save(roleResource[i])      
+    }
+    return true
   }
 
   findAll() {
@@ -14,6 +22,16 @@ export class RoleResourceService {
 
   findOne(id: number) {
     return `This action returns a #${id} roleResource`;
+  }
+
+  findIdByRoleId(roleId:number) {
+    const data=this.roleResourceRepository.query('select * from t_role_resource where role_id=?',[roleId])
+    return data
+  }
+
+  deleteIdByRoleId(roleId:number) {
+    const data=this.roleResourceRepository.query('delete from t_role_resource where role_id=?',[roleId])
+    return data
   }
 
   update(id: number, updateRoleResourceDto: UpdateRoleResourceDto) {
