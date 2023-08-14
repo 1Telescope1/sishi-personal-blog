@@ -8,4 +8,4 @@ export const reqAddOrUpdResource=(data:Resource)=>request<any>(`/resource`,'POST
 export const reqDelResource=(id:number)=>request<any>(`/resource/${id}`,'DELETE')
 
 // 按资源模获取资源
-export const reqResourceByName=(params:ResourceParams)=>request<any>(`/resource`,'GET',params)
+export const reqResourceByName=(params:ResourceParams)=>request<Resource[]>(`/resource`,'GET',params)

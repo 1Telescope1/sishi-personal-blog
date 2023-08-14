@@ -4,6 +4,7 @@ import { UpdateRoleResourceDto } from './dto/update-role-resource.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RoleResource } from './entities/role-resource.entity';
 import { Repository } from 'typeorm';
+import transformData from 'src/utils/transformData';
 
 @Injectable()
 export class RoleResourceService {
@@ -24,9 +25,11 @@ export class RoleResourceService {
     return `This action returns a #${id} roleResource`;
   }
 
-  findIdByRoleId(roleId:number) {
-    const data=this.roleResourceRepository.query('select * from t_role_resource where role_id=?',[roleId])
-    return data
+  async findIdByRoleId(roleId:number) {
+    const data=await this.roleResourceRepository.query('select * from t_role_resource where role_id=?',[roleId])
+    const transformedResult=transformData(data)
+
+    return transformedResult
   }
 
   deleteIdByRoleId(roleId:number) {

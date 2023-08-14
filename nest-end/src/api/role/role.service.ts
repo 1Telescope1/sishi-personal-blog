@@ -1,14 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { Role } from './entities/role.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import {RoleMenu} from "../role-menu/entities/role-menu.entity";
+import {RoleMenuService} from "../role-menu/role-menu.service";
+import {RoleResourceService} from "../role-resource/role-resource.service";
+import {RoleResource} from "../role-resource/entities/role-resource.entity";
 
 @Injectable()
 export class RoleService {
   constructor(
     @InjectRepository(Role) private readonly roleRepository: Repository<Role>,
+    private readonly roleMenuService: RoleMenuService,
+    private readonly roleResourceService: RoleResourceService
   ) {}
 
   create(role: Role) {
@@ -16,14 +21,42 @@ export class RoleService {
     return data;
   }
 
-  findAll(roleName: string) {
-    const data = this.roleRepository
+  async findAll(roleName: string) {
+    const data =await this.roleRepository
       .createQueryBuilder('role')
+      .leftJoin('role.roleMenus', 'roleMenus')
+      .leftJoin('role.roleResources', 'roleResources')
+      .addSelect('roleMenus.menuId')
+      .addSelect('roleResources.resourceId')
       .where('role.roleName LIKE :roleName', {
         roleName: `%${roleName}%`,
       })
       .getMany();
-    return data;
+    const transformedData = data.map(role => ({
+      ...role,
+      menuId: role.roleMenus.map(menu => menu.menuId),
+      resourceId: role.roleResources.map(resource => resource.resourceId),
+    }));
+    for(let i=0;i<transformedData.length;i++) {
+      delete transformedData[i].roleMenus
+      delete transformedData[i].roleResources
+    }
+
+    return transformedData;
+  }
+
+  async updateRoleMenu(data:{roleId:number,roleMenu:RoleMenu[]}) {
+    const {roleId,roleMenu}=data
+    await this.roleMenuService.deleteIdByRoleId(roleId)
+    await this.roleMenuService.create(roleMenu)
+    return true
+  }
+
+  async updateRoleResource(data:{roleId:number,roleResource:RoleResource[]}) {
+    const {roleId,roleResource}=data
+    await this.roleResourceService.deleteIdByRoleId(roleId)
+    await this.roleResourceService.create(roleResource)
+    return true
   }
 
   findOne(id: number) {

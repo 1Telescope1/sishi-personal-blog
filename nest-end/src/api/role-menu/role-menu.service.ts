@@ -4,6 +4,7 @@ import { UpdateRoleMenuDto } from './dto/update-role-menu.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RoleMenu } from './entities/role-menu.entity';
 import { Repository } from 'typeorm';
+import transformData from 'src/utils/transformData';
 
 @Injectable()
 export class RoleMenuService {
@@ -21,9 +22,11 @@ export class RoleMenuService {
     return `This action returns all roleMenu`;
   }
 
-  findIdByRoleId(roleId:number) {
-    const data=this.roleMenuRepository.query('select * from t_role_menu where role_id=?',[roleId])
-    return data
+  async findIdByRoleId(roleId:number) {
+    const data=await this.roleMenuRepository.query('select * from t_role_menu where role_id=?',[roleId])
+    const transformedResult=transformData(data)
+
+    return transformedResult
   }
 
   deleteIdByRoleId(roleId:number) {

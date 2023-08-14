@@ -7,6 +7,6 @@ import { RoleMenu } from './entities/role-menu.entity';
 @Module({
   imports:[TypeOrmModule.forFeature([RoleMenu])],
   controllers: [RoleMenuController],
-  providers: [RoleMenuService]
+  providers: [RoleMenuService],
 })
 export class RoleMenuModule {}

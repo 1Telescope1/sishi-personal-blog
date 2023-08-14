@@ -3,6 +3,8 @@ import { RoleService } from './role.service';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import {Role} from "./entities/role.entity";
 import {Result} from "../../common/result";
+import {RoleMenu} from "../role-menu/entities/role-menu.entity";
+import {RoleResource} from "../role-resource/entities/role-resource.entity";
 
 @Controller('role')
 export class RoleController {
@@ -16,6 +18,16 @@ export class RoleController {
   @Get()
   async findAll(@Query('roleName') roleName:string) {
     return new Result(await this.roleService.findAll(roleName));
+  }
+
+  @Post('menu')
+  async updateRoleMenu(@Body() data:{roleId:number,roleMenu:RoleMenu[]}) {
+    return new Result(await this.roleService.updateRoleMenu(data))
+  }
+
+  @Post('resource')
+  async updateRoleResource(@Body() data:{roleId:number,roleResource:RoleResource[]}) {
+    return new Result(await this.roleService.updateRoleResource(data))
   }
 
   @Get(':id')

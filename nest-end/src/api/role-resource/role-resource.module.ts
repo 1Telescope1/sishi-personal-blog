@@ -7,6 +7,6 @@ import { RoleResource } from './entities/role-resource.entity';
 @Module({
   imports:[TypeOrmModule.forFeature([RoleResource])],
   controllers: [RoleResourceController],
-  providers: [RoleResourceService]
+  providers: [RoleResourceService],
 })
 export class RoleResourceModule {}

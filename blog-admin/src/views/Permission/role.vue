@@ -32,6 +32,7 @@
                 :active-value="1"
                 :inactive-value="0"
                 @change="handleStatusChange(row,row.isDisable)"
+
               />
             </template>
           </el-table-column>
@@ -42,8 +43,8 @@
           </el-table-column>
           <el-table-column width="500" label="操作"  align="center">
             <template #default="{row}">
-              <el-button :icon="EditPen" :text="true" bg>分配菜单</el-button>
-              <el-button :icon="EditPen" :text="true" bg>分配资源</el-button>
+              <el-button :icon="EditPen" :text="true" bg @click="handleDialog(true,row)">分配菜单</el-button>
+              <el-button :icon="EditPen" :text="true" bg @click="handleDialog(false,row)">分配资源</el-button>
               <el-button :icon="Edit" type="primary" @click="handleEdit(row)">编辑</el-button>
               <el-popconfirm title="你确定要删除标签吗?" @confirm="handleDelete(row.id)">
                 <template #reference>
@@ -64,34 +65,124 @@
       </el-form>
     </FormDrawer>
 
+    <el-dialog :close-on-click-modal="false" destroy-on-close	 v-model="dialogFormVisible" :title="isMenu ? '分配菜单' : '分配资源'">
+      <el-tree
+        :data="data"
+        show-checkbox
+        node-key="id"
+        :props="defaultProps"
+        :default-checked-keys="checkedKeys"
+        @check="handleClick"
+      />
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取消</el-button>
+        <el-button type="primary" @click="handlePermission">
+          确定
+        </el-button>
+      </span>
+      </template>
+    </el-dialog>
+
   </div>
 </template>
 
 <script setup lang="ts">
+import {ref} from 'vue'
 import {useRoute} from 'vue-router'
 import {useInitTable} from "@/hooks/useTable.ts";
-import {reqAddOrUpdRole, reqAllRole, reqChangeDisable, reqDisableRole} from "@/api/role";
+import {
+  reqAddOrUpdRole,
+  reqAllRole,
+  reqChangeDisable,
+  reqChangeRoleMenu,
+  reqChangeRoleResource,
+  reqDisableRole
+} from "@/api/role";
 import {useInitForm} from "@/hooks/useForm.ts";
 import {formatDateTime} from "@/utils/date.ts";
 import {  Edit ,Delete,EditPen} from '@element-plus/icons-vue'
+import {Resource} from "@/api/resource/type.ts";
+import {Menu} from "@/api/menu/type.ts";
+import {reqResourceByName} from "@/api/resource";
+import {reqMenuByName} from "@/api/menu";
+import {Role, RolePermission} from "@/api/role/type.ts";
+import {notification} from "@/utils/elComponent.ts";
 
 
 const route = useRoute()
 
 const formLabelWidth='140px'
+let dialogFormVisible=ref(false)
+let isMenu=ref(true)
+const data=ref([])
+const roleId=ref()
+const defaultProps=ref({})
+const checkedKeys=ref([])
+const resourceList=ref<Resource[]>([])
+const menuList=ref<Menu[]>([])
+const resourceProps={
+  children: 'children',
+  label: 'resourceName',
+}
+const menuProps={
+  children: 'children',
+  label: 'name',
+}
+const handleDialog=(flag:boolean,role:Role)=>{
+  isMenu.value=flag
+  roleId.value=role.id
+  data.value=isMenu.value ? menuList.value : resourceList.value
+  defaultProps.value=isMenu.value? menuProps : resourceProps
+  checkedKeys.value=isMenu.value ? role.menuId : role.resourceId
+  dialogFormVisible.value=true
+}
+
+const handleClick=(data:any,obj:any)=> {
+  checkedKeys.value=obj.checkedKeys
+}
+
+const handlePermission=async () =>{
+  let res
+  const data:RolePermission={
+    roleId: roleId.value, roleMenu: [], roleResource: []
+  }
+  if(isMenu.value) {
+    for(let i=0;i<checkedKeys.value.length;i++) {
+      data.roleMenu?.push({roleId: roleId.value,menuId:checkedKeys.value[i]})
+    }
+    res=await reqChangeRoleMenu(data)
+  } else {
+    for(let i=0;i<checkedKeys.value.length;i++) {
+      data.roleResource?.push({roleId: roleId.value,resourceId:checkedKeys.value[i]})
+    }
+    res=await reqChangeRoleResource(data)
+  }
+  if(res.data) {
+    notification("修改成功")
+    getData()
+  }
+  dialogFormVisible.value=false
+}
+
+const initPermission=async ()=>{
+  const res1=await reqResourceByName({resourceName:""})
+  const res2=await reqMenuByName({name:""})
+  if(res1.status==200&&res2.status==200) {
+    resourceList.value=res1.data
+    menuList.value=res2.data
+  }
+}
+initPermission()
 
 const {
   searchForm,
   resetSearchForm,
   tableData,
   loading,
-  pageSize,
-  pageNum,
-  total,
   getData,
   handleSelectionChange,
   handleDelete,
-  handleMultiStatusChange,
   handleStatusChange,
   multipleTableRef
 } = useInitTable({

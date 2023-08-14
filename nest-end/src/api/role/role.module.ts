@@ -3,10 +3,14 @@ import { RoleService } from './role.service';
 import { RoleController } from './role.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Role } from './entities/role.entity';
+import {RoleMenu} from "../role-menu/entities/role-menu.entity";
+import {RoleResource} from "../role-resource/entities/role-resource.entity";
+import {RoleMenuService} from "../role-menu/role-menu.service";
+import {RoleResourceService} from "../role-resource/role-resource.service";
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Role])],
+  imports:[TypeOrmModule.forFeature([Role,RoleMenu,RoleResource])],
   controllers: [RoleController],
-  providers: [RoleService]
+  providers: [RoleService,RoleMenuService,RoleResourceService]
 })
 export class RoleModule {}
