@@ -24,6 +24,11 @@ export class ResourceController {
     return this.resourceService.findOne(+id);
   }
 
+  @Post("ids")
+  async getResourceByIds(@Body() ids:number[]) {
+    return new Result(await this.resourceService.getResourceByIds(ids))
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateResourceDto: UpdateResourceDto) {
     return this.resourceService.update(+id, updateResourceDto);

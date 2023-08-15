@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 import { Comment } from "src/api/comment/entities/comment.entity";
 import { Message } from "src/api/message/entities/message.entity";
@@ -6,6 +6,9 @@ import { Talk } from "src/api/talk/entities/talk.entity";
 import { TalkComment } from "src/api/talk-comment/entities/talk-comment.entity";
 import { UserRole } from "src/api/user-role/entities/user-role.entity";
 import { Article } from "src/api/article/entities/article.entity";
+import { Role } from "src/api/role/entities/role.entity";
+import {Menu} from "../../menu/entities/menu.entity";
+import {Resource} from "../../resource/entities/resource.entity";
 
 @Entity("t_user_info", { schema: "aurora" })
 export class UserInfo {
@@ -93,4 +96,15 @@ export class UserInfo {
 
   @OneToMany(() => Article, (article) => article.userinfo)
   articles: Article[];
+
+  @ManyToOne(() => Role, (role) => role.userInfos, {
+    onDelete: "RESTRICT",
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn([{ name: "user_roleId", referencedColumnName: "id" }])
+  userRole: Role;
+
+  menus:Menu[]
+  resources:Resource[]
+
 }

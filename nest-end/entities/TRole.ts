@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { TRoleMenu } from "./TRoleMenu";
 import { TRoleResource } from "./TRoleResource";
+import { TUserInfo } from "./TUserInfo";
 import { TUserRole } from "./TUserRole";
 
 @Entity("t_role", { schema: "aurora" })
@@ -39,6 +40,9 @@ export class TRole {
 
   @OneToMany(() => TRoleResource, (tRoleResource) => tRoleResource.role)
   tRoleResources: TRoleResource[];
+
+  @OneToMany(() => TUserInfo, (tUserInfo) => tUserInfo.userRole)
+  tUserInfos: TUserInfo[];
 
   @OneToMany(() => TUserRole, (tUserRole) => tUserRole.role)
   tUserRoles: TUserRole[];

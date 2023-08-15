@@ -32,6 +32,8 @@ export class UserInfoService {
     const res=await this.userRepository.createQueryBuilder('userinfo')
       .select()
       .addSelect('userinfo.password')
+      .leftJoin('userinfo.userRole','role')
+      .addSelect(['role.id','role.roleName'])
       .where('userinfo.nickname=:nickname',{nickname})
       .getOne()
     return res
@@ -56,6 +58,8 @@ export class UserInfoService {
 
   async findAllByPage(pageNum:number,pageSize:number,nickname:string) {
     const queryBuilder=await this.userRepository.createQueryBuilder('userinfo')
+      .leftJoin('userinfo.userRole','role')
+      .addSelect(['role.id','role.roleName'])
       .where('userinfo.nickname LIKE :nickname',{
         nickname:`%${nickname}%`
       })
@@ -71,8 +75,12 @@ export class UserInfoService {
   }
 
   async findOne(id: number) {
-    const data=await this.userRepository.find({where:{id}})
-    return data[0];
+    const data=await this.userRepository.createQueryBuilder('user')
+      .leftJoin('user.userRole','role')
+      .addSelect(['role.id','role.roleName'])
+      .where('user.id=:id',{id})
+      .getOne()
+    return data;
   }
 
   update(id: number, updateUserInfoDto: UpdateUserInfoDto) {

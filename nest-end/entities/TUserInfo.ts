@@ -1,10 +1,20 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { TComment } from "./TComment";
 import { TMessage } from "./TMessage";
 import { TTalk } from "./TTalk";
 import { TTalkComment } from "./TTalkComment";
+import { TRole } from "./TRole";
 import { TUserRole } from "./TUserRole";
 
+@Index("user_roleId", ["userRoleId"], {})
 @Entity("t_user_info", { schema: "aurora" })
 export class TUserInfo {
   @PrimaryGeneratedColumn({ type: "int", name: "id", comment: "用户ID" })
@@ -74,6 +84,14 @@ export class TUserInfo {
   @Column("varchar", { name: "password", comment: "密码", length: 255 })
   password: string;
 
+  @Column("int", {
+    name: "user_roleId",
+    nullable: true,
+    comment: "所属角色",
+    default: () => "'2'",
+  })
+  userRoleId: number | null;
+
   @OneToMany(() => TComment, (tComment) => tComment.user)
   tComments: TComment[];
 
@@ -85,6 +103,13 @@ export class TUserInfo {
 
   @OneToMany(() => TTalkComment, (tTalkComment) => tTalkComment.user)
   tTalkComments: TTalkComment[];
+
+  @ManyToOne(() => TRole, (tRole) => tRole.tUserInfos, {
+    onDelete: "RESTRICT",
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn([{ name: "user_roleId", referencedColumnName: "id" }])
+  userRole: TRole;
 
   @OneToMany(() => TUserRole, (tUserRole) => tUserRole.user)
   tUserRoles: TUserRole[];

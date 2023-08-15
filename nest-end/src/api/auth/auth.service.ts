@@ -4,22 +4,29 @@ import { UserInfo } from '../user-info/entities/user-info.entity';
 import { CreateUserInfoDto } from '../user-info/dto/create-user-info.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import {loginError} from "../../common/exception";
+import {ResourceService} from "../resource/resource.service";
+import {MenuService} from "../menu/menu.service";
+import {RoleMenuService} from "../role-menu/role-menu.service";
+import {RoleResourceService} from "../role-resource/role-resource.service";
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userInfoService: UserInfoService,
     private readonly jwt: JwtService,
+    private readonly resourceService:ResourceService,
+    private readonly menuService:MenuService,
+    private readonly roleMenuService:RoleMenuService,
+    private readonly roleResourceService:RoleResourceService
   ) {}
 
   async signin(nickname: string, password: string) {
     const userInfo = await this.userInfoService.isExistUser(nickname);
-    if (!userInfo) {
-      throw new UnauthorizedException();
-    }
 
     const flag = await bcrypt.compare(password, userInfo.password);
     if (userInfo && flag) {
+
       // 生成token
       const token = await this.jwt.signAsync(
         {
@@ -31,7 +38,11 @@ export class AuthService {
       return { userInfo, token };
     }
 
-    throw new UnauthorizedException();
+    throw new loginError("账号或密码错误");
+  }
+
+  async getPermission(roleId:string) {
+
   }
 
   async signup(registerUser: CreateUserInfoDto) {
@@ -39,7 +50,7 @@ export class AuthService {
       registerUser.nickname,
     );
     if (userFlag) {
-      return null;
+      throw new loginError("用户已存在");
     }
 
     const user = new UserInfo();

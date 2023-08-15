@@ -23,6 +23,7 @@ import { BlogModule } from './api/blog/blog.module';
 import { MinioModule } from './api/minio/minio.module';
 import { FileModule } from './api/file/file.module';
 import { AuthModule } from './api/auth/auth.module';
+import { RedisModule } from './api/redis/redis.module';
 
 @Module({
   imports: [
@@ -78,6 +79,7 @@ import { AuthModule } from './api/auth/auth.module';
     MinioModule,
     FileModule,
     AuthModule,
+    RedisModule,
   ],
   controllers: [AppController],
   providers: [AppService],

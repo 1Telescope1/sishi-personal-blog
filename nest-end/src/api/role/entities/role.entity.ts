@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { RoleResource } from "src/api/role-resource/entities/role-resource.entity";
 import { UserRole } from "src/api/user-role/entities/user-role.entity";
 import { RoleMenu } from "src/api/role-menu/entities/role-menu.entity";
+import { UserInfo } from "src/api/user-info/entities/user-info.entity";
 
 @Entity("t_role", { schema: "aurora" })
 export class Role {
@@ -42,4 +43,7 @@ export class Role {
 
   @OneToMany(() => UserRole, (userRole) => userRole.role)
   userRoles: UserRole[];
+
+  @OneToMany(() => UserInfo, (userInfo) => userInfo.userRole)
+  userInfos: UserInfo[];
 }

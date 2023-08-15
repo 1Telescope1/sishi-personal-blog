@@ -24,6 +24,11 @@ export class MenuController {
     return this.menuService.findOne(+id);
   }
 
+  @Post("ids")
+  async getMenuByIds(@Body() ids:number[]) {
+    return new Result(await this.menuService.getMenuByIds(ids))
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
     return this.menuService.update(+id, updateMenuDto);

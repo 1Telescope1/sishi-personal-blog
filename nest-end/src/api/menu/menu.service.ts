@@ -53,6 +53,10 @@ export class MenuService {
     return `This action returns a #${id} menu`;
   }
 
+  getMenuByIds(ids:number[]) {
+    return this.menuRepository.findByIds(ids);
+  }
+
   update(id: number, updateMenuDto: UpdateMenuDto) {
     return `This action updates a #${id} menu`;
   }

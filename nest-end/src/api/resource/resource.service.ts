@@ -53,6 +53,11 @@ export class ResourceService {
     return `This action returns a #${id} resource`;
   }
 
+  getResourceByIds(ids:number[]) {
+    return this.resourceRepository.findByIds(ids);
+  }
+
+
   update(id: number, updateResourceDto: UpdateResourceDto) {
     return `This action updates a #${id} resource`;
   }
