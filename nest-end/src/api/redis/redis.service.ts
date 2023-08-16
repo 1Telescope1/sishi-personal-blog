@@ -15,7 +15,7 @@ export class RedisService {
   }
 
   setValue(key: string, value: string){
-    return this.redisClient.set(key, value);
+    return this.redisClient.setex(key,60*60*24*2, value);
   }
 
   getValue(key: string){
@@ -30,10 +30,10 @@ export class RedisService {
     return this.redisClient.del(key)
   }
 
-  setHashField(key: string, field: string, value: string) {
+  async setHashField(key: string, field: string, value: string) {
     return this.redisClient.hset(key, field, value);
   }
-  
+
   getHashField(key: string, field: string) {
     return this.redisClient.hget(key, field);
   }

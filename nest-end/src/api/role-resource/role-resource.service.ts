@@ -26,10 +26,9 @@ export class RoleResourceService {
   }
 
   async findIdByRoleId(roleId:number) {
-    const data=await this.roleResourceRepository.query('select * from t_role_resource where role_id=?',[roleId])
-    const transformedResult=transformData(data)
+    const data=await this.roleResourceRepository.query('select resource_id resourceId from t_role_resource where role_id=?',[roleId])
 
-    return transformedResult
+    return data
   }
 
   deleteIdByRoleId(roleId:number) {

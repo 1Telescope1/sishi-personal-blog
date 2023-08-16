@@ -15,6 +15,7 @@ import {RoleResource} from "../role-resource/entities/role-resource.entity";
 import {RoleMenu} from "../role-menu/entities/role-menu.entity";
 import {RoleResourceService} from "../role-resource/role-resource.service";
 import {RoleMenuService} from "../role-menu/role-menu.service";
+import {RedisService} from "../redis/redis.service";
 
 @Module({
   imports: [
@@ -27,6 +28,6 @@ import {RoleMenuService} from "../role-menu/role-menu.service";
     TypeOrmModule.forFeature([Menu, Resource,RoleResource,RoleMenu]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, ResourceService, MenuService,RoleResourceService,RoleMenuService],
+  providers: [AuthService, JwtStrategy, ResourceService, MenuService,RoleResourceService,RoleMenuService,RedisService],
 })
 export class AuthModule {}

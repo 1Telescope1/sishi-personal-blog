@@ -5,3 +5,9 @@ export class loginError extends HttpException {
     super(message, HttpStatus.UNAUTHORIZED);
   }
 }
+
+export class resourcePermission extends HttpException {
+  constructor(message: string) {
+    super(message, HttpStatus.FORBIDDEN);
+  }
+}

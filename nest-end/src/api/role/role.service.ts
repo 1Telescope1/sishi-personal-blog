@@ -7,13 +7,15 @@ import {RoleMenu} from "../role-menu/entities/role-menu.entity";
 import {RoleMenuService} from "../role-menu/role-menu.service";
 import {RoleResourceService} from "../role-resource/role-resource.service";
 import {RoleResource} from "../role-resource/entities/role-resource.entity";
+import {RedisService} from "../redis/redis.service";
 
 @Injectable()
 export class RoleService {
   constructor(
     @InjectRepository(Role) private readonly roleRepository: Repository<Role>,
     private readonly roleMenuService: RoleMenuService,
-    private readonly roleResourceService: RoleResourceService
+    private readonly roleResourceService: RoleResourceService,
+    private readonly redisService:RedisService
   ) {}
 
   create(role: Role) {
@@ -49,6 +51,7 @@ export class RoleService {
     const {roleId,roleMenu}=data
     await this.roleMenuService.deleteIdByRoleId(roleId)
     await this.roleMenuService.create(roleMenu)
+
     return true
   }
 

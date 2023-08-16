@@ -44,7 +44,7 @@ export class UserInfoController {
   }
 
   @Get(':id')
-  // @UseGuards(JwtGuard,AdminGuard)
+  @UseGuards(JwtGuard,AdminGuard)
   // @UseInterceptors(SerializeInterceptor)
   async findOne(@Param('id') id: string,@Req() req) {
 

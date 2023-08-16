@@ -58,6 +58,10 @@ export interface Record {
 	isDisable: number;
 	createTime: string;
 	updateTime: string;
+	userRole: {
+		id: number,
+		roleName: string
+	}
 }
 
 export interface UserPage extends PaginationParams{

@@ -9,6 +9,7 @@ import {ResourceService} from "../resource/resource.service";
 import {MenuService} from "../menu/menu.service";
 import {RoleMenuService} from "../role-menu/role-menu.service";
 import {RoleResourceService} from "../role-resource/role-resource.service";
+import {RedisService} from "../redis/redis.service";
 
 @Injectable()
 export class AuthService {
@@ -18,15 +19,20 @@ export class AuthService {
     private readonly resourceService:ResourceService,
     private readonly menuService:MenuService,
     private readonly roleMenuService:RoleMenuService,
-    private readonly roleResourceService:RoleResourceService
+    private readonly roleResourceService:RoleResourceService,
+    private readonly redisService:RedisService
   ) {}
 
   async signin(nickname: string, password: string) {
     const userInfo = await this.userInfoService.isExistUser(nickname);
-
     const flag = await bcrypt.compare(password, userInfo.password);
     if (userInfo && flag) {
-
+      const {menu,resource}=await this.getPermission(userInfo.userRole.id)
+      const permission={
+        menu,
+        resource
+      }
+      this.redisService.setValue(String(userInfo.id),JSON.stringify(permission))
       // 生成token
       const token = await this.jwt.signAsync(
         {
@@ -41,8 +47,14 @@ export class AuthService {
     throw new loginError("账号或密码错误");
   }
 
-  async getPermission(roleId:string) {
-
+  async getPermission(roleId:number) {
+    let menuIds=await this.roleMenuService.findIdByRoleId(roleId)
+    menuIds=menuIds.map(item =>item.menuId)
+    let resourceIds=await this.roleResourceService.findIdByRoleId(roleId)
+    resourceIds=resourceIds.map(item=>item.resourceId)
+    const menu=await this.menuService.getMenuByIds(menuIds)
+    const resource=await this.resourceService.getResourceByIds(resourceIds)
+    return {menu,resource}
   }
 
   async signup(registerUser: CreateUserInfoDto) {
