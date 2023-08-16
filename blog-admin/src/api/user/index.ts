@@ -8,10 +8,10 @@ export const reqSaveOrAddUser=(data:UserInfo)=>request<any>(`/userinfo`,'POST',d
 export const reqUserInfo=(id:any)=>request<UserInfo>(`userinfo/${id}`)
 
 // 登录
-export const reqLoign=(data:userForm)=>request<LoginUser>(`/userinfo/login`,'POST',data)
+export const reqLoign=(data:userForm)=>request<LoginUser>(`/auth/signin`,'POST',data)
 
 // 注册
-export const reqRegister=(data:userForm)=>request<LoginUser>(`/user/register`,'POST',data)
+export const reqRegister=(data:userForm)=>request<any>(`/auth/signup`,'POST',data)
 
 // 获取所有用户
 export const reqAllUser=()=>request<UserInfo>(`/userinfo`)

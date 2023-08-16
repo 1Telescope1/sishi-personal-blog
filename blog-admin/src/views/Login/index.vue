@@ -61,8 +61,8 @@ const router = useRouter();
 const user = useUserStore()
 
 const form = reactive({
-  nickname: "Teles",
-  password: "123",
+  nickname: "abcd123",
+  password: "abcd",
 });
 
 const rules = {

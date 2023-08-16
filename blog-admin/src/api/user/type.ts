@@ -26,18 +26,42 @@ export interface UserMenu {
 	privilege: string;
 }
 
-export interface LoginUser {
+export interface UserRole {
 	id: number;
-	nickname: string;
-	password: string;
+	roleName: string;
+}
+
+export interface Menu {
+	id: number;
+	name: string;
+	path: string;
+	component: string;
+	icon: string;
+	createTime: string;
+	updateTime: string;
+	orderNum: number;
+	parentId?: any;
+	isHidden: number;
+}
+
+export interface User {
+	id: number;
 	email?: any;
+	nickname: string;
 	avatar: string;
-	token: string;
-	role: string;
-	menus: UserMenu[];
-	loginType?: any;
-	address?: any;
-	identifyCode?: any;
+	intro?: any;
+	website?: any;
+	isSubscribe?: any;
+	isDisable: number;
+	createTime: string;
+	updateTime: string;
+	userRole: UserRole;
+	menus: Menu[];
+}
+
+export interface LoginUser {
+	userInfo:User,
+	token:string
 }
 
 export interface userForm{

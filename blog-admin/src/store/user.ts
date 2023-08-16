@@ -11,12 +11,14 @@ export const useUserStore = defineStore(
   () => {
     const router=useRouter()
     
+    let token=""
 
     const user=ref<LoginUser>()
     const login=async (data:userForm)=>{
       const res=await reqLoign(data)
       if(res.status==200) {
         user.value=res.data
+        token=res.data.token
         return true
       }
       return false
@@ -24,13 +26,13 @@ export const useUserStore = defineStore(
 
     const logout=async ()=>{
       user.value=undefined
-      notification("success","退出登录成功")
+      notification("退出登录成功")
+      router.push('/login')
     }
 
-    const menus=ref(router.getRoutes())
     
 
-    return { login,user,logout,menus};
+    return { login,user,logout,token};
   },
   {
     // 开启持久化（使用本地存储，默认是localStorage）

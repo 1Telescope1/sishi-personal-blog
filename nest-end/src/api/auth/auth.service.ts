@@ -10,6 +10,7 @@ import {MenuService} from "../menu/menu.service";
 import {RoleMenuService} from "../role-menu/role-menu.service";
 import {RoleResourceService} from "../role-resource/role-resource.service";
 import {RedisService} from "../redis/redis.service";
+import getMenuList from "../../utils/getMenuList";
 
 @Injectable()
 export class AuthService {
@@ -43,6 +44,7 @@ export class AuthService {
         },
       );
       delete userInfo.password
+      userInfo.menus=menu
       return { userInfo, token };
     }
 
@@ -54,7 +56,10 @@ export class AuthService {
     menuIds=menuIds.map(item =>item.menuId)
     let resourceIds=await this.roleResourceService.findIdByRoleId(roleId)
     resourceIds=resourceIds.map(item=>item.resourceId)
-    const menu=await this.menuService.getMenuByIds(menuIds)
+
+    const list=await this.menuService.getMenuByIds(menuIds)
+    const menu=getMenuList(list)
+
     const resource=await this.resourceService.getResourceByIds(resourceIds)
     return {menu,resource}
   }

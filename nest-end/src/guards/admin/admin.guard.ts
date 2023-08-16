@@ -1,5 +1,4 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import {UserInfoService} from "../../api/user-info/user-info.service";
 import {RedisService} from "../../api/redis/redis.service";
 import {resourcePermission} from "../../common/exception";

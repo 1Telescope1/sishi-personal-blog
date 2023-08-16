@@ -1,7 +1,7 @@
 import { createApp,Directive } from "vue";
 import "./style.css";
 import App from "./App.vue";
-import router from "./router/index";
+import {router} from "./router/index";
 import pinia from "./store/index";
 import "@/assets/styles/index.scss";
 // import "@/assets/fonts/font.css"
@@ -28,6 +28,8 @@ import hljs from 'highlight.js';
 // 图片预览
 import 'viewerjs/dist/viewer.css'
 import Viewer from 'v-viewer'
+//路由权限
+import "./utils/permission.ts"
 
 
 const app = createApp(App);
