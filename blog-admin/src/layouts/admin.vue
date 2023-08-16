@@ -7,21 +7,24 @@
       <el-aside :width="blogStore.asideWidth">
         <FMenu></FMenu>
       </el-aside>
-      <el-main>
+      <el-main >
         <FBreadcrumb></FBreadcrumb>
         <FTagList></FTagList>
-        <router-view v-slot="{ Component }" style="margin-top: 40px">
-          <transition name="fade">
-            <keep-alive :max="10" v-if="$route.meta.keepAlive">
+        <div class="fade-transform-box">
+          <router-view v-slot="{ Component }" style="margin-top: 40px">
+            <transition name="fade-transform"  mode="out-in">
+              <keep-alive :max="10" v-if="$route.meta.keepAlive">
+                <component :key="$route.name"
+                           :is="Component"
+                ></component>
+              </keep-alive>
               <component :key="$route.name"
                          :is="Component"
-              ></component>
-            </keep-alive>
-            <component :key="$route.name"
-                       :is="Component"
-                       v-else></component>
-          </transition>
-        </router-view>
+                         v-else></component>
+            </transition>
+          </router-view>
+
+        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -42,28 +45,19 @@ const blogStore = useBlogStore();
   transition: all 0.2s;
 }
 
-.fade-enter-from {
+.fade-transform-enter-active,
+.fade-transform-leave-active {
+  transition: all 0.5s ease 0s;
+}
+.fade-transform-enter {
   opacity: 0;
+  transform: translateX(-30px) !important;
 }
-
-.fade-enter-to {
-  opacity: 1;
-}
-
-.fade-leave-from {
-  opacity: 1;
-}
-
-.fade-leave-to {
+.fade-transform-leave-to {
   opacity: 0;
+  transform: translateX(30px);
 }
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.3s;
-}
-
-.fade-enter-active {
-  transition-delay: 0.3s;
+.fade-transform-box {
+  overflow: hidden;
 }
 </style>

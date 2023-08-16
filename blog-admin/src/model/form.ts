@@ -11,7 +11,7 @@ export const menuForm={
 export const resourceForm={
   resourceName:"",
   url:"",
-  requestMethod:"GET",
+  requestMethod:"",
   parentId:null,
   isAnonymous:0,
 }

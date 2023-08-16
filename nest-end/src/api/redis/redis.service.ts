@@ -9,8 +9,9 @@ export class RedisService {
 
   constructor() {
     this.redisClient = new Redis({
-      host: 'localhost', // Redis 服务器的主机名
       port: 6379, // Redis 服务器的端口
+      host: 'localhost', // Redis 服务器的主机名
+      db:0
     });
   }
 
@@ -24,6 +25,11 @@ export class RedisService {
 
   setWithExpiry(key: string, value: string, time: number){
     return this.redisClient.setex(key, time, value);
+  }
+
+  async getAllKeys(pattern: string){
+    const keys = await this.redisClient.keys(pattern);
+    return keys;
   }
 
   delValue(key:string) {

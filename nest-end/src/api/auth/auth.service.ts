@@ -28,11 +28,13 @@ export class AuthService {
     const flag = await bcrypt.compare(password, userInfo.password);
     if (userInfo && flag) {
       const {menu,resource}=await this.getPermission(userInfo.userRole.id)
+      const roleId=userInfo.userRole.id
       const permission={
+        roleId,
         menu,
         resource
       }
-      this.redisService.setValue(String(userInfo.id),JSON.stringify(permission))
+      this.redisService.setValue(`user:${userInfo.id}`,JSON.stringify(permission))
       // 生成token
       const token = await this.jwt.signAsync(
         {

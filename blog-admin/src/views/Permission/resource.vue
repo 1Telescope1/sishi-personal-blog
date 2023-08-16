@@ -17,11 +17,16 @@
       </div>
       <div>
         <el-table border row-key="id" ref="multipleTableRef" @selection-change="handleSelectionChange" :data="tableData" stripe style="width: 100%" v-loading="loading">
-          <el-table-column label="资源名"  prop="resourceName" align="center"></el-table-column>
-          <el-table-column label="路径"  prop="url" align="center"></el-table-column>
+          <el-table-column label="资源名"  prop="resourceName">
+            <template #default="{row}">
+              {{row.resourceName}}
+              <sup style="color: deepskyblue">{{row.children.length ? row.children.length : ''}}</sup>
+            </template>
+          </el-table-column>
+          <el-table-column label="路径"  prop="url" ></el-table-column>
           <el-table-column label="请求方式"  align="center">
             <template #default="{row}">
-              <el-tag type="success">{{row.requestMethod}}</el-tag>
+              <el-tag v-if="row.requestMethod" :type="methodTag(row.requestMethod)">{{row.requestMethod}}</el-tag>
             </template>
           </el-table-column>
           <el-table-column label="是否匿名访问"  align="center">
@@ -40,7 +45,7 @@
             <template #default="{row}">
               <el-button v-if="row.parentId==null" :icon="Plus" link type="primary" @click="handleSonResource(row.id)">新增</el-button>
               <el-button :icon="Edit" link type="primary" @click="handleEdit(row)">编辑</el-button>
-              <el-popconfirm title="你确定要删除标签吗?" @confirm="handleDelete(row.id)">
+              <el-popconfirm title="你确定要删除资源吗?" @confirm="handleDelete(row.id)">
                 <template #reference>
                   <el-button :icon="Delete" link type="danger">删除</el-button>
                 </template>
@@ -84,7 +89,7 @@ import {useInitTable} from "@/hooks/useTable.ts";
 import {reqAddOrUpdResource, reqDelResource, reqResourceByName} from "@/api/resource";
 import {useInitForm} from "@/hooks/useForm.ts";
 import {resourceForm} from "@/model/form.ts";
-import {  Edit ,Delete,Plus} from '@element-plus/icons-vue'
+import { Edit ,Delete,Plus} from '@element-plus/icons-vue'
 
 const route=useRoute()
 const formLabelWidth='140px'
@@ -128,6 +133,15 @@ const handleSonResource=(id:number)=>{
   form.isAnonymous=0
   form.parentId=id
   handleEdit(form)
+}
+
+const methodTag=(method:string)=> {
+  switch (method) {
+    case "GET":return "success"
+    case "POST":return "warning"
+    case "DELETE":return "danger"
+    case "PATCH":return "info"
+  }
 }
 
 </script>

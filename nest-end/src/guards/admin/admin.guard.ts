@@ -13,14 +13,18 @@ export class AdminGuard implements CanActivate {
   ):  Promise<boolean>  {
     // 获取请求对象
     const req=context.switchToHttp().getRequest()
-    const data=JSON.parse(await this.redisService.getValue(req.user.userId))
-    console.log(data)
-    throw new resourcePermission("权限不够")
-    // 获取请求中的用户信息进行逻辑判断->角色判断
-    const userInfo=await this.userInfoService.isExistUser(req.user.nickname)
+    const path=req.route.path
+    const method=req.method
 
-    // if(user.role.filter)
+    const data=JSON.parse(await this.redisService.getValue(`user:${req.user.userId}`))
+    const resource=data.resource
+    for(let i=0;i<resource.length;i++) {
+      if(resource[i].url==path&&resource[i].requestMethod==method) {
+        return true
+      }
+    }
 
-    return true;
+    throw new resourcePermission("权限不足")
+
   }
 }
