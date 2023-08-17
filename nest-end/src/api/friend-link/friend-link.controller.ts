@@ -1,12 +1,15 @@
-import { Controller, Get, Post,Query, ParseIntPipe,Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post,Query, ParseIntPipe,Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { FriendLinkService } from './friend-link.service';
 import { FriendLink } from './entities/friend-link.entity';
 import { Result } from 'src/common/result';
+import { AdminGuard } from 'src/guards/admin/admin.guard';
+import { JwtGuard } from 'src/guards/jwt/jwt.guard';
 
 @Controller('friendlink')
 export class FriendLinkController {
   constructor(private readonly friendLinkService: FriendLinkService) {}
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Post()
   async create(@Body() friendLink: FriendLink) {
     return new Result(await this.friendLinkService.create(friendLink));
@@ -43,6 +46,7 @@ export class FriendLinkController {
     return new Result(await this.friendLinkService.update(friendLink));
   }
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return new Result(await this.friendLinkService.remove(+id));

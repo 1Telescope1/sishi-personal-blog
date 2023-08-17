@@ -8,15 +8,20 @@ import {
   Delete,
   Query,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { Result } from 'src/common/result';
 import { Article } from './entities/article.entity';
+import { AdminGuard } from 'src/guards/admin/admin.guard';
+import { JwtGuard } from 'src/guards/jwt/jwt.guard';
 
 @Controller('article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
+  
+  @UseGuards(JwtGuard,AdminGuard)
   @Post()
   async create(@Body() article: Article) {
     return new Result(await this.articleService.create(article));
@@ -54,11 +59,13 @@ export class ArticleController {
     return new Result(await this.articleService.findOne(+id));
   }
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Patch()
   async update(@Body() Article: Article) {
     return new Result(await this.articleService.update(Article));
   }
-
+  
+  @UseGuards(JwtGuard,AdminGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return new Result(await this.articleService.remove(+id));

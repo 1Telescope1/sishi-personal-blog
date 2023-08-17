@@ -24,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue'
 import {Plus, Delete, Download,Refresh} from '@element-plus/icons-vue'
 
 import {computed} from "vue";
@@ -32,7 +31,7 @@ import {computed} from "vue";
 const props = defineProps({
   layout: {
     type: String,
-    default: "create,refresh,delete,download,",
+    default: "create,refresh",
   },
 });
 

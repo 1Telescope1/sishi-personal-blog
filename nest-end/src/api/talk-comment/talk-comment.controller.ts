@@ -1,14 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,Query ,ParseIntPipe} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Query ,ParseIntPipe, UseGuards} from '@nestjs/common';
 import { TalkCommentService } from './talk-comment.service';
 import { CreateTalkCommentDto } from './dto/create-talk-comment.dto';
 import { UpdateTalkCommentDto } from './dto/update-talk-comment.dto';
 import { TalkComment } from './entities/talk-comment.entity';
 import { Result } from 'src/common/result';
+import { AdminGuard } from 'src/guards/admin/admin.guard';
+import { JwtGuard } from 'src/guards/jwt/jwt.guard';
 
 @Controller('talkcomment')
 export class TalkCommentController {
   constructor(private readonly talkCommentService: TalkCommentService) {}
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Post()
   async create(@Body() talkComment: TalkComment) {
     return new Result(await this.talkCommentService.create(talkComment));
@@ -37,11 +40,13 @@ export class TalkCommentController {
     return new Result(await this.talkCommentService.findOne(+id));
   }
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Patch()
   async update(@Body() talkComment: TalkComment) {
     return new Result(await this.talkCommentService.update(talkComment));
   }
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return new Result(await this.talkCommentService.remove(+id));

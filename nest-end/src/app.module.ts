@@ -18,7 +18,6 @@ import { TagModule } from './api/tag/tag.module';
 import { ArticleModule } from './api/article/article.module';
 import { BackModule } from './api/back/back.module';
 import { FriendLinkModule } from './api/friend-link/friend-link.module';
-import { LoginModule } from './api/login/login.module';
 import { BlogModule } from './api/blog/blog.module';
 import { MinioModule } from './api/minio/minio.module';
 import { FileModule } from './api/file/file.module';
@@ -75,7 +74,6 @@ import { JwtMiddleware } from './middleware/jwt.middleware';
     ArticleModule,
     BackModule,
     FriendLinkModule,
-    LoginModule,
     BlogModule,
     MinioModule,
     FileModule,
@@ -83,9 +81,12 @@ import { JwtMiddleware } from './middleware/jwt.middleware';
     RedisModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+
+  ],
 })
-export class AppModule implements NestModule{
+export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(JwtMiddleware).forRoutes('*'); //解析请求的token
   }

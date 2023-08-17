@@ -16,24 +16,8 @@ export class FileService {
     return data;
   }
 
-  findAll() {
-    return `This action returns all file`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} file`;
-  }
-
   async isExist(url:string) {
     const data=await this.fileRepository.find({where:{url}})
     return data
-  }
-
-  update(id: number, updateFileDto: UpdateFileDto) {
-    return `This action updates a #${id} file`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} file`;
   }
 }

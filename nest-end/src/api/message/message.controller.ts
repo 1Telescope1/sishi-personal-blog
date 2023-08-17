@@ -1,15 +1,18 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, Query,ParseIntPipe} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, Query,ParseIntPipe, UseGuards} from '@nestjs/common';
 import {MessageService} from './message.service';
 import {CreateMessageDto} from './dto/create-message.dto';
-import {UpdateMessageDto} from './dto/update-message.dto';
 import {Result} from 'src/common/result';
 import {Message} from './entities/message.entity';
+import { AdminGuard } from 'src/guards/admin/admin.guard';
+import { JwtGuard } from 'src/guards/jwt/jwt.guard';
+import { DeleteGuard } from 'src/guards/delete/delete.guard';
 
 @Controller('message')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {
   }
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Post()
   async create(@Body() createMessageDto: CreateMessageDto) {
     return new Result(await this.messageService.create(createMessageDto));
@@ -43,6 +46,7 @@ export class MessageController {
     return new Result(await this.messageService.update(message));
   }
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return new Result(await this.messageService.remove(+id));

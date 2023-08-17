@@ -9,25 +9,10 @@ import {About} from './entities/about.entity'
 export class AboutService {
   constructor(@InjectRepository(About) private readonly aboutRepository:Repository<About>){}
 
-  create(createAboutDto: CreateAboutDto) {
-    return 'This action adds a new about';
-  }
-
   findAll() {
     const data=this.aboutRepository.find()
     
     return data;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} about`;
-  }
-
-  update(id: number, updateAboutDto: UpdateAboutDto) {
-    return `This action updates a #${id} about`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} about`;
-  }
 }

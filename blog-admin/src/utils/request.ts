@@ -21,16 +21,18 @@ instance.interceptors.request.use(
     const token=getToken()
     if(token&&config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
+    }return config;
   },
-  (err) => Promise.reject(err)
+  (err) => {
+    console.log(123)
+    Promise.reject(err)
+  }
 );
 
 // 3. 响应拦截器，剥离无效数据，401拦截
 instance.interceptors.response.use(
   (res) => {
+
     // 后台约定，响应成功，但是code不是10000，是业务逻辑失败
     if (res.data?.status != 200) {
       return Promise.reject(res.data);
@@ -40,12 +42,16 @@ instance.interceptors.response.use(
     return res.data;
   },
   (err) => {
-    // if (err.response.status === 401) {
-    //   // 删除用户信息
-    //   // const store = useUserStore();
-    //   // 跳转登录，带上接口失效所在页面的地址，登录完成后回跳使用
-    //
-    // }
+    const response=err.response.data
+    switch (response.status) {
+      case 401:
+        notification(response.data,"error")
+        break
+      case 403:
+        notification(response.data,"error")
+        break
+    }
+    close()
     return Promise.reject(err);
   }
 );

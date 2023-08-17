@@ -18,9 +18,6 @@ export class RoleMenuService {
     return true;
   }
 
-  findAll() {
-    return `This action returns all roleMenu`;
-  }
 
   async findIdByRoleId(roleId:number) {
     const data=await this.roleMenuRepository.query('select menu_id menuId from t_role_menu where role_id=?',[roleId])
@@ -33,15 +30,4 @@ export class RoleMenuService {
     return data
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} roleMenu`;
-  }
-
-  update(id: number, updateRoleMenuDto: UpdateRoleMenuDto) {
-    return `This action updates a #${id} roleMenu`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} roleMenu`;
-  }
 }

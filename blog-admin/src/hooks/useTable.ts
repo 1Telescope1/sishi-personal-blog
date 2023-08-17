@@ -69,12 +69,16 @@ export function useInitTable(opt: opt = {
   // 删除
   const handleDelete = async (id: number) => {
     loading.value = true;
-    const res = await opt.delete(id)
-    if (res.status == 200) {
-      notification("删除成功");
-      getData();
+    try {
+      const res = await opt.delete(id)
+      if (res.status == 200) {
+        notification("删除成功");
+        getData();
+      }
+    } finally {
+      loading.value = false;
     }
-    loading.value = false;
+
   };
 
   // 修改状态

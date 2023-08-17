@@ -165,7 +165,7 @@ export const asyncRoutes=[
         name: "menu",
         component: () => import("@/views/Permission/menu.vue"),
         meta: {
-          keepAlive: true,
+          keepAlive: false,
           title: "菜单管理",
         },
       },

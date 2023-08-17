@@ -3,8 +3,6 @@
     <el-menu
     :default-active="defaultActive"
         class="el-menu-vertical-demo menu"
-        @open="handleOpen"
-        @close="handleClose"
         :collapse="isCollapse"
         :collapse-transition="false"
         router
@@ -45,7 +43,6 @@ import { useBlogStore } from "@/store/blog";
 import { useUserStore } from "@/store/user";
 import { computed, ref } from "vue";
 import { useRouter, useRoute, onBeforeRouteUpdate } from "vue-router";
-import {Location} from "@element-plus/icons-vue";
 const router = useRouter();
 const route = useRoute();
 const userStore=useUserStore()
@@ -64,18 +61,6 @@ onBeforeRouteUpdate((to) => {
 // 是否折叠
 const isCollapse = computed(() => !(blogStore.asideWidth == "250px"));
 
-// const asideMenus = computed(() => store.state.menus);
-
-const handleSelect = (e:any) => {
-  router.push(e);
-};
-
-const handleOpen = (key: string, keyPath: string[]) => {
-  // console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  // console.log(key, keyPath)
-}
 </script>
 <style scoped>
 .f-menu {

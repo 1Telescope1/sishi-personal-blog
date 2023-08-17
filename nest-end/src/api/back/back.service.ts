@@ -18,14 +18,6 @@ export class BackService {
     return data;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} back`;
-  }
-
-  update(id: number, updateBackDto: UpdateBackDto) {
-    return `This action updates a #${id} back`;
-  }
-
   async remove(id: number) {
     const data=this.backRepository.delete(id)
     return data;

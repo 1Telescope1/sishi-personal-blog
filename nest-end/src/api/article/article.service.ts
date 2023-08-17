@@ -134,13 +134,4 @@ export class ArticleService {
       .execute();
     return data;
   }
-
-  test( artitcleTitle: string) {
-    const data=null
-    // const data = this.articleRepository.query(
-    //   'select * from t_article where  article_title like ?',
-    //   [artitcleTitle],
-    // );
-    return data;
-  }
 }

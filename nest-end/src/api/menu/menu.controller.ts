@@ -1,27 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,Query } from '@nestjs/common';
+import { Controller, UseGuards,Get, Post, Body, Patch, Param, Delete,Query } from '@nestjs/common';
 import { MenuService } from './menu.service';
-import { UpdateMenuDto } from './dto/update-menu.dto';
 import {Menu} from "./entities/menu.entity";
 import {Result} from "../../common/result";
+import {JwtGuard} from "../../guards/jwt/jwt.guard";
+import { AdminGuard } from 'src/guards/admin/admin.guard';
 
 @Controller('menu')
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Post()
   async create(@Body() menu: Menu) {
     return new Result(await this.menuService.create(menu))
   }
 
-
+  @UseGuards(JwtGuard)
   @Get()
   async findAllByName(@Query('name') name:string) {
     return new Result(await this.menuService.findAllByName(name))
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.menuService.findOne(+id);
   }
 
   @Post("ids")
@@ -29,16 +26,14 @@ export class MenuController {
     return new Result(await this.menuService.getMenuByIds(ids))
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
-    return this.menuService.update(+id, updateMenuDto);
-  }
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return new Result(await this.menuService.remove(+id));
   }
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Get(':id/:isHidden')
   async changeHidden(@Param('id') id,@Param('isHidden') isHidden) {
     return new Result(await this.menuService.changeHidden(+id,isHidden))

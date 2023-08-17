@@ -1,7 +1,5 @@
 import { Controller, Get, Post, Body, Patch,ParseIntPipe, Param,Query, Delete, UseGuards, Req, UseInterceptors } from '@nestjs/common';
 import { UserInfoService } from './user-info.service';
-import { CreateUserInfoDto } from './dto/create-user-info.dto';
-import { UpdateUserInfoDto } from './dto/update-user-info.dto';
 import { Result } from 'src/common/result';
 import { UserInfo } from './entities/user-info.entity';
 import {AdminGuard} from "../../guards/admin/admin.guard";
@@ -13,6 +11,7 @@ export class UserInfoController {
   constructor(private readonly userInfoService: UserInfoService) {}
 
   @Post()
+  @UseGuards(JwtGuard,AdminGuard)
   async create(@Body() userInfo: UserInfo) {
     return new Result(await this.userInfoService.create(userInfo));
   }
@@ -22,6 +21,7 @@ export class UserInfoController {
     return new Result(await this.userInfoService.findAll());
   }
 
+  @UseGuards(JwtGuard)
   @Get('self')
   async getUserinfoSelf(@Req() res:any) {
     const userId=res.user.userId
@@ -36,13 +36,13 @@ export class UserInfoController {
   }
 
   @Get(':id')
-  @UseGuards(JwtGuard,AdminGuard)
   // @UseInterceptors(SerializeInterceptor)
   async findOne(@Param('id') id: string,@Req() req) {
 
     return new Result(await this.userInfoService.findOne(+id));
   }
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Delete(':id/:flag')
   async remove(@Param('id') id: string,@Param('flag') flag:string) {
     return new Result(await this.userInfoService.remove(+id,+flag));

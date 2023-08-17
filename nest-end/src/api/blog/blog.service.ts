@@ -16,24 +16,9 @@ export class BlogService {
     @InjectRepository(Talk) private readonly TalkRepository: Repository<Talk>,
   ) {}
 
-  create(createBlogDto: CreateBlogDto) {
-    return 'This action adds a new blog';
-  }
-
   findAll() {
     const data=Promise.all([this.ArticleRepository.count(),this.TagRepository.count(),this.TalkRepository.count()])
     return data;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} blog`;
-  }
-
-  update(id: number, updateBlogDto: UpdateBlogDto) {
-    return `This action updates a #${id} blog`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} blog`;
-  }
 }

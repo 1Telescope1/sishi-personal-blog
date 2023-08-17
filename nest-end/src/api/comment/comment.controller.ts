@@ -1,14 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,Query,ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Query,ParseIntPipe, UseGuards } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Result } from 'src/common/result';
 import { Comment } from './entities/comment.entity';
+import { AdminGuard } from 'src/guards/admin/admin.guard';
+import { JwtGuard } from 'src/guards/jwt/jwt.guard';
 
 @Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
+  @UseGuards(JwtGuard)
   @Post()
   async create(@Body() comment: Comment) {
     return new Result(await this.commentService.create(comment));
@@ -33,11 +36,8 @@ export class CommentController {
     return new Result(await this.commentService.findOne(+id));
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
-    return this.commentService.update(+id, updateCommentDto);
-  }
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return new Result(await this.commentService.remove(+id));

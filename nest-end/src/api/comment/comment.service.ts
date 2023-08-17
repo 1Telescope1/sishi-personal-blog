@@ -111,9 +111,6 @@ export class CommentService {
     return data;
   }
 
-  update(id: number, updateCommentDto: UpdateCommentDto) {
-    return `This action updates a #${id} comment`;
-  }
 
   remove(id: number) {
     const data = this.commentRepository.delete(id);

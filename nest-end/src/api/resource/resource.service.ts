@@ -14,9 +14,6 @@ export class ResourceService {
     return data;
   }
 
-  findAll() {
-    return `This action returns all resource`;
-  }
 
   async findAllByName(resourceName:string) {
     const list=await this.resourceRepository.createQueryBuilder('resource')
@@ -49,17 +46,8 @@ export class ResourceService {
     return data
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} resource`;
-  }
-
   getResourceByIds(ids:number[]) {
     return this.resourceRepository.findByIds(ids);
-  }
-
-
-  update(id: number, updateResourceDto: UpdateResourceDto) {
-    return `This action updates a #${id} resource`;
   }
 
   remove(id: number) {
