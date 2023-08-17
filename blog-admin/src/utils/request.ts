@@ -3,6 +3,7 @@ import axios, { AxiosError, type Method } from 'axios'
 import { notification } from './elComponent';
 import { useUserStore } from '../store/user';
 import { start,close } from './nprogress';
+import {getToken} from "@/utils/auth.ts";
 
 
 // 1. 新axios实例，基础配置
@@ -17,10 +18,11 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     start()
-    const userInfo=useUserStore()
-    if(userInfo.user?.token&&config.headers) {
-      config.headers["token"] = userInfo.user.token;
+    const token=getToken()
+    if(token&&config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (err) => Promise.reject(err)

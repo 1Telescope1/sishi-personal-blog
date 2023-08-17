@@ -189,6 +189,11 @@ export const router = createRouter({
 
 //定义动态添加路由方法
 export const addRoutes = (menus:any) => {
+  // for(let i=0;i<asyncRoutes.length;i++) {
+  //   router.addRoute("admin",asyncRoutes[i])
+  // }
+
+
   // 是否有新路由
   let hasNewRoutes = false;
   const findAndAddRoutesByMenus = (arr:any) => {

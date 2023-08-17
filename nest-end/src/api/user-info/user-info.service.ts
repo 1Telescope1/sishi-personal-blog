@@ -3,13 +3,17 @@ import { UpdateUserInfoDto } from './dto/update-user-info.dto';
 import { UserInfo } from './entities/user-info.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import {RoleService} from "../role/role.service";
+import {RoleMenuService} from "../role-menu/role-menu.service";
+import {MenuService} from "../menu/menu.service";
+import getMenuList from "../../utils/getMenuList";
 
 @Injectable()
 export class UserInfoService {
   constructor(
     @InjectRepository(UserInfo)
     private readonly userRepository: Repository<UserInfo>,
+    private readonly roleMenuService:RoleMenuService,
+    private readonly menuService:MenuService
   ) {}
 
   async create(userInfo: UserInfo) {
@@ -61,13 +65,15 @@ export class UserInfoService {
       .where('user.id=:id',{id})
       .getOne()
 
+    const roleId=data.userRole.id
+    const menuIds=await this.roleMenuService.findIdByRoleId(roleId)
+    const menu=getMenuList(await this.menuService.getMenuByIds(menuIds))
+
+    data.menus=menu
 
     return data;
   }
 
-  update(id: number, updateUserInfoDto: UpdateUserInfoDto) {
-    return `This action updates a #${id} userInfo`;
-  }
 
   remove(id: number,flag:number) {
     const data=this.userRepository.query('update t_user_info set is_disable=? where id =?',[flag,id])

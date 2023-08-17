@@ -27,8 +27,8 @@ export class RoleResourceService {
 
   async findIdByRoleId(roleId:number) {
     const data=await this.roleResourceRepository.query('select resource_id resourceId from t_role_resource where role_id=?',[roleId])
-
-    return data
+    const resourceIds=data.map(item=>item.resourceId)
+    return resourceIds
   }
 
   deleteIdByRoleId(roleId:number) {

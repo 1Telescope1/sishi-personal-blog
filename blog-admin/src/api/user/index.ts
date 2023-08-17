@@ -10,6 +10,10 @@ export const reqUserInfo=(id:any)=>request<UserInfo>(`userinfo/${id}`)
 // 登录
 export const reqLoign=(data:userForm)=>request<LoginUser>(`/auth/signin`,'POST',data)
 
+// 根据token获取数据
+export const reqUserByToken=()=>request<LoginUser>(`/userinfo/self`)
+
+
 // 注册
 export const reqRegister=(data:userForm)=>request<any>(`/auth/signup`,'POST',data)
 

@@ -24,7 +24,8 @@ export class RoleMenuService {
 
   async findIdByRoleId(roleId:number) {
     const data=await this.roleMenuRepository.query('select menu_id menuId from t_role_menu where role_id=?',[roleId])
-    return data
+    const menuIds=data.map(item=>item.menuId)
+    return menuIds
   }
 
   deleteIdByRoleId(roleId:number) {

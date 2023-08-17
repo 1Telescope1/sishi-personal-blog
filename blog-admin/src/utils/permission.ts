@@ -1,33 +1,43 @@
 import { useUserStore } from "@/store/user";
 import { notification } from "./elComponent";
 import {addRoutes, router} from "../router/index.ts"
+import {getToken} from "@/utils/auth.ts";
+import {nextTick} from 'vue'
 
 let hasGetInfo = false;
-router.beforeEach(async (to,from,next)=>{
-  const {user}=useUserStore()
-  const menus=user?.userInfo.menus
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore();
+  const token = getToken();
 
-  if(!user&&to.path!='/login') {
-    notification("请先登录","warning")
-    return next({path:"/login"})
+  if (!token && to.path !== '/login') {
+    notification("请先登录", "warning");
+    return next({ path: "/login" });
   }
 
-  if(user&&to.path=='/login') {
-    notification("请勿重复登录","warning")
+  if (token && to.path === '/login') {
+    notification("请勿重复登录", "warning");
     return next({ path: from.path ? from.path : "/" });
   }
 
-// 如果用户登录了，就自动获取用户信息，并存储在vuex中
-  if (user?.token && !hasGetInfo) {
+  // 如果用户登录了，就自动获取用户信息，并存储在vuex中
+  let hasNewRoutes = false;
+  if (token && !hasGetInfo) {
+    await userStore.getUserinfo();
+    const menus = userStore.user?.menus;
     hasGetInfo = true;
-    //动态添加路由
-    addRoutes(menus);
+    // 动态添加路由
+    hasNewRoutes = addRoutes(menus);
   }
 
   // 设置页面标题
   let title = (to.meta.title ? to.meta.title : "") + "~";
   document.title = title;
 
-  next()
-
-})
+  if (hasNewRoutes) {
+    nextTick(() => {
+      next(to.fullPath);
+    });
+  } else {
+    next();
+  }
+});

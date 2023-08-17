@@ -53,10 +53,7 @@ export class AuthService {
 
   async getPermission(roleId:number) {
     let menuIds=await this.roleMenuService.findIdByRoleId(roleId)
-    menuIds=menuIds.map(item =>item.menuId)
     let resourceIds=await this.roleResourceService.findIdByRoleId(roleId)
-    resourceIds=resourceIds.map(item=>item.resourceId)
-
     const list=await this.menuService.getMenuByIds(menuIds)
     const menu=getMenuList(list)
 

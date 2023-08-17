@@ -43,11 +43,6 @@ export class UserInfoController {
     return new Result(await this.userInfoService.findOne(+id));
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserInfoDto: UpdateUserInfoDto) {
-    return this.userInfoService.update(+id, updateUserInfoDto);
-  }
-
   @Delete(':id/:flag')
   async remove(@Param('id') id: string,@Param('flag') flag:string) {
     return new Result(await this.userInfoService.remove(+id,+flag));
