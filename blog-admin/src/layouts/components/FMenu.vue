@@ -9,63 +9,33 @@
         :collapse-transition="false"
         router
       >
-        <el-sub-menu index="1">
-          <template #title>
-            <el-icon><location /></el-icon>
-            <span>Navigator One</span>
-          </template>
-            <el-menu-item index="/">item one</el-menu-item>
-            <el-menu-item index="/home">item two</el-menu-item>
-        </el-sub-menu>
-        <el-sub-menu index="2">
-          <template #title>
-            <el-icon><location /></el-icon>
-            <span>文章管理</span>
-          </template>
-            <el-menu-item index="/article/publish">发布文章</el-menu-item>
-            <el-menu-item index="/article/list">文章列表</el-menu-item>
-            <el-menu-item index="/article/tag">标签模块</el-menu-item>
-        </el-sub-menu>
-      <el-sub-menu index="3">
-        <template #title>
-          <el-icon><location /></el-icon>
-          <span>消息管理</span>
+        <template v-for="menu in menus" :key="menu.id">
+          <el-sub-menu :index="String(menu.id)" v-if="menu.children&&menu.children.length>0">
+            <template #title>
+              <el-icon>
+                <component :is="menu.icon"></component>
+              </el-icon>
+              <span>{{menu.name}}</span>
+            </template>
+            <el-menu-item
+              v-for="son in menu.children"
+              :key="son.id"
+              :index="son.path"
+            >
+              <el-icon>
+                <component :is="son.icon"></component>
+              </el-icon>
+              <span>{{ son.name }}</span>
+            </el-menu-item>
+          </el-sub-menu>
+
+          <el-menu-item v-else :index="menu.path">
+            <el-icon>
+              <component :is="menu.icon"></component>
+            </el-icon>
+            <span>{{ menu.name }}</span>
+          </el-menu-item>
         </template>
-        <el-menu-item index="/news/comment">文章评论</el-menu-item>
-        <el-menu-item index="/news/talkComment">说说评论</el-menu-item>
-        <el-menu-item index="/news/message">留言列表</el-menu-item>
-      </el-sub-menu>
-      <el-sub-menu index="4">
-        <template #title>
-          <el-icon><location /></el-icon>
-          <span>用户管理</span>
-        </template>
-        <el-menu-item index="/user/userList">用户列表</el-menu-item>
-      </el-sub-menu>
-      <el-sub-menu index="5">
-        <template #title>
-          <el-icon><location /></el-icon>
-          <span>系统管理</span>
-        </template>
-        <el-menu-item index="/system/friend">友链管理</el-menu-item>
-      </el-sub-menu>
-      <el-sub-menu index="6">
-        <template #title>
-          <el-icon><location /></el-icon>
-          <span>说说管理</span>
-        </template>
-        <el-menu-item index="/talk/publish">发布说说</el-menu-item>
-        <el-menu-item index="/talk/list">说说列表</el-menu-item>
-      </el-sub-menu>
-      <el-sub-menu index="7">
-        <template #title>
-          <el-icon><location /></el-icon>
-          <span>权限管理</span>
-        </template>
-        <el-menu-item index="/permission/role">角色管理</el-menu-item>
-        <el-menu-item index="/permission/menu">菜单管理</el-menu-item>
-        <el-menu-item index="/permission/resource">资源管理</el-menu-item>
-      </el-sub-menu>
       </el-menu>
    
   </div>
@@ -80,6 +50,8 @@ const router = useRouter();
 const route = useRoute();
 const userStore=useUserStore()
 const blogStore=useBlogStore()
+
+const menus=userStore.user.menus
 
 // 默认选中
 const defaultActive = ref(route.path);

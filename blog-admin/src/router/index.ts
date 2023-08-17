@@ -18,11 +18,10 @@ let routes = [
   },
   {
     // 配置404页面
-    path: "/404",
+    path: "/:catchAll(.*)",
     name: "404",
     component: () => import("@/views/404/index.vue"),
   },
-  { path: "/:catchAll(.*)", redirect: "/404" },
 ];
 
 export const asyncRoutes=[
@@ -189,10 +188,6 @@ export const router = createRouter({
 
 //定义动态添加路由方法
 export const addRoutes = (menus:any) => {
-  // for(let i=0;i<asyncRoutes.length;i++) {
-  //   router.addRoute("admin",asyncRoutes[i])
-  // }
-
 
   // 是否有新路由
   let hasNewRoutes = false;
@@ -201,7 +196,8 @@ export const addRoutes = (menus:any) => {
       let item = asyncRoutes.find((o:any) => {
         return o.path == e.path
       });
-      if (item && !router.hasRoute(item.path)) {
+
+      if (item && !router.hasRoute(item.name)) {
         router.addRoute("admin", item);
         hasNewRoutes = true;
       }
@@ -215,7 +211,9 @@ export const addRoutes = (menus:any) => {
 };
 
 export const clearRoutes=()=> {
-  for(let i=0;i<asyncRoutes.length;i++) {
+  const allRoutes = router.options.routes;
+  for(let i=0;i<routes.length;i++) {
+
     router.removeRoute(asyncRoutes[i].name)
   }
 }

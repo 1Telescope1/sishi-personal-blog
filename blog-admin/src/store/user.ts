@@ -26,7 +26,6 @@ export const useUserStore = defineStore(
 
     const logout=async ()=>{
       user.value=undefined
-      clearRoutes()
       notification("退出登录成功")
       removeToken()
       router.push('/login')

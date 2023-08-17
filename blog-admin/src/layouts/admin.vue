@@ -13,12 +13,12 @@
         <div class="fade-transform-box">
           <router-view v-slot="{ Component }" style="margin-top: 40px">
             <transition name="fade-transform"  mode="out-in">
-              <keep-alive :max="10" v-if="$route.meta.keepAlive">
-                <component :key="$route.name"
+              <keep-alive :max="10" v-if="route.meta.keepAlive">
+                <component :key="route.name"
                            :is="Component"
                 ></component>
               </keep-alive>
-              <component :key="$route.name"
+              <component :key="route.name"
                          :is="Component"
                          v-else></component>
             </transition>
@@ -36,6 +36,9 @@ import FMenu from "@/layouts/components/FMenu.vue";
 import FTagList from "@/layouts/components/FTagList.vue";
 import FBreadcrumb from "@/layouts/components/FBreadcrumb.vue";
 import {useBlogStore} from "@/store/blog";
+import {useRoute} from "vue-router"
+
+const route=useRoute()
 
 const blogStore = useBlogStore();
 </script>

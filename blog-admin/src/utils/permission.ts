@@ -2,7 +2,6 @@ import { useUserStore } from "@/store/user";
 import { notification } from "./elComponent";
 import {addRoutes, router} from "../router/index.ts"
 import {getToken} from "@/utils/auth.ts";
-import {nextTick} from 'vue'
 
 let hasGetInfo = false;
 router.beforeEach(async (to, from, next) => {
@@ -30,14 +29,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // 设置页面标题
-  let title = (to.meta.title ? to.meta.title : "") + "~";
-  document.title = title;
+  document.title = (to.meta.title ? to.meta.title : "") + "~";
+  hasNewRoutes ? next(to.fullPath) : next();
 
-  if (hasNewRoutes) {
-    nextTick(() => {
-      next(to.fullPath);
-    });
-  } else {
-    next();
-  }
 });
