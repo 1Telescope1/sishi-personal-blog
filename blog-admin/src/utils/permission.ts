@@ -18,12 +18,10 @@ router.beforeEach(async (to,from,next)=>{
   }
 
 // 如果用户登录了，就自动获取用户信息，并存储在vuex中
-  let hasNewRoutes = false;
   if (user?.token && !hasGetInfo) {
     hasGetInfo = true;
     //动态添加路由
-    hasNewRoutes = addRoutes(menus);
-    console.log(hasNewRoutes)
+    addRoutes(menus);
   }
 
   // 设置页面标题

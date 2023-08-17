@@ -25,7 +25,7 @@ let routes = [
   { path: "/:catchAll(.*)", redirect: "/404" },
 ];
 
-const asyncRoutes=[
+export const asyncRoutes=[
       {
         path: "/",
         name: "首页",
@@ -193,9 +193,9 @@ export const addRoutes = (menus:any) => {
   let hasNewRoutes = false;
   const findAndAddRoutesByMenus = (arr:any) => {
     arr?.forEach((e:any) => {
-      console.log(e)
-      let item = asyncRoutes.find((o:any) => o.path == e.path);
-      console.log(item)
+      let item = asyncRoutes.find((o:any) => {
+        return o.path == e.path
+      });
       if (item && !router.hasRoute(item.path)) {
         router.addRoute("admin", item);
         hasNewRoutes = true;
@@ -208,5 +208,11 @@ export const addRoutes = (menus:any) => {
   findAndAddRoutesByMenus(menus);
   return hasNewRoutes;
 };
+
+export const clearRoutes=()=> {
+  for(let i=0;i<asyncRoutes.length;i++) {
+    router.removeRoute(asyncRoutes[i].name)
+  }
+}
 
 

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -24,6 +24,7 @@ import { MinioModule } from './api/minio/minio.module';
 import { FileModule } from './api/file/file.module';
 import { AuthModule } from './api/auth/auth.module';
 import { RedisModule } from './api/redis/redis.module';
+import { JwtMiddleware } from './middleware/jwt.middleware';
 
 @Module({
   imports: [
@@ -84,4 +85,8 @@ import { RedisModule } from './api/redis/redis.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(JwtMiddleware).forRoutes('*'); //解析请求的token
+  }
+}

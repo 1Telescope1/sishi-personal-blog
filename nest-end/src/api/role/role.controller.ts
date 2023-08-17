@@ -1,6 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete ,Query} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete ,Query} from '@nestjs/common';
 import { RoleService } from './role.service';
-import { UpdateRoleDto } from './dto/update-role.dto';
 import {Role} from "./entities/role.entity";
 import {Result} from "../../common/result";
 import {RoleMenu} from "../role-menu/entities/role-menu.entity";
@@ -30,15 +29,6 @@ export class RoleController {
     return new Result(await this.roleService.updateRoleResource(data))
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.roleService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
-    return this.roleService.update(+id, updateRoleDto);
-  }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {

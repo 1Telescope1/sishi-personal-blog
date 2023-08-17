@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserInfoDto } from './dto/create-user-info.dto';
 import { UpdateUserInfoDto } from './dto/update-user-info.dto';
 import { UserInfo } from './entities/user-info.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+import {RoleService} from "../role/role.service";
 
 @Injectable()
 export class UserInfoService {
@@ -18,15 +17,6 @@ export class UserInfoService {
     return data;
   }
 
-  async login(userInfo: UserInfo) {
-    const { nickname, password } = userInfo;
-    const data =await this.isExistUser(nickname)
-    const flag=await bcrypt.compare(password,data.password)
-    if(data&&flag) {
-      return data;
-    }
-    return null
-  }
 
   async isExistUser(nickname:string) {
     const res=await this.userRepository.createQueryBuilder('userinfo')
@@ -39,22 +29,12 @@ export class UserInfoService {
     return res
   }
 
-  async register(registerUser:CreateUserInfoDto) {
-    const userFlag=await this.isExistUser(registerUser.nickname)
-    if(userFlag) {
-      return null
-    }
-
-    const user=new UserInfo()
-    user.nickname=registerUser.nickname
-    user.password=bcrypt.hashSync(registerUser.password,10)
-    return this.create(user)
-  }
 
   findAll() {
     const data=this.userRepository.find()
     return data;
   }
+
 
   async findAllByPage(pageNum:number,pageSize:number,nickname:string) {
     const queryBuilder=await this.userRepository.createQueryBuilder('userinfo')
@@ -80,6 +60,8 @@ export class UserInfoService {
       .addSelect(['role.id','role.roleName'])
       .where('user.id=:id',{id})
       .getOne()
+
+
     return data;
   }
 

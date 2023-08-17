@@ -4,6 +4,7 @@ import { notification } from "@/utils/elComponent";
 import { defineStore } from "pinia";
 import {  ref } from 'vue';
 import { useRouter } from "vue-router";
+import {clearRoutes} from "@/router";
 
 // 定义用户状态仓库
 export const useUserStore = defineStore(
@@ -26,11 +27,11 @@ export const useUserStore = defineStore(
 
     const logout=async ()=>{
       user.value=undefined
+      clearRoutes()
       notification("退出登录成功")
       router.push('/login')
     }
 
-    
 
     return { login,user,logout,token};
   },

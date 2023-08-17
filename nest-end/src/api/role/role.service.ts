@@ -69,14 +69,6 @@ export class RoleService {
     return true
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} role`;
-  }
-
-  update(id: number, updateRoleDto: UpdateRoleDto) {
-    return `This action updates a #${id} role`;
-  }
-
   remove(id: number) {
     const data = this.roleRepository.delete(id)
     return data;

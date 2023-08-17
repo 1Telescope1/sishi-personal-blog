@@ -17,23 +17,15 @@ export class UserInfoController {
     return new Result(await this.userInfoService.create(userInfo));
   }
 
-  @Post('login')
-  async login(@Body() userInfo: UserInfo) {
-    const data=await this.userInfoService.login(userInfo)
-    return new Result(data)
-  }
-
-  @Post('register')
-  async register(@Body() registerUser:CreateUserInfoDto) {
-    if(registerUser.password!==registerUser.confirmPwd) {
-      return new Result(null,400,'两次输入的密码不一致')
-    }
-    return new Result(await this.userInfoService.register(registerUser))
-  }
-
   @Get()
   async findAll() {
     return new Result(await this.userInfoService.findAll());
+  }
+
+  @Get('self')
+  async getUserinfoSelf(@Req() res:any) {
+    const userId=res.user.userId
+    return new Result(await this.userInfoService.findOne(userId))
   }
 
   @Get('/page')
