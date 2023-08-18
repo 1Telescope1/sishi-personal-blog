@@ -1,6 +1,7 @@
 import {Menu} from "../api/menu/entities/menu.entity";
 
 export default function getMenuList (list:Menu[]) {
+  list=sortByOrderNum(list)
   for (let i=0;i<list.length;i++) {
     list[i].children=[]
   }
@@ -23,4 +24,8 @@ export default function getMenuList (list:Menu[]) {
     }
   }
   return data
+}
+
+function sortByOrderNum(items: any[]): any[] {
+  return items.sort((a, b) => a.orderNum - b.orderNum);
 }

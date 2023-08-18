@@ -6,6 +6,7 @@ import {AdminGuard} from "../../guards/admin/admin.guard";
 import {JwtGuard} from "../../guards/jwt/jwt.guard";
 import { SerializeInterceptor } from 'src/interceptors/serialize/serialize.interceptor';
 
+
 @Controller('userinfo')
 export class UserInfoController {
   constructor(private readonly userInfoService: UserInfoService) {}
@@ -38,6 +39,7 @@ export class UserInfoController {
   @Get(':id')
   // @UseInterceptors(SerializeInterceptor)
   async findOne(@Param('id') id: string,@Req() req) {
+    const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
     return new Result(await this.userInfoService.findOne(+id));
   }

@@ -22,7 +22,7 @@ router.beforeEach(async (to, from, next) => {
   let hasNewRoutes = false;
   if (token && !hasGetInfo) {
     await userStore.getUserinfo();
-    const menus = userStore.user?.menus;
+    const menus = userStore.user?.userinfo.menus;
     hasGetInfo = true;
     // 动态添加路由
     hasNewRoutes = addRoutes(menus);

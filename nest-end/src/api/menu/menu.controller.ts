@@ -35,7 +35,7 @@ export class MenuController {
 
   @UseGuards(JwtGuard,AdminGuard)
   @Get(':id/:isHidden')
-  async changeHidden(@Param('id') id,@Param('isHidden') isHidden) {
-    return new Result(await this.menuService.changeHidden(+id,isHidden))
+  async changeHidden(@Param('id') id:string,@Param('isHidden') isHidden:string) {
+    return new Result(await this.menuService.changeHidden(+id,+isHidden))
   }
 }

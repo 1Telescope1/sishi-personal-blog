@@ -47,8 +47,7 @@ const router = useRouter();
 const route = useRoute();
 const userStore=useUserStore()
 const blogStore=useBlogStore()
-
-const menus=userStore.user.menus
+const menus=userStore.user.userinfo.menus
 
 // 默认选中
 const defaultActive = ref(route.path);

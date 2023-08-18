@@ -13,7 +13,7 @@ export const useUserStore = defineStore(
   () => {
     const router=useRouter()
 
-    const user=ref<any>()
+    const user=ref<LoginUser>()
     const login=async (data:userForm)=>{
       const res=await reqLoign(data)
       if(res.status==200) {

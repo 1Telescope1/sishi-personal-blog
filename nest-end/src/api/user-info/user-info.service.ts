@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateUserInfoDto } from './dto/update-user-info.dto';
 import { UserInfo } from './entities/user-info.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {RoleMenuService} from "../role-menu/role-menu.service";
 import {MenuService} from "../menu/menu.service";
 import getMenuList from "../../utils/getMenuList";
+import * as bcrypt from 'bcrypt';
+
 
 @Injectable()
 export class UserInfoService {
@@ -17,6 +18,7 @@ export class UserInfoService {
   ) {}
 
   async create(userInfo: UserInfo) {
+    userInfo.password = bcrypt.hashSync(userInfo.password, 10);
     const data =await this.userRepository.save(userInfo);
     return data;
   }
@@ -71,7 +73,7 @@ export class UserInfoService {
 
     data.menus=menu
 
-    return data;
+    return {userinfo:data};
   }
 
 

@@ -60,7 +60,7 @@ export interface User {
 }
 
 export interface LoginUser {
-	userInfo:User,
+	userinfo:User,
 	token:string
 }
 

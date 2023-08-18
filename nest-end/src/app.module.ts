@@ -1,4 +1,4 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer  } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -24,6 +24,7 @@ import { FileModule } from './api/file/file.module';
 import { AuthModule } from './api/auth/auth.module';
 import { RedisModule } from './api/redis/redis.module';
 import { JwtMiddleware } from './middleware/jwt.middleware';
+
 
 @Module({
   imports: [

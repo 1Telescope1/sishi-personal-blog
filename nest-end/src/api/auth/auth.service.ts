@@ -25,27 +25,27 @@ export class AuthService {
   ) {}
 
   async signin(nickname: string, password: string) {
-    const userInfo = await this.userInfoService.isExistUser(nickname);
-    const flag = await bcrypt.compare(password, userInfo.password);
-    if (userInfo && flag) {
-      const {menu,resource}=await this.getPermission(userInfo.userRole.id)
-      const roleId=userInfo.userRole.id
+    const userinfo = await this.userInfoService.isExistUser(nickname);
+    const flag = await bcrypt.compare(password, userinfo.password);
+    if (userinfo && flag) {
+      const {menu,resource}=await this.getPermission(userinfo.userRole.id)
+      const roleId=userinfo.userRole.id
       const permission={
         roleId,
         menu,
         resource
       }
-      this.redisService.setValue(`user:${userInfo.id}`,JSON.stringify(permission))
+      this.redisService.setValue(`user:${userinfo.id}`,JSON.stringify(permission))
       // 生成token
       const token = await this.jwt.signAsync(
         {
-          nickname: userInfo.nickname,
-          sub: userInfo.id,
+          nickname: userinfo.nickname,
+          sub: userinfo.id,
         },
       );
-      delete userInfo.password
-      userInfo.menus=menu
-      return { userInfo, token };
+      delete userinfo.password
+      userinfo.menus=menu
+      return { userinfo, token };
     }
 
     throw new loginError("账号或密码错误");
