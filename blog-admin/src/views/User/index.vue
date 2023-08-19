@@ -13,6 +13,7 @@
                       placeholder="用户昵称"></el-input>
           </SearchItem>
         </Search>
+        <InfoButton layout="create,refresh,download"  @create="handleCreate" @refresh="getData" @download="exportDataToExcel(tableData,'user.xlsx')"></InfoButton>
       </div>
       <div>
         <el-table ref="multipleTableRef" @selection-change="handleSelectionChange" :data="tableData" stripe style="width: 100%" v-loading="loading">
@@ -87,6 +88,7 @@ import {userInfoSearchForm} from "@/model/data.ts";
 import {notification} from "@/utils/elComponent.ts";
 import {  Edit } from '@element-plus/icons-vue'
 import {useInitForm} from "@/hooks/useForm.ts";
+import {exportDataToExcel} from "@/utils/exportDataToExcel.ts";
 
 
 const route=useRoute()

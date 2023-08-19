@@ -41,7 +41,8 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.17",
-    "typeorm-model-generator": "^0.4.6"
+    "typeorm-model-generator": "^0.4.6",
+    "winston": "^3.10.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

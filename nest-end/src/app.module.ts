@@ -1,4 +1,4 @@
-import { Module, NestModule, MiddlewareConsumer  } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer,RequestMethod  } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -24,6 +24,10 @@ import { FileModule } from './api/file/file.module';
 import { AuthModule } from './api/auth/auth.module';
 import { RedisModule } from './api/redis/redis.module';
 import { JwtMiddleware } from './middleware/jwt.middleware';
+import { LoggerModule } from './api/logger/logger.module';
+import {LoggerMiddleware} from "./middleware/logger.middleware";
+import {LoggerService} from "./api/logger/logger.service";
+import { ExportModule } from './api/export/export.module';
 
 
 @Module({
@@ -80,15 +84,18 @@ import { JwtMiddleware } from './middleware/jwt.middleware';
     FileModule,
     AuthModule,
     RedisModule,
+    LoggerModule,
+    ExportModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
-
+    LoggerService
   ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(JwtMiddleware).forRoutes('*'); //解析请求的token
+    consumer.apply(LoggerMiddleware).forRoutes({ path: '*', method: RequestMethod.POST},{ path: '*', method: RequestMethod.DELETE});
   }
 }

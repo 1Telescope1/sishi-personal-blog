@@ -13,7 +13,7 @@
                       placeholder="角色名"></el-input>
           </SearchItem>
         </Search>
-        <InfoButton style="margin-bottom: 20px" @create="handleCreate" @refresh="getData"></InfoButton>
+        <InfoButton @create="handleCreate" @refresh="getData"></InfoButton>
       </div>
       <div>
         <el-table border ref="multipleTableRef" @selection-change="handleSelectionChange" :data="tableData" stripe style="width: 100%" v-loading="loading">

@@ -23,6 +23,7 @@ export class MenuController {
 
   @Post("ids")
   async getMenuByIds(@Body() ids:number[]) {
+
     return new Result(await this.menuService.getMenuByIds(ids))
   }
 

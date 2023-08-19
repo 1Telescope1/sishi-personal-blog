@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-bottom: 20px">
     <el-button v-if="btns.includes('create')" @click="$emit('create')"
                :icon="Plus" type="success">新增
     </el-button>
