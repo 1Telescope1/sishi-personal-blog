@@ -19,3 +19,6 @@ export const reqPublishArticle=(data:CreateArticle)=>request<any>(`/article`,'PO
 
 // 逻辑删除文章
 export const reqDeleteArticle=(id:number)=>request<any>(`/article/${id}`,'DELETE')
+
+// 获取最近5篇文章
+export const reqRecentArticle=()=>request<any>(`/article/recent`)

@@ -27,7 +27,6 @@ import { JwtMiddleware } from './middleware/jwt.middleware';
 import { LoggerModule } from './api/logger/logger.module';
 import {LoggerMiddleware} from "./middleware/logger.middleware";
 import {LoggerService} from "./api/logger/logger.service";
-import { ExportModule } from './api/export/export.module';
 
 
 @Module({
@@ -85,7 +84,6 @@ import { ExportModule } from './api/export/export.module';
     AuthModule,
     RedisModule,
     LoggerModule,
-    ExportModule,
   ],
   controllers: [AppController],
   providers: [

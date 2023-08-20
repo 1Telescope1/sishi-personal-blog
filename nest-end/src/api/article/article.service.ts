@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Article } from './entities/article.entity';
 import { Repository } from 'typeorm';
+import {getCurrentFormattedTime} from "../../utils/getCurrentFormattedTime";
 
 @Injectable()
 export class ArticleService {
@@ -11,6 +12,7 @@ export class ArticleService {
   ) {}
 
   async create(article: Article) {
+    article.updateTime=getCurrentFormattedTime();
     const data = await this.articleRepository.save(article);
 
     return data;
@@ -57,6 +59,15 @@ export class ArticleService {
     return { records: data, total, pageSize, pageNum };
   }
 
+  getRecentArticle() {
+    const data=this.articleRepository
+      .createQueryBuilder('article')
+      .select(["article.id","article.articleTitle","article.views"])
+      .take(6)
+      .orderBy('article.id',"DESC")
+      .getMany()
+    return data
+  }
   findAll() {
     const data = this.articleRepository
       .createQueryBuilder('article')

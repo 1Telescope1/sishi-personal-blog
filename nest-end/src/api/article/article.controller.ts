@@ -32,6 +32,11 @@ export class ArticleController {
     return new Result(await this.articleService.findAll());
   }
 
+  @Get("recent")
+  async getRecentArticle() {
+    return new Result(await this.articleService.getRecentArticle())
+  }
+
   @Get('page')
   async findPage(
     @Query('pageNum', new ParseIntPipe()) pageNum: number,
