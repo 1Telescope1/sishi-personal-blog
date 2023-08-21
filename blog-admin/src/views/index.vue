@@ -7,7 +7,7 @@
             <el-col class="col" :span="6" v-for="item in header" :key="item.name">
               <div class="item">
                 <div>
-                  <el-icon size="76" color="rgb(64, 201, 198)">
+                  <el-icon size="66" color="rgb(64, 201, 198)">
                     <component :is="item.icon"></component>
                   </el-icon>
                 </div>
@@ -27,7 +27,8 @@
           <el-col :span="16">
             <Echarts :options="articleOptions"></Echarts>
           </el-col>
-          <el-col :span="8">456</el-col>
+          <el-col :span="8">
+          </el-col>
         </el-row>
       </div>
     </el-card>

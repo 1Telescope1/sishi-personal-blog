@@ -1,4 +1,4 @@
-import { UserInfo } from "@/api/user/type";
+import {  User } from "@/api/user/type";
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 
@@ -6,15 +6,9 @@ import { reactive, ref } from "vue";
 export const useBlogStore = defineStore(
   "blog",
   () => {
-    const authorInfo = ref<UserInfo>({
-      id: -1,
-      nickname: "",
-      avatar: "",
-      email: "",
-      intro: "",
-    });
+    const authorInfo = ref<User>();
 
-    const setAuthorInfo = (data: UserInfo) => {
+    const setAuthorInfo = (data: User) => {
       authorInfo.value = data;
     };
 

@@ -178,6 +178,15 @@ export const asyncRoutes=[
           title: "资源管理",
         },
       },
+      {
+        path: "/background/img",
+        name: "image",
+        component: () => import("@/views/Background/index.vue"),
+        meta: {
+          keepAlive: true,
+          title: "图片管理",
+        },
+      },
 ]
 
 // 路由

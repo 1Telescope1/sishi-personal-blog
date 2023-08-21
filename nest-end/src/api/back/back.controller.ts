@@ -1,7 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { BackService } from './back.service';
-import { CreateBackDto } from './dto/create-back.dto';
-import { UpdateBackDto } from './dto/update-back.dto';
 import { Back } from './entities/back.entity';
 import { Result } from 'src/common/result';
 import { JwtGuard } from 'src/guards/jwt/jwt.guard';

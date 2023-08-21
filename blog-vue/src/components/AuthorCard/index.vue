@@ -1,10 +1,10 @@
 <template>
   <div class="author-card">
     <div>
-      <img class="avatarUrl" :src="blogStore.authorInfo.avatar" alt="" />
+      <img class="avatarUrl" :src="blogStore.authorInfo?.userinfo?.avatar" alt="" />
     </div>
     <div class="authorName">
-      {{ blogStore.authorInfo.nickname }}
+      {{ blogStore.authorInfo?.nickname }}
     </div>
     <div class="signature">月下无人江自流</div>
     <BlogInfo></BlogInfo>

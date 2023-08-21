@@ -14,11 +14,13 @@ const articleList = ref<Article[]>([]);
 const paramas = reactive<ArticleParams>({
   pageNum: 1,
   pageSize: 6,
-  tagId:"",
-  categoryId:"",
-  type:"",
-  articleTitle:"",
-  articleContent:""
+  tagId: "",
+  categoryId: "",
+  type: "",
+  articleTitle: "",
+  articleContent: "",
+  total: null,
+  sumPage: 0,
 });
 const getPageArticleList = async () => {
   const res = await reqGetArticlesPage(paramas);
@@ -26,22 +28,25 @@ const getPageArticleList = async () => {
     articleList.value = res.data.records;
     paramas.total = res.data.total;
     paramas.pageNum = res.data.pageNum;
-    paramas.sumPage=Math.ceil(paramas.total/paramas.pageSize)
+    paramas.sumPage = Math.ceil(paramas.total / paramas.pageSize);
   }
 };
 getPageArticleList();
 
-const clickPage=(val:number)=>{
-  paramas.pageNum=val
-  getPageArticleList()
+const clickPage = (val: number) => {
+  paramas.pageNum = val;
+  getPageArticleList();
   // 获取100vh转化px的高度
-  const height = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+  const height = Math.max(
+    document.documentElement.clientHeight || 0,
+    window.innerHeight || 0
+  );
 
   window.scrollTo({
-      behavior: 'smooth',
-      top:height,
-    })
-}
+    behavior: "smooth",
+    top: height,
+  });
+};
 </script>
 
 <template>

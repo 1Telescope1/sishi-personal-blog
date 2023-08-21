@@ -24,24 +24,42 @@ export interface UserMenu {
 	privilege: string;
 }
 
-
-export interface login {
+export interface UserRole {
 	id: number;
-	email?: string;
+	roleName: string;
+}
+
+export interface Menu {
+	id: number;
+	name: string;
+	path: string;
+	component: string;
+	icon: string;
+	createTime: string;
+	updateTime: string;
+	orderNum: number;
+	parentId?: any;
+	isHidden: number;
+}
+
+export interface User {
+	id: number;
+	email?: any;
 	nickname: string;
-	password: string;
 	avatar: string;
-	intro?: string;
-	website?: string;
+	intro?: any;
+	website?: any;
 	isSubscribe?: any;
 	isDisable: number;
 	createTime: string;
 	updateTime: string;
+	userRole: UserRole;
+	menus: Menu[];
 }
 
 export interface LoginUser {
-	userInfo: login;
-	token: string;
+	userinfo:User,
+	token:string
 }
 
 export interface userForm{

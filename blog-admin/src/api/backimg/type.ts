@@ -5,3 +5,8 @@ export interface backImg {
 	updateTime: string;
 	url: string;
 }
+
+export interface Img {
+	content?:string
+	url:string
+}
