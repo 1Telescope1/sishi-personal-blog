@@ -27,6 +27,7 @@ import { JwtMiddleware } from './middleware/jwt.middleware';
 import { LoggerModule } from './api/logger/logger.module';
 import {LoggerMiddleware} from "./middleware/logger.middleware";
 import {LoggerService} from "./api/logger/logger.service";
+import {WebsocketGateway} from "./gateway/websocket.gatway";
 
 
 @Module({
@@ -84,6 +85,7 @@ import {LoggerService} from "./api/logger/logger.service";
     AuthModule,
     RedisModule,
     LoggerModule,
+    WebsocketGateway
   ],
   controllers: [AppController],
   providers: [

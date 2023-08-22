@@ -8,7 +8,7 @@
     </div>
     <div class="signature">月下无人江自流</div>
     <BlogInfo></BlogInfo>
-    <SociaList></SociaList>
+    <SocialList></SocialList>
   </div>
 </template>
 

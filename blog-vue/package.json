@@ -20,6 +20,7 @@
     "path": "^0.12.7",
     "pinia": "^2.1.4",
     "pinia-plugin-persistedstate": "^3.1.0",
+    "socket.io-client": "^4.7.2",
     "v-viewer": "^3.0.11",
     "vue": "^3.2.47",
     "vue-router": "^4.2.2",

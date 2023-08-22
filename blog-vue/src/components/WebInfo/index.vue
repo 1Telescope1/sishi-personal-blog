@@ -20,9 +20,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref,onMounted } from "vue";
 import { reqGetViews } from "../../api/views/index";
 import { useBlogStore } from "../../store/blog";
+import io from 'socket.io-client';
 
 let time = ref("");
 const runTime = () => {
@@ -48,8 +49,20 @@ const getViews = async () => {
 };
 getViews();
 
-const BlogStore = useBlogStore();
-const onlineNumber = BlogStore.onlineNumber;
+
+let onlineNumber=ref(0)
+const socket = io('ws://localhost:3000'); // 替换为您的Nest.js服务器地址
+onMounted(()=>{
+  // 监听 'usersCount' 事件，并更新用户数
+  socket.on('usersCount', (count) => {
+    onlineNumber.value = count;
+    console.log(onlineNumber.value)
+  });
+
+  // 向服务器发送 'getUsersCount' 事件，以获取当前用户数
+  socket.emit('getUsersCount');
+})
+
 </script>
 
 <style lang="scss" scoped>
