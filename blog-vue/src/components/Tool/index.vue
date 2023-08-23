@@ -69,4 +69,10 @@ const pushTop=()=>{
     margin-bottom: 5px;
   }
 }
+
+@media (max-width: 1300px) {
+  .tool-container {
+    display: none;
+  }
+}
 </style>

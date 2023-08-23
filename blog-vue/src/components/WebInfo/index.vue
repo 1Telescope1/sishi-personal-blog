@@ -56,7 +56,6 @@ onMounted(()=>{
   // 监听 'usersCount' 事件，并更新用户数
   socket.on('usersCount', (count) => {
     onlineNumber.value = count;
-    console.log(onlineNumber.value)
   });
 
   // 向服务器发送 'getUsersCount' 事件，以获取当前用户数

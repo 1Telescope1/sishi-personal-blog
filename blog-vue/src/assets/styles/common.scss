@@ -93,6 +93,19 @@
   animation: slideUpIn 1s;
 }
 
+@media (max-width: 1300px) {
+  .home-container {
+    width: 100%;
+    margin-top: 15px;
+  }
+  .left-container {
+    width: 100%;
+  }
+  .right-container {
+    display: none;
+  }
+}
+
 @media (min-width: 1200px) {
   .page-container {
     width: 60.5rem;
