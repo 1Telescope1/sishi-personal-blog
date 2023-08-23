@@ -19,7 +19,7 @@
           :key="tag.id"
         >
           <div class="tag">
-            {{ tag.name }}
+            {{ tag.tagName }}
             <sup>{{tag.cnt}}</sup>
           </div>
         </router-link>

@@ -138,6 +138,7 @@ const deleteHTMLTag = (content: string) => {
 <style lang="scss" scoped>
 @import "@/assets/styles/mixin.scss";
 
+
 .article-container {
   border-radius: 0.5rem;
   overflow: hidden;
@@ -172,5 +173,22 @@ const deleteHTMLTag = (content: string) => {
 }
 .comment {
   padding: 32px 40px;
+}
+
+@media (max-width: 1300px) {
+  .left-container {
+    width: 70%;
+  }
+  .right-container {
+    display: block;
+  }
+}
+@media (max-width: 1000px) {
+  .left-container {
+    width: 100%;
+  }
+  .right-container {
+    display: none;
+  }
 }
 </style>

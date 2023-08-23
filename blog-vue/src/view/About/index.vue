@@ -56,7 +56,6 @@ const data=ref([
 
 <style lang="scss" scoped>
 .about-container {
-  /* position: relative; */
   width: 900px;
   margin: 1.5rem auto;
   border-radius: 0.75rem;
@@ -94,7 +93,15 @@ const data=ref([
   align-items: flex-start;
   justify-content: center;
   width: 30%;
-  margin-left: 5%;
   margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .left {
+    width: 100%;
+  }
+  .right {
+    display: none;
+  }
 }
 </style>

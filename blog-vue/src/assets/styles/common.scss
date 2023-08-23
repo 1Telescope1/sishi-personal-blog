@@ -30,7 +30,6 @@
   align-items: flex-start;
   justify-content: center;
   width: 25%;
-  margin-left: 5%;
   margin: 0 auto;
 }
 .rorate {
@@ -94,9 +93,13 @@
 }
 
 @media (max-width: 1300px) {
+  .main-container {
+    width: 95% !important;
+  }
   .home-container {
     width: 100%;
     margin-top: 15px;
+    padding: 0 6px;
   }
   .left-container {
     width: 100%;
@@ -138,6 +141,12 @@
 @media (max-width: 991px) {
   .side-card {
       margin: 0 1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .article-meta {
+    font-size: 14px !important;
   }
 }
 

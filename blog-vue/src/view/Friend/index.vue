@@ -41,10 +41,10 @@
       </div>
       <div class="welcome">
         需要交换友链的可点击<span
-          class="dialog"
-          @click="dialogFormVisible = true"
-          >此处💖</span
-        >
+        class="dialog"
+        @click="dialogFormVisible = true"
+      >此处💖</span
+      >
       </div>
       <div class="pink-box">
         <div>
@@ -63,19 +63,18 @@
         <div class="text">小伙伴们</div>
       </div>
       <div class="list">
-      <div class="content" v-for="link in linkList" :key="link.id" @click="pushUrl(link.linkAddress)">
-        <div>
-          <img class="img rorate" v-lazy="link.linkAvatar" alt="">
-        </div>
-        <div class="info">
-          <div class="name">{{ link.linkName}}</div>
-          <div class="synopsis">{{ link.linkIntro }}</div>
+        <div class="content" v-for="link in linkList" :key="link.id" @click="pushUrl(link.linkAddress)">
+          <div>
+            <img class="img rorate" v-lazy="link.linkAvatar" alt="">
+          </div>
+          <div class="info">
+            <div class="name">{{ link.linkName }}</div>
+            <div class="synopsis">{{ link.linkIntro }}</div>
+          </div>
         </div>
       </div>
     </div>
-    </div>
 
-    
 
     <el-dialog
       width="50%"
@@ -126,10 +125,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
-import { Link, LinkDetail } from "@/api/friendlink/type";
-import { reqAddFriend, reqFriendList } from "@/api/friendlink/index";
-import { notification } from "@/utils/elComponent";
+import {ref, reactive} from "vue";
+import {Link, LinkDetail} from "@/api/friendlink/type";
+import {reqAddFriend, reqFriendList} from "@/api/friendlink/index";
+import {notification} from "@/utils/elComponent";
 
 const linkList = ref<LinkDetail[]>([]);
 const init = async () => {
@@ -140,7 +139,7 @@ const init = async () => {
 };
 init();
 
-const pushUrl=(url:string)=>{
+const pushUrl = (url: string) => {
   window.open(url)
 }
 
@@ -155,7 +154,7 @@ const link = reactive<Link>({
 });
 
 const rules = {
-  name: [{ required: true, message: "必填字段", trigger: "blur" }],
+  name: [{required: true, message: "必填字段", trigger: "blur"}],
   // email: [
   //   { required: true, message: "必填字段", trigger: "blur" },
   //   {
@@ -164,16 +163,16 @@ const rules = {
   //     message: "填写正确的邮箱",
   //   },
   // ],
-  description: [{ required: true, message: "必填字段", trigger: "blur" }],
+  description: [{required: true, message: "必填字段", trigger: "blur"}],
   url: [
-    { required: true, message: "必填字段", trigger: "blur" },
+    {required: true, message: "必填字段", trigger: "blur"},
     {
       pattern:
         /^((https|http|ftp|rtsp|mms){0,1}(:\/\/){0,1})www\.(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/,
       message: "填写正确的网址",
     },
   ],
-  avatar: [{ required: true, message: "必填字段", trigger: "blur" }],
+  avatar: [{required: true, message: "必填字段", trigger: "blur"}],
 };
 
 let dialogFormVisible = ref(false);
@@ -192,14 +191,17 @@ const submit = async () => {
   display: flex;
   align-items: center;
 }
+
 .text {
   font-weight: 800;
   font-size: 24px;
   margin-left: 10px;
 }
+
 .flower {
   animation: rotate 6s linear infinite;
 }
+
 @keyframes rotate {
   0% {
     transform: rotate(0);
@@ -215,6 +217,7 @@ const submit = async () => {
     width: calc(100% - 2rem);
   }
 }
+
 .pink-box {
   margin: 10px 30px;
   padding: 15px 0 15px 20px;
@@ -229,9 +232,11 @@ const submit = async () => {
   font-size: 15px;
   color: #999999;
 }
+
 .welcome {
   margin-left: 46px;
   position: relative;
+
   &::before {
     content: "";
     position: absolute;
@@ -243,10 +248,12 @@ const submit = async () => {
     left: -16px;
   }
 }
+
 .dialog {
   cursor: pointer;
   color: #f080ce;
 }
+
 .list {
   display: flex;
   align-items: center;
@@ -260,9 +267,11 @@ const submit = async () => {
     width: 48%;
     margin-bottom: 20px;
     cursor: pointer;
+
     &:nth-child(odd) {
       margin-right: 4%;
     }
+
     box-shadow: 0 0 2rem var(--box-bg-shadow);
     border-radius: 10px;
 
@@ -272,16 +281,25 @@ const submit = async () => {
       border-radius: 10px;
       transition: all 0.5s;
     }
+
     .info {
       margin-left: 10px;
       display: flex;
       flex-direction: column;
       font-size: 15px;
       font-weight: 600;
-      
+
       .name {
         color: #f080ce;
       }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .list {
+    .content {
+      width: 100%;
     }
   }
 }
