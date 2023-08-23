@@ -9,7 +9,6 @@
   transform: translateY(-50%);
 }
 .home-container {
-  margin-top: 15px !important;
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
@@ -92,7 +91,7 @@
   animation: slideUpIn 1s;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1100px) {
   .main-container {
     width: 95% !important;
   }

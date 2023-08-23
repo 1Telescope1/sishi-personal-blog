@@ -1,7 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { TagService } from './tag.service';
-import { CreateTagDto } from './dto/create-tag.dto';
-import { UpdateTagDto } from './dto/update-tag.dto';
 import { Result } from 'src/common/result';
 import { Tag } from './entities/tag.entity';
 import { AdminGuard } from 'src/guards/admin/admin.guard';

@@ -37,7 +37,7 @@
         <el-form-item label="内容" :label-width="formLabelWidth">
           <el-input v-model="form.content" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="头像" :label-width="formLabelWidth">
+        <el-form-item label=图片 :label-width="formLabelWidth">
           <UploadImg @AvatarSuccess="handleAvatar" :imageUrl="form.url"></UploadImg>
         </el-form-item>
       </el-form>

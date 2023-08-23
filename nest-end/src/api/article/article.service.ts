@@ -145,4 +145,9 @@ export class ArticleService {
       .execute();
     return data;
   }
+
+  async getArticleCntByTag(tagId:number) {
+    const data=await this.articleRepository.query(`select count(*) cnt from t_article where tag_id=?`,[tagId])
+    return data[0].cnt
+  }
 }

@@ -26,4 +26,6 @@ export class Tag {
 
   @OneToMany(() => Article, (article) => article.tag)
   articles: Article[];
+
+  cnt:number
 }

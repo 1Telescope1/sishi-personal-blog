@@ -1,6 +1,7 @@
 export interface Tag {
-	id: number;
-	name: string;
-	cnt: number;
-	sort: number;
+  id: number;
+  tagName: string;
+  cnt?: number;
+  createTime: string;
+  updateTime: string
 }
