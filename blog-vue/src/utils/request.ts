@@ -40,13 +40,25 @@ instance.interceptors.response.use(
     return res.data;
   },
   (err) => {
+    const response=err.response.data
 
-    if (err.response.status === 401) {
-      // 删除用户信息
-      // const store = useUserStore();
-      // 跳转登录，带上接口失效所在页面的地址，登录完成后回跳使用
+    // if (err.response.status === 401) {
+    //   // 删除用户信息
+    //   // const store = useUserStore();
+    //   // 跳转登录，带上接口失效所在页面的地址，登录完成后回跳使用
       
-    } 
+    // } 
+    switch (response.status) {
+      case 401:
+        notification("error",response.data,"error")
+        break
+      case 403:
+        notification("error",response.data,"error")
+        break
+      case 429:
+        notification("error",response.data,"error")
+        break
+    }
     return Promise.reject(err);
   }
 );

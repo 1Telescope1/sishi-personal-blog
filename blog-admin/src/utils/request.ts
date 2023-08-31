@@ -31,9 +31,10 @@ instance.interceptors.request.use(
 // 3. 响应拦截器，剥离无效数据，401拦截
 instance.interceptors.response.use(
   (res) => {
-
     // 后台约定，响应成功，但是code不是10000，是业务逻辑失败
     if (res.data?.status != 200) {
+      
+      
       return Promise.reject(res.data);
     }
     // 业务逻辑成功，返回响应数据，作为axios成功的结果
@@ -42,12 +43,17 @@ instance.interceptors.response.use(
   },
   (err) => {
     const response=err.response.data
+    
+    
     switch (response.status) {
       case 401:
         notification(response.data,"error")
         break
       case 403:
         notification(response.data,"error")
+        break
+      case 429:
+        notification(response,"error")
         break
     }
     close()

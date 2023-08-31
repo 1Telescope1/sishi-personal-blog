@@ -9,9 +9,9 @@ import {
 import { TTalk } from "./TTalk";
 import { TUserInfo } from "./TUserInfo";
 
-@Index("comment_articleId", ["talkId"], {})
-@Index("fk_comment_parent", ["parentId"], {})
 @Index("fk_comment_user", ["userId"], {})
+@Index("fk_comment_parent", ["parentId"], {})
+@Index("comment_articleId", ["talkId"], {})
 @Entity("t_talk_comment", { schema: "aurora" })
 export class TTalkComment {
   @PrimaryGeneratedColumn({ type: "int", name: "id", comment: "主键" })

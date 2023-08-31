@@ -9,8 +9,8 @@ import {
 import { TRole } from "./TRole";
 import { TUserInfo } from "./TUserInfo";
 
-@Index("role_id", ["roleId"], {})
 @Index("user_id", ["userId"], {})
+@Index("role_id", ["roleId"], {})
 @Entity("t_user_role", { schema: "aurora" })
 export class TUserRole {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })

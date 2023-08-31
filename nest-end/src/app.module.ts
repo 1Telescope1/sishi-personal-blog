@@ -28,6 +28,7 @@ import { LoggerModule } from './api/logger/logger.module';
 import {LoggerMiddleware} from "./middleware/logger.middleware";
 import {LoggerService} from "./api/logger/logger.service";
 import {WebsocketGateway} from "./gateway/websocket.gatway";
+import { ChatModule } from './api/chat/chat.module';
 
 
 @Module({
@@ -85,7 +86,8 @@ import {WebsocketGateway} from "./gateway/websocket.gatway";
     AuthModule,
     RedisModule,
     LoggerModule,
-    WebsocketGateway
+    WebsocketGateway,
+    ChatModule
   ],
   controllers: [AppController],
   providers: [
