@@ -31,6 +31,10 @@ const showSocialList = [
     type: "qq",
     href: "http://tool.gljlw.com/qq/?qq=2298908190",
   },
+  {
+    type: "juejin",
+    href: "https://juejin.cn/user/4394093904930541"
+  }
 ];
 </script>
 

@@ -1,7 +1,6 @@
 import { Result } from '@/model';
 import axios, { AxiosError, type Method } from 'axios'
 import { notification } from './elComponent';
-import { useUserStore } from '../store/user';
 import { start,close } from './nprogress';
 import {getToken} from "@/utils/auth.ts";
 

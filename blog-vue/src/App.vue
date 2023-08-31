@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { useSocket } from "./composable/useSocket";
-const Socket = useSocket();
-Socket.init();
 </script>
 
 <template>

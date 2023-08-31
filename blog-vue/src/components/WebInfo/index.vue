@@ -22,7 +22,6 @@
 <script setup lang="ts">
 import { ref,onMounted } from "vue";
 import { reqGetViews } from "../../api/views/index";
-import { useBlogStore } from "../../store/blog";
 import io from 'socket.io-client';
 
 let time = ref("");

@@ -41,11 +41,22 @@ const pushArticle=()=>{
 <style lang="scss" scoped>
 @import "@/assets/styles/mixin.scss";
 
+@media (max-width: 1300px) {
+  .article-main {
+    height: 234px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .article-main {
+    height: 214px !important;
+  }
+}
 
 .article-main {
   display: flex;
   margin: 15px 8px 0px;
-  height: 224px;
+  height: 264px;
   border-radius: 15px;
   /* box-shadow: 0 1px 1.5px 2px rgba(0, 0, 0, 0.1); */
   box-shadow: 0 4px 8px 6px rgb(7 17 27 / 6%);

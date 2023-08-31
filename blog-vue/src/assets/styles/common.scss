@@ -12,7 +12,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
-  width: 80%;
+  width: 75%;
   margin: 0 auto;
 }
 .left-container {
@@ -91,7 +91,13 @@
   animation: slideUpIn 1s;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1300px) {
+  .home-container {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1000px) {
   .main-container {
     width: 95% !important;
   }

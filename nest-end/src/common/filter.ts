@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 
 import { Request, Response } from 'express';
-import {LoggerService} from "../api/logger/logger.service";
 
 @Catch(HttpException)
 export class HttpFilter implements ExceptionFilter {
@@ -17,8 +16,8 @@ export class HttpFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
     const status = exception.getStatus();
-    // @ts-ignore
-    const message = exception.getResponse().valueOf().message;
+
+    const message = exception.getResponse().valueOf();
     response.status(status).json({
       success: false,
       time: new Date(),
