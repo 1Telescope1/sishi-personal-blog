@@ -15,8 +15,9 @@ export class ChatController {
 
   @Get()
   async findAll(@Req() req) {
+    
     const realIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-
+    console.log(realIp);
     
     return new Result(await this.chatService.findAll())
   }

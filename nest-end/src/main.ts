@@ -5,11 +5,16 @@ import { ValidationPipe, HttpException } from '@nestjs/common';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import {Response} from './common/response'
+import { config } from 'dotenv';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: true,
   });
+
+  const envFilePath =
+    process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
+  config({ path: envFilePath });
 
   app.useGlobalInterceptors(new Response());
   app.useGlobalFilters(new HttpFilter());
@@ -36,6 +41,7 @@ async function bootstrap() {
       },
     }),
   );
+
 
   await app.listen(3000);
 }

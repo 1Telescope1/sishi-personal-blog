@@ -8,8 +8,6 @@ export class usePipe implements PipeTransform {
     const DTO=plainToInstance(metadata.metatype,value)
     const errors=await validate(DTO)
     if(errors.length) {
-      console.log(errors);
-      
       throw new HttpException(errors,HttpStatus.BAD_REQUEST)
     }
     

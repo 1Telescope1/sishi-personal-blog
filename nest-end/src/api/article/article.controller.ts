@@ -78,7 +78,6 @@ export class ArticleController {
 
   @Get('test')
   async test(@Query('articleTitle') articleTitle: string){
-    console.log(articleTitle)
     return new Result(123);
   }
 }

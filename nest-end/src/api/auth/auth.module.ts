@@ -23,7 +23,7 @@ import {RedisService} from "../redis/redis.service";
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1d' },
+      signOptions: { expiresIn: '2d' },
     }),
     TypeOrmModule.forFeature([Menu, Resource,RoleResource,RoleMenu]),
   ],

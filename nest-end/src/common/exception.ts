@@ -6,6 +6,12 @@ export class loginError extends HttpException {
   }
 }
 
+export class tokenError extends HttpException {
+  constructor(message:string) {
+    super(message,HttpStatus.EXPECTATION_FAILED);
+  }
+}
+
 export class resourcePermission extends HttpException {
   constructor(message: string) {
     super(message, HttpStatus.FORBIDDEN);

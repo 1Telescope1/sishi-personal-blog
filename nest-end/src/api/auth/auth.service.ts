@@ -36,7 +36,7 @@ export class AuthService {
         resource
       }
       this.redisService.setValue(`user:${userinfo.id}`,JSON.stringify(permission))
-      // 生成token
+      // 生成token此时请求就带有token了
       const token = await this.jwt.signAsync(
         {
           nickname: userinfo.nickname,

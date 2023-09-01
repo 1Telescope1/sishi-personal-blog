@@ -1,11 +1,8 @@
 import {
   Controller,
-  Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
+  Req
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Result } from '../../common/result';
@@ -18,7 +15,7 @@ export class AuthController {
 
   // 登录
   @Post('signin')
-  async signin(@Body() userInfo: UserInfo) {
+  async signin(@Body() userInfo: UserInfo,@Req() res:any) {
     const { nickname, password } = userInfo;
 
     const data=await this.authService.signin(nickname,password)

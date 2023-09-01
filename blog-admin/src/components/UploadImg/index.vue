@@ -37,7 +37,6 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-  console.log(rawFile)
   if (rawFile.size / 1024 / 1024 > 20) {
     notification('头像大小超过2MB!', 'error')
     return false

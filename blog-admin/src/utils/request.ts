@@ -2,8 +2,8 @@ import { Result } from '@/model';
 import axios, { AxiosError, type Method } from 'axios'
 import { notification } from './elComponent';
 import { start,close } from './nprogress';
-import {getToken} from "@/utils/auth.ts";
-
+import {getToken, removeToken} from "@/utils/auth.ts";
+import {router} from '@/router/index.ts'
 
 // 1. 新axios实例，基础配置
 const baseURL = import.meta.env.VITE_BASE_API;
@@ -23,7 +23,7 @@ instance.interceptors.request.use(
     }return config;
   },
   (err) => {
-    console.log(123)
+    notification(err,'error')
     Promise.reject(err)
   }
 );
@@ -52,8 +52,13 @@ instance.interceptors.response.use(
       case 403:
         notification(response.data,"error")
         break
+      case 417:
+        notification(response.data,"error")
+        removeToken()
+        router.push('/login')
+        break
       case 429:
-        notification(response,"error")
+        notification(response.data,"error")
         break
     }
     close()
