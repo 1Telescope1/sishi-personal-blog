@@ -12,14 +12,6 @@ export class TExceptionLog {
   optMethod: string;
 
   @Column("varchar", {
-    name: "request_method",
-    nullable: true,
-    comment: "请求方式",
-    length: 255,
-  })
-  requestMethod: string | null;
-
-  @Column("varchar", {
     name: "request_param",
     nullable: true,
     comment: "请求参数",

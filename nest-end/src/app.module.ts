@@ -31,41 +31,43 @@ import {WebsocketGateway} from "./gateway/websocket.gatway";
 import { ChatModule } from './api/chat/chat.module';
 import { ExceptionLogModule } from './api/exception-log/exception-log.module';
 import {ExceptionLogService} from "./api/exception-log/exception-log.service";
+import { OperationLogModule } from './api/operation-log/operation-log.module';
+import {OperationLogService} from "./api/operation-log/operation-log.service";
 
 
 @Module({
   imports: [
-  // TypeOrmModule.forRoot({
-  //     type: 'mysql', //数据库类型
-  //     username: 'root', //账号
-  //     password: '123456', //密码
-  //     host: 'localhost', //host
-  //     port: 3306, //
-  //     database: 'aurora', //库名
-  //     entities: [__dirname + '/**/**/*.entity{.ts,.js}'], //实体文件
-  //     // synchronize: true, //synchronize字段代表是否自动将实体类同步到数据库
-  //     retryDelay: 500, //重试连接数据库间隔
-  //     retryAttempts: 10, //重试连接数据库的次数
-  //     autoLoadEntities: true, //如果为true,将自动加载实体 forFeature()方法注册的每个实体都将自动添加到配置对象的实体数组中
-  //   }),
-    TypeOrmModule.forRoot({
+  TypeOrmModule.forRoot({
       type: 'mysql', //数据库类型
-      username: 'blog_db', //账号
+      username: 'root', //账号
       password: '123456', //密码
-      host: '43.138.109.120', //host
+      host: 'localhost', //host
       port: 3306, //
-      database: 'blog_db', //库名
+      database: 'aurora', //库名
       entities: [__dirname + '/**/**/*.entity{.ts,.js}'], //实体文件
       // synchronize: true, //synchronize字段代表是否自动将实体类同步到数据库
       retryDelay: 500, //重试连接数据库间隔
       retryAttempts: 10, //重试连接数据库的次数
       autoLoadEntities: true, //如果为true,将自动加载实体 forFeature()方法注册的每个实体都将自动添加到配置对象的实体数组中
-      extra:{
-        connectionLimit: 10,
-        idleTimeoutMillis: 30000,
-        connectTimeout: 10000
-      }
     }),
+  //   TypeOrmModule.forRoot({
+  //     type: 'mysql', //数据库类型
+  //     username: 'blog_db', //账号
+  //     password: '123456', //密码
+  //     host: '43.138.109.120', //host
+  //     port: 3306, //
+  //     database: 'blog_db', //库名
+  //     entities: [__dirname + '/**/**/*.entity{.ts,.js}'], //实体文件
+  //     // synchronize: true, //synchronize字段代表是否自动将实体类同步到数据库
+  //     retryDelay: 500, //重试连接数据库间隔
+  //     retryAttempts: 10, //重试连接数据库的次数
+  //     autoLoadEntities: true, //如果为true,将自动加载实体 forFeature()方法注册的每个实体都将自动添加到配置对象的实体数组中
+  //     extra:{
+  //       connectionLimit: 10,
+  //       idleTimeoutMillis: 30000,
+  //       connectTimeout: 10000
+  //     }
+  //   }),
     AboutModule,
     TalkModule,
     UserInfoModule,
@@ -90,15 +92,16 @@ import {ExceptionLogService} from "./api/exception-log/exception-log.service";
     LoggerModule,
     WebsocketGateway,
     ChatModule,
-    ExceptionLogModule
+    ExceptionLogModule,
+    OperationLogModule
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    LoggerService,
   ],
 })
 export class AppModule implements NestModule {
+
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(JwtMiddleware).forRoutes('*'); //解析请求的token
     consumer.apply(LoggerMiddleware).forRoutes({ path: '*', method: RequestMethod.POST},{ path: '*', method: RequestMethod.DELETE});

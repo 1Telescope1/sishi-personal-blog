@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { createLogger, format, transports } from 'winston';
+import { Logger } from './entities/logger.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class LoggerService {
+
   private readonly logger = createLogger({
     level: 'info',
     format: format.combine(

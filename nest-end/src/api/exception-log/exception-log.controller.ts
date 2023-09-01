@@ -23,7 +23,12 @@ export class ExceptionLogController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.exceptionLogService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return new Result(await this.exceptionLogService.remove(+id));
+  }
+
+  @Post('ids')
+  async removeLogs(@Body() ids:number[]) {
+    return new Result(await this.exceptionLogService.removeLogs(ids))
   }
 }

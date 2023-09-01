@@ -10,7 +10,7 @@ import {reqMenuByName} from "@/api/menu";
 export function useRolePermission(getData: Function) {
   let dialogFormVisible = ref(false)
   let isMenu = ref(true)
-  const data = ref([])
+  const data = ref<any>([])
   const roleId = ref()
   const defaultProps = ref({})
   const checkedKeys = ref<number[]>([])

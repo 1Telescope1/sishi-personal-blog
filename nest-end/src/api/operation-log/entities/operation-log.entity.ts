@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("t_operation_log", { schema: "aurora" })
-export class TOperationLog {
+export class OperationLog {
   @PrimaryGeneratedColumn({ type: "int", name: "id", comment: "主键id" })
   id: number;
 
@@ -25,7 +25,7 @@ export class TOperationLog {
   optUri: string;
 
   @Column("varchar", { name: "opt_method", comment: "操作方法", length: 255 })
-  optMethod: string;
+  optMethod: string | null;
 
   @Column("varchar", {
     name: "opt_desc",

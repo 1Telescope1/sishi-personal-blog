@@ -24,6 +24,12 @@ export class ExceptionLogService {
 
 
   remove(id: number) {
-    return `This action removes a #${id} exceptionLog`;
+    const data=this.exceptionLogRepository.delete(id)
+    return data;
+  }
+
+  removeLogs(ids:number[]) {
+    const data=this.exceptionLogRepository.delete(ids)
+    return data;
   }
 }

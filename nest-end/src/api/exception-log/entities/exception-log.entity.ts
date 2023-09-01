@@ -11,7 +11,6 @@ export class ExceptionLog {
   @Column("varchar", { name: "opt_method", comment: "请求方式", length: 255 })
   optMethod: string;
 
-
   @Column("varchar", {
     name: "request_param",
     nullable: true,

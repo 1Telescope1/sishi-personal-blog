@@ -9,8 +9,8 @@ import {
 import { TMenu } from "./TMenu";
 import { TRole } from "./TRole";
 
-@Index("roleId_menu", ["roleId"], {})
 @Index("menuId", ["menuId"], {})
+@Index("roleId_menu", ["roleId"], {})
 @Entity("t_role_menu", { schema: "aurora" })
 export class TRoleMenu {
   @PrimaryGeneratedColumn({ type: "int", name: "id", comment: "主键" })
