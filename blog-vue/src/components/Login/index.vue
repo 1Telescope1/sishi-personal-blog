@@ -154,7 +154,6 @@ const regester = async (formEl: FormInstance | undefined) => {
   await formEl.validate(async (valid) => {
     if (valid) {
       const res = await reqRegister(form);
-      console.log(res)
       if (res.data) {
         notification("Success", "注册成功");
         isLogin.value=true

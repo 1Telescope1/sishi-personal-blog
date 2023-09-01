@@ -93,11 +93,10 @@ export class RoleService {
         userIds.push(userId)
       }
     }
-    const {menu,resource}=await this.authService.getPermission(roleId)
+    const {resource}=await this.authService.getPermission(roleId)
     for(let i=0;i<userIds.length;i++) {
       const permission={
         roleId,
-        menu,
         resource
       }
       this.redisService.setValue(`user:${userIds[i]}`,JSON.stringify(permission))

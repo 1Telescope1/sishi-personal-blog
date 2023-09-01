@@ -187,6 +187,24 @@ export const asyncRoutes=[
           title: "图片管理",
         },
       },
+      {
+        path: "/log/exception",
+        name: "exception",
+        component: () => import("@/views/Log/exception.vue"),
+        meta: {
+          keepAlive: false,
+          title: "异常日志",
+        },
+      },
+      {
+        path: "/log/operation",
+        name: "operation",
+        component: () => import("@/views/Log/operation.vue"),
+        meta: {
+          keepAlive: false,
+          title: "操作日志",
+        },
+      },
 ]
 
 // 路由

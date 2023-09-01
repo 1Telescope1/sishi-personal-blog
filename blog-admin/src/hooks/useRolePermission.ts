@@ -47,6 +47,7 @@ export function useRolePermission(getData: Function) {
         data.roleMenu?.push({roleId: roleId.value, menuId: checkedKeys.value[i]})
       }
       res = await reqChangeRoleMenu(data)
+      location.reload();
     } else {
       for (let i = 0; i < checkedKeys.value.length; i++) {
         data.roleResource?.push({roleId: roleId.value, resourceId: checkedKeys.value[i]})

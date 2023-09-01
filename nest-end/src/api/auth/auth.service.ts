@@ -32,7 +32,6 @@ export class AuthService {
       const roleId=userinfo.userRole.id
       const permission={
         roleId,
-        menu,
         resource
       }
       this.redisService.setValue(`user:${userinfo.id}`,JSON.stringify(permission))
@@ -74,4 +73,6 @@ export class AuthService {
     user.password = bcrypt.hashSync(registerUser.password, 10);
     return this.userInfoService.create(user);
   }
+
+  
 }

@@ -9,7 +9,7 @@ import {router} from '@/router/index.ts'
 const baseURL = import.meta.env.VITE_BASE_API;
 const instance = axios.create({
   baseURL: baseURL,
-  timeout: 10000,
+  timeout: 15000,
 });
 
 

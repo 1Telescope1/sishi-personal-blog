@@ -31,7 +31,11 @@ export class RoleController {
   @UseGuards(JwtGuard,AdminGuard)
   @Post('resource')
   async updateRoleResource(@Body() data:{roleId:number,roleResource:RoleResource[]}) {
-    return new Result(await this.roleService.updateRoleResource(data))
+    var d1 = (new Date()).getTime();
+    const flag=await this.roleService.updateRoleResource(data)
+    var d2 = (new Date()).getTime();
+    console.log(d2 - d1);//1ms
+    return new Result(flag)
   }
 
 
