@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import {Response} from './common/response'
 import { config } from 'dotenv';
+import {ExceptionLogService} from "./api/exception-log/exception-log.service";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -16,8 +17,11 @@ async function bootstrap() {
     process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
   config({ path: envFilePath });
 
+  const exceptionLogService = app.get(ExceptionLogService);
+
+  app.useGlobalFilters(new HttpFilter(exceptionLogService));
   app.useGlobalInterceptors(new Response());
-  app.useGlobalFilters(new HttpFilter());
+
   app.useGlobalPipes(new ValidationPipe());
 
   // helmet头部安全
@@ -28,7 +32,7 @@ async function bootstrap() {
       windowMs: 60 * 1000, //1分钟
       max: 100, //允许每个ip在这windows时间里请求的次数
       handler: (req, res, next) => {
-        const httpFilter = new HttpFilter();
+        const httpFilter = new HttpFilter(exceptionLogService);
 
         httpFilter.catch(new HttpException('当前请求过多，请稍后重试', 429), {
           switchToHttp: () => ({

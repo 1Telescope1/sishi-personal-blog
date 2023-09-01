@@ -29,6 +29,8 @@ import {LoggerMiddleware} from "./middleware/logger.middleware";
 import {LoggerService} from "./api/logger/logger.service";
 import {WebsocketGateway} from "./gateway/websocket.gatway";
 import { ChatModule } from './api/chat/chat.module';
+import { ExceptionLogModule } from './api/exception-log/exception-log.module';
+import {ExceptionLogService} from "./api/exception-log/exception-log.service";
 
 
 @Module({
@@ -87,12 +89,13 @@ import { ChatModule } from './api/chat/chat.module';
     RedisModule,
     LoggerModule,
     WebsocketGateway,
-    ChatModule
+    ChatModule,
+    ExceptionLogModule
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    LoggerService
+    LoggerService,
   ],
 })
 export class AppModule implements NestModule {
