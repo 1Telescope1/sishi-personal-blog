@@ -20,7 +20,7 @@ export class LoggerMiddleware implements NestMiddleware {
     }
 
     const operationLog=new OperationLog()
-    operationLog.ipAddress=ip
+    operationLog.ipAddress=ip.replace('::ffff:','');
     operationLog.nickname=nickname
     operationLog.userId=userId
     operationLog.optUri=originalUrl

@@ -25,7 +25,7 @@ import { Message } from "@/api/message/type";
 import { reqFiveMessage } from "@/api/message";
 import { formatDateTime } from "@/utils/date";
 
-const url='http://43.143.107.88:29000/avatar/2785e109706e4376a7fa06a1c5c65a59_1666582417286.png'
+const url='http://43.138.109.120:9000/avatar/2785e109706e4376a7fa06a1c5c65a59_1666582417286.png'
 
 const messageList = ref<Message[]>([]);
 const getMessageList = async () => {

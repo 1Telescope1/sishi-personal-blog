@@ -1,21 +1,24 @@
-// redis.service.ts
-
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
+import { ConfigService } from '@nestjs/config';
+
 
 @Injectable()
 export class RedisService {
   private readonly redisClient: Redis;
 
-  constructor() {
+
+  constructor(private configService: ConfigService) {
     this.redisClient = new Redis({
-      port: 6379, // Redis 服务器的端口
-      host: 'localhost', // Redis 服务器的主机名
-      db:0
+      port: this.configService.get('REDIS_PORT'), // Redis 服务器的端口
+      host: this.configService.get('REDIS_HOST'), // Redis 服务器的主机名
+      password:this.configService.get('REDIS_PASSWORD'),
     });
   }
 
   setValue(key: string, value: string){
+    console.log(this.configService.get('REDIS_HOST'));
+    
     return this.redisClient.setex(key,2*60*60*24, value);
   }
 

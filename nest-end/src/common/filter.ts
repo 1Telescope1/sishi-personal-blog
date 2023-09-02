@@ -15,14 +15,14 @@ export class HttpFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
     const status = exception.getStatus();
-    const message = exception.getResponse().valueOf();
+    const message:string | Object = exception.getResponse().valueOf();
     const path = request.url;
 
     const exceptionLog = new ExceptionLog();
     exceptionLog.optUri = path;
     exceptionLog.optMethod = request.method;
-    exceptionLog.exceptionInfo = message as string;
-    exceptionLog.ipAddress = request.ip;
+    exceptionLog.exceptionInfo = typeof(message) == 'object' ? JSON.stringify(message) : message
+    exceptionLog.ipAddress = request.ip.replace('::ffff:','');
     exceptionLog.requestParam = objectToString(request.params);
 
     await this.exceptionLogService.create(exceptionLog); // 使用 await 等待保存操作完成

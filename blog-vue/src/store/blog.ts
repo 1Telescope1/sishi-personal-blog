@@ -17,7 +17,7 @@ export const useBlogStore = defineStore(
     const talkLen = ref(0);
 
     const touristAvatar =
-      "http://43.143.107.88:29000/avatar/2785e109706e4376a7fa06a1c5c65a59_1666582417286.png";
+      "http://43.138.109.120:9000/avatar/2785e109706e4376a7fa06a1c5c65a59_1666582417286.png";
     const touristName = "游客";
     let onlineNumber = ref(0);
 

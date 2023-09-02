@@ -25,7 +25,7 @@
       <div class="pink-box">
         <div>名称：Teles</div>
         <div>简介：Do not go gentle into the good night</div>
-        <div>头像：http://43.143.107.88:29000/avatar/1_1669121702949.jpg</div>
+        <div>头像：http://43.138.109.120:9000/avatar/%E5%A4%B4%E5%83%8F.jpg</div>
         <div>网址：http://www.sqda.top/</div>
       </div>
       <div class="information">
