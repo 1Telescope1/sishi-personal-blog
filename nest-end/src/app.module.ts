@@ -1,7 +1,9 @@
 import { Module, NestModule, MiddlewareConsumer,RequestMethod  } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigService } from '@nestjs/config';
 import { AboutModule } from './api/about/about.module';
 import { TalkModule } from './api/talk/talk.module';
 import { UserInfoModule } from './api/user-info/user-info.module';
@@ -26,48 +28,33 @@ import { RedisModule } from './api/redis/redis.module';
 import { JwtMiddleware } from './middleware/jwt.middleware';
 import { LoggerModule } from './api/logger/logger.module';
 import {LoggerMiddleware} from "./middleware/logger.middleware";
-import {LoggerService} from "./api/logger/logger.service";
 import {WebsocketGateway} from "./gateway/websocket.gatway";
 import { ChatModule } from './api/chat/chat.module';
 import { ExceptionLogModule } from './api/exception-log/exception-log.module';
-import {ExceptionLogService} from "./api/exception-log/exception-log.service";
 import { OperationLogModule } from './api/operation-log/operation-log.module';
-import {OperationLogService} from "./api/operation-log/operation-log.service";
 
 
 @Module({
   imports: [
-  TypeOrmModule.forRoot({
-      type: 'mysql', //数据库类型
-      username: 'root', //账号
-      password: '123456', //密码
-      host: 'localhost', //host
-      port: 3306, //
-      database: 'aurora', //库名
-      entities: [__dirname + '/**/**/*.entity{.ts,.js}'], //实体文件
-      // synchronize: true, //synchronize字段代表是否自动将实体类同步到数据库
-      retryDelay: 500, //重试连接数据库间隔
-      retryAttempts: 10, //重试连接数据库的次数
-      autoLoadEntities: true, //如果为true,将自动加载实体 forFeature()方法注册的每个实体都将自动添加到配置对象的实体数组中
+    ConfigModule.forRoot({
+      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
+      isGlobal:true
     }),
-  //   TypeOrmModule.forRoot({
-  //     type: 'mysql', //数据库类型
-  //     username: 'blog_db', //账号
-  //     password: '123456', //密码
-  //     host: '43.138.109.120', //host
-  //     port: 3306, //
-  //     database: 'blog_db', //库名
-  //     entities: [__dirname + '/**/**/*.entity{.ts,.js}'], //实体文件
-  //     // synchronize: true, //synchronize字段代表是否自动将实体类同步到数据库
-  //     retryDelay: 500, //重试连接数据库间隔
-  //     retryAttempts: 10, //重试连接数据库的次数
-  //     autoLoadEntities: true, //如果为true,将自动加载实体 forFeature()方法注册的每个实体都将自动添加到配置对象的实体数组中
-  //     extra:{
-  //       connectionLimit: 10,
-  //       idleTimeoutMillis: 30000,
-  //       connectTimeout: 10000
-  //     }
-  //   }),
+    TypeOrmModule.forRootAsync({
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get<string>('DATABASE_HOST', 'localhost'), // 从环境变量获取，如果不存在则默认为 'localhost'
+        port: configService.get<number>('DATABASE_PORT', 3306), // 从环境变量获取，如果不存在则默认为 3306
+        username: configService.get<string>('DATABASE_USERNAME', 'root'), // 从环境变量获取，如果不存在则默认为 'root'
+        password: configService.get<string>('DATABASE_PASSWORD', '123456'), // 从环境变量获取，如果不存在则默认为 '123456'
+        database: configService.get<string>('DATABASE_NAME', 'aurora'), // 从环境变量获取，如果不存在则默认为 'aurora'
+        entities: [__dirname + '/**/**/*.entity{.ts,.js}'],
+        retryDelay: 500,
+        retryAttempts: 10,
+        autoLoadEntities: true,
+      }),
+      inject: [ConfigService], // 注入 ConfigService 依赖
+    }),
     AboutModule,
     TalkModule,
     UserInfoModule,

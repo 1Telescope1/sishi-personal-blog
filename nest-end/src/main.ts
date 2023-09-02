@@ -13,11 +13,12 @@ async function bootstrap() {
     cors: true,
   });
 
-  const envFilePath =
-    process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
-  config({ path: envFilePath });
+  // const envFilePath =
+  //   process.env.NODE_ENV === 'production' ? '.env.development.production' : '.env.development';
+  // config({ path: envFilePath });
 
   const exceptionLogService = app.get(ExceptionLogService);
+
 
   app.useGlobalFilters(new HttpFilter(exceptionLogService));
   app.useGlobalInterceptors(new Response());

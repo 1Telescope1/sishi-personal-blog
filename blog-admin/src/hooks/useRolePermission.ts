@@ -29,7 +29,7 @@ export function useRolePermission(getData: Function) {
     roleId.value = role.id
     data.value = isMenu.value ? menuList.value : resourceList.value
     defaultProps.value = isMenu.value ? menuProps : resourceProps
-    checkedKeys.value = isMenu.value ? role.menuId : role.resourceId
+    checkedKeys.value = (isMenu.value ? role.menuId : role.resourceId ) as number[]
     dialogFormVisible.value = true
   }
 

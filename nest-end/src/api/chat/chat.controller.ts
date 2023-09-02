@@ -3,10 +3,11 @@ import { ChatService } from './chat.service';
 import { CreateChatDto } from './dto/create-chat.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
 import { Result } from 'src/common/result';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('chat')
 export class ChatController {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(private readonly chatService: ChatService,private configService: ConfigService) {}
 
   @Post()
   create(@Body() createChatDto: CreateChatDto) {
@@ -17,8 +18,8 @@ export class ChatController {
   async findAll(@Req() req) {
     
     const realIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    console.log(realIp);
-    
+    console.log(process.env.DATABASE_USERNAME);
+    console.log(this.configService.get<string>('DATABASE_USERNAME'))
     return new Result(await this.chatService.findAll())
   }
 
