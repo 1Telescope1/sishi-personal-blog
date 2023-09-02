@@ -18,8 +18,6 @@ export class ChatController {
   async findAll(@Req() req) {
     
     const realIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    console.log(process.env.DATABASE_USERNAME);
-    console.log(this.configService.get<string>('DATABASE_USERNAME'))
     return new Result(await this.chatService.findAll())
   }
 

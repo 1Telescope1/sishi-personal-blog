@@ -3,25 +3,27 @@ import * as Minio from 'minio';
 import { File } from '../file/entities/file.entity';
 import * as crypto from 'crypto';
 import {FileService} from "../file/file.service";
-import decodeBuffer from "../../utils/decodeChineseFilename";
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class MinioService {
-  private readonly minioClient: Minio.Client;
-
-  private readonly Client={
-    endPoint: '192.168.2.105',
-    port: 9000,
-    useSSL: false,
-    accessKey: 'minioadmin',
-    secretKey: 'minioadmin',
-  }
-
   constructor(
     private readonly fileService: FileService,
+    private configService: ConfigService
   ) {
     this.minioClient = new Minio.Client(this.Client);
   }
+
+  private readonly minioClient: Minio.Client;
+  private readonly Client={
+    endPoint: this.configService.get('MINIO_HOST'),
+    port: this.configService.get('MINIO_PORT') | 9000,
+    useSSL: false,
+    accessKey: this.configService.get('MINIO_USERNAME'),
+    secretKey: this.configService.get('MINIO_PASSWORD')
+  }
+
+
 
   async uploadFile(bucketName: string, file: any, data: Buffer) {
     const lastDotIndex = file.originalname.lastIndexOf('.');

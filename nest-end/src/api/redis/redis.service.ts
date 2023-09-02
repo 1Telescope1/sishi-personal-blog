@@ -16,9 +16,7 @@ export class RedisService {
     });
   }
 
-  setValue(key: string, value: string){
-    console.log(this.configService.get('REDIS_HOST'));
-    
+  setValue(key: string, value: string){    
     return this.redisClient.setex(key,2*60*60*24, value);
   }
 

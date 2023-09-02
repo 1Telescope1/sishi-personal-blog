@@ -1,5 +1,3 @@
-// redis.controller.ts
-
 import { Controller, Get, Param ,Delete} from '@nestjs/common';
 import { RedisService } from './redis.service';
 import {Result} from "../../common/result";

@@ -7,10 +7,17 @@ import {Result} from "../../common/result";
 export class MinioController {
   constructor(private readonly minioService: MinioService) {}
 
-  @Post('upload')
+  @Post('upload/avatar')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file:any){
-    const data=await this.minioService.uploadFile('files', file, file.buffer);
+  async uploadAvatar(@UploadedFile() file:any){
+    const data=await this.minioService.uploadFile('avatar', file, file.buffer);
+    return new Result(data);
+  }
+
+  @Post('upload/cover')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadCover(@UploadedFile() file:any){
+    const data=await this.minioService.uploadFile('cover', file, file.buffer);
     return new Result(data);
   }
 

@@ -18,6 +18,12 @@ export class UserInfoController {
     return new Result(await this.userInfoService.create(userInfo));
   }
 
+  @Post('update')
+  @UseGuards(JwtGuard,AdminGuard)
+  async update(@Body() userInfo: UserInfo) {
+    return new Result(await this.userInfoService.update(userInfo));
+  }
+
   @Get()
   async findAll() {
     return new Result(await this.userInfoService.findAll());

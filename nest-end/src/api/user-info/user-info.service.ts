@@ -23,6 +23,12 @@ export class UserInfoService {
     return data;
   }
 
+  async update(userInfo: UserInfo) {
+    const data =await this.userRepository.save(userInfo);
+    return data;
+  }
+
+
 
   async isExistUser(nickname:string) {
     const res=await this.userRepository.createQueryBuilder('userinfo')
