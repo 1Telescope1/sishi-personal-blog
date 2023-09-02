@@ -1,8 +1,11 @@
 import { request } from "@/utils/request";
 import {LoginUser, UserInfo, userForm, UserParams, UserPage} from "./type";
 
-// 创建或修改用户
+// 创建
 export const reqSaveOrAddUser=(data:UserInfo)=>request<any>(`/userinfo`,'POST',data)
+
+// 修改用户
+export const reqUpdateUser=(data:UserInfo)=>request<any>(`/userinfo/update`,'POST',data)
 
 // 获取用户信息
 export const reqUserInfo=(id:any)=>request<UserInfo>(`userinfo/${id}`)

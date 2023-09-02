@@ -82,7 +82,7 @@
 import {ref,reactive,onMounted,isRef} from 'vue'
 import {useRoute} from 'vue-router'
 import {useInitTable} from "@/hooks/useTable.ts";
-import { reqGetUserByPage, reqIsDisAbleUser, reqSaveOrAddUser} from "@/api/user";
+import {reqGetUserByPage, reqIsDisAbleUser, reqSaveOrAddUser, reqUpdateUser} from "@/api/user";
 import {formatDateTime} from "@/utils/date.ts";
 import {userInfoSearchForm} from "@/model/data.ts";
 import {notification} from "@/utils/elComponent.ts";
@@ -124,7 +124,7 @@ const {
     nickname:"",
     avatar:""
   },
-  update:reqSaveOrAddUser,
+  update:reqUpdateUser,
   create:reqSaveOrAddUser,
   getData
 })

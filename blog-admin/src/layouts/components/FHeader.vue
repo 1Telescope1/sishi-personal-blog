@@ -4,7 +4,7 @@
       <el-icon class="mr-1">
         <eleme-filled />
       </el-icon>
-      帝莎编程
+      Teles
     </span>
     <el-icon class="icon-btn" @click="blogStore.handleAsideWidth()">
       <fold v-if="blogStore.asideWidth == '250px'" />
@@ -26,8 +26,8 @@
 
       <el-dropdown class="dropdown" @command="handleCommand">
         <span class="user ">
-          <el-avatar class="mr-2" :size="25" :src="userStore.user?.avatar" />
-          {{ userStore.user?.nickname }}
+          <el-avatar class="mr-2" :size="25" :src="userStore.user?.userinfo?.avatar" />
+          {{ userStore.user?.userinfo?.nickname }}
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>

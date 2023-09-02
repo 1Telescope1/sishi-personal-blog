@@ -2,7 +2,7 @@
   <span>{{ d.num.toFixed(0) }}</span>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import {reactive, watch} from 'vue'
 import gsap from "gsap"
 
