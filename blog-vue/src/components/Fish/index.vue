@@ -1,6 +1,6 @@
 <template>
   <div id="jsi-flying-fish-container" class="fish">
-    <div class="first">©2022 By Teles</div>
+    <div class="first">©2022 By 四十</div>
     <a href="http://beian.miit.gov.cn/" target="_blank" class="second"
       >桂ICP备2022008961号-1</a
     >

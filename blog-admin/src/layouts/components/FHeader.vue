@@ -4,7 +4,7 @@
       <el-icon class="mr-1">
         <eleme-filled />
       </el-icon>
-      Teles
+      四十
     </span>
     <el-icon class="icon-btn" @click="blogStore.handleAsideWidth()">
       <fold v-if="blogStore.asideWidth == '250px'" />

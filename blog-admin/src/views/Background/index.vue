@@ -48,20 +48,33 @@
 <script setup lang="ts">
 import {useRoute} from 'vue-router'
 import {reqAddOrUpdateImg, reqDeleteImg, reqGetBackImages} from "@/api/backimg";
-import {useInitTable} from "@/hooks/useTable.ts";
 import {useInitForm} from "@/hooks/useForm.ts";
+import {ref} from 'vue'
+import {backImg} from "@/api/backimg/type.ts";
+import {notification} from "@/utils/elComponent.ts";
 
 const route=useRoute()
 const formLabelWidth = '140px'
 
-const {
-  getData,
-  tableData,
-  handleDelete
-}=useInitTable({
-  getList:reqGetBackImages,
-  delete:reqDeleteImg
-})
+
+const tableData=ref<backImg[]>([])
+
+const getData=async ()=>{
+  const res=await reqGetBackImages()
+  if(res.status==200) {
+    tableData.value=res.data
+  }
+}
+
+getData()
+
+const handleDelete=async (id:number)=>{
+  const res=await reqDeleteImg(id)
+  if(res.status==200) {
+    notification('删除成功')
+  }
+  getData()
+}
 
 const {
   formDrawerRef,
@@ -82,7 +95,8 @@ const {
 })
 
 const handleAvatar=(imgUrl:string)=>{
-  form.avatar=imgUrl
+  console.log(imgUrl)
+  form.url=imgUrl
 }
 
 </script>

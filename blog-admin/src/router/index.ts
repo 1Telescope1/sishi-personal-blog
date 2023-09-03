@@ -156,7 +156,7 @@ export const asyncRoutes=[
         name: "role",
         component: () => import("@/views/Permission/role.vue"),
         meta: {
-          keepAlive: true,
+          keepAlive: false,
           title: "角色管理",
         },
       },
@@ -165,7 +165,7 @@ export const asyncRoutes=[
         name: "menu",
         component: () => import("@/views/Permission/menu.vue"),
         meta: {
-          keepAlive: false,
+          keepAlive: true,
           title: "菜单管理",
         },
       },

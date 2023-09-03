@@ -16,7 +16,8 @@
         <InfoButton style="margin-bottom: 20px" @create="handleCreate" @refresh="getData"></InfoButton>
       </div>
       <div>
-        <el-table border row-key="id" ref="multipleTableRef" @selection-change="handleSelectionChange" :data="tableData" stripe style="width: 100%" v-loading="loading">
+        <el-table border row-key="id" ref="multipleTableRef" :data="tableData" stripe style="width: 100%" v-loading="loading">
+          <el-table-column label="id"  prop="id" align="center" width="100"></el-table-column>
           <el-table-column label="菜单名称"  prop="name" align="center"></el-table-column>
           <el-table-column label="图标"   align="center">
             <template #default="{row}">
@@ -97,8 +98,6 @@ const {
   getData,
   handleSelectionChange,
   handleDelete,
-  handleMultiStatusChange,
-  handleStatusChange,
   multipleTableRef
 }=useInitTable({
   searchForm:{name:""},

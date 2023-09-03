@@ -3,7 +3,7 @@
     <el-col :lg="16" :md="12" class="left">
       <div>
         <div>欢迎光临</div>
-        <div>此站点是Teles后台管理系统</div>
+        <div>此站点是四十后台管理系统</div>
       </div>
     </el-col>
     <el-col :lg="8" :md="12" class="right">
