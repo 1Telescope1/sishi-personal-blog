@@ -22,9 +22,15 @@ export function useInitTable(opt: opt = {
   }
 }) {
   // 分页
-  const pageNum = ref(1);
+  let pageNum = ref(1);
   const total = ref(0);
-  const pageSize = ref(6);
+  let pageSize = ref(6);
+  if(opt.searchForm.pageNum) {
+    pageSize.value=opt.searchForm.pageSize
+  }
+  if(opt.searchForm.pageNum) {
+    pageNum.value=opt.searchForm.pageNum
+  }
 
   let searchForm: any = null;
   let resetSearchForm = null;

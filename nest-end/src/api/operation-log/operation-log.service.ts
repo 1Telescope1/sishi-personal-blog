@@ -34,7 +34,7 @@ export class OperationLogService {
     );
 
     const data = await this.OperationRepository.query(
-      'select * from t_operation_log  where opt_uri like ? and request_method like ? limit ?,?',
+      'select * from t_operation_log  where opt_uri like ? and request_method like ? order by id desc limit ?,?',
       [`%${url}%`, `%${method}%`,(pageNum - 1) * pageSize, pageSize]
     );
 

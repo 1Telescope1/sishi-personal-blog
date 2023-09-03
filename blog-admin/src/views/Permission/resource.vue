@@ -90,6 +90,7 @@ import {reqAddOrUpdResource, reqDelResource, reqResourceByName} from "@/api/reso
 import {useInitForm} from "@/hooks/useForm.ts";
 import {resourceForm} from "@/model/form.ts";
 import { Edit ,Delete,Plus} from '@element-plus/icons-vue'
+import {methodTag} from "@/utils/methodTag.ts";
 
 const route=useRoute()
 const formLabelWidth='140px'
@@ -135,14 +136,7 @@ const handleSonResource=(id:number)=>{
   handleEdit(form)
 }
 
-const methodTag=(method:string)=> {
-  switch (method) {
-    case "GET":return "success"
-    case "POST":return "warning"
-    case "DELETE":return "danger"
-    case "PATCH":return "info"
-  }
-}
+
 
 </script>
 

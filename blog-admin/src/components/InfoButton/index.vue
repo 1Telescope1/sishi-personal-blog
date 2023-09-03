@@ -31,7 +31,7 @@ import {computed} from "vue";
 const props = defineProps({
   layout: {
     type: String,
-    default: "create,refresh",
+    default: "create,refresh,download",
   },
 });
 

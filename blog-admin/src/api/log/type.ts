@@ -16,6 +16,11 @@ export interface ExceptionPage extends PaginationParams {
   records:Exception[]
 }
 
+export interface ExceptionParams extends PaginationParams {
+  url:string | null
+  method:string |null
+}
+
 export interface Operation {
   id: number;
   optModule?: any;
@@ -36,4 +41,9 @@ export interface Operation {
 
 export interface OperationPage extends PaginationParams {
   records:Operation[]
+}
+
+export interface OperationParams extends PaginationParams {
+  url:string | null
+  method:string |null
 }

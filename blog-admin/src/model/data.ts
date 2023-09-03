@@ -77,3 +77,10 @@ export const friendLinkSearchForm={
   linkAddress: ""
 }
 
+export const LogForm={
+  url:"",
+  method:"",
+  pageSize:10,
+  pageNum:1
+}
+

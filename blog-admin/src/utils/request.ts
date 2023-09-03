@@ -42,9 +42,13 @@ instance.interceptors.response.use(
     return res.data;
   },
   (err) => {
+
+    if(err.response.status==500) {
+      notification(err.response.statusText,"error")
+    }
+
     const response=err.response.data
-    
-    
+
     switch (response.status) {
       case 401:
         notification(response.data,"error")

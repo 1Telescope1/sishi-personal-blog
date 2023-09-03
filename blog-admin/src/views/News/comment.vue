@@ -73,7 +73,7 @@ import {useInitTable} from "@/hooks/useTable.ts";
 import {commentSearchForm} from "@/model/data.ts";
 import {reqCommentByPage, reqDelComment} from "@/api/comment";
 import {formatDateTime} from "@/utils/date.ts";
-import {  Edit,Delete } from '@element-plus/icons-vue'
+import { Delete } from '@element-plus/icons-vue'
 
 
 const route=useRoute()

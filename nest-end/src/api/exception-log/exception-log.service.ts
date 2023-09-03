@@ -33,7 +33,7 @@ export class ExceptionLogService {
     );
 
     const data = await this.exceptionLogRepository.query(
-      'select * from t_exception_log  where opt_uri like ? and opt_method like ? limit ?,?',
+      'select * from t_exception_log  where opt_uri like ? and opt_method like ? order by id desc limit ?,?',
       [`%${url}%`, `%${method}%`,(pageNum - 1) * pageSize, pageSize]
     );
 
