@@ -45,6 +45,11 @@
           >
         </el-form-item>
       </el-form>
+      <div style="color: black">
+        <span>测试账号:test@123</span>
+        <span style="margin-left: 5px">密码:123456</span>
+      </div>
+
     </el-col>
   </el-row>
 </template>
@@ -61,8 +66,8 @@ const router = useRouter();
 const user = useUserStore()
 
 const form = reactive({
-  nickname: "Teles",
-  password: "Teles",
+  nickname: "",
+  password: "",
 });
 
 const rules = {

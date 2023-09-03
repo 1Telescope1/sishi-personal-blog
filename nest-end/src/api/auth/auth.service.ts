@@ -26,7 +26,8 @@ export class AuthService {
 
   async signin(nickname: string, password: string) {
     const userinfo = await this.userInfoService.isExistUser(nickname);
-    const flag = await bcrypt.compare(password, userinfo.password);
+    const flag =await bcrypt.compare(password, userinfo.password);
+
     if (userinfo && flag) {
       const {menu,resource}=await this.getPermission(userinfo.userRole.id)
       const roleId=userinfo.userRole.id
@@ -70,9 +71,9 @@ export class AuthService {
 
     const user = new UserInfo();
     user.nickname = registerUser.nickname;
-    user.password = bcrypt.hashSync(registerUser.password, 10);
+    user.password =await bcrypt.hash(registerUser.password, 10);
     return this.userInfoService.create(user);
   }
 
-  
+
 }

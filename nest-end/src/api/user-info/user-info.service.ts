@@ -18,7 +18,6 @@ export class UserInfoService {
   ) {}
 
   async create(userInfo: UserInfo) {
-    userInfo.password = bcrypt.hashSync(userInfo.password, 10);
     const data =await this.userRepository.save(userInfo);
     return data;
   }

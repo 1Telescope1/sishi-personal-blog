@@ -130,6 +130,7 @@ const {
 })
 
 const handleAvatar=(imgUrl:string)=>{
+  console.log(imgUrl)
   form.avatar=imgUrl
 }
 

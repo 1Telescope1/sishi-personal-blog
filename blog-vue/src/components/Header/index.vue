@@ -89,7 +89,8 @@
         <div v-else class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
-              <img src="@/assets/images/头像.jpg" />
+              <img v-if="!user.user.userinfo.avatar" src="@/assets/images/default.png" />
+              <img v-else :src="user.user.userinfo.avatar" />
             </div>
           </label>
           <ul

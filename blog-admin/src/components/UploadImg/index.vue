@@ -33,7 +33,7 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response,
   uploadFile
 ) => {
-  emit('AvatarSuccess',URL.createObjectURL(uploadFile.raw!))
+  emit('AvatarSuccess',response.data.url)
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
