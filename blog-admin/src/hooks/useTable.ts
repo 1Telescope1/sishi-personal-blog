@@ -10,12 +10,15 @@ interface opt {
   updateStatus?: Function,
   onGetListSuccess?: Function,
   update?: Function
+  deleteList?:Function
 }
 
 export function useInitTable(opt: opt = {
   delete() {
   }, getList() {
   }, searchForm: undefined, updateStatus() {
+  },
+  deleteList() {
   }
 }) {
   // 分页
@@ -113,7 +116,7 @@ export function useInitTable(opt: opt = {
   const handleMultiDelete = async () => {
     loading.value = true;
     const res = await opt
-      .delete(multiSelectionIds.value)
+      .deleteList(multiSelectionIds.value)
     if (res.status == 200) {
       notification("删除成功");
       if (multipleTableRef.value) {

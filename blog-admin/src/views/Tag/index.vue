@@ -51,11 +51,9 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from'vue'
 import {reqAddOrUpdateTag, reqDelTag, reqTags} from "@/api/tag";
 import {useInitTable} from "@/hooks/useTable.ts";
 import {formatDateTime} from "@/utils/date.ts";
-import {Tag} from "@/model";
 import {  Edit,Delete } from '@element-plus/icons-vue'
 import {useInitForm} from "@/hooks/useForm.ts";
 import {useRoute} from 'vue-router'

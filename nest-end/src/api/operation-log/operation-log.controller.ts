@@ -1,8 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Param, Delete, UseGuards,ParseIntPipe } from '@nestjs/common';
 import { OperationLogService } from './operation-log.service';
-import { CreateOperationLogDto } from './dto/create-operation-log.dto';
-import { UpdateOperationLogDto } from './dto/update-operation-log.dto';
-import {Logger} from "../logger/entities/logger.entity";
 import {Result} from "../../common/result";
 import {OperationLog} from "./entities/operation-log.entity";
 import { JwtGuard } from 'src/guards/jwt/jwt.guard';
@@ -20,6 +17,16 @@ export class OperationLogController {
   @Get()
   async findAll() {
     return new Result(await this.operationLogService.findAll())
+  }
+
+  @Get('page')
+  async findPage(
+    @Query('pageNum', new ParseIntPipe()) pageNum: number,
+    @Query('pageSize', new ParseIntPipe()) pageSize: number,
+    @Query('url') url: string,
+    @Query('method') method: string,
+  ) {
+    return new Result(await this.operationLogService.findPage(pageNum,pageSize,url,method))
   }
 
   @Get(':id')

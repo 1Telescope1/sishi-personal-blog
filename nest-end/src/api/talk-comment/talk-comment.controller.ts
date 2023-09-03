@@ -1,7 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete,Query ,ParseIntPipe, UseGuards} from '@nestjs/common';
 import { TalkCommentService } from './talk-comment.service';
-import { CreateTalkCommentDto } from './dto/create-talk-comment.dto';
-import { UpdateTalkCommentDto } from './dto/update-talk-comment.dto';
 import { TalkComment } from './entities/talk-comment.entity';
 import { Result } from 'src/common/result';
 import { AdminGuard } from 'src/guards/admin/admin.guard';
