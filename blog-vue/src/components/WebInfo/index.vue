@@ -50,7 +50,7 @@ getViews();
 
 
 let onlineNumber=ref(0)
-const socket = io('ws://localhost:3000'); // 替换为您的Nest.js服务器地址
+const socket = io(import.meta.env.VITE_WS_URL); // 替换为您的Nest.js服务器地址
 onMounted(()=>{
   // 监听 'usersCount' 事件，并更新用户数
   socket.on('usersCount', (count) => {

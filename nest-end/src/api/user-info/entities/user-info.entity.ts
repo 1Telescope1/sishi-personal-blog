@@ -4,7 +4,6 @@ import { Comment } from "src/api/comment/entities/comment.entity";
 import { Message } from "src/api/message/entities/message.entity";
 import { Talk } from "src/api/talk/entities/talk.entity";
 import { TalkComment } from "src/api/talk-comment/entities/talk-comment.entity";
-import { UserRole } from "src/api/user-role/entities/user-role.entity";
 import { Article } from "src/api/article/entities/article.entity";
 import { Role } from "src/api/role/entities/role.entity";
 import {Menu} from "../../menu/entities/menu.entity";
@@ -91,8 +90,6 @@ export class UserInfo {
   @OneToMany(() => TalkComment, (talkComment) => talkComment.userinfo)
   talkComments: TalkComment[];
 
-  @OneToMany(() => UserRole, (userRole) => userRole.userinfo)
-  userRoles: UserRole[];
 
   @OneToMany(() => Article, (article) => article.userinfo)
   articles: Article[];

@@ -1,22 +1,24 @@
 <template>
   <div class="f-breadcrumb" :style="{ left: blogStore.asideWidth }">
     <el-breadcrumb separator="/">
-    <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-    <el-breadcrumb-item
-      ><a href="/">promotion management</a></el-breadcrumb-item
-    >
-    <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-    <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
+    <el-breadcrumb-item style="cursor: pointer" v-for="route in matched" :key="route.path" :to="route.path">{{route.meta.title}}</el-breadcrumb-item>
   </el-breadcrumb>
   </div>
 </template>
 
 
 <script setup lang='ts'>
-import {ref} from 'vue'
 import { useBlogStore } from "@/store/blog";
+import {useRoute} from 'vue-router'
+import {watch,ref} from 'vue'
 
 const blogStore=useBlogStore()
+const route=useRoute()
+let matched=ref(route.matched)
+
+watch(route,(newRoute)=>{
+  matched.value=newRoute.matched
+})
 
 </script>
 

@@ -24,8 +24,13 @@ export class TOperationLog {
   @Column("varchar", { name: "opt_uri", comment: "操作url", length: 255 })
   optUri: string;
 
-  @Column("varchar", { name: "opt_method", comment: "操作方法", length: 255 })
-  optMethod: string;
+  @Column("varchar", {
+    name: "opt_method",
+    nullable: true,
+    comment: "操作方法",
+    length: 255,
+  })
+  optMethod: string | null;
 
   @Column("varchar", {
     name: "opt_desc",

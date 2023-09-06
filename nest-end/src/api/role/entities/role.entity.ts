@@ -1,6 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { RoleResource } from "src/api/role-resource/entities/role-resource.entity";
-import { UserRole } from "src/api/user-role/entities/user-role.entity";
 import { RoleMenu } from "src/api/role-menu/entities/role-menu.entity";
 import { UserInfo } from "src/api/user-info/entities/user-info.entity";
 
@@ -41,8 +40,6 @@ export class Role {
   @OneToMany(() => RoleResource, (roleResource) => roleResource.role)
   roleResources: RoleResource[];
 
-  @OneToMany(() => UserRole, (userRole) => userRole.role)
-  userRoles: UserRole[];
 
   @OneToMany(() => UserInfo, (userInfo) => userInfo.userRole)
   userInfos: UserInfo[];

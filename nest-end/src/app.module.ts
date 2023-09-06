@@ -7,7 +7,6 @@ import { ConfigService } from '@nestjs/config';
 import { AboutModule } from './api/about/about.module';
 import { TalkModule } from './api/talk/talk.module';
 import { UserInfoModule } from './api/user-info/user-info.module';
-import { UserRoleModule } from './api/user-role/user-role.module';
 import { CommentModule } from './api/comment/comment.module';
 import { RoleModule } from './api/role/role.module';
 import { RoleResourceModule } from './api/role-resource/role-resource.module';
@@ -32,6 +31,7 @@ import {WebsocketGateway} from "./gateway/websocket.gatway";
 import { ChatModule } from './api/chat/chat.module';
 import { ExceptionLogModule } from './api/exception-log/exception-log.module';
 import { OperationLogModule } from './api/operation-log/operation-log.module';
+import { ViewsModule } from './api/views/views.module';
 
 
 @Module({
@@ -58,7 +58,6 @@ import { OperationLogModule } from './api/operation-log/operation-log.module';
     AboutModule,
     TalkModule,
     UserInfoModule,
-    UserRoleModule,
     CommentModule,
     RoleModule,
     RoleResourceModule,
@@ -80,7 +79,8 @@ import { OperationLogModule } from './api/operation-log/operation-log.module';
     WebsocketGateway,
     ChatModule,
     ExceptionLogModule,
-    OperationLogModule
+    OperationLogModule,
+    ViewsModule
   ],
   controllers: [AppController],
   providers: [

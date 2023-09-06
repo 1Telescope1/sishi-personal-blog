@@ -15,7 +15,7 @@ export class TExceptionLog {
     name: "request_param",
     nullable: true,
     comment: "请求参数",
-    length: 2000,
+    length: 255,
   })
   requestParam: string | null;
 

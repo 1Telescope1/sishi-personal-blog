@@ -5,6 +5,10 @@ let routes = [
     path: "/",
     name: "admin",
     component: () => import("@/layouts/admin.vue"),
+    meta: {
+      keepAlive: false,
+      title: "首页",
+    },
   },
   {
     path: "/login",
@@ -12,7 +16,7 @@ let routes = [
     //使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
     component: () => import("@/views/Login/index.vue"),
     meta: {
-      keepAlive: false, //需要缓存
+      keepAlive: false,
       title: "注册页",
     },
   },

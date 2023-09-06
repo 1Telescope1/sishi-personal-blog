@@ -5,7 +5,6 @@ import { ValidationPipe, HttpException } from '@nestjs/common';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import {Response} from './common/response'
-import { config } from 'dotenv';
 import {ExceptionLogService} from "./api/exception-log/exception-log.service";
 
 async function bootstrap() {

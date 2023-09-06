@@ -36,7 +36,7 @@
               />
             </template>
           </el-table-column>
-          <el-table-column label="发布时间" align="center">
+          <el-table-column label="创建时间" align="center">
             <template #default="{row}">
               {{formatDateTime(row.createTime).substring(0,10)}}
             </template>

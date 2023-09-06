@@ -12,7 +12,6 @@ import { TMessage } from "./TMessage";
 import { TTalk } from "./TTalk";
 import { TTalkComment } from "./TTalkComment";
 import { TRole } from "./TRole";
-import { TUserRole } from "./TUserRole";
 
 @Index("user_roleId", ["userRoleId"], {})
 @Entity("t_user_info", { schema: "aurora" })
@@ -110,7 +109,4 @@ export class TUserInfo {
   })
   @JoinColumn([{ name: "user_roleId", referencedColumnName: "id" }])
   userRole: TRole;
-
-  @OneToMany(() => TUserRole, (tUserRole) => tUserRole.user)
-  tUserRoles: TUserRole[];
 }
