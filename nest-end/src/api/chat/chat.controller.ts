@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Req, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req, Param, Delete, UseGuards } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { Result } from 'src/common/result';
 import { ConfigService } from '@nestjs/config';
 import {Chat} from "./entities/chat.entity";
+import { AdminGuard } from 'src/guards/admin/admin.guard';
+import { JwtGuard } from 'src/guards/jwt/jwt.guard';
 
 @Controller('chat')
 export class ChatController {
@@ -14,9 +16,7 @@ export class ChatController {
   }
 
   @Get()
-  async findAll(@Req() req) {
-    
-    const realIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  async findAll() {
     return new Result(await this.chatService.findAll())
   }
 
@@ -25,9 +25,15 @@ export class ChatController {
     return this.chatService.findOne(+id);
   }
 
+  @UseGuards(JwtGuard,AdminGuard)
+  @Post('ids')
+  async removeIds(@Body() ids:number[]) {
+    return new Result(await this.chatService.removeIds(ids))
+  }
 
+  @UseGuards(JwtGuard,AdminGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.chatService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return new Result(await this.chatService.remove(+id));
   }
 }

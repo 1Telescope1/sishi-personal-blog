@@ -18,14 +18,21 @@ export class ChatService {
   }
 
   findAll() {
-    return `This action returns all chat`;
+    const data=this.chatRepository.find()
+    return data;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} chat`;
   }
 
+  removeIds(ids:number[]) {
+    const data=this.chatRepository.delete(ids)
+    return data
+  }
+
   remove(id: number) {
-    return `This action removes a #${id} chat`;
+    const data=this.chatRepository.delete(id)
+    return data;
   }
 }
