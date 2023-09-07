@@ -10,7 +10,7 @@
     </div>
     <div class="views">
       <div>浏览量：</div>
-      <div>{{ views }}</div>
+      <div>{{ cnt }}</div>
     </div>
     <div class="time">
       <div>运行时长：</div>
@@ -23,6 +23,7 @@
 import { ref,onMounted } from "vue";
 import { reqGetViews } from "../../api/views/index";
 import io from 'socket.io-client';
+import { reqAddViews } from "@/api/blog";
 
 let time = ref("");
 const runTime = () => {
@@ -39,11 +40,17 @@ const runTime = () => {
 };
 setInterval(runTime, 1000);
 
-let views = ref(0);
+let cnt = ref(0);
+
+const addViews=async ()=>{
+  await reqAddViews()
+}
+
 const getViews = async () => {
+  await addViews()
   const res = await reqGetViews();
   if (res.status == 200) {
-    views.value = res.data;
+    cnt.value = res.data;
   }
 };
 getViews();

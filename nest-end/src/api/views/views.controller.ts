@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Req } from '@nestjs/common';
 import { ViewsService } from './views.service';
 import {Views} from "./entities/view.entity";
 import {Result} from "../../common/result";
@@ -8,13 +8,18 @@ export class ViewsController {
   constructor(private readonly viewsService: ViewsService) {}
 
   @Post()
-  async create(@Body() views: Views) {
-    return new Result(await this.viewsService.create(views))
+  async create(@Body() views: any,@Req() req:any) {
+    return new Result(await this.viewsService.create(views,req))
   }
 
   @Get()
   async findAll() {
     return new Result(await this.viewsService.findAll())
+  }
+
+  @Get('cnt')
+  async getCnt() {
+    return new Result(await this.viewsService.getCnt())
   }
 
   @Get()

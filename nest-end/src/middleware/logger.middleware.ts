@@ -3,15 +3,15 @@ import { Request, Response, NextFunction } from 'express';
 import { LoggerService } from '../api/logger/logger.service';
 import {OperationLogService} from "../api/operation-log/operation-log.service";
 import {OperationLog} from "../api/operation-log/entities/operation-log.entity";
-import objectToString from "../utils/objectToString"; // 假设你的LoggerService路径在这里
+import objectToString from "../utils/objectToString";
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   constructor(private readonly loggerService: LoggerService,private  readonly operationLogService:OperationLogService) {}
 
   use(req: Request | any, res: Response, next: NextFunction) {
-    const { method, originalUrl, ip ,params } = req;
-    this.loggerService.log(`[${method}] ${originalUrl} from ${ip}`);
+    let { method, originalUrl, ip ,params } = req;
+    this.loggerService.log(`[${method}] ${originalUrl} from ${ip.replace('::ffff:','')}`);
     let userId=-1
     let nickname=''
     if(req.user) {

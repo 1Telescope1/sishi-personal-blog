@@ -16,8 +16,8 @@ export class RedisService {
     });
   }
 
-  setValue(key: string, value: string){    
-    return this.redisClient.setex(key,2*60*60*24, value);
+  setValue(key: string, value: string,time:number=2*60*60*24){
+    return this.redisClient.setex(key,time, value);
   }
 
   getValue(key: string){
