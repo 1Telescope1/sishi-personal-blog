@@ -1,17 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req, Param, Delete } from '@nestjs/common';
 import { ChatService } from './chat.service';
-import { CreateChatDto } from './dto/create-chat.dto';
-import { UpdateChatDto } from './dto/update-chat.dto';
 import { Result } from 'src/common/result';
 import { ConfigService } from '@nestjs/config';
+import {Chat} from "./entities/chat.entity";
 
 @Controller('chat')
 export class ChatController {
   constructor(private readonly chatService: ChatService,private configService: ConfigService) {}
 
   @Post()
-  create(@Body() createChatDto: CreateChatDto) {
-    return this.chatService.create(createChatDto);
+  async create(@Body() chat: Chat,@Req() req:any) {
+    return new Result(await this.chatService.create(chat,req));
   }
 
   @Get()
@@ -26,10 +25,6 @@ export class ChatController {
     return this.chatService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateChatDto: UpdateChatDto) {
-    return this.chatService.update(+id, updateChatDto);
-  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

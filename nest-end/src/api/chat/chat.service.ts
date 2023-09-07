@@ -1,11 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { CreateChatDto } from './dto/create-chat.dto';
-import { UpdateChatDto } from './dto/update-chat.dto';
+import { Chat } from './entities/chat.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ChatService {
-  create(createChatDto: CreateChatDto) {
-    return 'This action adds a new chat';
+  constructor(
+    @InjectRepository(Chat) private readonly chatRepository: Repository<Chat>,
+  ) {}
+
+  async create(chat: Chat, req: any) {
+    const ip = req.ip;
+    chat.ip = ip;
+    if (req.user) chat.userId = req.user.userId;
+    const data = this.chatRepository.save(chat);
+    return data;
   }
 
   findAll() {
@@ -14,10 +23,6 @@ export class ChatService {
 
   findOne(id: number) {
     return `This action returns a #${id} chat`;
-  }
-
-  update(id: number, updateChatDto: UpdateChatDto) {
-    return `This action updates a #${id} chat`;
   }
 
   remove(id: number) {

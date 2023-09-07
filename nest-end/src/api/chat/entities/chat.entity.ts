@@ -1,8 +1,8 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity,PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("t_chat", { schema: "aurora" })
 export class Chat {
-  @Column("int", { primary: true, name: "id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
   @Column("varchar", { name: "ip", comment: "ip", length: 100 })
