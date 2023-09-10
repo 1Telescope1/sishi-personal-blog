@@ -31,17 +31,16 @@ export class WebsocketGateway implements OnGatewayInit, OnGatewayConnection, OnG
     this.incrementUsersCount();
     this.server.emit('usersCount', this.currentUsers)
 
+    if(this.messages.length<1) {
+      const chats=await this.chatService.findAll()
+      this.messages=chats
+    }
 
-    const chats=await this.chatService.findAll()
-    this.messages=chats
     this.server.emit('message', this.messages)
 
     // 监听 'chatMessage' 事件
     socket.on('chatMessage', (message) => {
-      console.log('Received chatMessage:', message);
       this.messages.push(message)
-      console.log(this.messages)
-      // 在这里可以对接收到的消息进行处理
     });
   }
 

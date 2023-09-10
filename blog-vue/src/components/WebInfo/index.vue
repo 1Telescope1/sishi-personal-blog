@@ -20,10 +20,11 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted} from "vue";
+import {ref, onMounted,computed} from "vue";
 import {reqGetViews} from "../../api/views/index";
 import io from 'socket.io-client';
 import {reqAddViews} from "@/api/blog";
+import {useBlogStore} from "@/store/blog.ts";
 
 let time = ref("");
 const runTime = () => {
@@ -56,24 +57,27 @@ const getViews = async () => {
 getViews();
 
 
-let onlineNumber = ref(0)
+// let onlineNumber = ref(0)
+
+let blogStore=useBlogStore()
+
+const onlineNumber=computed(()=>blogStore.onlineNumber)
 
 const socket = io(`ws://${import.meta.env.VITE_WS_URL}`);
-console.log(`ws://${import.meta.env.VITE_WS_URL}`)
 
 onMounted(() => {
   // 监听 'usersCount' 事件，并更新用户数
   socket.on('usersCount', (count) => {
-    onlineNumber.value = count;
+    blogStore.setOnlineNumber(count)
   });
 
-
-  socket.emit('chatMessage', ['abc']);
 
   socket.on('message', (data => {
       console.log(data)
     })
   )
+
+  socket.emit('chatMessage', ['abc']);
 
 
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="tool-container" :style="process>0 ?  '' : none">
-    <div @click="pushComment" v-show="commentShow($route.name as string)" class="comment">
+    <div @click="pushComment" v-show="commentShow(route.name as string)" class="comment">
       <SvgIcon icon-class="comments" size="1.2rem"></SvgIcon>
     </div>
     <div class="top" @click="pushTop">
@@ -9,12 +9,24 @@
       </div>
       <div>{{ process}}%</div>
     </div>
+    <div class="chat" @click="setIsShowChatRoom">
+      <div>
+        <SvgIcon color="#d81e06" icon-class="chat" size="1rem"></SvgIcon>
+        <ChatRoom ></ChatRoom>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang='ts'>
 import { useEventListener } from "@vueuse/core";
 import {ref,computed} from 'vue'
+import {useRoute} from 'vue-router'
+import {useBlogStore} from "@/store/blog.ts";
+
+const route=useRoute()
+
+const {setIsShowChatRoom}=useBlogStore()
 
 const none={
   transform: "translateX(40px)"
@@ -61,7 +73,7 @@ const pushTop=()=>{
   color: #E9546B;
   transition: all 0.5s;
   box-shadow: 0 0 0.5rem #0000001a;
-  .top,.comment {
+  .top,.chat,.comment {
     display: flex;
     align-items: center;
     flex-direction: column;

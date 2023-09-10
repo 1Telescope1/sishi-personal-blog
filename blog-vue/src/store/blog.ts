@@ -8,6 +8,12 @@ export const useBlogStore = defineStore(
   () => {
     const authorInfo = ref<User>();
 
+    const isShowChatRoom=ref(false)
+
+    const setIsShowChatRoom=()=>{
+      isShowChatRoom.value=!isShowChatRoom.value
+    }
+
     const setAuthorInfo = (data: User) => {
       authorInfo.value = data;
     };
@@ -37,7 +43,9 @@ export const useBlogStore = defineStore(
       setAuthorInfo,
       articleLen,
       tagLen,
-      talkLen
+      talkLen,
+      isShowChatRoom,
+      setIsShowChatRoom
     };
   },
   {
