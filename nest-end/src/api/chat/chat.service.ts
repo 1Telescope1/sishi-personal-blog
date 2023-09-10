@@ -11,7 +11,7 @@ export class ChatService {
 
   async create(chat: Chat, req: any) {
     const ip = req.ip;
-    chat.ip = ip;
+    chat.ip = ip.replace('::ffff:','');
     if (req.user) chat.userId = req.user.userId;
     const data = this.chatRepository.save(chat);
     return data;

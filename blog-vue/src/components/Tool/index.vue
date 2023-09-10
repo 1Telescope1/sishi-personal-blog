@@ -12,7 +12,6 @@
     <div class="chat" @click="setIsShowChatRoom">
       <div>
         <SvgIcon color="#d81e06" icon-class="chat" size="1rem"></SvgIcon>
-        <ChatRoom ></ChatRoom>
       </div>
     </div>
   </div>

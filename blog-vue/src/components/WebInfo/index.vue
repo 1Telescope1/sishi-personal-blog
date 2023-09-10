@@ -57,8 +57,6 @@ const getViews = async () => {
 getViews();
 
 
-// let onlineNumber = ref(0)
-
 let blogStore=useBlogStore()
 
 const onlineNumber=computed(()=>blogStore.onlineNumber)
@@ -70,15 +68,6 @@ onMounted(() => {
   socket.on('usersCount', (count) => {
     blogStore.setOnlineNumber(count)
   });
-
-
-  socket.on('message', (data => {
-      console.log(data)
-    })
-  )
-
-  socket.emit('chatMessage', ['abc']);
-
 
 })
 
