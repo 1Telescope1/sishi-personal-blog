@@ -20,10 +20,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref,onMounted } from "vue";
-import { reqGetViews } from "../../api/views/index";
+import {ref, onMounted} from "vue";
+import {reqGetViews} from "../../api/views/index";
 import io from 'socket.io-client';
-import { reqAddViews } from "@/api/blog";
+import {reqAddViews} from "@/api/blog";
 
 let time = ref("");
 const runTime = () => {
@@ -42,7 +42,7 @@ setInterval(runTime, 1000);
 
 let cnt = ref(0);
 
-const addViews=async ()=>{
+const addViews = async () => {
   await reqAddViews()
 }
 
@@ -56,18 +56,26 @@ const getViews = async () => {
 getViews();
 
 
-let onlineNumber=ref(0)
+let onlineNumber = ref(0)
 
-const socket = io(`ws://${import.meta.env.VITE_WS_URL}`); // 替换为您的Nest.js服务器地址
+const socket = io(`ws://${import.meta.env.VITE_WS_URL}`);
+console.log(`ws://${import.meta.env.VITE_WS_URL}`)
 
-onMounted(()=>{
+onMounted(() => {
   // 监听 'usersCount' 事件，并更新用户数
   socket.on('usersCount', (count) => {
     onlineNumber.value = count;
   });
 
-  // 向服务器发送 'getUsersCount' 事件，以获取当前用户数
-  socket.emit('getUsersCount');
+
+  socket.emit('chatMessage', ['abc']);
+
+  socket.on('message', (data => {
+      console.log(data)
+    })
+  )
+
+
 })
 
 </script>
@@ -84,10 +92,12 @@ onMounted(()=>{
     display: flex;
     align-items: center;
   }
+
   .text {
     font-size: 18px;
     margin-left: 10px;
   }
+
   .time,
   .views,
   .online-number {

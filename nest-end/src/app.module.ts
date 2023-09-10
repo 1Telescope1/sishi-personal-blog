@@ -27,7 +27,7 @@ import { RedisModule } from './api/redis/redis.module';
 import { JwtMiddleware } from './middleware/jwt.middleware';
 import { LoggerModule } from './api/logger/logger.module';
 import {LoggerMiddleware} from "./middleware/logger.middleware";
-import {WebsocketGateway} from "./gateway/websocket.gatway";
+import {WebsocketModule} from "./gateway/websocket.module";
 import { ChatModule } from './api/chat/chat.module';
 import { ExceptionLogModule } from './api/exception-log/exception-log.module';
 import { OperationLogModule } from './api/operation-log/operation-log.module';
@@ -76,7 +76,7 @@ import { ViewsModule } from './api/views/views.module';
     AuthModule,
     RedisModule,
     LoggerModule,
-    WebsocketGateway,
+    WebsocketModule,
     ChatModule,
     ExceptionLogModule,
     OperationLogModule,

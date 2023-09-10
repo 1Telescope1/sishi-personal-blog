@@ -8,7 +8,7 @@ import { JwtGuard } from 'src/guards/jwt/jwt.guard';
 
 @Controller('chat')
 export class ChatController {
-  constructor(private readonly chatService: ChatService,private configService: ConfigService) {}
+  constructor(private readonly chatService: ChatService) {}
 
   @Post()
   async create(@Body() chat: Chat,@Req() req:any) {

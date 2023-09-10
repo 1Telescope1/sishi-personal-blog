@@ -4,9 +4,10 @@ import { ViewsController } from './views.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Views } from './entities/view.entity';
 import {RedisService} from "../redis/redis.service";
+import {Share} from "../../utils/share";
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Views])],
+  imports:[TypeOrmModule.forFeature([Views]),Share],
   controllers: [ViewsController],
   providers: [ViewsService,RedisService]
 })
