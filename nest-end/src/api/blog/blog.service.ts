@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBlogDto } from './dto/create-blog.dto';
-import { UpdateBlogDto } from './dto/update-blog.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Article } from '../article/entities/article.entity';
 import { Repository } from 'typeorm';

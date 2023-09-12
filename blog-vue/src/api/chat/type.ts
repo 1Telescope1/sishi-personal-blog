@@ -4,4 +4,6 @@ export interface Chat {
   userId: string;
   createTime: string;
   content: string;
+  nickname:string,
+  avatar:string
 }

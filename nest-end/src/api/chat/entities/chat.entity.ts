@@ -14,7 +14,7 @@ export class Chat {
     comment: "用户id",
     length: 100,
   })
-  userId: string | null;
+  userId: number | null;
 
   @Column("datetime", {
     name: "create_time",
@@ -25,4 +25,8 @@ export class Chat {
 
   @Column("varchar", { name: "content", comment: "内容", length: 255 })
   content: string;
+
+  avatar:string
+
+  nickname:string
 }

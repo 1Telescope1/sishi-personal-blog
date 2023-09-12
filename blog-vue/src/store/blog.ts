@@ -1,6 +1,7 @@
 import {  User } from "@/api/user/type";
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
+import {Chat} from "@/api/chat/type.ts";
 
 // 定义用户状态仓库
 export const useBlogStore = defineStore(
@@ -33,6 +34,12 @@ export const useBlogStore = defineStore(
 
     let isDark = ref(false);
 
+    const chatByUser=ref<Chat>()
+
+    const setChatByUser=(data:Chat) =>{
+      chatByUser.value=data
+    }
+
     return {
       onlineNumber,
       setOnlineNumber,
@@ -45,7 +52,9 @@ export const useBlogStore = defineStore(
       tagLen,
       talkLen,
       isShowChatRoom,
-      setIsShowChatRoom
+      setIsShowChatRoom,
+      chatByUser,
+      setChatByUser
     };
   },
   {
