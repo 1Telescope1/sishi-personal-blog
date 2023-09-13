@@ -73,7 +73,13 @@ const handleSend = async () => {
     return;
   }
 
-  const res = await reqSendChat({content: chatContent.value})
+  let userId=0
+
+  if(user) {
+    userId=user.userinfo.id
+  }
+
+  const res = await reqSendChat({content: chatContent.value,userId})
   if (res.status == 200) {
     notification('success', '发送成功')
     chatContent.value = ''
@@ -83,6 +89,8 @@ const handleSend = async () => {
     ip.value = res.data.ip
   }
 }
+
+let cnt=0
 
 const isMy = (data: Chat) => {
   return (chatByUser.value?.ip == data.ip) || (chatByUser.value?.userId == user?.userinfo?.id && user)
@@ -94,7 +102,6 @@ const chats = ref<Chat[]>([])
 const initChats=()=>{
   socket.on('initChats', (data => {
       chats.value = data
-    console.log(chats.value)
     })
   )
 }

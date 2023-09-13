@@ -5,4 +5,4 @@ import {Chat} from "@/api/chat/type.ts";
 export const reqAllChat=()=>request<Chat>(`/chat`,'GET')
 
 // 发送聊天
-export const reqSendChat=(data:{content:string})=>request<any>(`/chat`,'POST',data)
+export const reqSendChat=(data:{content:string,userId?:number})=>request<any>(`/chat`,'POST',data)

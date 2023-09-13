@@ -34,9 +34,9 @@ export const useBlogStore = defineStore(
 
     let isDark = ref(false);
 
-    const chatByUser=ref<Chat>()
+    const chatByUser=ref<Chat | null>()
 
-    const setChatByUser=(data:Chat) =>{
+    const setChatByUser=(data:Chat|null) =>{
       chatByUser.value=data
     }
 

@@ -16,16 +16,14 @@ export class ChatService {
   async create(chat: Chat, req: any) {
     const ip = req.ip;
     chat.ip = ip.replace('::ffff:', '');
-    if (req.user) chat.userId = req.user.userId;
-    if (!chat.userId) {
-      const userinfo = await this.userinfoRepository
-        .createQueryBuilder('user')
-        .where('user.id=:id', { id: 0 })
-        .getOne();
-      chat.userId = userinfo.id;
-      chat.avatar = userinfo.avatar;
-      chat.nickname = userinfo.nickname;
-    }
+    const userinfo = await this.userinfoRepository
+      .createQueryBuilder('user')
+      .where('user.id=:id', { id: chat.userId })
+      .getOne();
+    chat.userId = userinfo.id;
+    chat.avatar = userinfo.avatar;
+    chat.nickname = userinfo.nickname;
+
     const data = await this.chatRepository.save(chat);
     return data;
   }
