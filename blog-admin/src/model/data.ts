@@ -84,3 +84,7 @@ export const LogForm={
   pageNum:1
 }
 
+export const chatForm={
+  content:""
+}
+
