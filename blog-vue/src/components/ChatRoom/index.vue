@@ -102,8 +102,14 @@ const chats = ref<Chat[]>([])
 const initChats=()=>{
   socket.on('initChats', (data => {
       chats.value = data
+    console.log(chats.value)
     })
   )
+
+  // 将滚动条滚动到底部
+  const chatContent = document.querySelector('.chat-content');
+  chatContent.scrollTop = chatContent.scrollHeight;
+  console.log(chatContent.scrollTop)
 }
 
 onMounted(() => {

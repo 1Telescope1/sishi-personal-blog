@@ -32,7 +32,7 @@ export class WebsocketGateway implements OnGatewayInit, OnGatewayConnection, OnG
     this.server.emit('usersCount', this.currentUsers)
 
     if(this.chats.length<1) {
-      const chats=await this.chatService.findAll()
+      const chats=await this.chatService.findTen()
       this.chats=chats
     }
 

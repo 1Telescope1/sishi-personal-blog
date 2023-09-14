@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Req, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req, Param, Delete, UseGuards,Query,ParseIntPipe } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { Result } from 'src/common/result';
-import { ConfigService } from '@nestjs/config';
 import {Chat} from "./entities/chat.entity";
 import { AdminGuard } from 'src/guards/admin/admin.guard';
 import { JwtGuard } from 'src/guards/jwt/jwt.guard';
@@ -18,6 +17,19 @@ export class ChatController {
   @Get()
   async findAll() {
     return new Result(await this.chatService.findAll())
+  }
+
+  @Get('ten')
+  async findTen() {
+    return new Result(await this.chatService.findTen())
+  }
+
+  @Get('page')
+  async findPage(@Query('pageNum', new ParseIntPipe()) pageNum: number,
+                 @Query('pageSize', new ParseIntPipe()) pageSize: number,
+                 @Query('content') content: string,) {
+    return new Result(await this.chatService.findPage(pageNum,pageSize,content))
+
   }
 
   @Get(':id')

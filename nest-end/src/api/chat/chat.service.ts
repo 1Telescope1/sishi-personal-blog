@@ -36,6 +36,29 @@ export class ChatService {
     return transformedResult;
   }
 
+  async findTen() {
+    const data=await this.chatRepository.query('select tc.*,tu.nickname,tu.avatar from t_chat tc left join t_user_info tu on tc.userId=tu.id limit 10')
+    const transformedResult = transformData(data);
+    return transformedResult
+  }
+
+  async findPage(pageNum: number, pageSize: number, content: string) {
+    const totalResult = await this.chatRepository.query(
+      'select count(*) as total from t_chat tc left join t_user_info tu on tc.userId=tu.id where tc.content like ?',
+      [`%${content}%`],
+    );
+
+    const data = await this.chatRepository.query(
+      'select tc.*,tu.nickname,tu.avatar from t_chat tc left join t_user_info tu on tc.userId=tu.id where tc.content like ? order by id desc limit ?,?',
+      [`%${content}%`,(pageNum - 1) * pageSize, pageSize],
+    );
+
+    const transformedResult=transformData(data)
+
+
+    return { records: transformedResult,total:Number(totalResult[0].total), pageSize, pageNum };
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} chat`;
   }
