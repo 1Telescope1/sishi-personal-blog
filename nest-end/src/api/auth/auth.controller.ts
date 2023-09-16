@@ -12,11 +12,13 @@ import { CreateUserInfoDto } from '../user-info/dto/create-user-info.dto';
 import { UserInfo } from '../user-info/entities/user-info.entity';
 import * as svgCaptcha from 'svg-captcha';
 import {registerError} from "../../common/exception";
+import {RedisService} from "../redis/redis.service";
 
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService,
+              private readonly redisService:RedisService) {}
 
   // 登录
   @Post('signin')
@@ -30,9 +32,21 @@ export class AuthController {
   //注册
   @Post('signup')
   async signup(@Body() userInfoDto: CreateUserInfoDto,@Req() req:any) {
-    if(userInfoDto.identifyCode.toLocaleLowerCase()!=req.session.captcha.toLocaleLowerCase()) {
-      throw new registerError('验证码有误')
+    const arrVal=[]
+    const keys=await this.redisService.getAllKeys("code:*")
+    for(let i=0;i<keys.length;i++) {
+      const val=await this.redisService.getValue(keys[i])
+      arrVal.push(val)
     }
+    let flag=false
+    for (let i=0;i<arrVal.length;i++) {
+      if(userInfoDto.identifyCode.toLocaleLowerCase()==arrVal[i].toLocaleLowerCase()) {
+        flag=true
+        break
+      }
+    }
+    if(!flag) throw new registerError('验证码有误')
+
     if(userInfoDto.password!=userInfoDto.confirmPwd) {
       return new Result(null,406)
     }
@@ -51,6 +65,7 @@ export class AuthController {
       background: '#cc9966', //背景颜色
     });
     req.session.captcha = captcha.text;//存储验证码记录到session
+    this.redisService.setValue(`code:${captcha.text}`,captcha.text,60)
     res.type('svg');
     res.send(captcha.data);
     return new Result(captcha.data)
