@@ -9,7 +9,7 @@ import {router} from '@/router/index.ts'
 const baseURL = import.meta.env.VITE_BASE_API;
 const instance = axios.create({
   baseURL: baseURL,
-  timeout: 15000,
+  timeout: 20000,
 });
 
 
@@ -42,6 +42,7 @@ instance.interceptors.response.use(
     return res.data;
   },
   (err) => {
+    console.log(err)
 
     if(err.response.status==500) {
       notification(err.response.statusText,"error")

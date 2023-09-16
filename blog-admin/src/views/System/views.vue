@@ -7,24 +7,22 @@
         </div>
       </template>
       <div>
-        <Search :model="searchForm" @search="getData" @reset="resetSearchForm">
-          <SearchItem>
-            <el-input clearable style="width: 220px;" size="default" v-model="searchForm.content"
-                      placeholder="内容"></el-input>
-          </SearchItem>
-        </Search>
+<!--        <Search :model="searchForm" @search="getData" @reset="resetSearchForm">-->
+<!--          <SearchItem>-->
+<!--            <el-input clearable style="width: 220px;" size="default" v-model="searchForm.address"-->
+<!--                      placeholder="物理地址"></el-input>-->
+<!--          </SearchItem>-->
+<!--        </Search>-->
         <InfoButton layout="delete,refresh" @refresh="getData" @delete="handleMultiDelete"></InfoButton>
       </div>
       <div>
         <el-table ref="multipleTableRef" @selection-change="handleSelectionChange" :data="tableData" stripe style="width: 100%" v-loading="loading">
           <el-table-column type="selection" width="55" />
-          <el-table-column label="内容" prop="content" align="center">
-          </el-table-column>
           <el-table-column label="ip" prop="ip" align="center">
           </el-table-column>
-          <el-table-column label="发布人" prop="nickname" align="center">
+          <el-table-column label="物理地址" prop="address" align="center">
           </el-table-column>
-          <el-table-column label="发布时间" align="center">
+          <el-table-column label="浏览时间" align="center">
             <template #default="{row}">
               {{formatDateTime(row.createTime).substring(0,10)}}
             </template>
@@ -45,7 +43,6 @@
         </div>
       </div>
     </el-card>
-
   </div>
 </template>
 
@@ -53,12 +50,13 @@
 import {useRoute} from 'vue-router'
 import {useInitTable} from "@/hooks/useTable.ts";
 import {chatForm} from "@/model/data.ts";
+import {reqDelView, reqDelViewsByIds, reqViewsPage} from "@/api/views";
 import {formatDateTime} from "@/utils/date.ts";
 import { Delete } from '@element-plus/icons-vue'
-import {reqChatPage, reqDelChat, reqDelChats} from "@/api/chat";
 
 
 const route=useRoute()
+
 
 const {
   searchForm,
@@ -75,16 +73,13 @@ const {
   handleMultiDelete,
 } = useInitTable({
   searchForm:chatForm,
-  getList:reqChatPage,
-  delete:reqDelChat,
-  deleteList:reqDelChats
+  getList:reqViewsPage,
+  delete:reqDelView,
+  deleteList:reqDelViewsByIds
 })
 
 </script>
 
 <style scoped lang="scss">
-.img {
-  width: 100%;
-  height: 70px;
-}
+
 </style>

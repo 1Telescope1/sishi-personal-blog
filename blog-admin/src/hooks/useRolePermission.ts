@@ -34,7 +34,7 @@ export function useRolePermission(getData: Function) {
   }
 
   const handleClick = (data: any, obj: any) => {
-
+    console.log(data)
     checkedKeys.value = obj.checkedKeys
   }
 

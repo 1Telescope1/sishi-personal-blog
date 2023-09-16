@@ -108,6 +108,15 @@ export const asyncRoutes = [
     },
   },
   {
+    path: "/system/views",
+    name: "views",
+    component: () => import("@/views/System/views.vue"),
+    meta: {
+      keepAlive: true,
+      title: "浏览管理",
+    },
+  },
+  {
     path: "/talk/publish",
     name: "publishTalk",
     component: () => import("@/views/Talk/talk.vue"),

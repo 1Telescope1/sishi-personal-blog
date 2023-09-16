@@ -27,7 +27,7 @@ export class ChatController {
   @Get('page')
   async findPage(@Query('pageNum', new ParseIntPipe()) pageNum: number,
                  @Query('pageSize', new ParseIntPipe()) pageSize: number,
-                 @Query('content') content: string,) {
+                 @Query('content') content: string) {
     return new Result(await this.chatService.findPage(pageNum,pageSize,content))
 
   }

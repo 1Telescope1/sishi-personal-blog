@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Param, Delete,Req, UseGuards,ParseIntPipe } from '@nestjs/common';
 import { ViewsService } from './views.service';
 import {Views} from "./entities/view.entity";
 import {Result} from "../../common/result";
@@ -17,6 +17,13 @@ export class ViewsController {
   @Get()
   async findAll() {
     return new Result(await this.viewsService.findAll())
+  }
+
+  @Get('page')
+  async findPage(@Query('pageNum', new ParseIntPipe()) pageNum: number,
+                 @Query('pageSize', new ParseIntPipe()) pageSize: number,
+                 @Query('address') address: string) {
+    return new Result(await this.viewsService.findPage(pageNum,pageSize,address))
   }
 
   @Get('cnt')
