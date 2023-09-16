@@ -49,6 +49,9 @@ instance.interceptors.response.use(
       
     // } 
     switch (response.status) {
+      case 400:
+        notification("error",response.data,"error")
+        break
       case 401:
         notification("error",response.data,"error")
         break

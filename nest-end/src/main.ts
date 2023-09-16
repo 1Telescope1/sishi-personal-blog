@@ -6,15 +6,14 @@ import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import {Response} from './common/response'
 import {ExceptionLogService} from "./api/exception-log/exception-log.service";
+import * as session from 'express-session';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: true,
   });
 
-  // const envFilePath =
-  //   process.env.NODE_ENV === 'production' ? '.env.development.production' : '.env.development';
-  // config({ path: envFilePath });
 
   const exceptionLogService = app.get(ExceptionLogService);
 
@@ -43,6 +42,15 @@ async function bootstrap() {
           }),
         });
       },
+    }),
+  );
+
+  // 使用session
+  app.use(
+    session({
+      secret: 'sishi',
+      resave: false,
+      saveUninitialized: false,
     }),
   );
 

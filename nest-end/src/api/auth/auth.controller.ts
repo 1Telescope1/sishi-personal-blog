@@ -1,13 +1,18 @@
 import {
   Controller,
+  Get,
   Post,
   Body,
-  Req
+  Req,
+  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Result } from '../../common/result';
 import { CreateUserInfoDto } from '../user-info/dto/create-user-info.dto';
 import { UserInfo } from '../user-info/entities/user-info.entity';
+import * as svgCaptcha from 'svg-captcha';
+import {registerError} from "../../common/exception";
+
 
 @Controller('auth')
 export class AuthController {
@@ -15,7 +20,7 @@ export class AuthController {
 
   // 登录
   @Post('signin')
-  async signin(@Body() userInfo: UserInfo,@Req() res:any) {
+  async signin(@Body() userInfo: UserInfo) {
     const { nickname, password } = userInfo;
 
     const data=await this.authService.signin(nickname,password)
@@ -24,10 +29,30 @@ export class AuthController {
 
   //注册
   @Post('signup')
-  async signup(@Body() userInfoDto: CreateUserInfoDto) {
+  async signup(@Body() userInfoDto: CreateUserInfoDto,@Req() req:any) {
+    if(userInfoDto.identifyCode.toLocaleLowerCase()!=req.session.captcha.toLocaleLowerCase()) {
+      throw new registerError('验证码有误')
+    }
     if(userInfoDto.password!=userInfoDto.confirmPwd) {
       return new Result(null,406)
     }
     return new Result(await this.authService.signup(userInfoDto));
+  }
+
+  // 获取验证码
+  //利用svg-captcha生成校验码图片并存储在前端session中
+  @Get('code/:id')
+  createCaptcha( @Req() req, @Res() res) {
+    const captcha = svgCaptcha.create({
+      size: 4, //生成几个验证码
+      fontSize: 50, //文字大小
+      width: 100, //宽度
+      height: 34, //高度
+      background: '#cc9966', //背景颜色
+    });
+    req.session.captcha = captcha.text;//存储验证码记录到session
+    res.type('svg');
+    res.send(captcha.data);
+    return new Result(captcha.data)
   }
 }

@@ -6,6 +6,12 @@ export class loginError extends HttpException {
   }
 }
 
+export class registerError extends HttpException {
+  constructor(message: string) {
+    super(message, HttpStatus.BAD_REQUEST);
+  }
+}
+
 export class tokenError extends HttpException {
   constructor(message:string) {
     super(message,HttpStatus.EXPECTATION_FAILED);

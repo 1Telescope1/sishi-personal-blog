@@ -141,7 +141,7 @@ const login = async (formEl: FormInstance | undefined) => {
 
 const getIdentifyCode = () => {
   const id = Math.floor(Math.random() * 100 + 1);
-  codeUrl.value = `${import.meta.env.VITE_BASE_API}/user/identifyImage/${id}`;
+  codeUrl.value = `${import.meta.env.VITE_BASE_API}/auth/code/${id}`;
 };
 getIdentifyCode();
 
