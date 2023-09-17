@@ -4,7 +4,7 @@
       <template #header>
         <div class="card-header">
           <div class="first">
-            <span>{{route.meta.title}}</span>
+            <span>{{ route.meta.title }}</span>
             <el-button size="large" type="primary" class="button" text @click="dialogVisible = true">发布文章
             </el-button>
           </div>
@@ -18,7 +18,22 @@
           </div>
         </div>
       </template>
-      <v-md-editor v-model="form.articleContent" height="400px"></v-md-editor>
+      <!--      <v-md-editor v-model="form.articleContent" height="400px"></v-md-editor>-->
+      <div style="border: 1px solid #ccc">
+        <Toolbar
+          style="border-bottom: 1px solid #ccc"
+          :editor="editorRef"
+          :defaultConfig="toolbarConfig"
+          :mode="mode"
+        />
+        <Editor
+          style="height: 500px; overflow-y: hidden;"
+          v-model="form.articleContent"
+          :defaultConfig="editorConfig"
+          :mode="mode"
+          @onCreated="handleCreated"
+        />
+      </div>
     </el-card>
 
 
@@ -81,20 +96,24 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from "vue";
+import '@wangeditor/editor/dist/css/style.css' // 引入 css
+
+import {onBeforeUnmount, ref, shallowRef} from 'vue'
+import {Editor, Toolbar} from '@wangeditor/editor-for-vue'
 import {formatDate} from "@/utils/date.ts";
 import {Article, CreateArticle} from "@/api/article/type.ts";
 import {useUserStore} from "@/store/user.ts";
 import {Tag} from "@/model";
 import {reqTags} from "@/api/tag";
-import {Check, Close, UploadFilled} from "@element-plus/icons-vue";
+import {Check, Close} from "@element-plus/icons-vue";
 import {reqArticleById, reqPublishArticle} from "@/api/article";
 import {notification} from "@/utils/elComponent.ts";
 import {articleStatus, articleType, categoryList} from "@/model/data.ts"
-import {useRoute,useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+
 
 const route = useRoute()
-const router=useRouter()
+const router = useRouter()
 const {user} = useUserStore()
 const form = ref<CreateArticle>({
   articleContent: "",
@@ -111,10 +130,26 @@ const form = ref<CreateArticle>({
   userId: user!.id
 })
 
-const handleAvatar=(imgUrl:string)=>{
+// 编辑器实例，必须用 shallowRef
+const editorRef = shallowRef()
+const toolbarConfig = {}
+const editorConfig = {placeholder: '请输入内容...'}
+const mode = 'default' // 或 'simple'
+
+// 组件销毁时，也及时销毁编辑器
+onBeforeUnmount(() => {
+  const editor = editorRef.value
+  if (editor == null) return
+  editor.destroy()
+})
+
+const handleCreated = (editor) => {
+  editorRef.value = editor // 记录 editor 实例，重要！
+}
+
+const handleAvatar = (imgUrl: string) => {
   console.log(imgUrl)
-  form.value.articleCover=imgUrl
-  console.log(form.value.articleCover)
+  form.value.articleCover = imgUrl
 }
 
 
@@ -158,6 +193,7 @@ const publishArticle = async () => {
 .card-header {
   flex-direction: column;
 }
+
 .first {
   display: flex;
   justify-content: space-between;
