@@ -51,25 +51,35 @@
 </template>
 
 <script setup lang="ts">
+import {ref} from 'vue'
 import {reqAddOrUpdateTag, reqDelTag, reqTags} from "@/api/tag";
 import {useInitTable} from "@/hooks/useTable.ts";
 import {formatDateTime} from "@/utils/date.ts";
 import {  Edit,Delete } from '@element-plus/icons-vue'
 import {useInitForm} from "@/hooks/useForm.ts";
 import {useRoute} from 'vue-router'
+import {Tag} from "@/model";
 
 const route=useRoute()
 
 const {
-  tableData,
   loading,
   handleSelectionChange,
   handleDelete,
-  getData,
 }=useInitTable({
   getList:reqTags,
   delete:reqDelTag,
 })
+
+const tableData=ref<Tag[]>([])
+
+const getData=async ()=>{
+  const res=await reqTags()
+  if(res.status==200) {
+    tableData.value=res.data
+  }
+}
+getData()
 
 const {
   formDrawerRef,

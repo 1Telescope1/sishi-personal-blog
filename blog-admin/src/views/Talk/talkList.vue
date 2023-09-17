@@ -60,27 +60,36 @@
 </template>
 
 <script setup lang="ts">
+import {ref} from 'vue'
 import { useRoute,useRouter } from "vue-router";
 import { useInitTable } from "@/hooks/useTable.ts";
 import { reqAllTalk, reqDelTalk } from "@/api/talk";
 import { formatDateTime } from "../../utils/date.ts";
 import {  Edit,Delete } from '@element-plus/icons-vue'
+import {Talk} from "@/api/talk/type.ts";
 
 
 const route = useRoute();
 const router=useRouter()
 const {
-  tableData,
   loading,
-  getData,
   handleDelete,
-  multiSelectionIds,
   handleSelectionChange,
   multipleTableRef,
 } = useInitTable({
-  getList: reqAllTalk,
+  getList:reqAllTalk,
   delete: reqDelTalk,
 });
+
+const tableData=ref<Talk[]>()
+const getData=async ()=>{
+  const res=await reqAllTalk()
+  if(res.status==200) {
+    tableData.value=res.data
+  }
+}
+getData()
+
 </script>
 
 <style scoped lang="scss">

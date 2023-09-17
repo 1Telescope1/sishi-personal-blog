@@ -17,7 +17,7 @@ let routes = [
     component: () => import("@/views/Login/index.vue"),
     meta: {
       keepAlive: false,
-      title: "注册页",
+      title: "登录页",
     },
   },
   {

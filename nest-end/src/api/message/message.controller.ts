@@ -12,7 +12,6 @@ export class MessageController {
   constructor(private readonly messageService: MessageService) {
   }
 
-  @UseGuards(JwtGuard,AdminGuard)
   @Post()
   async create(@Body() createMessageDto: CreateMessageDto) {
     return new Result(await this.messageService.create(createMessageDto));

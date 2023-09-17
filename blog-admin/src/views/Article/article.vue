@@ -53,19 +53,7 @@
           <el-input v-model="form.originalUrl" autocomplete="off"/>
         </el-form-item>
         <el-form-item label="上传封面" :label-width="formLabelWidth">
-          <el-upload
-            class="upload-demo"
-            drag
-            action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-            multiple
-          >
-            <el-icon class="el-icon--upload">
-              <upload-filled/>
-            </el-icon>
-            <div class="el-upload__text">
-              将文件拖到此处或<em>点击上传</em>
-            </div>
-          </el-upload>
+          <UploadImg @AvatarSuccess="handleAvatar" :imageUrl="form.articleCover"></UploadImg>
         </el-form-item>
         <el-form-item label="原文置顶" :label-width="formLabelWidth">
           <el-switch v-model="form.isTop" :active-icon="Check" :inactive-icon="Close"/>
@@ -122,6 +110,12 @@ const form = ref<CreateArticle>({
   type: 1,
   userId: user!.id
 })
+
+const handleAvatar=(imgUrl:string)=>{
+  console.log(imgUrl)
+  form.value.articleCover=imgUrl
+  console.log(form.value.articleCover)
+}
 
 
 const getArticle = async () => {
