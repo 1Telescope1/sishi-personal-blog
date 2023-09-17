@@ -18,22 +18,7 @@
           </div>
         </div>
       </template>
-      <!--      <v-md-editor v-model="form.articleContent" height="400px"></v-md-editor>-->
-      <div style="border: 1px solid #ccc">
-        <Toolbar
-          style="border-bottom: 1px solid #ccc"
-          :editor="editorRef"
-          :defaultConfig="toolbarConfig"
-          :mode="mode"
-        />
-        <Editor
-          style="height: 500px; overflow-y: hidden;"
-          v-model="form.articleContent"
-          :defaultConfig="editorConfig"
-          :mode="mode"
-          @onCreated="handleCreated"
-        />
-      </div>
+      <v-md-editor v-model="form.articleContent" height="400px"></v-md-editor>
     </el-card>
 
 
@@ -96,10 +81,8 @@
 </template>
 
 <script setup lang="ts">
-import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
-import {onBeforeUnmount, ref, shallowRef} from 'vue'
-import {Editor, Toolbar} from '@wangeditor/editor-for-vue'
+import {ref} from 'vue'
 import {formatDate} from "@/utils/date.ts";
 import {Article, CreateArticle} from "@/api/article/type.ts";
 import {useUserStore} from "@/store/user.ts";
@@ -130,22 +113,6 @@ const form = ref<CreateArticle>({
   userId: user!.id
 })
 
-// 编辑器实例，必须用 shallowRef
-const editorRef = shallowRef()
-const toolbarConfig = {}
-const editorConfig = {placeholder: '请输入内容...'}
-const mode = 'default' // 或 'simple'
-
-// 组件销毁时，也及时销毁编辑器
-onBeforeUnmount(() => {
-  const editor = editorRef.value
-  if (editor == null) return
-  editor.destroy()
-})
-
-const handleCreated = (editor) => {
-  editorRef.value = editor // 记录 editor 实例，重要！
-}
 
 const handleAvatar = (imgUrl: string) => {
   console.log(imgUrl)
