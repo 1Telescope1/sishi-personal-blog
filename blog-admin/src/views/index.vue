@@ -14,7 +14,7 @@
                 <div style="font-size: 24px;">
                   <div style="color: rgba(0,0,0,.45);">{{ item.name }}</div>
                   <div>
-                    <CounTo :value="item.value"></CounTo>
+                    <CounTo :value="item.cnt"></CounTo>
                   </div>
                 </div>
               </div>
@@ -24,11 +24,11 @@
       </template>
       <div>
         <el-row>
-          <el-col :span="16">
+          <el-col :span="24">
             <Echarts :options="articleOptions"></Echarts>
           </el-col>
-          <el-col :span="8">
-          </el-col>
+<!--          <el-col :span="8">-->
+<!--          </el-col>-->
         </el-row>
       </div>
     </el-card>
@@ -38,29 +38,41 @@
 <script setup lang='ts'>
 import {ref} from 'vue'
 import {reqRecentArticle} from "@/api/article";
+import {reqGetAdminBlogDetail} from "@/api/blog";
 
-const header = [
+const header = ref([
   {
     icon: "View",
     name: "访问量",
-    value: 10,
+    cnt: 0,
   },
   {
     icon: "User",
     name: "用户量",
-    value: 10,
+    cnt: 0,
   },
   {
     icon: "Notebook",
     name: "文章量",
-    value: 10,
+    cnt: 0,
   },
   {
     icon: "Message",
     name: "留言评论量",
-    value: 10,
+    cnt: 0,
   },
-]
+])
+
+const blogNumberDetail=async () =>{
+  const res=await reqGetAdminBlogDetail()
+  if(res.status==200) {
+    for (let i=0;i<res.data.length;i++) {
+      header.value[i].cnt=res.data[i]
+    }
+  }
+}
+
+blogNumberDetail()
 
 const articleOptions = ref({
   tooltip: {

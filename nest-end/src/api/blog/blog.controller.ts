@@ -11,4 +11,9 @@ export class BlogController {
     return new Result(await this.blogService.findAll());
   }
 
+  @Get('detail')
+  async blogDetail() {
+    return new Result(await this.blogService.blogDetail())
+  }
+
 }
