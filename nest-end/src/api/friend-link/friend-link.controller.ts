@@ -9,7 +9,6 @@ import { JwtGuard } from 'src/guards/jwt/jwt.guard';
 export class FriendLinkController {
   constructor(private readonly friendLinkService: FriendLinkService) {}
 
-  @UseGuards(JwtGuard,AdminGuard)
   @Post()
   async create(@Body() friendLink: FriendLink) {
     return new Result(await this.friendLinkService.create(friendLink));

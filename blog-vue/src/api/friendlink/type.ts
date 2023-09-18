@@ -1,9 +1,8 @@
 export interface Link {
-    url: string,
-    name: string,
-    avatar: string,
-    description: string,
-    email: string,
+	linkAddress:string,
+	linkName: string,
+	linkAvatar: string,
+	linkIntro: string,
 }
 
 export interface LinkDetail {

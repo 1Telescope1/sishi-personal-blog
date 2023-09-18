@@ -64,7 +64,7 @@
       </div>
       <div class="list">
         <div class="content" v-for="link in linkList" :key="link.id" @click="pushUrl(link.linkAddress)">
-          <div>
+          <div class="content-img">
             <img class="img rorate" v-lazy="link.linkAvatar" alt="">
           </div>
           <div class="info">
@@ -89,31 +89,24 @@
           prop="name"
           :label-width="formLabelWidth"
         >
-          <el-input v-model="link.name" autocomplete="off"></el-input>
+          <el-input v-model="link.linkName" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item
           label="网站头像"
           prop="avatar"
           :label-width="formLabelWidth"
         >
-          <el-input v-model="link.avatar" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item
-          label="邮箱地址"
-          prop="email"
-          :label-width="formLabelWidth"
-        >
-          <el-input v-model="link.email" autocomplete="off"></el-input>
+          <el-input v-model="link.linkAvatar" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item
           label="网站简介"
           prop="info"
           :label-width="formLabelWidth"
         >
-          <el-input v-model="link.description" autocomplete="off"></el-input>
+          <el-input v-model="link.linkIntro" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="网站地址" prop="url" :label-width="formLabelWidth">
-          <el-input v-model="link.url" autocomplete="off"></el-input>
+          <el-input v-model="link.linkAddress" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -146,11 +139,10 @@ const pushUrl = (url: string) => {
 const formLabelWidth = "120px";
 
 const link = reactive<Link>({
-  url: "",
-  name: "",
-  avatar: "",
-  description: "",
-  email: "",
+  linkAddress: "",
+  linkName: "",
+  linkAvatar: "",
+  linkIntro: "",
 });
 
 const rules = {
@@ -275,8 +267,12 @@ const submit = async () => {
     box-shadow: 0 0 2rem var(--box-bg-shadow);
     border-radius: 10px;
 
-    .img {
+    .content-img {
       width: 65px;
+    }
+
+    .img {
+      width: 65px ;
       height: 65px;
       border-radius: 10px;
       transition: all 0.5s;
@@ -288,7 +284,7 @@ const submit = async () => {
       flex-direction: column;
       font-size: 15px;
       font-weight: 600;
-
+      flex: 1;
       .name {
         color: #f080ce;
       }
