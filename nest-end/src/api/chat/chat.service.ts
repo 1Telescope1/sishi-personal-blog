@@ -37,7 +37,7 @@ export class ChatService {
   }
 
   async findTen() {
-    const data=await this.chatRepository.query('select tc.*,tu.nickname,tu.avatar from t_chat tc left join t_user_info tu on tc.userId=tu.id limit 10')
+    const data=await this.chatRepository.query('select tc.*,tu.nickname,tu.avatar from t_chat tc left join t_user_info tu on tc.userId=tu.id order by tc.id desc limit 10')
     const transformedResult = transformData(data);
     return transformedResult
   }

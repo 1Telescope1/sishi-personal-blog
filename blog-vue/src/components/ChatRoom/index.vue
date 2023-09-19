@@ -16,7 +16,7 @@
         <img class="user-avatar" :src="chat.avatar" alt="">
         <div :class="isMy(chat) ? 'right-info' : 'left-info'">
           <div class="user-info" :class="isMy(chat) ? 'my-chat' : ''">
-            <span style="color: var(--color-red);">{{ chat.userId!=0 ? chat.nickname : chat.ip }}</span>
+            <span style="color: var(--color-red);">{{ chat.userId != 0 ? chat.nickname : chat.ip }}</span>
             <span style="color :var(--color-blue);" :class="isMy(chat) ? 'right-info' : 'left-info'">
                 {{ formatDateTime(chat.createTime) }}
               </span>
@@ -73,24 +73,23 @@ const handleSend = async () => {
     return;
   }
 
-  let userId=0
+  let userId = 0
 
-  if(user) {
-    userId=user.userinfo.id
+  if (user) {
+    userId = user.userinfo.id
   }
 
-  const res = await reqSendChat({content: chatContent.value,userId})
+  const res = await reqSendChat({content: chatContent.value, userId})
   if (res.status == 200) {
     notification('success', '发送成功')
     chatContent.value = ''
     socket.emit('chatMessage', res.data);
     setChatByUser(res.data)
-    initChats()
     ip.value = res.data.ip
   }
 }
 
-let cnt=0
+let cnt = 0
 
 const isMy = (data: Chat) => {
   return (chatByUser.value?.ip == data.ip) || (chatByUser.value?.userId == user?.userinfo?.id && user)
@@ -99,15 +98,14 @@ const isMy = (data: Chat) => {
 const socket = io(`ws://${import.meta.env.VITE_WS_URL}`);
 const chats = ref<Chat[]>([])
 
-const initChats=()=>{
+const initChats = () => {
   socket.on('initChats', (data => {
       chats.value = data
     })
   )
-
-  // 将滚动条滚动到底部
-  const chatContent = document.querySelector('.chat-content');
-  chatContent.scrollTop = chatContent.scrollHeight;
+  socket.on('newChatMessage', (data) => {
+    chats.value=(data);
+  });
 }
 
 onMounted(() => {

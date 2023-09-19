@@ -20,6 +20,7 @@ export class ViewsService {
       req.headers['x-forwarded-for'] ||
       req.connection.remoteAddress;
     const ip = realIp.replace('::ffff:', '');
+    if(ip=="127.0.0.1") return
     view.ip = ip;
     const keys = await this.redisService.getAllKeys('ip:*');
     const vals = keys.map((item) => item.replace('ip:', ''));

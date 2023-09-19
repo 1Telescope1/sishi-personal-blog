@@ -33,7 +33,7 @@ export class WebsocketGateway implements OnGatewayInit, OnGatewayConnection, OnG
 
     if(this.chats.length<1) {
       const chats=await this.chatService.findTen()
-      this.chats=chats
+      this.chats=chats.reverse()
     }
 
     this.server.emit('initChats', this.chats)
@@ -41,6 +41,8 @@ export class WebsocketGateway implements OnGatewayInit, OnGatewayConnection, OnG
     // 监听 'chatMessage' 事件
     socket.on('chatMessage', (message) => {
       this.chats.push(message)
+      // 将消息发送给所有连接的客户端
+      this.server.emit('newChatMessage', this.chats);
     });
   }
 
