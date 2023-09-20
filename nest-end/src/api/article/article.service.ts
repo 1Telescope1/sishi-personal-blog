@@ -68,7 +68,7 @@ export class ArticleService {
       .getMany()
     return data
   }
-  findAll() {
+  async findAll() {
     const data = this.articleRepository
       .createQueryBuilder('article')
       .select()
@@ -79,6 +79,7 @@ export class ArticleService {
       .andWhere('article.isDelete=:isDelete', { isDelete: 0 })
       .orderBy('article.id', 'DESC')
       .getMany();
+
     return data;
   }
 

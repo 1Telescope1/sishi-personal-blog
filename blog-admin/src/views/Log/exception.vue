@@ -36,7 +36,7 @@
           </el-table-column>
           <el-table-column label="异常时间" align="center">
             <template #default="{row}">
-              {{formatDateTime(row.createTime).substring(0,10)}}
+              {{formatDateTime(row.createTime)}}
             </template>
           </el-table-column>
           <el-table-column label="操作" width="200" align="center">

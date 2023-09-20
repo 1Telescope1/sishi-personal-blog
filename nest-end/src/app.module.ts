@@ -47,7 +47,7 @@ import { ViewsModule } from './api/views/views.module';
         port: configService.get<number>('DATABASE_PORT', 3306), // 从环境变量获取，如果不存在则默认为 3306
         username: configService.get<string>('DATABASE_USERNAME', 'root'), // 从环境变量获取，如果不存在则默认为 'root'
         password: configService.get<string>('DATABASE_PASSWORD', '123456'), // 从环境变量获取，如果不存在则默认为 '123456'
-        database: configService.get<string>('DATABASE_NAME', 'aurora'), // 从环境变量获取，如果不存在则默认为 'aurora'
+        database: configService.get<string>('DATABASE_NAME', 'sishi'), // 从环境变量获取，如果不存在则默认为 'aurora'
         entities: [__dirname + '/**/**/*.entity{.ts,.js}'],
         retryDelay: 500,
         retryAttempts: 10,

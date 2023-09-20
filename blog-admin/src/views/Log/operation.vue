@@ -34,9 +34,9 @@
           </el-table-column>
           <el-table-column label="ip" prop="ipAddress" align="center">
           </el-table-column>
-          <el-table-column label="异常时间" align="center">
+          <el-table-column label="操作时间" align="center">
             <template #default="{row}">
-              {{formatDateTime(row.createTime).substring(0,10)}}
+              {{formatDateTime(row.createTime)}}
             </template>
           </el-table-column>
           <el-table-column label="操作" width="200" align="center">

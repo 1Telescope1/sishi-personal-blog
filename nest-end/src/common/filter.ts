@@ -25,7 +25,7 @@ export class HttpFilter implements ExceptionFilter {
     exceptionLog.ipAddress = request.ip.replace('::ffff:','');
     exceptionLog.requestParam = objectToString(request.params);
 
-    await this.exceptionLogService.create(exceptionLog); // 使用 await 等待保存操作完成
+    if (!path.includes("/socket.io/?EIO=")) await this.exceptionLogService.create(exceptionLog);
 
     response.status(status).json({
       success: false,
