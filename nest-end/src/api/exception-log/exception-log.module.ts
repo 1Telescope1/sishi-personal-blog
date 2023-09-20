@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import {Share} from "../../utils/share";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ExceptionLog]),Share], // 导入 ExceptionLogRepository
+  imports: [TypeOrmModule.forFeature([ExceptionLog]),Share],
   controllers: [ExceptionLogController],
   providers: [ExceptionLogService],
   exports:[ExceptionLogService]

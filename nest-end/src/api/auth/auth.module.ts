@@ -16,18 +16,28 @@ import {RoleMenu} from "../role-menu/entities/role-menu.entity";
 import {RoleResourceService} from "../role-resource/role-resource.service";
 import {RoleMenuService} from "../role-menu/role-menu.service";
 import {RedisService} from "../redis/redis.service";
+import {ResourceModule} from "../resource/resource.module";
+import {MenuModule} from "../menu/menu.module";
+import {RoleResourceModule} from "../role-resource/role-resource.module";
+import {RedisModule} from "../redis/redis.module";
+import {RoleMenuModule} from "../role-menu/role-menu.module";
 
 @Module({
   imports: [
     UserInfoModule,
     PassportModule,
+    ResourceModule,
+    MenuModule,
+    RoleResourceModule,
+    RedisModule,
+    RoleMenuModule,
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '2d' },
     }),
-    TypeOrmModule.forFeature([Menu, Resource,RoleResource,RoleMenu]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, ResourceService, MenuService,RoleResourceService,RoleMenuService,RedisService],
+  providers: [AuthService, JwtStrategy],
+  exports:[AuthService]
 })
 export class AuthModule {}

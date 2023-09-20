@@ -8,6 +8,7 @@ import { Share } from 'src/utils/share';
 @Module({
   imports:[TypeOrmModule.forFeature([Back]),Share],
   controllers: [BackController],
-  providers: [BackService]
+  providers: [BackService],
+  exports:[BackService]
 })
 export class BackModule {}

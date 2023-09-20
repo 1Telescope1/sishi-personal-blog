@@ -8,6 +8,7 @@ import { Share } from 'src/utils/share';
 @Module({
   imports:[TypeOrmModule.forFeature([Message]),Share],
   controllers: [MessageController],
-  providers: [MessageService]
+  providers: [MessageService],
+  exports:[MessageService]
 })
 export class MessageModule {}

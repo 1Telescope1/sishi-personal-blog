@@ -12,6 +12,7 @@ import {UserInfo} from "../user-info/entities/user-info.entity";
 @Module({
   imports:[TypeOrmModule.forFeature([Article,Tag,Talk,Message,Views,UserInfo])],
   controllers: [BlogController],
-  providers: [BlogService]
+  providers: [BlogService],
+  exports:[BlogService]
 })
 export class BlogModule {}

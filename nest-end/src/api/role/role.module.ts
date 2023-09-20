@@ -16,20 +16,17 @@ import { MenuService } from '../menu/menu.service';
 import {Resource} from "../resource/entities/resource.entity";
 import {UserInfo} from "../user-info/entities/user-info.entity";
 import {Menu} from "../menu/entities/menu.entity";
+import {RoleMenuModule} from "../role-menu/role-menu.module";
+import {RoleResourceModule} from "../role-resource/role-resource.module";
+import {AuthModule} from "../auth/auth.module";
+import {Share} from "../../utils/share";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Role, RoleMenu, RoleResource,Resource,UserInfo,Menu])],
+  imports: [TypeOrmModule.forFeature([Role]),RoleMenuModule,RoleResourceModule,AuthModule,Share],
   controllers: [RoleController],
   providers: [
     RoleService,
-    RoleMenuService,
-    RoleResourceService,
-    RedisService,
-    AuthService,
-    UserInfoService,
-    JwtService,
-    ResourceService,
-    MenuService
   ],
+  exports:[RoleService]
 })
 export class RoleModule {}

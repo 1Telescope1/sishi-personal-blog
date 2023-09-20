@@ -9,6 +9,7 @@ import { Share } from 'src/utils/share';
 @Module({
   imports:[TypeOrmModule.forFeature([Comment,UserInfo]),Share],
   controllers: [CommentController],
-  providers: [CommentService]
+  providers: [CommentService],
+  exports:[CommentService]
 })
 export class CommentModule {}

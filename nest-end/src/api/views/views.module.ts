@@ -9,6 +9,7 @@ import {Share} from "../../utils/share";
 @Module({
   imports:[TypeOrmModule.forFeature([Views]),Share],
   controllers: [ViewsController],
-  providers: [ViewsService,RedisService]
+  providers: [ViewsService,RedisService],
+  exports:[ViewsService]
 })
 export class ViewsModule {}

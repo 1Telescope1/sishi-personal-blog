@@ -5,8 +5,8 @@ import { RedisService } from './redis.service';
 import { RedisController } from './redis.controller';
 
 @Module({
-  providers: [RedisService], // 注册 RedisService 作为提供者
-  exports: [RedisService], // 导出 RedisService
+  providers: [RedisService],
+  exports: [RedisService],
   controllers: [RedisController],
 })
 export class RedisModule {}

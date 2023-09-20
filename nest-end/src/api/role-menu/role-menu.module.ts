@@ -9,5 +9,6 @@ import { Share } from 'src/utils/share';
   imports:[TypeOrmModule.forFeature([RoleMenu])],
   controllers: [RoleMenuController],
   providers: [RoleMenuService],
+  exports:[RoleMenuService]
 })
 export class RoleMenuModule {}

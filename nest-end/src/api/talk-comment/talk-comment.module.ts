@@ -9,6 +9,7 @@ import { Share } from 'src/utils/share';
 @Module({
   imports:[TypeOrmModule.forFeature([TalkComment,UserInfo]),Share],
   controllers: [TalkCommentController],
-  providers: [TalkCommentService]
+  providers: [TalkCommentService],
+  exports:[TalkCommentService]
 })
 export class TalkCommentModule {}

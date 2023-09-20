@@ -8,6 +8,7 @@ import { Share } from 'src/utils/share';
 @Module({
   imports:[TypeOrmModule.forFeature([Resource]),Share],
   controllers: [ResourceController],
-  providers: [ResourceService]
+  providers: [ResourceService],
+  exports:[ResourceService]
 })
 export class ResourceModule {}

@@ -8,6 +8,7 @@ import { Share } from 'src/utils/share';
 @Module({
   imports:[TypeOrmModule.forFeature([Talk]),Share],
   controllers: [TalkController],
-  providers: [TalkService]
+  providers: [TalkService],
+  exports:[TalkService]
 })
 export class TalkModule {}

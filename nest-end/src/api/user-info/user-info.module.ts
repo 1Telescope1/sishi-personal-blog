@@ -3,16 +3,14 @@ import { UserInfoService } from './user-info.service';
 import { UserInfoController } from './user-info.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserInfo } from './entities/user-info.entity';
-import {RedisService} from "../redis/redis.service";
-import {RoleMenuService} from "../role-menu/role-menu.service";
-import {MenuService} from "../menu/menu.service";
-import {Menu} from "../menu/entities/menu.entity";
-import {RoleMenu} from "../role-menu/entities/role-menu.entity";
+import {MenuModule} from "../menu/menu.module";
+import {Share} from "../../utils/share";
+import {RoleMenuModule} from "../role-menu/role-menu.module";
 
 @Module({
-  imports:[TypeOrmModule.forFeature([UserInfo,RoleMenu,Menu])],
+  imports:[TypeOrmModule.forFeature([UserInfo]),RoleMenuModule,MenuModule,Share],
   controllers: [UserInfoController],
-  providers: [UserInfoService,RedisService,RoleMenuService,MenuService],
+  providers: [UserInfoService],
   exports:[UserInfoService]
 })
 export class UserInfoModule {}

@@ -8,6 +8,7 @@ import { Share } from 'src/utils/share';
 @Module({
   imports:[TypeOrmModule.forFeature([FriendLink]),Share],
   controllers: [FriendLinkController],
-  providers: [FriendLinkService]
+  providers: [FriendLinkService],
+  exports:[FriendLinkService]
 })
 export class FriendLinkModule {}

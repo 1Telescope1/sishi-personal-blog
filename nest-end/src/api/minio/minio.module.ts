@@ -8,6 +8,7 @@ import {FileService} from "../file/file.service";
 @Module({
   imports:[TypeOrmModule.forFeature([File])],
   controllers: [MinioController],
-  providers: [MinioService,FileService]
+  providers: [MinioService,FileService],
+  exports:[MinioService]
 })
 export class MinioModule {}

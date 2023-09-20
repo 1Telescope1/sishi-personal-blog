@@ -8,6 +8,7 @@ import {Share} from "../../utils/share";
 @Module({
   imports:[TypeOrmModule.forFeature([Menu]),Share],
   controllers: [MenuController],
-  providers: [MenuService]
+  providers: [MenuService],
+  exports:[MenuService]
 })
 export class MenuModule {}

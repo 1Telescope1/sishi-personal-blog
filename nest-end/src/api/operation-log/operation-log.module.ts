@@ -9,6 +9,6 @@ import {Share} from "../../utils/share";
   imports:[TypeOrmModule.forFeature([OperationLog]),Share],
   controllers: [OperationLogController],
   providers: [OperationLogService],
-  exports:[OperationLogService]
+  exports:[OperationLogService],
 })
 export class OperationLogModule {}
