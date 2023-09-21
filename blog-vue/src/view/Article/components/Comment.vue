@@ -205,11 +205,19 @@ const send = async () => {
       notification('error',"回复不得为空","error")
       return
     }
+    if(replyContent.value.length>=100) {
+      notification('error',"回复内容过长","error")
+      return
+    }
     commentParams.commentContent = replyContent.value;
     msg = "回复成功";
   } else {
     if(content.value.trim()=="") {
       notification('error',"评论不得为空","error")
+      return
+    }
+    if(content.value.length>=100) {
+      notification('error',"评论内容过长","error")
       return
     }
     commentParams.commentContent = content.value;

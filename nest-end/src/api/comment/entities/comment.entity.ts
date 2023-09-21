@@ -20,7 +20,7 @@ export class Comment {
   @Column("int", { name: "user_id", comment: "评论用户Id" })
   userId: number;
 
-  @Column("text", { name: "comment_content", comment: "评论内容" })
+  @Column("varchar", { name: "comment_content", comment: "评论内容", length: 200 })
   commentContent: string;
 
   @Column("int", {

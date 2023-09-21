@@ -28,7 +28,7 @@
           </el-table-column>
           <el-table-column label="昵称" prop="nickname" align="center">
           </el-table-column>
-          <el-table-column label="内容" prop="commentContent" align="center">
+          <el-table-column label="内容" prop="commentContent" align="center" show-overflow-tooltip>
           </el-table-column>
           <el-table-column label="时间" align="center">
             <template #default="{row}">

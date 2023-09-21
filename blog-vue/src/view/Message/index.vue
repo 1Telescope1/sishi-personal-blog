@@ -75,7 +75,12 @@ const addToList = () => {
     return;
   }
 
-  const userId = user ? user.id : 0;
+  if(message.value.length>=40) {
+    notification("error", "留言内容过长", "error");
+    return;
+  }
+
+  const userId = user ? user.userinfo.id : 0;
   const commentContent = message.value;
   const messageInfo = {
     userId,

@@ -73,6 +73,11 @@ const handleSend = async () => {
     return;
   }
 
+  if (chatContent.value.length>=100) {
+    notification('warning', '内容过长', 'warning')
+    return;
+  }
+
   let userId = 0
 
   if (user) {
