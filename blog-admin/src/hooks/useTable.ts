@@ -10,7 +10,7 @@ interface opt {
   updateStatus?: Function,
   onGetListSuccess?: Function,
   update?: Function
-  deleteList?:Function
+  deleteList?: Function
 }
 
 export function useInitTable(opt: opt = {
@@ -25,11 +25,11 @@ export function useInitTable(opt: opt = {
   let pageNum = ref(1);
   const total = ref(0);
   let pageSize = ref(6);
-  if(opt.searchForm?.pageNum) {
-    pageSize.value=opt.searchForm.pageSize
+  if (opt.searchForm?.pageNum) {
+    pageSize.value = opt.searchForm.pageSize
   }
-  if(opt.searchForm?.pageNum) {
-    pageNum.value=opt.searchForm.pageNum
+  if (opt.searchForm?.pageNum) {
+    pageNum.value = opt.searchForm.pageNum
   }
 
   let searchForm: any = null;
@@ -55,7 +55,7 @@ export function useInitTable(opt: opt = {
   function getData(p = null) {
     if (typeof p == "number") {
       pageNum.value = p;
-      searchForm.pageNum=p
+      searchForm.pageNum = p
     }
     loading.value = true;
     opt
@@ -91,7 +91,7 @@ export function useInitTable(opt: opt = {
   };
 
   // 修改状态
-  const handleStatusChange = async (row: any,status: any ) => {
+  const handleStatusChange = async (row: any, status: any) => {
     row.statusLoading = true;
     const res = await opt
       .updateStatus(row.id, status)
@@ -104,12 +104,16 @@ export function useInitTable(opt: opt = {
 
   const handleUpdate = async (row: any) => {
     loading.value = true
-    const res = await opt.update(row)
-    if (res.status == 200) {
-      notification("更新成功")
-      getData()
+
+    try {
+      const res = await opt.update(row)
+      if (res.status == 200) {
+        notification("更新成功")
+        getData()
+      }
+    } finally {
+      loading.value = false
     }
-    loading.value = false
   }
 
   // 多选选中ID
@@ -121,30 +125,39 @@ export function useInitTable(opt: opt = {
   const multipleTableRef = ref<any>(null);
   const handleMultiDelete = async () => {
     loading.value = true;
-    const res = await opt
-      .deleteList(multiSelectionIds.value)
-    if (res.status == 200) {
-      notification("删除成功");
-      if (multipleTableRef.value) {
-        multipleTableRef.value.clearSelection();
+
+    try {
+      const res = await opt
+        .deleteList(multiSelectionIds.value)
+      if (res.status == 200) {
+        notification("删除成功");
+        if (multipleTableRef.value) {
+          multipleTableRef.value.clearSelection();
+        }
+        getData();
       }
-      getData();
+    } finally {
+      loading.value = false;
     }
-    loading.value = false;
   };
 
   // 批量修改状态
   const handleMultiStatusChange = async (status: any) => {
     loading.value = true;
-    const res = await opt
-      .updateStatus(multiSelectionIds.value, status)
-    if (res.status == 200) {
-      notification("修改状态成功");
-      // 清空选中
-      multipleTableRef.value?.clearSelection();
-      getData();
+
+    try {
+      const res = await opt
+        .updateStatus(multiSelectionIds.value, status)
+      if (res.status == 200) {
+        notification("修改状态成功");
+        // 清空选中
+        multipleTableRef.value?.clearSelection();
+        getData();
+      }
+    } finally {
+      loading.value = false;
     }
-    loading.value = false;
+
   };
 
   return {

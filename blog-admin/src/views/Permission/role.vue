@@ -31,7 +31,7 @@
                 style="--el-switch-on-color:#ff4949; --el-switch-off-color:  #13ce66"
                 :active-value="1"
                 :inactive-value="0"
-                @change="handleStatusChange(row,row.isDisable)"
+                @change="refreshStatus(row,row.isDisable)"
 
               />
             </template>
@@ -123,6 +123,11 @@ const {
   updateStatus:reqChangeDisable,
   delete: reqDisableRole
 })
+
+const refreshStatus=async (data:any,status:boolean)=>{
+  handleStatusChange(data,status);
+  getData()
+}
 
 const {
   formDrawerRef,
