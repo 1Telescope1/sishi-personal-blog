@@ -3,7 +3,7 @@
     <h1 class="page-title">友链</h1>
     <img
       class="page-cover"
-      src="https://static.ttkwsd.top/config/c8049b9b880411ebb6edd017c2d2eca2.jpg"
+      src="http://43.138.109.120:9000/cover/db65e35d7441ea7e58c17288b15beecd.jpg"
       alt=""
     />
     <!-- 波浪 -->
@@ -26,7 +26,7 @@
         <div>名称：四十</div>
         <div>简介：Do not go gentle into the good night</div>
         <div>头像：http://43.138.109.120:9000/avatar/%E5%A4%B4%E5%83%8F.jpg</div>
-        <div>网址：http://www.sqda.top/</div>
+        <div>网址：http://43.138.109.120:4000/#/</div>
       </div>
       <div class="information">
         <div>

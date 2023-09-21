@@ -3,7 +3,7 @@
     <h1 class="page-title">说说</h1>
     <img
       class="page-cover"
-      src="https://static.linhaojun.top/aurora/photos/cbfc3ed82fc74d48c7dea7a3b0d98ecd.jpg"
+      src="http://43.138.109.120:9000/cover/cbfc3ed82fc74d48c7dea7a3b0d98ecd.jpg"
       alt=""
     />
     <!-- 波浪 -->

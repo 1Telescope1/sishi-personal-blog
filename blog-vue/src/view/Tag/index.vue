@@ -3,7 +3,7 @@
     <h1 class="page-title">友链</h1>
     <img
       class="page-cover"
-      src="https://static.linhaojun.top/aurora/photos/711d2de8da93505bf1b46f813e27097b.jpg"
+      src="http://43.138.109.120:9000/cover/711d2de8da93505bf1b46f813e27097b.jpg"
       alt=""
     />
     <!-- 波浪 -->

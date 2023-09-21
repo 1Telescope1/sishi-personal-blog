@@ -156,8 +156,9 @@ const addMessage = async (messageInfo: any) => {
   bottom: 0;
   width: 100%;
   background-color: var(--color-blue);
-  background: url("https://static.ttkwsd.top/config/e3408389cb0d4ea1b5f651873dab2a19.jpg")
+  background: url("http://43.138.109.120:9000/cover/d05c5df90dc4a9af52c02c41262a5c59.jpg")
     center no-repeat;
+  background-size: cover;
   animation: slideDownIn 1s;
 }
 
