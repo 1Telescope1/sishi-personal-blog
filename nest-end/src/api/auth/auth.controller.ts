@@ -6,12 +6,14 @@ import { UserInfo } from '../user-info/entities/user-info.entity';
 import * as svgCaptcha from 'svg-captcha';
 import { registerError } from '../../common/exception';
 import { RedisService } from '../redis/redis.service';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly redisService: RedisService,
+    private configService: ConfigService
   ) {}
 
   // 登录
@@ -63,8 +65,13 @@ export class AuthController {
     });
     req.session.captcha = captcha.text; //存储验证码记录到session
     this.redisService.setValue(`code:${captcha.text}`, captcha.text, 60);
+
+    res.set('Access-Control-Allow-Origin', '*'); // 允许所有域名进行跨域请求
+    res.set('Cross-Origin-Opener-Policy', 'cross-origin');
+    res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     res.type('svg');
     res.send(captcha.data);
     return new Result(captcha.data);
+
   }
 }

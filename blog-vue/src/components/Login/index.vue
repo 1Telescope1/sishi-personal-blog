@@ -13,6 +13,7 @@
     :width="'35%'"
     v-model="dialogFormVisible"
     title="登录"
+    destroy-on-close
   >
     <el-form v-show="isLogin" :model="form" :rules="loginRules" ref="loginRulesFormRef">
       <el-form-item
@@ -99,7 +100,7 @@ import {userForm} from "@/api/user/type";
 import {FormInstance} from "element-plus/lib/components/form/index.js";
 import {useUserStore} from "@/store/user";
 import {notification} from "../../utils/elComponent";
-import {reqRegister} from "../../api/user/index";
+import {reqGetCode, reqRegister} from "../../api/user/index";
 
 const dialogFormVisible = ref(false);
 const formLabelWidth = "120px";
@@ -175,7 +176,7 @@ const login = async (formEl: FormInstance | undefined) => {
   });
 };
 
-const getIdentifyCode = () => {
+const getIdentifyCode =async () => {
   const id = Math.floor(Math.random() * 100 + 1);
   codeUrl.value = `${import.meta.env.VITE_BASE_API}/auth/code/${id}`;
 };

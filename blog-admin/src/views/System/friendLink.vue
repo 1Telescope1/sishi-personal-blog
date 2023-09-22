@@ -71,6 +71,10 @@
             </template>
           </el-table-column>
         </el-table>
+        <div class="pagination">
+          <el-pagination background layout="prev, pager ,next" :total="total" :current-page="pageNum"
+                         :page-size="pageSize" @current-change="getData" />
+        </div>
       </div>
     </el-card>
 
