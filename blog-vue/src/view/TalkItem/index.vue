@@ -12,6 +12,7 @@
     <div class="main-container" v-if="talk">
       <div class="message-container">
         <v-md-preview
+          v-viewer
           ref="talkRef"
           class="md"
           :text="talk.content"

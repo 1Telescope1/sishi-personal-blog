@@ -26,7 +26,7 @@
                 <div class="user">{{ talk.userinfo.nickname }}</div>
                 <div><SvgIcon icon-class="badge"></SvgIcon></div>
               </div>
-              <div class="time">{{ talk.createTime }}</div>
+              <div class="time">{{ talk.createTime.substring(0,10) }}</div>
             </div>
           </div>
           <div class="content markdown-body" v-html="talk.content"></div>
@@ -57,6 +57,8 @@ init();
   box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--box-bg-shadow);
   transition: all 0.5s;
   margin-bottom: 10px;
+  max-height: 200px;
+  overflow: hidden;
   &:hover {
     box-shadow: 0 0 2rem var(--box-bg-shadow);
   }

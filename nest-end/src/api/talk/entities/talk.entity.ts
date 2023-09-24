@@ -19,7 +19,7 @@ export class Talk {
   @Column("int", { name: "user_id", comment: "用户id",default: () => 1 })
   userId: number;
 
-  @Column("varchar", { name: "content", comment: "说说内容", length: 2000 })
+  @Column("longtext", { name: "content", comment: "说说内容" })
   content: string;
 
   @Column("varchar", {
