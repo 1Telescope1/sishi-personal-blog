@@ -15,7 +15,7 @@
         <el-timeline-item
           v-for="article in articleList"
           :key="article.id"
-          :timestamp="article.createTime"
+          :timestamp="article.createTime.substring(0,10)"
           placement="top"
         >
           <router-link :to="`/article/${article.id}`">

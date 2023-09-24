@@ -48,7 +48,7 @@ const data=ref([
   },
   {
     key:"个人爱好",
-    val:"混吃等死摆大烂"
+    val:"code && exercise"
   }
 ])
 

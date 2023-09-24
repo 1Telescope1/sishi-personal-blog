@@ -66,7 +66,7 @@ const clickPage = (val: number) => {
             <div class="flex">
               <SvgIcon icon-class="laba" size="1.2rem"></SvgIcon>
             </div>
-            <div>这是一个消息</div>
+            <div>仓库地址：https://gitee.com/shen-qun-deng/telescopes-personal-blog</div>
             <div class="flex arrow-right">
               <el-icon :size="20"><DArrowRight /></el-icon>
             </div>
