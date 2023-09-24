@@ -108,7 +108,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useUserStore } from '@/store/user';
-import { useDark,useToggle, useScroll } from "@vueuse/core";
+import { useDark,useToggle } from "@vueuse/core";
 import { useBlogStore } from '../../store/blog';
 
 const isDark = useDark({

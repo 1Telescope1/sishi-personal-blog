@@ -17,7 +17,9 @@ export class CommentService {
 
   ) {}
 
-  create(comment: Comment) {
+  create(comment: Comment,req:any) {
+    const {user}=req
+    comment.userId=user.userId
     const data = this.commentRepository.save(comment);
     return data;
   }

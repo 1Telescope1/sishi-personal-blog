@@ -13,7 +13,6 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly redisService: RedisService,
-    private configService: ConfigService
   ) {}
 
   // 登录

@@ -1,7 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,Query,ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete,Query,ParseIntPipe, UseGuards,Req } from '@nestjs/common';
 import { CommentService } from './comment.service';
-import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Result } from 'src/common/result';
 import { Comment } from './entities/comment.entity';
 import { AdminGuard } from 'src/guards/admin/admin.guard';
@@ -13,8 +11,8 @@ export class CommentController {
 
   @UseGuards(JwtGuard)
   @Post()
-  async create(@Body() comment: Comment) {
-    return new Result(await this.commentService.create(comment));
+  async create(@Body() comment: Comment,@Req() req:any) {
+    return new Result(await this.commentService.create(comment,req));
   }
 
   @Get('article/:articleId')

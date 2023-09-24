@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,Query ,ParseIntPipe, UseGuards} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Query ,ParseIntPipe, UseGuards,Req} from '@nestjs/common';
 import { TalkCommentService } from './talk-comment.service';
 import { TalkComment } from './entities/talk-comment.entity';
 import { Result } from 'src/common/result';
@@ -9,10 +9,10 @@ import { JwtGuard } from 'src/guards/jwt/jwt.guard';
 export class TalkCommentController {
   constructor(private readonly talkCommentService: TalkCommentService) {}
 
-  @UseGuards(JwtGuard,AdminGuard)
+  @UseGuards(JwtGuard)
   @Post()
-  async create(@Body() talkComment: TalkComment) {
-    return new Result(await this.talkCommentService.create(talkComment));
+  async create(@Body() talkComment: TalkComment,@Req() req:any) {
+    return new Result(await this.talkCommentService.create(talkComment,req));
   }
 
   @Get()

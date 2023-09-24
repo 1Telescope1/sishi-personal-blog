@@ -16,7 +16,9 @@ export class TalkCommentService {
     private readonly userInfoRepository: Repository<UserInfo>
   ) {}
 
-  create(talkComment: TalkComment) {
+  create(talkComment: TalkComment,req:any) {
+    const {user}=req;
+    talkComment.userId=user.userId
     const data = this.talkCommentRepository.save(talkComment);
     return data;
   }
