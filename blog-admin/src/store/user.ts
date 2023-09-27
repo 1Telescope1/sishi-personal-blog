@@ -4,7 +4,6 @@ import { notification } from "@/utils/elComponent";
 import { defineStore } from "pinia";
 import {  ref } from 'vue';
 import { useRouter } from "vue-router";
-import {clearRoutes} from "@/router";
 import {removeToken, setToken} from "@/utils/auth.ts";
 
 // 定义用户状态仓库

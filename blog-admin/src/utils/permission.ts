@@ -7,7 +7,6 @@ let hasGetInfo = false;
 router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore();
   const token = getToken();
-
   if (!token && to.path !== '/login') {
     notification("请先登录", "warning");
     return next({ path: "/login" });
@@ -18,7 +17,7 @@ router.beforeEach(async (to, from, next) => {
     return next({ path: from.path ? from.path : "/" });
   }
 
-  // 如果用户登录了，就自动获取用户信息，并存储在vuex中
+  // 如果用户登录了，就自动获取用户信息，并存储在pinia中
   let hasNewRoutes = false;
   if (token && !hasGetInfo) {
     await userStore.getUserinfo();

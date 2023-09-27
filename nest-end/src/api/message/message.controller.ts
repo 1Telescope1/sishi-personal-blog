@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, Query,ParseIntPipe, UseGuards} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete,Req, Query,ParseIntPipe, UseGuards} from '@nestjs/common';
 import {MessageService} from './message.service';
 import {CreateMessageDto} from './dto/create-message.dto';
 import {Result} from 'src/common/result';

@@ -90,7 +90,7 @@ import { ViewsModule } from './api/views/views.module';
 export class AppModule implements NestModule {
 
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(JwtMiddleware).forRoutes('*'); //解析请求的token
+    consumer.apply(JwtMiddleware).forRoutes({ path: '*', method: RequestMethod.POST},{ path: '*', method: RequestMethod.DELETE},{ path: 'auth/*', method: RequestMethod.ALL}); //解析请求的token
     consumer.apply(LoggerMiddleware).forRoutes({ path: '*', method: RequestMethod.POST},{ path: '*', method: RequestMethod.DELETE});
   }
 }

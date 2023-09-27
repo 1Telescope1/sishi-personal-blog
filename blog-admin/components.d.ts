@@ -55,7 +55,6 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     Search: typeof import('./src/components/Search/index.vue')['default']
     SearchItem: typeof import('./src/components/SearchItem/index.vue')['default']
-    TagCloud: typeof import('./src/components/TagCloud/index.vue')['default']
     UploadImg: typeof import('./src/components/UploadImg/index.vue')['default']
   }
   export interface ComponentCustomProperties {

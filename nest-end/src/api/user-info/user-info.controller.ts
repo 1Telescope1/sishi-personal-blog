@@ -4,8 +4,6 @@ import { Result } from 'src/common/result';
 import { UserInfo } from './entities/user-info.entity';
 import {AdminGuard} from "../../guards/admin/admin.guard";
 import {JwtGuard} from "../../guards/jwt/jwt.guard";
-import { SerializeInterceptor } from 'src/interceptors/serialize/serialize.interceptor';
-import {tokenError} from "../../common/exception";
 
 
 @Controller('userinfo')
@@ -43,7 +41,7 @@ export class UserInfoController {
   async findAllByPage(@Query('pageNum',new  ParseIntPipe()) pageNum:number,
                       @Query('pageSize',new  ParseIntPipe()) pageSize:number,
                       @Query('nickname') nickname:string,
-                      @Req() res:any) {
+                      ) {
     return new Result(await this.userInfoService.findAllByPage(pageNum,pageSize,nickname))
   }
 
