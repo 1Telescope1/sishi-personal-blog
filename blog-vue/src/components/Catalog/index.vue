@@ -43,6 +43,7 @@ const getTitles = () => {
 // 点击锚点目录
 function handleAnchorClick(anchor: any, idx: number) {
   const heading = props.domRef.$el.querySelector(`[data-v-md-line="${anchor.lineIndex}"]`)
+  
   // const heading = preview.querySelector(`#${anchor.title}`)
   if (heading) {
     window.scrollTo({
