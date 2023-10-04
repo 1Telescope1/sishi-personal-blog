@@ -29,7 +29,7 @@
           <el-table-column type="selection" width="55" />
           <el-table-column label="链接头像"  width="100" align="center">
             <template #default="{row}">
-              <img class="img" :src="row.linkAddress" alt="">
+              <img class="img" :src="row.linkAvatar" alt="">
             </template>
           </el-table-column>
           <el-table-column label="站名"  align="center" prop="linkName">
