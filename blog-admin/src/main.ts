@@ -53,7 +53,7 @@ VMdPreview.use(vuepressTheme, {
   // .use(createKatexPlugin());
 app.use(VMdPreview);
 VMdEditor.use(vuepressTheme, {
-  Hljs: hljs,
+  // Hljs: hljs,
 });
 app.use(VMdEditor);
 app.use(Viewer)

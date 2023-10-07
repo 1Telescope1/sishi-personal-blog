@@ -9,13 +9,12 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { resolve } from "path";
 // 封装SvgIcon组件
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
-
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, __dirname);
 
   return {
     plugins: [
-      vue(), //element按需导入
+      vue(),
       Components({
         //element
         resolvers: [ElementPlusResolver()],

@@ -29,8 +29,7 @@
     },
 
     // 提供import.meta.env 上 Vite 注入的环境变量的类型定义
-    "types":["vite/client"]
-
+    "types":["vite/client"],
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","Element-puls.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }],
