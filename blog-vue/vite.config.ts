@@ -9,12 +9,50 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { resolve } from "path";
 // 封装SvgIcon组件
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+// 打包分析
+import {visualizer} from "rollup-plugin-visualizer";
+// 压缩图片
+import minipic from 'vite-plugin-minipic'
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, __dirname);
 
   return {
     plugins: [
       vue(),
+      visualizer(),
+      // 压缩图片
+      minipic({
+        sharpOptions: {
+          png: {
+            quality: 70
+          },
+          jpeg: {
+            quality: 33
+          },
+          jpg: {
+            quality: 70
+          },
+          webp: {
+            quality: 75
+          },
+          gif:{
+            quality:75
+          },
+          avif:{}
+        },
+        convert: [
+          { from: 'png', to: 'webp' },
+          { from: 'jpg', to: 'webp' },
+          { from: 'jpeg', to: 'jpg' },
+          { from: 'avif', to: 'avif' },
+          { from: 'webp', to: 'webp' },
+          { from: 'gif', to: 'gif' }
+        ],
+        include:[],
+        exclude:"",
+        cache: true
+      }),
       Components({
         //element
         resolvers: [ElementPlusResolver()],
@@ -47,6 +85,41 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           // secure: false,
           rewrite: (path) => path.replace("/api/", ""),
+        },
+      },
+    },
+    esbuild:{
+      pure: ['console.log'], // 删除 console.log
+      drop: ['debugger'], // 删除 debugger
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          // 最小化拆分包
+          manualChunks(id) {
+            if (id.includes("node_modules")) {
+              // 通过拆分包的方式将所有来自node_modules的模块打包到单独的chunk中
+              return id
+                .toString()
+                .split("node_modules/")[1]
+                .split("/")[0]
+                .toString();
+            }
+          },
+          // 设置chunk的文件名格式
+          chunkFileNames: (chunkInfo) => {
+            const facadeModuleId = chunkInfo.facadeModuleId
+              ? chunkInfo.facadeModuleId.split("/")
+              : [];
+            const fileName1 =
+              facadeModuleId[facadeModuleId.length - 2] || "[name]";
+            // 根据chunk的facadeModuleId（入口模块的相对路径）生成chunk的文件名
+            return `js/${fileName1}/[name].[hash].js`;
+          },
+          // 设置入口文件的文件名格式
+          entryFileNames: "js/[name].[hash].js",
+          // 设置静态资源文件的文件名格式
+          assetFileNames: "[ext]/[name].[hash:4].[ext]",
         },
       },
     },

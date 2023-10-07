@@ -113,7 +113,6 @@ export default defineConfig(
           entryFileNames: "js/[name].[hash].js",
           // 设置静态资源文件的文件名格式
           assetFileNames: "[ext]/[name].[hash:4].[ext]",
-
         },
       },
     },
