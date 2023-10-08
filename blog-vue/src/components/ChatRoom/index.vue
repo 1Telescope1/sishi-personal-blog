@@ -97,7 +97,7 @@ const handleSend = async () => {
 let cnt = 0
 
 const isMy = (data: Chat) => {
-  return (chatByUser.value?.ip == data.ip) || (chatByUser.value?.userId == user?.userinfo?.id && user)
+  return (chatByUser.value?.ip == data.ip)
 }
 
 const socket = io(`ws://${import.meta.env.VITE_WS_URL}`);

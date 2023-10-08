@@ -93,7 +93,7 @@ export class AppModule implements NestModule {
     consumer.apply(JwtMiddleware).forRoutes({path: 'userinfo/self', method: RequestMethod.ALL}, {
       path: 'talkcomment',
       method: RequestMethod.ALL
-    }, {path: 'comment', method: RequestMethod.ALL}, {path: 'chat', method: RequestMethod.ALL}); //解析请求的token
+    }, {path: 'comment', method: RequestMethod.ALL}); //解析请求的token
     consumer.apply(LoggerMiddleware).forRoutes({path: '*', method: RequestMethod.POST}, {
       path: '*',
       method: RequestMethod.DELETE
