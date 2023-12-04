@@ -20,10 +20,10 @@ export interface Article {
 }
 
 export interface ArticleParams {
-  total: number | null;
+  total?: number | null;
   pageNum: number;
   pageSize: number;
-  sumPage: number;
+  sumPage?: number;
   articleTitle?: string;
   articleContent?: string;
   tagId?: string;

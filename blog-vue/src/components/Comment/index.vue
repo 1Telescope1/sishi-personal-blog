@@ -6,10 +6,10 @@
     </div>
     <div class="content" v-for="message in messageList" :key="message.id">
       <div class="img rorate">
-        <img v-lazy="message.user.avatar ? message.user.avatar : url" alt="" />
+        <img v-lazy="message.user?.avatar ? message.user?.avatar : url" alt="" />
       </div>
       <div class="detail">
-        <div class="name">{{ message.user.nickname ? message.user.nickname : '游客'}}</div>
+        <div class="name">{{ message.user?.nickname ? message.user?.nickname : '游客'}}</div>
         <div class="time">{{formatDateTime( message.createTime )}}</div>
         <div class="message">
           {{ message.commentContent }}
@@ -32,6 +32,7 @@ const getMessageList = async () => {
   const res = await reqFiveMessage();
   if (res.status == 200) {
     messageList.value = res.data;
+    console.log(messageList.value)
   }
 };
 getMessageList();

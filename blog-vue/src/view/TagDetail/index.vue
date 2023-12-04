@@ -25,22 +25,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
-import { useRoute } from "vue-router";
-import { ArticleParams, Article } from "@/api/article/type";
-import { reqGetArticlesPage } from "@/api/article/index";
+import {ref, reactive} from "vue";
+import {useRoute} from "vue-router";
+import {ArticleParams, Article} from "@/api/article/type";
+import {reqGetArticlesPage} from "@/api/article/index";
 
 const route = useRoute();
-const { tag } = route.params;
+const {tag} = route.params;
 const articleParams = reactive<ArticleParams>({
   pageNum: 1,
-  total: null,
-  sumPage: 1,
-  pageSize: 6,
-  title: "",
-  content: "",
-  author: "",
-  tag: tag as string,
+  pageSize: 100,
+  articleTitle: '',
+  articleContent: '',
+  tagId: tag,
+  categoryId: '',
+  type: '',
 });
 
 const articleList = ref<Article[]>([]);
@@ -50,21 +49,21 @@ const init = async () => {
     articleList.value = res.data.records;
     articleParams.total = res.data.total;
     articleParams.pageNum = res.data.current;
-    articleParams.sumPage=Math.ceil(articleParams.total/articleParams.pageSize)
+    articleParams.sumPage = Math.ceil(articleParams.total / articleParams.pageSize)
   }
 };
 init();
 
-const clickPage=(val:number)=>{
-  articleParams.pageNum=val
+const clickPage = (val: number) => {
+  articleParams.pageNum = val
   init()
   // 获取100vh转化px的高度
   const height = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
 
   window.scrollTo({
-      behavior: 'smooth',
-      top:height,
-    })
+    behavior: 'smooth',
+    top: height,
+  })
 }
 </script>
 

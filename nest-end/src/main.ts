@@ -29,7 +29,7 @@ async function bootstrap() {
   app.use(
     rateLimit({
       windowMs: 60 * 1000, //1分钟
-      max: 100, //允许每个ip在这windows时间里请求的次数
+      max: 25, //允许每个ip在这windows时间里请求的次数
       handler: (req, res, next) => {
         const httpFilter = new HttpFilter(exceptionLogService);
 

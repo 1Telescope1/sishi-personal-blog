@@ -30,12 +30,12 @@
       <template v-slot:dm="{ danmu }">
         <span class="danmaku-item">
           <img
-            :src="danmu.user.avatar"
+            :src="danmu.user?.avatar || touristAvatar"
             width="30"
             height="30"
             style="border-radius: 50%"
           />
-          <span class="ml">{{ danmu.user.nickname }} :</span>
+          <span class="ml">{{ danmu.user?.nickname || '游客' }} :</span>
           <span class="ml">{{ danmu.commentContent }}</span>
         </span>
       </template>

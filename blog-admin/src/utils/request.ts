@@ -44,9 +44,9 @@ instance.interceptors.response.use(
   (err) => {
     console.log(err)
 
-    if(err.response.status==500) {
-      notification(err.response.statusText,"error")
-    }
+    // if(err.response.status==500) {
+    //   notification(err.response.statusText,"error")
+    // }
 
     const response=err.response.data
 

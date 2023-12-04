@@ -14,7 +14,7 @@
       <div class="title">标签 - {{ tagLen }}</div>
       <div class="content">
         <router-link
-          :to="`/tagdetail/${tag.name}`"
+          :to="`/tagdetail/${tag.id}`"
           v-for="tag in tagList"
           :key="tag.id"
         >
