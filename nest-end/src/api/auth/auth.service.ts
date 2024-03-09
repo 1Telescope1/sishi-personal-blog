@@ -11,6 +11,7 @@ import { RoleMenuService } from "../role-menu/role-menu.service";
 import { RoleResourceService } from "../role-resource/role-resource.service";
 import { RedisService } from "../redis/redis.service";
 import getMenuList from "../../utils/getMenuList";
+import { RefresTokenService } from '../refres-token/refres-token.service';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,8 @@ export class AuthService {
     private readonly menuService: MenuService,
     private readonly roleMenuService: RoleMenuService,
     private readonly roleResourceService: RoleResourceService,
-    private readonly redisService: RedisService
+    private readonly redisService: RedisService,
+    private readonly refresTokenService: RefresTokenService
   ) { }
 
   async signin(nickname: string, password: string) {
@@ -37,15 +39,17 @@ export class AuthService {
       }
       this.redisService.setValue(`user:${userinfo.id}`, JSON.stringify(permission))
       // 生成token此时请求就带有token了
+      const user = {
+        nickname: userinfo.nickname,
+        sub: userinfo.id,
+      }
       const token = await this.jwt.signAsync(
-        {
-          nickname: userinfo.nickname,
-          sub: userinfo.id,
-        },
+        user
       );
+      const refreshToken = this.refresTokenService.generateToken(user)
       delete userinfo.password
       userinfo.menus = menu
-      return { userinfo, token };
+      return { userinfo, token, refreshToken };
     }
 
     throw new loginError("账号或密码错误");

@@ -58,13 +58,16 @@ export interface User {
 }
 
 export interface LoginUser {
-	userinfo:User,
-	token:string
+	userinfo: User,
+	token: string,
+	refreshToken: string
 }
 
-export interface userForm{
-  nickname:string
-  password:string
-  confirmPwd?:string
-	identifyCode?:string
+export interface userForm {
+	nickname: string
+	password: string
+	confirmPwd?: string
+	identifyCode?: string
 }
+
+export interface RefreshRes { token: string, refreshToken: string }

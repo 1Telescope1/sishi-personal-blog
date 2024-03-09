@@ -1,75 +1,186 @@
-import { Result } from '@/model';
-import axios, { AxiosError, type Method } from 'axios'
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  CreateAxiosDefaults,
+  InternalAxiosRequestConfig,
+  Method,
+} from 'axios';
+import { router } from '@/router';
+import { reqRefreshToken } from '@/api/user';
 import { notification } from './elComponent';
-import { start,close } from './nprogress';
-import {getToken, removeToken} from "@/utils/auth.ts";
-import {router} from '@/router/index.ts'
-
-// 1. 新axios实例，基础配置
+import { Result } from '@/model';
+const refreshTokenUrl = '/auth/refreshToken'
 const baseURL = import.meta.env.VITE_BASE_API;
-const instance = axios.create({
+
+
+class Request {
+  constructor(config?: CreateAxiosDefaults) {
+    this.axiosInstance = axios.create(config);
+
+    this.axiosInstance.interceptors.request.use(
+      (axiosConfig: InternalAxiosRequestConfig) =>
+        this.requestInterceptor(axiosConfig)
+    );
+    this.axiosInstance.interceptors.response.use(
+      (response: AxiosResponse<unknown, unknown>) =>
+        this.responseSuccessInterceptor(response),
+      (error: any) => this.responseErrorInterceptor(error)
+    );
+  }
+
+  private axiosInstance: AxiosInstance;
+
+  private refreshTokenFlag = false;
+  private requestQueue: {
+    resolve: any;
+    config: any;
+    type: 'reuqest' | 'response';
+  }[] = [];
+  private limit = 100;
+
+  private requestingCount = 0;
+
+  setLimit(limit: number) {
+    this.limit = limit;
+  }
+
+  private async requestInterceptor(
+    axiosConfig: InternalAxiosRequestConfig
+  ): Promise<any> {
+    if ([refreshTokenUrl].includes(axiosConfig.url || '')) {
+      return Promise.resolve(axiosConfig);
+    }
+
+    if (this.refreshTokenFlag || this.requestingCount >= this.limit) {
+      return new Promise((resolve) => {
+        this.requestQueue.push({
+          resolve,
+          config: axiosConfig,
+          type: 'reuqest',
+        });
+      });
+    }
+
+    this.requestingCount += 1;
+
+    const token = localStorage.getItem('token')
+
+    if (token) {
+      axiosConfig.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return Promise.resolve(axiosConfig);
+  }
+
+  private requestByQueue() {
+    if (!this.requestQueue.length) return;
+
+    console.log(
+      this.requestingCount,
+      this.limit - this.requestingCount,
+      'count'
+    );
+
+    Array.from({ length: this.limit - this.requestingCount }).forEach(
+      async () => {
+        const record = this.requestQueue.shift();
+        if (!record) {
+          return;
+        }
+
+        const { config, resolve, type } = record;
+        if (type === 'response') {
+          resolve(await this.request(config));
+        } else if (type === 'reuqest') {
+          this.requestingCount += 1;
+          const token = localStorage.getItem('token')
+          config.headers.Authorization = `Bearer ${token}`;
+          resolve(config);
+        }
+      }
+    );
+  }
+
+  private async refreshToken() {
+    const refresh = localStorage.getItem('refreshToken')
+
+    if (!refresh) {
+      this.toLoginPage()
+    }
+
+    const res = await reqRefreshToken({ refreshToken: refresh as string });
+    const { token, refreshToken } = res.data
+
+    localStorage.setItem('token', token)
+    localStorage.setItem('refreshToken', refreshToken)
+
+    this.refreshTokenFlag = false;
+
+    this.requestByQueue();
+  }
+
+  private async responseSuccessInterceptor(
+    response: AxiosResponse<any, any>
+  ): Promise<any> {
+    if (response.config.url !== refreshTokenUrl) {
+      this.requestingCount -= 1;
+      if (this.requestQueue.length) {
+        this.requestByQueue();
+      }
+    }
+
+    // return Promise.resolve([false, response.data, response]);
+    return Promise.resolve(response.data);
+
+  }
+
+  private async responseErrorInterceptor(error: any): Promise<any> {
+    console.log(error);
+
+    this.requestingCount -= 1;
+    const { config, status } = error?.response || {};
+
+    if (status === 401) {
+      return new Promise((resolve) => {
+        this.requestQueue.unshift({ resolve, config, type: 'response' });
+        if (this.refreshTokenFlag) return;
+
+        this.refreshTokenFlag = true;
+        this.refreshToken();
+      });
+    } else {
+      if (status === 403) {
+        notification("error", error.response.statusText)
+
+      } else {
+        notification("error", error.response.statusText)
+      }
+      return Promise.resolve(error?.response?.data);
+    }
+  }
+
+  private reset() {
+    this.requestQueue = [];
+    this.refreshTokenFlag = false;
+    this.requestingCount = 0;
+  }
+
+  private toLoginPage() {
+    this.reset();
+    router.push('/login');
+  }
+
+  request<T, D = any>(config: AxiosRequestConfig<D>): any {
+    return this.axiosInstance(config);
+  }
+
+}
+
+const instance = new Request({
   baseURL: baseURL,
-  timeout: 20000,
+  timeout: 10000,
 });
-
-
-// 2. 请求拦截器，携带token
-instance.interceptors.request.use(
-  (config) => {
-    start()
-    const token=getToken()
-    if(token&&config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }return config;
-  },
-  (err) => {
-    notification(err,'error')
-    Promise.reject(err)
-  }
-);
-
-// 3. 响应拦截器，剥离无效数据，401拦截
-instance.interceptors.response.use(
-  (res) => {
-    // 后台约定，响应成功，但是code不是10000，是业务逻辑失败
-    if (res.data?.status != 200) {
-      
-      
-      return Promise.reject(res.data);
-    }
-    // 业务逻辑成功，返回响应数据，作为axios成功的结果
-    close()
-    return res.data;
-  },
-  (err) => {
-    console.log(err)
-
-    // if(err.response.status==500) {
-    //   notification(err.response.statusText,"error")
-    // }
-
-    const response=err.response.data
-
-    switch (response.status) {
-      case 401:
-        notification(response.data,"error")
-        break
-      case 403:
-        notification(response.data,"error")
-        break
-      case 417:
-        notification(response.data,"error")
-        removeToken()
-        router.push('/login')
-        break
-      case 429:
-        notification(response.data,"error")
-        break
-    }
-    close()
-    return Promise.reject(err);
-  }
-);
 
 export const request = <T>(
   url: string,

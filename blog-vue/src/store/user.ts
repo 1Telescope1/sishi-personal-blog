@@ -1,10 +1,10 @@
-import {reqLoign} from "@/api/user";
-import {LoginUser, userForm} from "@/api/user/type";
-import {notification} from "@/utils/elComponent";
-import {defineStore} from "pinia";
-import {ref} from "vue";
-import {useBlogStore} from "@/store/blog.ts";
-import {Chat} from "@/api/chat/type.ts";
+import { reqLoign } from "@/api/user";
+import { LoginUser, userForm } from "@/api/user/type";
+import { notification } from "@/utils/elComponent";
+import { defineStore } from "pinia";
+import { ref } from "vue";
+import { useBlogStore } from "@/store/blog.ts";
+import { Chat } from "@/api/chat/type.ts";
 
 
 // 定义用户状态仓库
@@ -13,6 +13,7 @@ export const useUserStore = defineStore(
   () => {
     const user = ref<LoginUser>();
     const token = ref("");
+    const refreshToken = ref("")
     const blogStore = useBlogStore()
 
     const login = async (data: userForm) => {
@@ -20,6 +21,9 @@ export const useUserStore = defineStore(
       if (res.data) {
         user.value = res.data;
         token.value = res.data.token;
+        refreshToken.value = res.data.refreshToken
+        localStorage.setItem('token', token.value)
+        localStorage.setItem('refreshToken', refreshToken.value)
 
         blogStore.setChatByUser({
           avatar: res.data.userinfo.avatar,
@@ -41,7 +45,7 @@ export const useUserStore = defineStore(
       notification("success", "退出登录成功");
     };
 
-    return {login, user, logout, token};
+    return { login, user, logout, token };
   },
   {
     // 开启持久化（使用本地存储，默认是localStorage）

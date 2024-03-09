@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { reactive, ref } from "vue";
-import { Article } from "@/api/article/type";
-import { reqGetArticlesPage } from "../../api/article/index";
-import { ArticleParams } from "@/api/article/type";
+import { reactive, ref } from 'vue';
+import { Article } from '@/api/article/type';
+import { reqGetArticlesPage } from '../../api/article/index';
+import { ArticleParams } from '@/api/article/type';
 const arrowDown = () => {
   window.scrollTo({
-    behavior: "smooth",
-    top: document.documentElement.clientHeight,
+    behavior: 'smooth',
+    top: document.documentElement.clientHeight
   });
 };
 
@@ -14,17 +14,17 @@ const articleList = ref<Article[]>([]);
 const paramas = reactive<ArticleParams>({
   pageNum: 1,
   pageSize: 6,
-  tagId: "",
-  categoryId: "",
-  type: "",
-  articleTitle: "",
-  articleContent: "",
+  tagId: '',
+  categoryId: '',
+  type: '',
+  articleTitle: '',
+  articleContent: '',
   total: null,
-  sumPage: 0,
+  sumPage: 0
 });
 const getPageArticleList = async () => {
-
   const res = await reqGetArticlesPage(paramas);
+  console.log(res, 123);
   if (res.status == 200) {
     articleList.value = res.data.records;
     paramas.total = res.data.total;
@@ -44,8 +44,8 @@ const clickPage = (val: number) => {
   );
 
   window.scrollTo({
-    behavior: "smooth",
-    top: height,
+    behavior: 'smooth',
+    top: height
   });
 };
 </script>
@@ -67,7 +67,9 @@ const clickPage = (val: number) => {
             <div class="flex">
               <SvgIcon icon-class="laba" size="1.2rem"></SvgIcon>
             </div>
-            <div>仓库地址：https://github.com/1Telescope1/sishi-personal-blog</div>
+            <div>
+              仓库地址：https://github.com/1Telescope1/sishi-personal-blog
+            </div>
             <div class="flex arrow-right">
               <el-icon :size="20"><DArrowRight /></el-icon>
             </div>

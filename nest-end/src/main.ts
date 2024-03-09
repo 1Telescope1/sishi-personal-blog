@@ -4,8 +4,8 @@ import { HttpFilter } from './common/filter';
 import { ValidationPipe, HttpException } from '@nestjs/common';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
-import {Response} from './common/response'
-import {ExceptionLogService} from "./api/exception-log/exception-log.service";
+import { Response } from './common/response'
+import { ExceptionLogService } from "./api/exception-log/exception-log.service";
 import * as session from 'express-session';
 
 
@@ -29,14 +29,14 @@ async function bootstrap() {
   app.use(
     rateLimit({
       windowMs: 60 * 1000, //1分钟
-      max: 25, //允许每个ip在这windows时间里请求的次数
+      max: 100, //允许每个ip在这windows时间里请求的次数
       handler: (req, res, next) => {
         const httpFilter = new HttpFilter(exceptionLogService);
 
         httpFilter.catch(new HttpException('当前请求过多，请稍后重试', 429), {
           switchToHttp: () => ({
             // @ts-ignore
-            getRequest: ()=> req,
+            getRequest: () => req,
             // @ts-ignore
             getResponse: () => res,
           }),

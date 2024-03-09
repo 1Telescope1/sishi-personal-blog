@@ -4,6 +4,7 @@ import { RefresTokenController } from './refres-token.controller';
 
 @Module({
   controllers: [RefresTokenController],
-  providers: [RefresTokenService]
+  providers: [RefresTokenService],
+  exports: [RefresTokenService]
 })
-export class RefresTokenModule {}
+export class RefresTokenModule { }

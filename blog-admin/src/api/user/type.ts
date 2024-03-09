@@ -1,4 +1,4 @@
-import {PaginationParams} from "@/model";
+import { PaginationParams } from "@/model";
 
 export interface UserInfo {
 	id: number;
@@ -60,15 +60,15 @@ export interface User {
 }
 
 export interface LoginUser {
-	userinfo:User,
-	token:string
+	userinfo: User,
+	token: string
 }
 
-export interface userForm{
-  nickname:string
-  password:string
-  confirmPwd?:string
-	identifyCode?:string
+export interface userForm {
+	nickname: string
+	password: string
+	confirmPwd?: string
+	identifyCode?: string
 }
 
 export interface Record {
@@ -88,10 +88,12 @@ export interface Record {
 	}
 }
 
-export interface UserPage extends PaginationParams{
+export interface UserPage extends PaginationParams {
 	records: Record[];
 }
 
 export interface UserParams extends PaginationParams {
-	nickname:string | null
+	nickname: string | null
 }
+
+export interface RefreshRes { token: string, refreshToken: string }
