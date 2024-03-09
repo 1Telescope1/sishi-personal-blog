@@ -32,6 +32,7 @@ import {ChatModule} from './api/chat/chat.module';
 import {ExceptionLogModule} from './api/exception-log/exception-log.module';
 import {OperationLogModule} from './api/operation-log/operation-log.module';
 import {ViewsModule} from './api/views/views.module';
+import { RefresTokenModule } from './api/refres-token/refres-token.module';
 
 
 @Module({
@@ -80,7 +81,8 @@ import {ViewsModule} from './api/views/views.module';
     ChatModule,
     ExceptionLogModule,
     OperationLogModule,
-    ViewsModule
+    ViewsModule,
+    RefresTokenModule
   ],
   controllers: [AppController],
   providers: [
