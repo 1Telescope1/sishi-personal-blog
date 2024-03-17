@@ -4,9 +4,9 @@ import * as jwt from 'jsonwebtoken';
 import { jwtConstants } from '../auth/constants';
 
 @Injectable()
-export class RefresTokenService {
+export class RefreshTokenService {
   generateToken(payload: any): string {
-    const token = jwt.sign(payload, jwtConstants.refreshSecret, { expiresIn: '3d' });
+    const token = jwt.sign(payload, jwtConstants.refreshSecret, { expiresIn: '7d' });
     return token;
   }
 

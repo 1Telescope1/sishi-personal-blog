@@ -11,8 +11,7 @@ import { MenuModule } from "../menu/menu.module";
 import { RoleResourceModule } from "../role-resource/role-resource.module";
 import { RedisModule } from "../redis/redis.module";
 import { RoleMenuModule } from "../role-menu/role-menu.module";
-import { RefresTokenModule } from '../refres-token/refres-token.module';
-import { RefresTokenService } from '../refres-token/refres-token.service';
+import { RefresTokenModule } from '../refresh-token/refresh-token.module';
 
 @Module({
   imports: [
@@ -25,7 +24,7 @@ import { RefresTokenService } from '../refres-token/refres-token.service';
     RoleMenuModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '10s' },
+      signOptions: { expiresIn: '2d' },
     }),
     RefresTokenModule
   ],

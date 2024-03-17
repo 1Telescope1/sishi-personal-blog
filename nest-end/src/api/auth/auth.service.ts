@@ -11,7 +11,7 @@ import { RoleMenuService } from "../role-menu/role-menu.service";
 import { RoleResourceService } from "../role-resource/role-resource.service";
 import { RedisService } from "../redis/redis.service";
 import getMenuList from "../../utils/getMenuList";
-import { RefresTokenService } from '../refres-token/refres-token.service';
+import { RefreshTokenService } from '../refresh-token/refresh-token.service';
 
 @Injectable()
 export class AuthService {
@@ -23,7 +23,7 @@ export class AuthService {
     private readonly roleMenuService: RoleMenuService,
     private readonly roleResourceService: RoleResourceService,
     private readonly redisService: RedisService,
-    private readonly refresTokenService: RefresTokenService
+    private readonly refresTokenService: RefreshTokenService
   ) { }
 
   async signin(nickname: string, password: string) {
@@ -37,7 +37,7 @@ export class AuthService {
         roleId,
         resource
       }
-      this.redisService.setValue(`user:${userinfo.id}`, JSON.stringify(permission))
+      this.redisService.setValue(`user:${userinfo.id}`, JSON.stringify(permission), 7 * 60 * 60 * 24)
       // 生成token此时请求就带有token了
       const user = {
         nickname: userinfo.nickname,

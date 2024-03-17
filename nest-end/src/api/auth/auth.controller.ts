@@ -7,13 +7,17 @@ import * as svgCaptcha from 'svg-captcha';
 import { registerError } from '../../common/exception';
 import { RedisService } from '../redis/redis.service';
 import { ConfigService } from '@nestjs/config';
+import { RefreshTokenService } from '../refresh-token/refresh-token.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly redisService: RedisService,
-  ) {}
+    private readonly refreshService: RefreshTokenService,
+    private readonly jwt: JwtService,
+  ) { }
 
   // 登录
   @Post('signin')
@@ -49,6 +53,23 @@ export class AuthController {
       return new Result(null, 406);
     }
     return new Result(await this.authService.signup(userInfoDto));
+  }
+
+  @Post('refreshToken')
+  async getRreshtoken(@Body() data) {
+    const { refreshToken } = data
+    const { sub, nickname } = this.refreshService.verifyToken(refreshToken)
+
+    // 生成token此时请求就带有token了
+    const user = {
+      nickname,
+      sub
+    }
+    const token = await this.jwt.signAsync(
+      user
+    );
+
+    return new Result({ refreshToken, token });
   }
 
   // 获取验证码

@@ -110,6 +110,10 @@ class Request {
     }
 
     const res = await reqRefreshToken({ refreshToken: refresh as string });
+    if (!res.data) {
+      notification("error", "refreshToken错误或过期", "error")
+      return
+    }
     const { token, refreshToken } = res.data
 
     localStorage.setItem('token', token)

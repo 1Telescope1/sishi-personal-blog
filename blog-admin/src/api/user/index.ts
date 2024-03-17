@@ -1,5 +1,5 @@
 import { request } from "@/utils/request";
-import { LoginUser, UserInfo, userForm, UserParams, UserPage } from "./type";
+import { LoginUser, UserInfo, userForm, UserParams, UserPage, RefreshRes } from "./type";
 
 // 创建
 export const reqSaveOrAddUser = (data: UserInfo) => request<any>(`/userinfo`, 'POST', data)
