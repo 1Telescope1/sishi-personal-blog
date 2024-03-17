@@ -20,6 +20,7 @@ import { Plus } from '@element-plus/icons-vue';
 import type { UploadProps } from 'element-plus';
 import { uploadFileAction } from '@/api/minio';
 import { notification } from '@/utils/elComponent.ts';
+import { fragmentUpload } from '@/utils/BigFileUpload';
 
 const props = defineProps<{
   imageUrl: string;
@@ -36,13 +37,15 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
   emit('AvatarSuccess', response.data.url);
 };
 
-const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
+const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile: File) => {
   if (rawFile.size / 1024 / 1024 > 20) {
     notification('大小超过2MB!', 'error');
     return false;
   }
   notification('上传成功');
-  return true;
+  fragmentUpload(rawFile);
+
+  // return true;
 };
 </script>
 
