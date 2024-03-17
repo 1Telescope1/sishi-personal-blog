@@ -180,6 +180,15 @@ export const asyncRoutes = [
     },
   },
   {
+    path: "/background/file",
+    name: "file",
+    component: () => import("@/views/Background/file.vue"),
+    meta: {
+      keepAlive: true,
+      title: "文件管理",
+    },
+  },
+  {
     path: "/log/exception",
     name: "exception",
     component: () => import("@/views/Log/exception.vue"),
