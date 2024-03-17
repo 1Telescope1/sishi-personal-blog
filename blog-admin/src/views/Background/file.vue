@@ -9,15 +9,19 @@
       <InfoButton @create="handleCreate" @refresh="getData"></InfoButton>
       <div>
         <el-row>
-          <el-col class="col" :span="6" v-for="img in tableData" :key="img.id">
+          <el-col class="col" :span="6" v-for="f in tableData" :key="f.id">
             <div>
-              <img class="img" v-lazy="img.url" alt="" />
+              <div>
+                <a :href="f.url" style="color: #409eff">{{
+                  f.name + '.' + f.type
+                }}</a>
+              </div>
               <div class="meta">
                 <el-popconfirm
-                  title="是否删除该图片？"
+                  title="是否删除该文件？"
                   confirmButtonText="确认"
                   cancelButtonText="取消"
-                  @confirm="handleDelete(img.id)"
+                  @confirm="handleDelete(f.id)"
                 >
                   <template #reference>
                     <el-button type="primary" size="large" text>删除</el-button>
@@ -32,14 +36,11 @@
 
     <FormDrawer ref="formDrawerRef" :title="drawerTitle" @submit="handleSubmit">
       <el-form ref="formRef" :model="form">
-        <el-form-item label="内容" :label-width="formLabelWidth">
-          <el-input v-model="form.content" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="图片" :label-width="formLabelWidth">
-          <UploadImg
+        <el-form-item label="文件" :label-width="formLabelWidth">
+          <UploadFile
             @AvatarSuccess="handleAvatar"
             :imageUrl="form.url"
-          ></UploadImg>
+          ></UploadFile>
         </el-form-item>
       </el-form>
     </FormDrawer>
@@ -48,23 +49,18 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import {
-  reqAddOrUpdateImg,
-  reqDeleteImg,
-  reqGetBackImages
-} from '@/api/backimg';
+import { reqAddOrUpdateFile, reqGetFile, reqDeleteFile } from '@/api/file';
 import { useInitForm } from '@/hooks/useForm.ts';
 import { ref } from 'vue';
-import { backImg } from '@/api/backimg/type.ts';
 import { notification } from '@/utils/elComponent.ts';
 
 const route = useRoute();
 const formLabelWidth = '140px';
 
-const tableData = ref<backImg[]>([]);
+const tableData = ref<File[]>([]);
 
 const getData = async () => {
-  const res = await reqGetBackImages();
+  const res = await reqGetFile();
   if (res.status == 200) {
     tableData.value = res.data;
   }
@@ -73,7 +69,7 @@ const getData = async () => {
 getData();
 
 const handleDelete = async (id: number) => {
-  const res = await reqDeleteImg(id);
+  const res = await reqDeleteFile(id);
   if (res.status == 200) {
     notification('删除成功');
   }
@@ -90,11 +86,10 @@ const {
   handleEdit
 } = useInitForm({
   form: {
-    content: '',
     url: ''
   },
-  create: reqAddOrUpdateImg,
-  update: reqAddOrUpdateImg,
+  create: reqAddOrUpdateFile,
+  update: reqAddOrUpdateFile,
   getData
 });
 
