@@ -10,7 +10,10 @@ export class MinioController {
   @Post('upload/avatar')
   @UseInterceptors(FileInterceptor('file'))
   async uploadAvatar(@UploadedFile() file: any) {
+    console.log(file, 123);
+
     const data = await this.minioService.uploadFile('avatar', file, file.buffer);
+
     return new Result(data);
   }
 
