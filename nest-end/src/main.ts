@@ -8,7 +8,6 @@ import { Response } from './common/response'
 import { ExceptionLogService } from "./api/exception-log/exception-log.service";
 import * as session from 'express-session';
 
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: true,
@@ -29,7 +28,7 @@ async function bootstrap() {
   app.use(
     rateLimit({
       windowMs: 60 * 1000, //1分钟
-      max: 100, //允许每个ip在这windows时间里请求的次数
+      max: 1000, //允许每个ip在这windows时间里请求的次数
       handler: (req, res, next) => {
         const httpFilter = new HttpFilter(exceptionLogService);
 

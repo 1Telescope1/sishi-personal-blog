@@ -1,53 +1,55 @@
 <template>
   <div class="f-menu" :style="{ width: blogStore.asideWidth }">
     <el-menu
-    :default-active="defaultActive"
-        class="el-menu-vertical-demo menu"
-        :collapse="isCollapse"
-        :collapse-transition="false"
-        router
-      >
-        <template v-for="menu in menus" :key="menu.id">
-          <el-sub-menu :index="String(menu.id)" v-if="menu.children&&menu.children.length>0">
-            <template #title>
-              <el-icon>
-                <component :is="menu.icon"></component>
-              </el-icon>
-              <span>{{menu.name}}</span>
-            </template>
-            <el-menu-item
-              v-for="son in menu.children"
-              :key="son.id"
-              :index="son.path"
-            >
-              <el-icon>
-                <component :is="son.icon"></component>
-              </el-icon>
-              <span>{{ son.name }}</span>
-            </el-menu-item>
-          </el-sub-menu>
-
-          <el-menu-item v-else :index="menu.path">
+      :default-active="defaultActive"
+      class="el-menu-vertical-demo menu"
+      :collapse="isCollapse"
+      :collapse-transition="false"
+      router
+    >
+      <template v-for="menu in menus" :key="menu.id">
+        <el-sub-menu
+          :index="String(menu.id)"
+          v-if="menu.children && menu.children.length > 0"
+        >
+          <template #title>
             <el-icon>
               <component :is="menu.icon"></component>
             </el-icon>
             <span>{{ menu.name }}</span>
+          </template>
+          <el-menu-item
+            v-for="son in menu.children"
+            :key="son.id"
+            :index="son.path"
+          >
+            <el-icon>
+              <component :is="son.icon"></component>
+            </el-icon>
+            <span>{{ son.name }}</span>
           </el-menu-item>
-        </template>
-      </el-menu>
-   
+        </el-sub-menu>
+
+        <el-menu-item v-else :index="menu.path">
+          <el-icon>
+            <component :is="menu.icon"></component>
+          </el-icon>
+          <span>{{ menu.name }}</span>
+        </el-menu-item>
+      </template>
+    </el-menu>
   </div>
 </template>
 <script lang="ts" setup>
-import { useBlogStore } from "@/store/blog";
-import { useUserStore } from "@/store/user";
-import { computed, ref } from "vue";
-import { useRouter, useRoute, onBeforeRouteUpdate } from "vue-router";
+import { useBlogStore } from '@/store/blog';
+import { useUserStore } from '@/store/user';
+import { computed, ref } from 'vue';
+import { useRouter, useRoute, onBeforeRouteUpdate } from 'vue-router';
 const router = useRouter();
 const route = useRoute();
-const userStore=useUserStore()
-const blogStore=useBlogStore()
-const menus=userStore.user.userinfo.menus
+const userStore = useUserStore();
+const blogStore = useBlogStore();
+const menus = userStore?.user?.userinfo?.menus;
 
 // 默认选中
 const defaultActive = ref(route.path);
@@ -58,8 +60,7 @@ onBeforeRouteUpdate((to) => {
 });
 
 // 是否折叠
-const isCollapse = computed(() => !(blogStore.asideWidth == "250px"));
-
+const isCollapse = computed(() => !(blogStore.asideWidth == '250px'));
 </script>
 <style scoped>
 .f-menu {

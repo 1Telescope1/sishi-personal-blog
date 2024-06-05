@@ -11,6 +11,8 @@ export class FileController {
 
   @Post()
   async create(@Body() file: File) {
+    console.log(file, 123);
+
     return new Result(await this.fileService.create(file));
   }
 

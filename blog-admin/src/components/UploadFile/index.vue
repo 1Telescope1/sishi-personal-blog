@@ -1,7 +1,6 @@
 <template>
   <el-upload
     class="avatar-uploader"
-    :action="uploadFileAction"
     :show-file-list="false"
     :on-success="handleAvatarSuccess"
     :before-upload="beforeAvatarUpload"
@@ -38,10 +37,10 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
 };
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile: File) => {
-  if (rawFile.size / 1024 / 1024 > 20) {
-    notification('大小超过2MB!', 'error');
-    return false;
-  }
+  // if (rawFile.size / 1024 / 1024 > 20) {
+  //   notification('大小超过2MB!', 'error');
+  //   return false;
+  // }
   notification('上传成功');
   fragmentUpload(rawFile);
 

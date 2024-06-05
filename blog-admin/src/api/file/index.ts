@@ -4,7 +4,7 @@ import { request } from "@/utils/request";
 import { File } from "./type";
 
 //新增或更新文件
-export const reqAddOrUpdateFile = (data: File) => request<any>(`/file`, 'POST', data)
+export const reqAddOrUpdateFile = (data: any) => request<any>(`/file`, 'POST', data)
 
 // 获取所有图片
 export const reqGetFile = () => request<File[]>('/file', 'GET')

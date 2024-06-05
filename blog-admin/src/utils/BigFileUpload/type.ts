@@ -14,10 +14,11 @@ export interface FileInfo {
 }
 
 export interface ChunkInfo {
-  start: number
-  end: number
+  start?: number
+  end?: number
   index: number
-  hash: string
+  hash?: string
+  chunk: any
 }
 
 export type ChunkDetail = ChunkInfo & {
